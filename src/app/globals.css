@@ -1,0 +1,443 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+}
+
+.bg-search-custom {
+  background-color: #f6f6f6 !important;
+  color: #aea8a8 !important;
+}
+
+.bg-input-color {
+  background: #f8fcff !important;
+}
+
+.avatar {
+  position: relative;
+  display: inline-block;
+  width: 120px;
+  height: 120px;
+}
+
+.avatar-img-custom {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.edit-icon {
+  position: absolute;
+  bottom: -5px;
+  right: 12px;
+  background-color: #d9d9d9;
+  border-radius: 50%;
+  padding: 8px;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.2);
+}
+.edit-icon:hover {
+  background-color: #bfbfbf;
+}
+.delete-icon:hover {
+  fill: #888888;
+}
+.active-icon {
+  fill: #fff;
+}
+
+.custom-icon-edit {
+  color: #19388b;
+  font-size: 13px;
+}
+
+.ant-table-thead > tr > th {
+  background: #e7e7e9 !important;
+  color: #0d0e11 !important;
+}
+
+.ant-table-thead > tr > td {
+  background: #e7e7e9 !important;
+  color: #0d0e11 !important;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #0075ff;
+  border-color: #0075ff;
+  color: black;
+}
+
+.ant-table-expanded-row-fixed {
+  margin: 0px !important;
+  padding: 0px !important;
+}
+.ant-table-cell {
+  padding: 8px 16px !important;
+}
+
+.ant-table-tbody > tr:not(.history-settings-tables) > td {
+  padding: 2px 16px !important;
+}
+
+.ant-select-selector,
+.ant-select-focused,
+.ant-select-selector:focus,
+.ant-select-selector:active,
+.ant-select-open .ant-select-selector {
+  border-color: #e7e7e9 !important;
+  box-shadow: none !important;
+  border-radius: 0px;
+}
+.ant-pagination-item {
+  border: 1px solid #d9d9d9; /* Border for all pagination items */
+  border-radius: 4px; /* Optional: Slight rounding for a box effect */
+  background-color: #fff; /* Background color for all items */
+  padding: 0 10px; /* Adjust padding for uniform spacing */
+  margin-right: 4px; /* Space between pagination items */
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+.ant-pagination-item-active {
+  border-color: #d4dffa !important;
+  background-color: #d4dffa !important;
+  color: #19388b !important;
+}
+
+.ant-pagination-item-active > a {
+  color: #19388b !important;
+}
+
+.ant-pagination-item-link {
+  background-color: #d4dffa !important;
+}
+.ant-pagination .ant-pagination-item:hover {
+  background-color: #d4dffa !important;
+  color: #19388b !important;
+  border-color: #d4dffa !important;
+}
+
+.ant-pagination .ant-pagination-item {
+  display: inline-flex;
+  min-width: 32px;
+  max-width: 32px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  vertical-align: middle;
+  list-style: none;
+  background-color: #fff; /* White background */
+  border: 1px solid #d9d9d9; /* Add border to create box effect */
+  /* border-right: none !important;  */
+  border-radius: 0 !important; /* Remove border-radius to square edges */
+  outline: 0;
+  cursor: pointer;
+  user-select: none;
+  margin-inline-end: 0 !important; /* Remove margin */
+}
+
+.ant-pagination-next {
+  margin-left: 8px;
+}
+
+/* Keep right border for the last item before the jump and the last pagination item */
+/* .ant-pagination .ant-pagination-item-before-jump-next,
+.ant-pagination .ant-pagination-item:last-child {
+  border-right: 1px solid #d9d9d9 !important; 
+}
+
+.ant-pagination .ant-pagination-jump-prev {
+  border-left: 1px solid #d9d9d9 !important; 
+  border-radius: 0px;
+}
+
+.ant-pagination .ant-pagination-item:last-child {
+  border-right: 1px solid #d9d9d9 !important;
+}
+
+.ant-pagination-next {
+  margin-left: 8px;
+} */
+
+.anticon-left {
+  color: white;
+}
+
+.anticon-left > svg {
+  margin-bottom: 5px !important;
+}
+
+.anticon-right {
+  color: white;
+}
+
+.anticon-right > svg {
+  margin-bottom: 5px !important;
+}
+
+.select-container {
+  position: relative;
+}
+
+.ant-picker {
+  font-family: inherit !important;
+}
+
+.ant-table-wrapper {
+  font-family: inherit !important;
+}
+.ant-spin-nested-loading {
+  font-family: inherit !important;
+}
+.ant-table {
+  font-family: inherit !important;
+}
+
+.custom-date-picker .ant-picker-input input {
+  font-size: 0.75rem; /* XS font size */
+  font-weight: 400; /* Make font bold */
+}
+
+/* quill editor css */
+.quill {
+  padding-top: 10px !important;
+  width: 100%;
+  flex-shrink: 0;
+  border-radius: 9px !important;
+  border: 1px solid black;
+}
+
+.ql-snow.ql-toolbar button,
+.ql-snow .ql-toolbar button {
+  height: 25px !important;
+  padding: 7px 7px !important;
+  width: 14px !important;
+}
+
+.ql-toolbar.ql-snow .ql-formats {
+  margin-right: 8px !important;
+}
+
+.ql-toolbar.ql-snow {
+  box-sizing: border-box;
+  padding: 0px !important;
+  margin-top: -5px !important;
+  margin-left: 5px !important;
+  margin-right: 5px !important;
+  border: 3px solid white !important;
+  border-radius: 30px;
+  background: whitesmoke;
+}
+@media (max-width: 768px) {
+  .ql-container.ql-snow {
+    height: 120px !important;
+  }
+  .quill {
+    height: 180px !important;
+  }
+}
+.ql-container {
+  height: auto !important;
+}
+
+.ql-container.ql-snow {
+  border: none !important;
+  border-radius: 8px !important;
+}
+
+/* table remove vertical scroll on empty */
+.ant-table-body {
+  overflow: auto !important;
+}
+
+::-webkit-scrollbar {
+  width: 4px; /* Adjust the width as needed */
+  height: 3px; /* Adjust the width as needed - for horizontal's scrollbar*/
+}
+
+/* Customize the scrollbar */
+.ant-table-body::-webkit-scrollbar {
+  width: 10px !important; /* Adjust the width as needed */
+  height: 10px; /* Adjust the width as needed - for horizontal's scrollbar*/
+}
+
+/* Customize the scrollbar track */
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+/* Customize the scrollbar thumb */
+::-webkit-scrollbar-thumb {
+  background-color: #19388b;
+  border-radius: 5px;
+}
+
+#model-scroll ::-webkit-scrollbar {
+  width: 0px; /* Adjust the width as needed */
+  height: 3px; /* Adjust the width as needed - for horizontal's scrollbar*/
+}
+
+/* Customize the scrollbar corner */
+::-webkit-scrollbar-corner {
+  background-color: #f1f1f1;
+}
+
+/* Customize the scrollbar track on hover */
+::-webkit-scrollbar-track:hover {
+  background-color: #e0e0e0;
+}
+
+/* Customize the scrollbar thumb on hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #19388b;
+}
+
+.group-member-class ul {
+  height: 150px;
+  width: 100%;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.group-member-class ul > li {
+  font-weight: 500;
+  color: #4d4d4d;
+  display: flex;
+  justify-content: space-between;
+}
+
+.ellipsis {
+  display: inline-block;
+  width: 180px;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
+
+.ant-table-selection-column {
+  padding-left: 1rem !important;
+}
+
+.validation-font {
+  font-size: 12px;
+  font-weight: 500;
+}
+.Toastify__toast-container {
+  width: auto !important;
+}
+
+@media (min-width: 768px) {
+  .help-settings .ant-table td:nth-child(2) {
+    /* Adjust the width for lg screens */
+    width: 21%;
+  }
+  .help-settings .ant-table td:nth-child(3) {
+    /* Adjust the width for lg screens */
+    width: 50%;
+  }
+}
+@media (max-width: 768px) {
+  .help-settings .ant-table td:nth-child(2) {
+    /* Adjust the width for sm screens */
+    width: 40%;
+  }
+}
+
+.history-settings-tables {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+  font-size: 14px;
+}
+
+.ant-select-open.td {
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
+  padding-right: 20px !important;
+}
+
+.history-settings-tables.td:first-child {
+  padding-left: 20px !important;
+  padding-right: 0 !important;
+}
+.ant-pagination-options {
+  display: none !important;
+}
+
+.Toastify__close-button {
+  align-self: flex-start !important;
+}
+
+#userPage .Toastify__toast-body {
+  /* margin: auto 0; */
+  flex: 1 1 auto !important;
+  padding: 4px !important;
+  display: flex !important;
+  align-items: flex-start !important;
+}
+
+#userPage .Toastify__close-button > svg {
+  fill: currentColor;
+  height: 18px !important;
+  width: 18px !important;
+}
+
+.help-link-class {
+  color: #19388b;
+  font-size: 16.18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-decoration-line: underline;
+}
+
+#view-log .ant-picker-input input {
+  text-align: center !important;
+}
+
+.ant-table-cell-scrollbar:not([rowspan]) {
+  box-shadow: 0 1px 0 1px #e7e7e9 !important;
+}
+
+.ant-picker {
+  font-family: inherit !important;
+}
+.ant-table-wrapper {
+  font-family: inherit !important;
+}
+.ant-spin-nested-loading {
+  font-family: inherit !important;
+}
+.ant-table {
+  font-family: inherit !important;
+}
+
+.rounded-lg {
+  border-radius: 4px !important;
+}
+
+input::-webkit-calendar-picker-indicator {
+  opacity: 100;
+  color: #85868b;
+  width: "7.54px";
+  height: "4.13px";
+}
+
+.ant-modal-content {
+  padding: 0px !important;
+}
