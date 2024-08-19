@@ -43,7 +43,7 @@ export default function SearchCard({
             ? intl.components_card_searchlist_companylist
             : intl.dashboard_user_list}
         </h1>
-        <div>
+        <div className="flex">
         <div className="relative mb-2">
           <input
             type="text"
