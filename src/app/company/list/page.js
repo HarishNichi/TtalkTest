@@ -1141,7 +1141,7 @@ export default function CompanyList() {
                  {intl.delete_company}
                </div>
              }
-             visible={deleteModal}
+             open={deleteModal}
              onCancel={setDeleteModal}
              footer={[null]}
              style={{ padding: "40px" }}
