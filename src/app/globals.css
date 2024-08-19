@@ -445,3 +445,11 @@ input::-webkit-calendar-picker-indicator {
 .Toastify__close-button {
   display: none !important;
 }
+
+.Toastify__toast--success {
+  background-color: #28855E !important;
+}
+
+.Toastify__toast--error  {
+  background-color: #BA1818 !important;
+}
