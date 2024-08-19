@@ -15,6 +15,7 @@ import intl from "@/utils/locales/jp/jp.json";
 import { companyDetailLinks } from "../../../utils/constant";
 import api from "@/utils/api";
 import LoaderOverlay from "@/components/Loader/loadOverLay";
+import organization from "@/redux/features/organization";
 
 export default function CompanyInformation() {
   const Organization = useAppSelector(
@@ -117,7 +118,13 @@ export default function CompanyInformation() {
   const handleDeleteConfirm = async () => {
     setLoading(true);
     try {
-      await api.delete(`organizations/delete/${Organization.id}`);
+      let orgIds = [];
+      let id = {
+        id: Organization.id,
+      };
+
+      orgIds.push(id);
+      await api.post(`organizations/delete-all`, orgIds);
       setLoading(false);
       setIsDeleteModalVisible(false); // Close modal after delete
       router.push("/company/list");
@@ -357,7 +364,7 @@ export default function CompanyInformation() {
             </Button>
             <Button
               key="delete"
-              className="flex-1 bg-[#BA1818] text-white hover:bg-red-500"
+              className="flex-1 bg-[#BA1818] border-[#BA1818] text-white hover:bg-red-500"
               onClick={handleDeleteConfirm}
             >
               {intl.help_settings_addition_delete}

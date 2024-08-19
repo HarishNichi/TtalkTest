@@ -18,7 +18,7 @@ export default function ImportModal({
   fileValidationError,
   setFileValidationError,
   sampleLink,
-  channelName=""
+  channelName = "",
 }) {
   const [progressLine, setProgressLine] = useState(0);
   /**
@@ -90,7 +90,11 @@ export default function ImportModal({
             return;
           }
           !fileValidationError &&
-            uploadCsvFile({ file: file, operation: operation, channel:channelName });
+            uploadCsvFile({
+              file: file,
+              operation: operation,
+              channel: channelName,
+            });
         }}
       />
     );
@@ -110,7 +114,10 @@ export default function ImportModal({
         <div className="flex flex-col">
           {/* File upload component */}
           <div data-testid="file-upload" className="mb-6 md:px-[32px]">
-            <FileUpload onFileUpload={handleFileUpload} key={fileName}/>
+            <div className="flex justify-content-left font-normal text-base">
+              ファイルを選択
+            </div>
+            <FileUpload onFileUpload={handleFileUpload} key={fileName} />
 
             <div className="validation-font text-sm flex justify-center mt-2 text-[red]">
               {fileValidationError ?? fileValidationError}
@@ -119,15 +126,6 @@ export default function ImportModal({
 
           {/* Progress bar component */}
           <div data-testid="progress-bar" className="mb-3 md:px-[32px]">
-            <div>
-              <a
-                download
-                href={sampleLink}
-                className="text-xs hover:text-blue-800"
-              >
-                サンプル.csv
-              </a>
-            </div>
             {fileName && progressLine > 0 && (
               <ProgressBar
                 key={progressLine}

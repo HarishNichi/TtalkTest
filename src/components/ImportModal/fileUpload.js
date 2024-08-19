@@ -13,8 +13,8 @@ const FileUpload = ({ onFileUpload }) => {
 
   const divStyle = {
     height: "188px",
-    background: "rgba(57, 161, 234, 0.07)",
-    border: "1px solid #39A1EA",
+    background: "#F9F9FA",
+    border: "",
     borderRadius: "8px",
   };
 
@@ -93,7 +93,7 @@ const FileUpload = ({ onFileUpload }) => {
           className="text-white px-7 py-1.5 rounded cursor-pointer mt-2 bg-customBlue hover:bg-[#5283B3]"
         >
           <button
-            className="text-[14px] text-center font-semibold cursor-pointer text-white"
+            className="text-[14px] text-center font-semibold cursor-pointer text-white "
             onClick={handleButtonClick}
           >
             {intl.importmodal_fileupload_browse}

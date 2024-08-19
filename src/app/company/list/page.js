@@ -9,7 +9,7 @@ import AddIcon from "../../../components/Icons/addIcon";
 import GetIconQRCode from "../../../components/Icons/qrCode";
 import DataTable from "@/components/DataTable/DataTable";
 import AddUser from "@/components/CompanyInfo/add";
-import { Modal as AntModel, Button } from "antd";
+import { Modal as AntModal, Button } from "antd";
 import {
   tableDefaultPageSizeOption,
   fileName,
@@ -661,7 +661,7 @@ export default function CompanyList() {
     <ProtectedRoute allowedRoles={["admin"]}>
       {loading && <LoaderOverlay />}
       <ToastContainer />
-      <AntModel
+      <AntModal
              title={
                <div className="px-[40px] pt-[40px] mb-[2vw] text-customBlue text-center">
                  {intl.delete_company}
@@ -685,15 +685,13 @@ export default function CompanyList() {
                </Button>
                <Button
                  key="delete"
-                 danger
-                 className="flex-1 bg-[#BA1818] text-white hover:bg-red-500"
-                 defaultHoverBg={"bg-red-500"}
+                 className="flex-1 bg-[#BA1818] text-white no-hover"
                  onClick={()=>deleteOrganization(selectedRows)}
                >
                  {intl.help_settings_addition_delete}
                </Button>
              </div>
-           </AntModel>
+           </AntModal>
       <div>
         <div className="flex justify-between items-center mt-[2vw] mb-[2vw]">
           <h1 className="text-lg font-bold">
@@ -1138,8 +1136,8 @@ export default function CompanyList() {
 
               <IconOutlineBtn
                 text={intl.help_settings_addition_delete}
-                textColor="text-red-500" // Red text color
-                borderColor="border-red-500"
+                textColor="text-[#BA1818]" // Red text color
+                borderColor="border-[#BA1818]"
                 textBold={true}
                 py={"xl:py-2.5 md:py-1.5 py-1.5"}
                 px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
@@ -1252,7 +1250,7 @@ export default function CompanyList() {
           />
         )}
         {isModalOpen && (
-          <AntModel
+          <AntModal
             open={isModalOpen}
             footer={null}
             // fontSize="20"
@@ -1263,7 +1261,7 @@ export default function CompanyList() {
             <div className="flex flex-col">
               <AddUser />
             </div>
-          </AntModel>
+          </AntModal>
         )}
       </div>
       <a
