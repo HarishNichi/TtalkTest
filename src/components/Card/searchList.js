@@ -6,6 +6,8 @@ import ActionButton from "../../app/dashboard/components/actionButton"
 import { useRouter } from "next/navigation";
 import IconLeftBtn from "../Button/iconLeftBtn";
 import { useState } from "react";
+import IconBtn from "../Button/iconBtn";
+import IconOutlineBtn from "../Button/iconOutlineBtn";
 
 export default function SearchCard({
   onInput,
@@ -63,7 +65,7 @@ export default function SearchCard({
           </div>
         </div>
         <div className="ml-[2%] w-[33%] max-h-[32px]">
-        <IconLeftBtn
+        <IconOutlineBtn
               text={intl.dashboard_layout_search_btn}
               textColor={
                 "w-full text-customBlue font-medium text-sm w-full px-6 rounded-lg h-[32px]"
