@@ -11,14 +11,14 @@ export default function DataTable(props) {
   const [rowCheck, setRowCheck] = React.useState(false);
   const [scrollObj, setScrollObj] = React.useState({ x: 600, y: 450 });
 
-  useEffect(() => {
-    if (props.scrollVertical) {
-      setScrollObj({
-        x: props?.scrollHorizontal || 600,
-        y: props.scrollVertical,
-      });
-    }
-  }, [props?.scrollVertical]);
+  // useEffect(() => {
+  //   if (props.scrollVertical) {
+  //     setScrollObj({
+  //       x: props?.scrollHorizontal || 600,
+  //       y: props.scrollVertical,
+  //     });
+  //   }
+  // }, [props?.scrollVertical]);
 
   React.useEffect(() => {
     if (props?.selectAll) {
