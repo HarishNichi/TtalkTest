@@ -70,7 +70,7 @@ export default function SearchCard({
               }
               py={"py-2"}
               px={""}
-              bgColor={"hover:bg-[#5283B3]"}
+              bgColor={"bg-white hover:bg-[#5283B3]"}
               textBold={true}
               icon={() => getIconWithClass("")}
               onClick={() => {
