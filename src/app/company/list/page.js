@@ -685,6 +685,7 @@ export default function CompanyList() {
                </Button>
                <Button
                  key="delete"
+                 danger
                  className="flex-1 bg-[#BA1818] text-white hover:bg-red-500"
                  defaultHoverBg={"bg-red-500"}
                  onClick={()=>deleteOrganization(selectedRows)}
