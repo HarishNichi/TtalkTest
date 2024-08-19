@@ -44,7 +44,7 @@ export default function SearchCard({
             : intl.dashboard_user_list}
         </h1>
         <div className="flex">
-        <div className="relative mb-2">
+        <div className="relative mb-2 w-[65%]">
           <input
             type="text"
             className="w-full py-2 pl-10 pr-3 border bg-[white] rounded-lg focus:outline-none placeholder-[#AEA8A8] dark:text-black"
@@ -62,7 +62,7 @@ export default function SearchCard({
             <HiSearch className="text-[#AEAEAE] font-bold" />
           </div>
         </div>
-        <div>
+        <div className="ml-[2%] w-[33%]">
         <IconLeftBtn
               text={intl.dashboard_layout_search_btn}
               textColor={
