@@ -47,7 +47,7 @@ export default function SearchCard({
         <div className="relative mb-2 w-[65%]">
           <input
             type="text"
-            className="w-full  pl-10 pr-3 border bg-[white] rounded-lg focus:outline-none placeholder-[#AEA8A8] dark:text-black"
+            className="w-full max-h-[32px] pl-10 pr-3 border bg-[white] rounded-lg focus:outline-none placeholder-[#AEA8A8] dark:text-black"
             placeholder={
               Admin
                 ? intl.user_sos_company_search_placeholder
@@ -62,7 +62,7 @@ export default function SearchCard({
             <HiSearch className="text-[#AEAEAE] font-bold" />
           </div>
         </div>
-        <div className="ml-[2%] w-[33%]">
+        <div className="ml-[2%] w-[33%] max-h-[32px]">
         <IconLeftBtn
               text={intl.dashboard_layout_search_btn}
               textColor={
