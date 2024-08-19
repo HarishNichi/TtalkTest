@@ -341,7 +341,7 @@ export default function CompanyInformation() {
               {intl.delete_company}
             </div>
           }
-          visible={isDeleteModalVisible}
+          open={isDeleteModalVisible}
           onCancel={handleDeleteCancel}
           footer={[null]}
           style={{ padding: "40px" }}

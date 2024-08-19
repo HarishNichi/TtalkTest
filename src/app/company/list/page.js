@@ -661,6 +661,37 @@ export default function CompanyList() {
     <ProtectedRoute allowedRoles={["admin"]}>
       {loading && <LoaderOverlay />}
       <ToastContainer />
+      <AntModel
+             title={
+               <div className="px-[40px] pt-[40px] mb-[2vw] text-customBlue text-center">
+                 {intl.delete_company}
+               </div>
+             }
+             open={deleteModal}
+             onCancel={()=>{
+              setDeleteModal(false)
+             }}
+             footer={[null]}
+             style={{ padding: "40px" }}
+           >
+             <p style={{ textAlign: "center" }}>{intl.company_list_delete}</p>
+             <div className="flex justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]">
+               <Button
+                 key="cancel"
+                 className="flex-1 text-blue-500 border-blue-500 "
+                 onClick={()=>setDeleteModal(false)}
+               >
+                 {intl.help_settings_addition_modal_cancel}
+               </Button>
+               <Button
+                 key="delete"
+                 className="flex-1 bg-[#BA1818] text-white hover:bg-red-500"
+                 onClick={()=>deleteOrganization(selectedRows)}
+               >
+                 {intl.help_settings_addition_delete}
+               </Button>
+             </div>
+           </AntModel>
       <div>
         <div className="flex justify-between items-center mt-[2vw] mb-[2vw]">
           <h1 className="text-lg font-bold">
@@ -1135,35 +1166,7 @@ export default function CompanyList() {
           </div>
         )}
 
-             <AntModel
-             title={
-               <div className="px-[40px] pt-[40px] mb-[2vw] text-customBlue text-center">
-                 {intl.delete_company}
-               </div>
-             }
-             open={deleteModal}
-             onCancel={setDeleteModal}
-             footer={[null]}
-             style={{ padding: "40px" }}
-           >
-             <p style={{ textAlign: "center" }}>{intl.company_list_delete}</p>
-             <div className="flex justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]">
-               <Button
-                 key="cancel"
-                 className="flex-1 text-blue-500 border-blue-500 "
-                 onClick={setDeleteModal(() => false)}
-               >
-                 {intl.help_settings_addition_modal_cancel}
-               </Button>
-               <Button
-                 key="delete"
-                 className="flex-1 bg-[#BA1818] text-white hover:bg-red-500"
-                 onClick={ deleteOrganization(selectedRows)}
-               >
-                 {intl.help_settings_addition_delete}
-               </Button>
-             </div>
-           </AntModel>
+            
           {/* // <Modal
           //   height="412px"
           //   fontSize="text-xl"
