@@ -441,3 +441,7 @@ input::-webkit-calendar-picker-indicator {
 .ant-modal-content {
   padding: 0px !important;
 }
+
+.Toastify__close-button {
+  display: none !important;
+}

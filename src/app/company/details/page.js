@@ -153,21 +153,28 @@ export default function CompanyInformation() {
         <div className="mb-1">
           <Breadcrumb links={companyDetailLinks} />
           <div className="">
-            <div className="flex justify-end space-x-2">
-              <Button
-                onClick={handleDeleteClick}
-                icon={<AiFillDelete />}
-                className="text-red-500"
-              >
-                {intl.help_settings_addition_delete}
-              </Button>
-              <Button
-                onClick={handleEditClick}
-                icon={<AiFillEdit />}
-                className="text-customBlue "
-              >
-                {intl.help_settings_addition_modal_edit}
-              </Button>
+            <div className="flex justify-between items-center">
+              <h2 className="text-lg font-semibold">
+                {organizationsData?.name || ""}
+              </h2>
+              <div className="flex space-x-2">
+                <Button
+                  type="danger"
+                  onClick={handleDeleteClick}
+                  icon={<AiFillDelete />}
+                  className="text-red-500"
+                >
+                  {intl.help_settings_addition_delete}
+                </Button>
+                <Button
+                  type=""
+                  onClick={handleEditClick}
+                  icon={<AiFillEdit />}
+                  className="text-customBlue"
+                >
+                  {intl.help_settings_addition_modal_edit}
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -266,7 +273,7 @@ export default function CompanyInformation() {
           onCancel={handleModalClose}
           footer={null}
         >
-          <div className="flex justify-center">
+          <div className="flex justify-center h-[150px]">
             {organizationsData && (
               <Upload
                 imgError={imgError}

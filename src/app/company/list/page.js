@@ -1010,7 +1010,7 @@ export default function CompanyList() {
           </div>
         </div>
         <div className="mb-[5px] flex items-center">
-          {/* <label
+          <label
             key={"selectAll"}
             className="flex items-center text-customBlue"
           >
@@ -1025,7 +1025,7 @@ export default function CompanyList() {
               }}
             />
             <span className="ml-1"> {"すべて選択"}</span>
-          </label> */}
+          </label>
         </div>
         <div className="mb-[20px] relative" style={{ width: "100%" }}>
           <DataTable
@@ -1056,6 +1056,74 @@ export default function CompanyList() {
             page={page}
           />
         </div>
+        {selectedRows.length > 0 && (
+          <div className="flex justify-between items-center mt-4 bg-white py-3 px-[4vw] shadow-lg">
+            {/* Left side: Buttons */}
+            <div className="text-base font-semibold">
+              {selectedRows.length}件選択中
+            </div>
+            <div className="flex space-x-4">
+              <IconOutlineBtn
+                text={intl.company_list_company_export_title}
+                textColor={"text-customBlue"}
+                textBold={true}
+                py={"xl:py-2.5 md:py-1.5 py-1.5"}
+                px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
+                icon={() => exportIcon()}
+                borderColor={"border-customBlue"}
+                onClick={() => {
+                  // check selected row
+                  toast.dismiss();
+                  if (selectedRows.length <= 0) {
+                    toast("会社を選択してください。", {
+                      position: "top-right",
+                      autoClose: 5000,
+                      hideProgressBar: true,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      theme: "colored",
+                      type: "error",
+                    });
+                    setExportModal(() => false);
+                    return;
+                  }
+                  setExportModal(() => true);
+                }}
+              />
+
+              <IconOutlineBtn
+                text={intl.help_settings_addition_delete}
+                textColor="text-red-500" // Red text color
+                borderColor="border-red-500"
+                textBold={true}
+                py={"xl:py-2.5 md:py-1.5 py-1.5"}
+                px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
+                icon={() => deleteIcon()}
+                onClick={() => {
+                  // check selected row
+                  toast.dismiss();
+                  if (selectedRows.length <= 0) {
+                    toast("会社を選択してください。", {
+                      position: "top-right",
+                      autoClose: 5000,
+                      hideProgressBar: true,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      theme: "colored",
+                      type: "error",
+                    });
+                    setDeleteModal(() => false);
+                    return;
+                  }
+                  setDeleteModal(() => true);
+                }}
+              />
+            </div>
+          </div>
+        )}
+
         {deleteModal && (
           <Modal
             height="412px"

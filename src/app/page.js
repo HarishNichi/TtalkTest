@@ -144,6 +144,13 @@ export default function Login() {
     toast.dismiss();
     setModalTouched((prevTouched) => ({ ...prevTouched, modalEmail: true }));
 
+    const modalValues = { modalEmail };
+    const validationErrors = await validateHandler(
+      modalSchema,
+      modalValues,
+      setModalErrors
+    );
+
     if (!modalErrors) {
       setLoading(true);
       try {
@@ -170,6 +177,9 @@ export default function Login() {
           setTimeout(() => {
             routerPath.push("/");
           }, 2000);
+
+          // Close the modal only if there are no validation errors
+          handleCloseModal();
         }
       } catch (error) {
         setLoading(false);
@@ -194,7 +204,6 @@ export default function Login() {
     } else {
       setLoading(false);
     }
-    handleCloseModal();
   };
 
   const handleCloseModal = () => {

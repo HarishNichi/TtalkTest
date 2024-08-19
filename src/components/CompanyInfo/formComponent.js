@@ -191,7 +191,7 @@ const CompanyForm = (props) => {
       id="model-scroll"
       className="grid grid-cols-1  gap-y-4 gap-x-12 lg:gap-y-3 xl:gap-y-4 2xl:gap-y-6 lg:gap-x-24"
     >
-      <div style={{ maxHeight: "350px", overflow: "auto",padding:'2px' }}>
+      <div style={{ maxHeight: "350px", overflow: "auto", padding: "2px" }}>
         <FormField
           label={intl.form_component_company_name_label}
           id="companyName"
@@ -380,19 +380,20 @@ const CompanyForm = (props) => {
             </div>
           </>
         )}
-
-        <FormField
-          label={intl.help_settings_addition_explanation}
-          id="description"
-          placeholder={intl.help_settings_addition_explanation}
-          isTextarea={true}
-          value={description}
-          onChange={handleChange}
-          disabled={disabled}
-          isRequired={false}
-          errors={errors}
-          touched={touched}
-        />
+        <div className="mt-[32px]">
+          <FormField
+            label={intl.help_settings_addition_explanation}
+            id="description"
+            placeholder={intl.help_settings_addition_explanation}
+            isTextarea={true}
+            value={description}
+            onChange={handleChange}
+            disabled={disabled}
+            isRequired={false}
+            errors={errors}
+            touched={touched}
+          />
+        </div>
       </div>
 
       {isForm && (
