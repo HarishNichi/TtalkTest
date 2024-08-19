@@ -47,7 +47,7 @@ export default function SearchCard({
         <div className="relative mb-2 w-[65%]">
           <input
             type="text"
-            className="w-full max-h-[32px] pl-10 pr-3 border bg-[white] rounded-lg focus:outline-none placeholder-[#AEA8A8] dark:text-black"
+            className="w-full h-[32px] max-h-[32px] pl-10 pr-3 border bg-[white] rounded-lg focus:outline-none placeholder-[#AEA8A8] dark:text-black"
             placeholder={
               Admin
                 ? intl.user_sos_company_search_placeholder
@@ -66,9 +66,9 @@ export default function SearchCard({
         <IconLeftBtn
               text={intl.dashboard_layout_search_btn}
               textColor={
-                "w-full text-customBlue font-medium text-sm w-full px-6 rounded-lg"
+                "w-full text-customBlue font-medium text-sm w-full px-6 rounded-lg h-[32px]"
               }
-              py={"py-2"}
+              py={""}
               px={""}
               bgColor={"bg-white hover:bg-[#5283B3]"}
               textBold={true}
