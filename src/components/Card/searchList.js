@@ -4,10 +4,8 @@ import { HiSearch } from "react-icons/hi";
 import intl from "../../utils/locales/jp/jp.json";
 import ActionButton from "../../app/dashboard/components/actionButton"
 import { useRouter } from "next/navigation";
-import IconLeftBtn from "../Button/iconLeftBtn";
 import { useState } from "react";
-import IconBtn from "../Button/iconBtn";
-import IconOutlineBtn from "../Button/iconOutlineBtn";
+
 
 export default function SearchCard({
   onInput,
@@ -35,6 +33,26 @@ export default function SearchCard({
           stroke="#19388B"
         />
       </svg>
+    );
+  }
+
+  function IconOutlineBtn(props) {
+    return (
+      <button
+        className={`px-[20px] border-[2px] lg:border-[2.5px] h-[32px] ${
+          props.borderColor
+        } bg-transparent  ${props?.textColor} ${
+          props?.text
+        } rounded-lg flex items-center justify-center ${
+          props?.btnWidth ? props.btnWidth : "w-full"
+        } max-w-max  hover:bg-gray-300`}
+        onClick={props.onClick}
+      >
+        <div className="md:pr-1 md:py-1 text-2xl  ">{props.icon()}</div>
+        <div className="hidden md:block font-semibold md:py-1 text-[16px]">
+          {props.text}
+        </div>
+      </button>
     );
   }
   return (
