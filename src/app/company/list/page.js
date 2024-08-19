@@ -1135,7 +1135,6 @@ export default function CompanyList() {
           </div>
         )}
 
-        {deleteModal && (
              <AntModel
              title={
                <div className="px-[40px] pt-[40px] mb-[2vw] text-customBlue text-center">
@@ -1165,7 +1164,7 @@ export default function CompanyList() {
                </Button>
              </div>
            </AntModel>
-          // <Modal
+          {/* // <Modal
           //   height="412px"
           //   fontSize="text-xl"
           //   fontWeight="font-semibold"
@@ -1179,8 +1178,7 @@ export default function CompanyList() {
           //       {intl.company_list_company_delete}
           //     </div>
           //   </div>
-          // </Modal>
-        )}
+          // </Modal> */}
 
         {exportModal && (
           <Modal
