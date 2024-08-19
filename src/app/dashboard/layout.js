@@ -198,7 +198,7 @@ export default function DashboardLayout({ children }) {
       {loading && <LoaderOverlay />}
       {Admin && (
         <form
-          className="w-full bg-white hidden lg:flex gap-2 flex-wrap flex-shrink-0 flex-grow-0 py-2 px-2 rounded-xl mb-2 md:mx-auto md:justify-center lg:justify-normal"
+          className="w-full  hidden lg:flex gap-2 flex-wrap flex-shrink-0 flex-grow-0 py-2 px-2 rounded-xl mb-2 md:mx-auto md:justify-center lg:justify-normal"
           onSubmit={(e) => {
             e.preventDefault();
             searchDashboard();
@@ -268,7 +268,7 @@ export default function DashboardLayout({ children }) {
       )}
       {!Admin && (
         <form
-          className="w-full bg-white hidden lg:flex gap-2 flex-wrap flex-shrink-0 flex-grow-0 py-2 px-2 rounded-xl mb-2 md:mx-auto md:justify-center lg:justify-normal"
+          className="w-full  hidden lg:flex gap-2 flex-wrap flex-shrink-0 flex-grow-0 py-2 px-2 rounded-xl mb-2 md:mx-auto md:justify-center lg:justify-normal"
           onSubmit={(e) => {
             e.preventDefault();
             searchDashboard();
@@ -317,7 +317,7 @@ export default function DashboardLayout({ children }) {
       )}
       {searchPanelOnMobile && Admin && (
         <form
-          className="md:w-[96%] w-[92%] bg-white flex lg:hidden gap-2 flex-wrap flex-shrink-0 flex-grow-0  py-6 px-5 rounded-xl mb-4 md:mx-auto md:justify-center lg:justify-normal absolute z-20"
+          className="md:w-[96%] w-[92%]  flex lg:hidden gap-2 flex-wrap flex-shrink-0 flex-grow-0  py-6 px-5 rounded-xl mb-4 md:mx-auto md:justify-center lg:justify-normal absolute z-20"
           onSubmit={(e) => {
             e.preventDefault();
             searchDashboard();
@@ -382,7 +382,7 @@ export default function DashboardLayout({ children }) {
       )}
       {searchPanelOnMobile && !Admin && (
         <form
-          className="md:w-[96%] w-[92%] bg-white flex lg:hidden gap-2 flex-wrap flex-shrink-0 flex-grow-0  py-6 px-5 rounded-xl mb-4 md:mx-auto md:justify-center lg:justify-normal absolute z-20"
+          className="md:w-[96%] w-[92%]  flex lg:hidden gap-2 flex-wrap flex-shrink-0 flex-grow-0  py-6 px-5 rounded-xl mb-4 md:mx-auto md:justify-center lg:justify-normal absolute z-20"
           onSubmit={(e) => {
             e.preventDefault();
             searchDashboard();

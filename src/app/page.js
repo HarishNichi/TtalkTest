@@ -138,6 +138,7 @@ export default function Login() {
       setTouched({ ...touched, id: true, password: true });
     }
   };
+
   const handleModalSubmit = async (event) => {
     event.preventDefault();
     toast.dismiss();
@@ -161,6 +162,11 @@ export default function Login() {
             theme: "colored",
             type: "success",
           });
+          // Reset modal form fields
+          setModalEmail("");
+          setModalTouched({});
+          setModalErrors({});
+
           setTimeout(() => {
             routerPath.push("/");
           }, 2000);
@@ -188,14 +194,20 @@ export default function Login() {
     } else {
       setLoading(false);
     }
-  };
-  // Handle forgot password modal
-  const handleForgotPasswordClick = () => {
-    setIsModalOpen(true);
+    handleCloseModal();
   };
 
   const handleCloseModal = () => {
+    // Reset modal form fields when closing the modal
+    setModalEmail("");
+    setModalTouched({});
+    setModalErrors({});
     setIsModalOpen(false);
+  };
+
+  // Handle forgot password modal
+  const handleForgotPasswordClick = () => {
+    setIsModalOpen(true);
   };
 
   // Handle password visibility toggle

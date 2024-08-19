@@ -5,7 +5,7 @@ import { code } from "./constant";
 const api = axios.create({
   baseURL:
     "https://ez7bnwrmz5.execute-api.ap-northeast-1.amazonaws.com/" +
-    process.env.NEXT_PUBLIC_AWS_BRANCH +
+    "test" +
     "/",
 });
 

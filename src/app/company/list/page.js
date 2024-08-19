@@ -86,23 +86,24 @@ export default function CompanyList() {
       width: 120,
       align: "left",
     },
+
     {
       title: intl.company_list_company_status,
       dataIndex: "status",
       render: (text, record) => {
-        let bg = text == true ? "bg-customGreen" : "bg-customGray";
+        let bgColor = text === true ? "bg-customBlue" : "bg-blue-100";
+        let textColor = text === true ? "text-white" : "text-blue-700";
         return (
           <div style={{ width: "85px" }}>
             <div
-              className={`rounded-[5px] cursor-pointer  pt-[5px] pb-[5px] pl-[5px] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-customBlue text-sm text-white block w-full ${bg} text-center
-            `}
+              className={`rounded-[5px] cursor-pointer pt-[5px] pb-[5px] pl-[5px] pr-[5px] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-customBlue text-sm ${textColor} ${bgColor} text-center`}
             >
               {text === true ? "有効" : "無効"}
             </div>
           </div>
         );
       },
-      width: 110,
+      width: 70,
       align: "left",
     },
   ];
@@ -441,7 +442,7 @@ export default function CompanyList() {
         <div>
           <IconLeftBtn
             text={intl.help_settings_addition_delete}
-            textColor={"text-white font-semibold text-sm w-full"}
+            textColor={"text-white font-semibold text-sm w-full "}
             py={"py-[11px]"}
             px={"px-6"}
             bgColor={"bg-customBlue"}
@@ -650,8 +651,44 @@ export default function CompanyList() {
       {loading && <LoaderOverlay />}
       <ToastContainer />
       <div>
+        <div className="flex justify-between items-center mt-[2vw] mb-[2vw]">
+          <h1 className="text-lg font-bold">
+            {intl.components_card_searchlist_companylist}
+          </h1>
+          <div className="flex space-x-2.5">
+            <span>
+              <IconOutlineBtn
+                text={intl.company_list_company_import}
+                textColor={"text-customBlue"}
+                textBold={true}
+                py={"xl:py-2.5 md:py-1.5 py-1.5"}
+                px={"xl:px-[32px] md:px-[33.5px] px-[33.5px]"}
+                icon={() => importIcon()}
+                onClick={async () => {
+                  await setImportModal(() => false);
+                  await importHandler();
+                }}
+              />
+            </span>
+            <span>
+              <IconOutlineBtn
+                text={intl.company_details_company_add}
+                textColor={"text-customBlue"}
+                textBold={true}
+                py={"xl:py-2.5 md:py-1.5 py-1.5"}
+                px={"xl:px-[32.5px] md:px-[22.5px] px-[22.5px]"}
+                icon={() => editIcon()}
+                onClick={() => {
+                  setIsModalOpen(true);
+                  //router.push("/company/add");
+                }}
+              />
+            </span>
+          </div>
+        </div>
+
         <form
-          className="w-full bg-white hidden lg:flex gap-2 flex-wrap flex-shrink-0 flex-grow-0 py-2 px-2 rounded-xl mb-2 md:mx-auto md:justify-center lg:justify-normal mb-[10px]"
+          className="w-full  hidden lg:flex gap-2 flex-wrap flex-shrink-0 flex-grow-0 pb-2 px-2 rounded-xl mb-2 md:mx-auto md:justify-center lg:justify-normal mb-[10px] "
           onSubmit={(e) => {
             e.preventDefault();
             //searchOrganization();
@@ -748,7 +785,7 @@ export default function CompanyList() {
           </span>
         </div>
         {isMobileSearch && (
-          <form className="md:w-[96%] w-[92%] bg-white flex lg:hidden gap-2 flex-wrap flex-shrink-0 flex-grow-0  py-6 px-5 rounded-xl mb-4 md:mx-auto md:justify-start lg:justify-normal absolute z-20 justify-start">
+          <form className="md:w-[96%] w-[92%]  flex lg:hidden gap-2 flex-wrap flex-shrink-0 flex-grow-0  py-6 px-5 rounded-xl mb-4 md:mx-auto md:justify-start lg:justify-normal absolute z-20 justify-start">
             <div className={`w-full md:w-[calc(50%-10px)] `}>
               <SearchInput
                 placeholder={intl.company_list_company_name}
@@ -808,7 +845,7 @@ export default function CompanyList() {
         )}
 
         <div className="flex  justify-between mb-[20px] xl:mb-2 ">
-          <div className="flex items-center">
+          {/* <div className="flex items-center">
             <DynamicLabel
               text={intl.company_details_company_management}
               alignment="text-center"
@@ -817,9 +854,9 @@ export default function CompanyList() {
               textColor="#000000"
               disabled={false}
             />
-          </div>
+          </div> */}
           <div className="hidden lg:flex items-center">
-            <span className="mr-2.5">
+            {/* <span className="mr-2.5">
               <IconOutlineBtn
                 text={intl.company_list_company_import}
                 textColor={"text-customBlue"}
@@ -833,8 +870,8 @@ export default function CompanyList() {
                   await importHandler();
                 }}
               />
-            </span>
-            <span className="mr-2.5">
+            </span> */}
+            {/* <span className="mr-2.5">
               <IconOutlineBtn
                 text={intl.company_list_company_export_title}
                 textColor={"text-customBlue"}
@@ -863,8 +900,8 @@ export default function CompanyList() {
                   setExportModal(() => true);
                 }}
               />
-            </span>
-            <span className="mr-2.5">
+            </span> */}
+            {/* <span className="mr-2.5">
               <IconOutlineBtn
                 text={intl.company_details_company_add}
                 textColor={"text-customBlue"}
@@ -878,8 +915,8 @@ export default function CompanyList() {
                   //router.push("/company/add");
                 }}
               />
-            </span>
-            <span>
+            </span> */}
+            {/* <span>
               <span>
                 <IconBtn
                   bg={"bg"}
@@ -905,7 +942,7 @@ export default function CompanyList() {
                   }}
                 />
               </span>
-            </span>
+            </span> */}
           </div>
           <div className=" lg:hidden flex">
             <span className="mr-2.5">
@@ -973,7 +1010,7 @@ export default function CompanyList() {
           </div>
         </div>
         <div className="mb-[5px] flex items-center">
-          <label
+          {/* <label
             key={"selectAll"}
             className="flex items-center text-customBlue"
           >
@@ -988,7 +1025,7 @@ export default function CompanyList() {
               }}
             />
             <span className="ml-1"> {"すべて選択"}</span>
-          </label>
+          </label> */}
         </div>
         <div className="mb-[20px] relative" style={{ width: "100%" }}>
           <DataTable

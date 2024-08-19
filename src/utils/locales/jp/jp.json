@@ -66,8 +66,10 @@
   "form_component_mailid_label": "連絡先メールアドレス",
   "form_component_address_label": "住所",
   "form_component_sales_channel": "販売経路",
+  "form_component_transcription": "文字起こし",
   "form_component_fleet_number": "フリート番号",
   "form_component_usercount_label": "ユーザー数",
+  "form_component_simulataneous_intepretation": "同時通訳",
   "dashboard_card_number_of_companies_label": "会社数",
   "dashboard_card_number_of_connections_label": "接続数",
   "dashboard_card_active_connection_label": "アクティブな接続",
@@ -228,5 +230,7 @@
   "add_user_email_id_label": "連絡先メールアドレスを入力してください",
   "forgot_password_message": "ユーザーIDに紐づいたメールアドレスにパスワードを送信します",
   "send_password": "パスワード送信",
-  "add_new_company": "新規会社追加"
+  "add_new_company": "新規会社追加",
+  "delete_company": "会社情報を削除しますか？",
+  "company_list_delete":"会社に関連付けられているユーザーも削除されます。"
 }

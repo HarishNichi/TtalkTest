@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { Modal, Button } from "antd";
 import DynamicLabel from "@/components/Label/dynamicLabel";
 import Upload from "@/components/Input/upload";
 import intl from "@/utils/locales/jp/jp.json";
@@ -31,6 +32,7 @@ export default function EditCompanyInformation() {
   const [loading, setLoading] = useState(false);
   const [imageSource, setImageURL] = useState(null);
   const [imgError, setImgError] = useState("");
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const fetchData = async () => {
     setLoading(true);
@@ -85,6 +87,7 @@ export default function EditCompanyInformation() {
 
       await api.put(`organizations/update`, { ...record, id: payload.id });
       setLoading(false);
+      setIsModalVisible(false); // Close modal after update
       routerPath.push("/company/list");
     } catch (error) {
       setLoading(false);
@@ -101,9 +104,19 @@ export default function EditCompanyInformation() {
       });
     }
   };
+
   useEffect(() => {
     fetchData();
   }, []);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
   return (
     <>
       <ProtectedRoute allowedRoles={["admin"]}>
@@ -112,58 +125,57 @@ export default function EditCompanyInformation() {
         <div className="mb-1">
           <Breadcrumb links={companyEditLinks} />
         </div>
-        <div className="flex flex-col flex-1 h-full">
-          <div className="flex justify-between mb-2 xl:mb-2">
-            <div className="flex items-center">
-              <DynamicLabel
-                text={intl.edit_screen_label}
-                alignment="text-center"
-                fontSize="text-[22px]"
-                fontWeight="font-medium"
-                textColor="#000000"
-                disabled={false}
-              />
+        <Button type="primary" onClick={showModal}>
+          Edit Company Information
+        </Button>
+        <Modal
+          title={intl.edit_screen_label}
+          visible={isModalVisible}
+          onCancel={handleCancel}
+          footer={null}
+        >
+          <div className="flex flex-col flex-1 h-full">
+            <div className="flex justify-between mb-2 xl:mb-2">
+              <div className="flex items-center">
+                <DynamicLabel
+                  text={intl.edit_screen_label}
+                  alignment="text-center"
+                  fontSize="text-[22px]"
+                  fontWeight="font-medium"
+                  textColor="#000000"
+                  disabled={false}
+                />
+              </div>
             </div>
-          </div>
-          <div
-            style={cardStyle}
-            className="pt-2 p-3 md:px-[60px]  xl:px-[80px] xl:pt-2 pb-[40px] flex flex-col flex-1 h-full"
-          >
-            <div className="flex justify-center">
+            <div
+              style={cardStyle}
+              className="pt-2 p-3 md:px-[60px]  xl:px-[80px] xl:pt-2 pb-[40px] flex flex-col flex-1 h-full"
+            >
+              <div className="mt-1 mb-1 2xl:mb-8">
+                <hr />
+              </div>
               {organizationsData && (
-                <Upload
-                  imgError={imgError}
-                  edit={true}
-                  setImageURL={setImageURL}
-                  imgSrc={organizationsData.logo}
-                  setImgError={setImgError}
+                <CompanyForm
+                  initialCompanyName={organizationsData.name}
+                  initialMailId={organizationsData.email}
+                  initialUserCount={organizationsData.numberOfUsers}
+                  initialSalesChannel={organizationsData.agencyName}
+                  initialDescription={organizationsData.description}
+                  initialIsTranslate={organizationsData.isTranslate}
+                  initialIsTranscribe={organizationsData.isTranscribe}
+                  initialIsStatus={organizationsData.isStatus}
+                  initialFleetNumber={organizationsData.fleetNumber}
+                  initialCompanyId={organizationsData.id}
+                  initialSosLocation={organizationsData.sosLocation}
+                  isForm={true}
+                  isRequired={true}
+                  routerPath={routerPath}
+                  updateOrg={updateOrg}
                 />
               )}
             </div>
-            <div className="mt-1 mb-1 2xl:mb-8">
-              <hr />
-            </div>
-            {organizationsData && (
-              <CompanyForm
-                initialCompanyName={organizationsData.name}
-                initialMailId={organizationsData.email}
-                initialUserCount={organizationsData.numberOfUsers}
-                initialSalesChannel={organizationsData.agencyName}
-                initialDescription={organizationsData.description}
-                initialIsTranslate={organizationsData.isTranslate}
-                initialIsTranscribe={organizationsData.isTranscribe}
-                initialIsStatus={organizationsData.isStatus}
-                initialFleetNumber={organizationsData.fleetNumber}
-                initialCompanyId={organizationsData.id}
-                initialSosLocation={organizationsData.sosLocation}
-                isForm={true}
-                isRequired={true}
-                routerPath={routerPath}
-                updateOrg={updateOrg}
-              ></CompanyForm>
-            )}
           </div>
-        </div>
+        </Modal>
       </ProtectedRoute>
     </>
   );
