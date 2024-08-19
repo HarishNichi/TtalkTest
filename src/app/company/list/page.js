@@ -9,7 +9,7 @@ import AddIcon from "../../../components/Icons/addIcon";
 import GetIconQRCode from "../../../components/Icons/qrCode";
 import DataTable from "@/components/DataTable/DataTable";
 import AddUser from "@/components/CompanyInfo/add";
-import { Modal as AntModel } from "antd";
+import { Modal as AntModel, Button } from "antd";
 import {
   tableDefaultPageSizeOption,
   fileName,
@@ -1136,21 +1136,50 @@ export default function CompanyList() {
         )}
 
         {deleteModal && (
-          <Modal
-            height="412px"
-            fontSize="text-xl"
-            fontWeight="font-semibold"
-            textColor="#19388B"
-            text={intl.help_settings_addition_delete}
-            onCloseHandler={setDeleteModal}
-            modalFooter={getDeleteModalFooter}
-          >
-            <div className="flex flex-col">
-              <div className="flex-grow py-[50px] pt-[50px] px-6 dark:text-black">
-                {intl.company_list_company_delete}
-              </div>
-            </div>
-          </Modal>
+             <AntModel
+             title={
+               <div className="px-[40px] pt-[40px] mb-[2vw] text-customBlue text-center">
+                 {intl.delete_company}
+               </div>
+             }
+             visible={deleteModal}
+             onCancel={setDeleteModal}
+             footer={[null]}
+             style={{ padding: "40px" }}
+           >
+             <p style={{ textAlign: "center" }}>{intl.company_list_delete}</p>
+             <div className="flex justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]">
+               <Button
+                 key="cancel"
+                 className="flex-1 text-blue-500 border-blue-500 "
+                 onClick={setDeleteModal(() => false)}
+               >
+                 {intl.help_settings_addition_modal_cancel}
+               </Button>
+               <Button
+                 key="delete"
+                 className="flex-1 bg-[#BA1818] text-white hover:bg-red-500"
+                 onClick={ deleteOrganization(selectedRows)}
+               >
+                 {intl.help_settings_addition_delete}
+               </Button>
+             </div>
+           </AntModel>
+          // <Modal
+          //   height="412px"
+          //   fontSize="text-xl"
+          //   fontWeight="font-semibold"
+          //   textColor="#19388B"
+          //   text={intl.help_settings_addition_delete}
+          //   onCloseHandler={setDeleteModal}
+          //   modalFooter={getDeleteModalFooter}
+          // >
+          //   <div className="flex flex-col">
+          //     <div className="flex-grow py-[50px] pt-[50px] px-6 dark:text-black">
+          //       {intl.company_list_company_delete}
+          //     </div>
+          //   </div>
+          // </Modal>
         )}
 
         {exportModal && (

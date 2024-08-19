@@ -11,6 +11,7 @@ export default function DataTable(props) {
   const [rowCheck, setRowCheck] = React.useState(false);
   const [scrollObj, setScrollObj] = React.useState({ x: 600, y: 450 });
 
+  // commented below code to set fixed height for Table
   // useEffect(() => {
   //   if (props.scrollVertical) {
   //     setScrollObj({
