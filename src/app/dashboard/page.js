@@ -211,8 +211,8 @@ const Dashboard = () => {
       <ToastContainer />
       <div className="flex flex-col">
         {Admin && (
-          <div className="grid grid-cols-2 lg:grid-cols-6 lg:gap-2 mb-2">
-            <div className={`pr-2 pb-2`}>
+          <div className="grid grid-cols-2 xl:grid-cols-6 xl:gap-2 mb-2">
+            <div className={`pr-2 pb-2 lg:p-0`}>
            
               <CardIcon
                 title={intl.dashboard_card_number_of_companies_label}
@@ -223,7 +223,7 @@ const Dashboard = () => {
                
               </CardIcon>
             </div>
-            <div className={`pl-2 pb-2`}>
+            <div className={`pl-2 pb-2 lg:p-0`}>
               <CardIcon
                 title={intl.dashboard_card_number_of_connections_label}
                 value={counter.licenseCount || 0}
@@ -233,7 +233,7 @@ const Dashboard = () => {
               
               </CardIcon>
             </div>
-            <div className={`pr-2 pt-2 pb-2`}>
+            <div className={`pr-2 pt-2 pb-2 lg:p-0`}>
               <CardIcon
                 title={intl.dashboard_card_active_connection_label}
                 value={counter.numberOfLoggedInCount || 0}
@@ -243,7 +243,7 @@ const Dashboard = () => {
                
               </CardIcon>
             </div>
-            <div className={`pl-2 pt-2 pb-2`}>
+            <div className={`pl-2 pt-2 pb-2 lg:p-0`}>
               <CardIcon
                 title={intl.dashboard_card_invalid_connection_label}
                 value={counter.numberOfLoggedOutCount || 0}
@@ -253,7 +253,7 @@ const Dashboard = () => {
                
               </CardIcon>
             </div>
-            <div className={`pr-2 pt-2 pb-2`}>
+            <div className={`pr-2 pt-2 pb-2 lg:p-0`}>
               <CardIcon
                 title={intl.transcribe_count}
                 value={counter.totalTranscribe || 0}
@@ -263,7 +263,7 @@ const Dashboard = () => {
                
               </CardIcon>
             </div>
-            <div className={`pl-2 pt-2 pb-2`}>
+            <div className={`pl-2 pt-2 pb-2 lg:p-0`}>
               <CardIcon
                 title={intl.simulations_call_count}
                 value={counter.totalSimultaneousInterpretation || 0}
@@ -277,8 +277,8 @@ const Dashboard = () => {
         )}
 
         {!Admin && (
-          <div className="grid grid-cols-2 lg:grid-cols-5 lg:gap-2 mb-2">
-            <div className={`pr-2 pb-2`}>
+          <div className="grid grid-cols-2 xl:grid-cols-5 xl:gap-2 mb-2">
+            <div className={`pr-2 pb-2 lg:p-0`}>
               <CardIcon
                 title={intl.dashboard_card_number_of_connections_label}
                 value={counter.licenseCount || 0}
@@ -288,7 +288,7 @@ const Dashboard = () => {
                
               </CardIcon>
             </div>
-            <div className={`pr-2 pb-2`}>
+            <div className={`pr-2 pb-2 lg:p-0`}>
               <CardIcon
                 title={intl.dashboard_card_active_connection_label}
                 value={counter.numberOfLoggedInCount || 0}
@@ -298,7 +298,7 @@ const Dashboard = () => {
                
               </CardIcon>
             </div>
-            <div className={`pr-2 pb-2`}>
+            <div className={`pr-2 pb-2 lg:p-0`}>
               <CardIcon
                 title={intl.dashboard_card_invalid_connection_label}
                 value={counter.numberOfLoggedOutCount || 0}
@@ -308,7 +308,7 @@ const Dashboard = () => {
                
               </CardIcon>
             </div>
-            <div className={`pr-2 pb-2`}>
+            <div className={`pr-2 pb-2 lg:p-0`}>
               <CardIcon
                 title={intl.transcribe_count}
                 value={counter.totalTranscribe || 0}
@@ -318,7 +318,7 @@ const Dashboard = () => {
                
               </CardIcon>
             </div>
-            <div className={`pr-2 pb-2`}>
+            <div className={`pr-2 pb-2 lg:p-0`}>
               <CardIcon
                 title={intl.simulations_call_count}
                 value={counter.totalSimultaneousInterpretation || 0}
