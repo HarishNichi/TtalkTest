@@ -49,7 +49,7 @@ export default function SearchCard({
         onClick={props.onClick}
       >
         <div className="md:pr-1 md:py-1 text-2xl  ">{props.icon()}</div>
-        <div className="hidden md:block font-semibold md:py-1 text-[16px]">
+        <div className="hidden lg:block font-semibold md:py-1 text-[16px]">
           {props.text}
         </div>
       </button>
