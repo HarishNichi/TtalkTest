@@ -47,13 +47,13 @@ body {
   position: absolute;
   bottom: -5px;
   right: 12px;
-  background-color: #d9d9d9;
+  background-color: #19388b;
   border-radius: 50%;
   padding: 8px;
   box-shadow: 0 2px 4px rgba(255, 255, 255, 0.2);
 }
 .edit-icon:hover {
-  background-color: #bfbfbf;
+  background-color: #19388b;
 }
 .delete-icon:hover {
   fill: #888888;

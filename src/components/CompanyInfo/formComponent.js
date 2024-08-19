@@ -456,14 +456,14 @@ const FormField = ({
           type="text"
           for={id}
           placeholder={placeholder}
-          borderRound="rounded-xl"
+          borderRound="rounded-[4px]"
           padding="p-[10px]"
           focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
           border="border border-gray-300"
           bg="bg-white"
           additionalClass={`${
             disabled ? "bg-[#AAAAAA] cursor-not-allowed text-white " : ""
-          } block w-full pl-5 text-base pr-[30px]`}
+          } block w-full pl-5 text-base pr-[30px] h-[40px]`}
           label={label}
           labelColor="#7B7B7B"
           id={id}
