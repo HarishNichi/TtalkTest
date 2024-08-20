@@ -48,6 +48,12 @@ export default function DashboardLayout({ children }) {
     !isSidebarVisible && setIsSidebarVisible(true);
   }, [tabResetProp]);
 
+  useEffect(()=>{
+    
+    // eslint-disable-next-line no-console
+    console.log(router)
+  },[router])
+
   function clickHere(v) {
     setIsSidebarVisible(v);
   }
