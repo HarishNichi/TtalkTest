@@ -46,6 +46,7 @@ export default function Header({
     : false;
 
   const headerRef = useRef(null);
+  const mobileHeaderRef = useRef(null);
   const dropdownRef = useRef(null);
   const [show,setShow] = useState(false)
 
@@ -55,16 +56,30 @@ export default function Header({
 
   useEffect(() => {
     // eslint-disable-next-line no-console
-    console.log(headerRef)
+    console.log(mobileHeaderRef)
     function handleOutsideClick(event) {
+      const isMobile = window.innerWidth <= 768;
       if (
         headerRef.current &&
         !headerRef.current.contains(event.target) &&
         dropdownRef.current &&
-        !dropdownRef.current.contains(event.target)
+        !dropdownRef.current.contains(event.target) && 
+        !isMobile
       ) {
         // eslint-disable-next-line no-console
         console.log("test",headerRef)
+        toggle(false);
+        // Close the dropdown here
+      }
+      if (
+        mobileHeaderRef.current &&
+        !mobileHeaderRef.current.contains(event.target) &&
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target) && 
+        isMobile
+      ) {
+        // eslint-disable-next-line no-console
+        console.log("test",mobileHeaderRef)
         toggle(false);
         // Close the dropdown here
       }
@@ -90,7 +105,7 @@ export default function Header({
   return (
     <>
     <div className="w-full bg-header-blue">
-      <div className="flex justify-between items-center px-5 lg:hidden" ref={headerRef}>
+      <div ref={mobileHeaderRef} className="flex justify-between items-center px-5 lg:hidden">
         <span className="lg:hidden" onClick={toggleSidebar}>
           <HeaderTabMenu data-testid="menu-icon" />
         </span>
