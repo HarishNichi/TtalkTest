@@ -88,12 +88,13 @@ const FileUpload = ({ onFileUpload }) => {
             disabled={false}
           />
         </span>
+
         <label
-          style={fileUploadBtn}
-          className="text-white px-7 py-1.5 rounded cursor-pointer mt-2 bg-customBlue hover:bg-[#5283B3]"
+          style={{ ...fileUploadBtn, border: "2px solid #5283B3" }} // Adding a blue border
+          className="text-customBlue px-7 py-1.5 rounded cursor-pointer mt-2 bg-white hover:bg-[#E8F1FB]"
         >
           <button
-            className="text-[14px] text-center font-semibold cursor-pointer text-white "
+            className="text-[14px] text-center font-semibold cursor-pointer text-customBlue"
             onClick={handleButtonClick}
           >
             {intl.importmodal_fileupload_browse}

@@ -353,8 +353,10 @@ export default function CompanyInformation() {
           footer={[null]}
           style={{ padding: "40px" }}
         >
-          <p style={{ textAlign: "center" }}>{intl.company_list_delete}</p>
-          <div className="flex justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]">
+          <p style={{ textAlign: "center" }} className="px-[40px]">
+            {intl.company_list_delete}
+          </p>
+          <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]">
             <Button
               key="cancel"
               className="flex-1 text-blue-500 border-blue-500 "

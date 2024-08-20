@@ -662,36 +662,55 @@ export default function CompanyList() {
       {loading && <LoaderOverlay />}
       <ToastContainer />
       <AntModal
-             title={
-               <div className="px-[40px] pt-[40px] mb-[2vw] text-customBlue text-center">
-                 {intl.delete_company}
-               </div>
-             }
-             open={deleteModal}
-             onCancel={()=>{
-              setDeleteModal(false)
-             }}
-             footer={[null]}
-             style={{ padding: "40px" }}
-           >
-             <p style={{ textAlign: "center" }}>{intl.company_list_delete}</p>
-             <div className="flex justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]">
-               <Button
-                 key="cancel"
-                 className="flex-1 text-blue-500 border-blue-500 "
-                 onClick={()=>setDeleteModal(false)}
-               >
-                 {intl.help_settings_addition_modal_cancel}
-               </Button>
-               <Button
-                 key="delete"
-                 className="flex-1 bg-[#BA1818] text-white no-hover"
-                 onClick={()=>deleteOrganization(selectedRows)}
-               >
-                 {intl.help_settings_addition_delete}
-               </Button>
-             </div>
-           </AntModal>
+        title={
+          <div className="px-[40px] pt-[40px] mb-[2vw] text-customBlue text-center">
+            {intl.delete_company}
+          </div>
+        }
+        open={deleteModal}
+        onCancel={() => {
+          setDeleteModal(false);
+        }}
+        footer={null}
+        style={{ padding: "40px" }}
+      >
+        <p style={{ textAlign: "center" }} className="px-[40px]">
+          {intl.company_list_delete}
+        </p>
+        {/* <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]">
+          <Button
+            key="cancel"
+            className="flex-1 text-[#214BB9] border-[#214BB9] font-semibold text-base"
+            onClick={() => setDeleteModal(false)}
+          >
+            {intl.help_settings_addition_modal_cancel}
+          </Button>
+          <Button
+            key="delete"
+            className="flex-1 bg-[#BA1818] text-white no-hover"
+            onClick={() => deleteOrganization(selectedRows)}
+          >
+            {intl.help_settings_addition_delete}
+          </Button>
+        </div> */}
+        <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]  ">
+          <Button
+            key="cancel"
+            className="sm:flex-1 w-full sm:w-auto text-[#214BB9] border-[#214BB9] font-semibold text-base"
+            onClick={() => setDeleteModal(false)}
+          >
+            {intl.help_settings_addition_modal_cancel}
+          </Button>
+          <Button
+            key="delete"
+            className="sm:flex-1 w-full sm:w-auto bg-[#BA1818] text-white no-hover"
+            onClick={() => deleteOrganization(selectedRows)}
+          >
+            {intl.help_settings_addition_delete}
+          </Button>
+        </div>
+      </AntModal>
+
       <div>
         <div className="flex justify-between items-center mt-[2vw] mb-[2vw]">
           <h1 className="text-lg font-bold">
@@ -986,7 +1005,7 @@ export default function CompanyList() {
               </span>
             </span> */}
           </div>
-          <div className=" lg:hidden flex">
+          {/* <div className=" lg:hidden flex">
             <span className="mr-2.5">
               <IconBtn
                 textColor={"text-white"}
@@ -1049,7 +1068,7 @@ export default function CompanyList() {
                 }}
               />
             </span>
-          </div>
+          </div> */}
         </div>
         <div className="mb-[5px] flex items-center">
           <label
@@ -1166,8 +1185,7 @@ export default function CompanyList() {
           </div>
         )}
 
-            
-          {/* // <Modal
+        {/* // <Modal
           //   height="412px"
           //   fontSize="text-xl"
           //   fontWeight="font-semibold"

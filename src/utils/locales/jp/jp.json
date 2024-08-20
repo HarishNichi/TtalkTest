@@ -185,7 +185,7 @@
   "update_password": "パスワード変更 ",
   "company_list_company_name": " 会社名",
   "company_list_user_no": "ユーザー数",
-  "company_list_company_contact_mail": "連絡先メールアドレス",
+  "company_list_company_contact_mail": "連絡先メールID",
   "dashboard_machine_settings": "機器設定",
   "search_results": "検索結果",
   "user_is_see_user_activity": "ユーザーのアクティビティを見る権限",
@@ -232,5 +232,5 @@
   "send_password": "パスワード送信",
   "add_new_company": "新規会社追加",
   "delete_company": "会社情報を削除しますか？",
-  "company_list_delete":"会社に関連付けられているユーザーも削除されます。"
+  "company_list_delete": "会社に関連付けられているユーザーも削除されます。"
 }

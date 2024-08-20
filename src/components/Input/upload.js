@@ -108,7 +108,7 @@ export default function Upload(props) {
           <ProfileAvatar />
         )}
         {props.edit && (
-          <div className="edit-icon border-4 border-white bg-customBlue">
+          <div className="edit-icon border-4 border-white ">
             <input
               style={{ display: "none" }}
               ref={inputRef}

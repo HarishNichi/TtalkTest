@@ -55,8 +55,6 @@ export default function Header({
   }, [isToggler]);
 
   useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log(mobileHeaderRef)
 
     function handleOutsideClick(event) {
       const targetElement = event.target || event.srcElement;
@@ -68,8 +66,6 @@ export default function Header({
         !dropdownRef.current.contains(event.target) && 
         !isMobile
       ) {
-        // eslint-disable-next-line no-console
-        console.log("test",headerRef)
         toggle(false);
         // Close the dropdown here
       }
@@ -78,8 +74,6 @@ export default function Header({
         !mobileHeaderRef.current.contains(targetElement) &&
         isMobile
       ) {
-        // eslint-disable-next-line no-console
-        console.log("test",mobileHeaderRef)
         toggle(false);
         // Close the dropdown here
       }
@@ -98,8 +92,6 @@ export default function Header({
     toggler(!on);
   }
   useEffect(()=>{
-    // eslint-disable-next-line no-console
-    console.log(on,"OOO")
     setShow(on||false)
   },[on])
   return (
@@ -116,7 +108,6 @@ export default function Header({
         />
         <div className="flex gap-5 lg:hidden">
           <span onClick={() => {
-            // eslint-disable-next-line no-console
              updateState();
           }
             } data-testid="options-icon">
@@ -226,8 +217,6 @@ export default function Header({
               <RxCaretDown
                 className="text-white text-2xl font-bold"
                 onClick={() => {
-                  // eslint-disable-next-line no-console
-                  console.log(headerRef,"LL")
                   toggle(!on);
                   toggler(!on);
                 }}
