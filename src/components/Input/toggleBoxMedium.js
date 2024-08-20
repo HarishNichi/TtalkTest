@@ -27,8 +27,8 @@ export default function ToggleBoxMedium(props) {
           onChange={() => {
             props.setToggle(!props.toggle);
           }}
-          onColor={'#19388B'} 
-          onHandleColor={'#19388B'}
+          onColor={'#ABBBE4'} 
+          onHandleColor={'#ABBBE4'}
           handleDiameter={props.handleDiameter}
           uncheckedIcon={props.uncheckedIcon}
           checkedIcon={props.checkedIcon}
