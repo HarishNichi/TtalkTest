@@ -101,6 +101,8 @@ export default function HelpSettingsList() {
   const [tableHeight, setTableHeight] = useState(450);
   const [page, setPage] = useState(50);
   const [current, setCurrent] = useState(1);
+  const [selectedRows, setSelectedRows] = React.useState([]);
+  const [selectAll, setSelectAll] = useState(false);
   function editIcon(flag) {
     return <AddIcon isMobile={flag} />;
   }
@@ -351,6 +353,10 @@ export default function HelpSettingsList() {
     }
   };
 
+  const handleSelectRow = (selected) => {
+    setSelectedRows(selected);
+  };
+
   return (
     <>
       <ProtectedRoute allowedRoles={["admin"]}>
@@ -398,20 +404,40 @@ export default function HelpSettingsList() {
               />
             </div>
           </div>
+          <div className="mb-[5px] flex items-center">
+          <label
+            key={"selectAll"}
+            className="flex items-center text-customBlue"
+          >
+            <input
+              type="checkbox"
+              disabled={helpSettingsData?.length == 0}
+              value={selectAll}
+              checked={selectAll}
+              className="h-[16px] w-[16px] text-[#19388B]  focus:ring-[#19388B] focus:ring-opacity-50 rounded-lg bg-[#19388B] bg-opacity-88 text-opacity-88"
+              onChange={(evt) => {
+                setSelectAll(evt.target.checked);
+              }}
+            />
+            <span className="ml-1"> {"すべて選択"}</span>
+          </label>
+        </div>
           <div className="mb-[20px] relative" style={{ width: "100%" }}>
             <DataTable
               scrollVertical={tableHeight > 450 ? tableHeight : 450}
+              rowSelectionFlag
               columns={columns}
               dataSource={helpSettingsData}
-              onSelectRow={(tableData) => {
-                return tableData;
-              }}
+              onSelectRow={handleSelectRow}
               defaultPaeSizeOptions={tableDefaultPageSizeOption}
               defaultValue={1}
               onRowClick={(row, rowIndex) => {
                 dispatch(setHelp(row));
                 router.push("/help-settings/sub-section");
               }}
+              selectAll={selectAll}
+              setSelectAll={setSelectAll}
+              setSelectedRows={setSelectedRows}
               page={page}
               setPage={setPage}
               current={current}

@@ -149,10 +149,11 @@ export default function HelpSettingsList() {
       dataIndex: "onlineStatus",
       render: (text, record) => {
         let bg = text == "online" ? "bg-white" : "bg-white";
+        let textClass = text == "online" ? "text-customBlue" : "text-customBlue";
         return (
           <div style={{ width: "105px" }}>
             <div
-              className={`rounded-[5px] cursor-pointer  pt-[5px] pb-[5px] pl-[5px] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-customBlue text-sm text-white block w-full ${bg} text-center
+              className={`rounded-[5px] cursor-pointer  pt-[5px] pb-[5px] pl-[5px] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-customBlue text-sm ${textClass} block w-full ${bg} text-center
             `}
             >
               {text == "online" ? "オンライン" : "オフライン"}
