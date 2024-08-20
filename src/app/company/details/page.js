@@ -366,7 +366,7 @@ export default function CompanyInformation() {
             </Button>
             <Button
               key="delete"
-              className="flex-1 bg-[#BA1818] border-[#BA1818] text-white hover:bg-red-500"
+              className="flex-1 bg-[#BA1818] border-[#BA1818] text-white hover:bg-red-500 no-hover"
               onClick={handleDeleteConfirm}
             >
               {intl.help_settings_addition_delete}

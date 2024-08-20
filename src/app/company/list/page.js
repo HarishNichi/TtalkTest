@@ -91,8 +91,8 @@ export default function CompanyList() {
       title: intl.company_list_company_status,
       dataIndex: "status",
       render: (text, record) => {
-        let bgColor = text === true ? "bg-customBlue" : "bg-blue-100";
-        let textColor = text === true ? "text-white" : "text-blue-700";
+        let bgColor = text === true ? "bg-customBlue" : "bg-white";
+        let textColor = text === true ? "text-white" : "text-customBlue";
         return (
           <div style={{ width: "85px" }}>
             <div

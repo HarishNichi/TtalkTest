@@ -166,6 +166,14 @@ export const dashboardLinks = [
   { title: intl.search_results, link: "#" },
 ];
 
+export const helperSubSectionLinks = [
+  {
+    title: intl.helper_sub_section_terminal_help_list,
+    link: "/help-settings/helpSettingsList",
+  },
+  { title: intl.help_settings_title, link: "/help-settings/sub-section" },
+];
+
 export const fileName = "C:/Users/Public/Downloads";
 
 /**SA-7A data */
@@ -229,16 +237,16 @@ export const LogLevelEnum = {
   4: "DEBUG",
 };
 export const CallType = {
-  "call_individual": "個別通話",
-  "call_group": "グループ通話",
-  "call_sos": "SOSコール",
-  "callAlert": "返信要求",
+  call_individual: "個別通話",
+  call_group: "グループ通話",
+  call_sos: "SOSコール",
+  callAlert: "返信要求",
 };
 
 export const CallStatus = {
-  "incoming": "受信",
-  "outgoing": "発信",
-  "missed": "不在着信",
+  incoming: "受信",
+  outgoing: "発信",
+  missed: "不在着信",
 };
 export const decryptionKey =
   "3d30dd720489fcee9d63101d13b83d45fe8bbdb9cadeedf66a85f902f0bf37da";
@@ -313,7 +321,6 @@ export const sampleLinks = function () {
         Contacts: tsetURL + "Contacts_sample.csv",
         Groups: tsetURL + "Groups_sample.csv",
         Devices: tsetURL + "Device_sample.csv",
-
       };
       break;
     case "stage":
@@ -327,7 +334,6 @@ export const sampleLinks = function () {
         Contacts: stageURL + "Contacts_sample.csv",
         Groups: stageURL + "Groups_sample.csv",
         Devices: stageURL + "Device_sample.csv",
-
       };
       break;
     case "prod":
@@ -341,7 +347,6 @@ export const sampleLinks = function () {
         Contacts: prodURL + "Contacts_sample.csv",
         Groups: prodURL + "Groups_sample.csv",
         Devices: prodURL + "Device_sample.csv",
-
       };
       break;
     default:

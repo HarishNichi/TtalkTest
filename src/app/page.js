@@ -256,7 +256,7 @@ export default function Login() {
       <div className={`${natoSans.className} bg-white `} style={natoSans.style}>
         <div className="flex flex-col md:flex-row min-h-screen bg-white">
           {/* Left Side */}
-          <div className="hidden md:flex md:w-1/2 w-full h-[50vh] md:h-auto items-center justify-center bg-gray-100">
+          <div className="hidden md:flex md:w-1/2 w-full h-[50vh] md:h-auto items-center justify-center bg-white">
             <Image
               src={TelnetLogo}
               width={200}
