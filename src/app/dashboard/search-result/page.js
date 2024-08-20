@@ -148,8 +148,8 @@ export default function HelpSettingsList() {
       title: intl.company_list_company_status,
       dataIndex: "onlineStatus",
       render: (text, record) => {
-        let bg = text == "online" ? "bg-white" : "bg-white";
-        let textClass = text == "online" ? "text-customBlue" : "text-customBlue";
+        let bg = text == "online" ? "bg-customBlue" : "bg-white";
+        let textClass = text == "online" ? "text-white" : "text-customBlue";
         return (
           <div style={{ width: "105px" }}>
             <div
