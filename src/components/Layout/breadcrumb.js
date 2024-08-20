@@ -11,7 +11,7 @@ export default function Breadcrumb({ links }) {
             return links.length - 1 !== index ? (
               <div className="flex min-w-max" key={link.link}>
                 <Link
-                  className="text-app-gray text-header-blue text-[14px] font-medium my-auto px-4 py-1"
+                  className="text-app-gray text-header-blue text-[14px] font-medium my-auto px-4 pl-0 py-1"
                   href={link.link}
                 >
                   {link.title}

@@ -218,8 +218,8 @@ export default function DashboardLayout({ children }) {
             <DynamicLabel
               text={intl.search_results}
               alignment="text-center"
-              fontSize="text-[22px]"
-              fontWeight="font-medium"
+              fontSize="text-[20px]"
+              fontWeight="font-semibold"
               textColor="#000000"
               disabled={false}
             />
