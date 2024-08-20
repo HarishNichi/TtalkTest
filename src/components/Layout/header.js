@@ -69,9 +69,11 @@ export default function Header({
     }
 
     document.addEventListener("click", handleOutsideClick);
+    document.addEventListener("touchstart", handleOutsideClick);
 
     return () => {
       document.removeEventListener("click", handleOutsideClick);
+      document.removeEventListener("touchstart", handleOutsideClick);
     };
   }, []);
   function updateState() {
