@@ -13,11 +13,15 @@ export default function ToggleBoxMedium(props) {
         >
           {props.label}
         </div>
-        <div
-        className={`react-switch-wrapper ${cursorClass}`}
-        style={{ pointerEvents: props.isDisabled ? 'none' : 'auto' }}
-      >
-        <Switch
+  
+       
+      </label>
+            <div
+            className={`react-switch-wrapper ${cursorClass}`}
+            style={{ pointerEvents: props.isDisabled ? 'none' : 'auto' }}
+          >
+        
+      <Switch
           disabled={props.isDisabled || false}
           checked={props.toggle}
           onChange={() => {
@@ -35,8 +39,7 @@ export default function ToggleBoxMedium(props) {
           className={`react-switch ${props.additionalClass} ${cursorClass}`}
           id={props.id}
         />
-        </div>
-      </label>
+         </div>
     </>
   );
 }

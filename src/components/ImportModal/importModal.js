@@ -114,7 +114,7 @@ export default function ImportModal({
         <div className="flex flex-col">
           {/* File upload component */}
           <div data-testid="file-upload" className="mb-6 md:px-[32px]">
-            <div className="flex justify-content-left font-normal text-base">
+            <div className="flex justify-content-left font-normal text-base mb-2">
               ファイルを選択
             </div>
             <FileUpload onFileUpload={handleFileUpload} key={fileName} />
