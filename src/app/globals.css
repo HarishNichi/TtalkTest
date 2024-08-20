@@ -413,6 +413,9 @@ body {
 .ant-table-cell-scrollbar:not([rowspan]) {
   box-shadow: 0 1px 0 1px #e7e7e9 !important;
 }
+.ant-modal {
+  font-family: inherit !important;
+}
 
 .ant-picker {
   font-family: inherit !important;
