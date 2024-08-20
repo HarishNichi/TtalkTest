@@ -61,6 +61,8 @@ export default function Header({
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target)
       ) {
+        // eslint-disable-next-line no-console
+        console.log("test")
         toggle(false);
         // Close the dropdown here
       }
@@ -79,7 +81,7 @@ export default function Header({
   useEffect(()=>{
     // eslint-disable-next-line no-console
     console.log(on,"OOO")
-    setShow(on?true:false)
+    setShow(on||false)
   },[on])
   return (
     <>
@@ -96,7 +98,6 @@ export default function Header({
         <div className="flex gap-5 lg:hidden">
           <span onClick={() => {
             // eslint-disable-next-line no-console
-            console.log(on,"llll")
              updateState();
           }
             } data-testid="options-icon">
