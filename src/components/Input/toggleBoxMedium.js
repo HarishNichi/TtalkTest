@@ -32,11 +32,11 @@ export default function ToggleBoxMedium(props) {
           handleDiameter={props.handleDiameter}
           uncheckedIcon={props.uncheckedIcon}
           checkedIcon={props.checkedIcon}
-          // boxShadow={props.boxShadow}
-          // activeBoxShadow={props.activeBoxShadow}
+          boxShadow={props.boxShadow}
+          activeBoxShadow={props.activeBoxShadow}
           height={14}
           width={34}
-          className={`react-switch ${props.additionalClass} ${cursorClass}`}
+          className={`react-switch ${props.additionalClass} ${cursorClass} ml-2`}
           id={props.id}
         />
          </div>
