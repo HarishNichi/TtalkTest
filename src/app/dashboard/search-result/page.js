@@ -375,7 +375,7 @@ export default function HelpSettingsList() {
       {loading && <LoaderOverlay />}
       <ToastContainer />
       <div>
-        <div className="flex  justify-between mb-2">
+        {/* <div className="flex  justify-between mb-2">
           <div className="flex items-center ">
             <DynamicLabel
               text={intl.search_results}
@@ -415,7 +415,7 @@ export default function HelpSettingsList() {
               />
             </span>
           </div>
-        </div>
+        </div> */}
         <div className="mb-[5px] flex items-center">
           <label
             key={"selectAll"}

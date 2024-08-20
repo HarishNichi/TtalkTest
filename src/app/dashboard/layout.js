@@ -10,10 +10,12 @@ import api from "@/utils/api";
 import { ToastContainer, toast } from "react-toastify";
 import { searchEmployee } from "@/redux/features/employee";
 import LoaderOverlay from "@/components/Loader/loadOverLay";
-import { EmployeeSearchLimit, code, maxLimit } from "@/utils/constant";
+import { EmployeeSearchLimit, code, dashboardLinks, maxLimit } from "@/utils/constant";
 import dayjs from "dayjs";
 import isSameOrAfter from "dayjs/plugin/isSameOrAfter"
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore"
+import DynamicLabel from "@/components/Label/dynamicLabel";
+import Breadcrumb from "@/components/Layout/breadcrumb";
 dayjs.extend(isSameOrBefore)
 dayjs.extend(isSameOrAfter)
 
@@ -196,6 +198,25 @@ export default function DashboardLayout({ children }) {
   return (
     <>
       {loading && <LoaderOverlay />}
+      { window.location.pathname.startsWith('/dashboard/search-result') &&
+      (
+        <>
+        <div className="mb-1">
+          <Breadcrumb links={dashboardLinks} />
+        </div>
+         <div className="flex">
+            <DynamicLabel
+              text={intl.search_results}
+              alignment="text-center"
+              fontSize="text-[22px]"
+              fontWeight="font-medium"
+              textColor="#000000"
+              disabled={false}
+            />
+          </div>
+        </>
+
+      )}
       {Admin && (
         <form
           className="w-full  hidden lg:flex gap-2 flex-wrap flex-shrink-0 flex-grow-0 py-2 rounded-xl mb-2 md:mx-auto md:justify-center lg:justify-normal"
@@ -204,14 +225,14 @@ export default function DashboardLayout({ children }) {
             searchDashboard();
           }}
         >
-          <div className={`w-full md:w-[calc(70%-10px)] lg:flex lg:flex-1 `}>
+          <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
             <SearchInput
               placeholder={intl.company_list_company_radioNumber}
               onInput={setPttNo}
               value={pttNo}
             />
           </div>
-          <div className={`w-full md:w-[calc(70%-10px)] lg:flex lg:flex-1 `}>
+          <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
             <SearchInput
               placeholder={intl.user_userId_label}
               onInput={setUserId}
@@ -219,7 +240,7 @@ export default function DashboardLayout({ children }) {
             />
           </div>
 
-          <div className={`w-full md:w-[calc(70%-10px)] lg:flex lg:flex-1 `}>
+          <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
             <input list="company_search" name="company_search" className={`w-full border flex  py-2.5 text-xs  pl-2  rounded-lg focus:outline-none placeholder-[#AEA8A8] 
         placeholder:text-center md:placeholder:text-left md:placeholder:pl-0
         dark:text-black`}
@@ -232,7 +253,7 @@ export default function DashboardLayout({ children }) {
             </datalist>
           </div>
 
-          <div className={`w-full md:w-[calc(70%-10px)] lg:flex lg:flex-1 `}>
+          <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
             <SearchInput
               placeholder={intl.form_component_sales_channel}
               onInput={setSalesChannel}
@@ -240,7 +261,7 @@ export default function DashboardLayout({ children }) {
             />
           </div>
 
-          <div className={`w-full md:w-[calc(70%-10px)] lg:flex lg:flex-1 `}>
+          <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
             <SearchInput
               placeholder={intl.machine_name}
               onInput={setDevice}
@@ -248,7 +269,7 @@ export default function DashboardLayout({ children }) {
             />
           </div>
 
-          <div className="w-full md:w-[calc(100%-10px)]  lg:w-[144px]   xl:flex xl:flex-1">
+          <div className="w-full md:w-[calc(100%-10px)]  lg:w-[100px]   xl:flex xl:flex-1">
             <IconLeftBtn
               text={intl.dashboard_layout_search_btn}
               textColor={
@@ -274,14 +295,14 @@ export default function DashboardLayout({ children }) {
             searchDashboard();
           }}
         >
-          <div className={`w-full md:w-[calc(70%-10px)] lg:flex lg:flex-1 `}>
+          <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
             <SearchInput
               placeholder={intl.company_list_company_radioNumber}
               onInput={setPttNo}
               value={pttNo}
             />
           </div>
-          <div className={`w-full md:w-[calc(70%-10px)] lg:flex lg:flex-1 `}>
+          <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
             <SearchInput
               placeholder={intl.user_userId_label}
               onInput={setUserId}
@@ -289,7 +310,7 @@ export default function DashboardLayout({ children }) {
             />
           </div>
 
-          <div className={`w-full md:w-[calc(70%-10px)] lg:flex lg:flex-1 `}>
+          <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
             <SearchInput
               placeholder={intl.machine_name}
               onInput={setDevice}
@@ -323,14 +344,14 @@ export default function DashboardLayout({ children }) {
             searchDashboard();
           }}
         >
-          <div className={`w-full md:w-[calc(70%-10px)] `}>
+          <div className={`w-full md:w-[calc(50%-10px)] `}>
             <SearchInput
               placeholder={intl.company_list_company_name}
               onInput={setCompName}
               value={compName}
             />
           </div>
-          <div className={`w-full md:w-[calc(70%-10px)] `}>
+          <div className={`w-full md:w-[calc(50%-10px)] `}>
             <SearchInput
               placeholder={intl.user_userId_label}
               onInput={setUserId}
@@ -338,7 +359,7 @@ export default function DashboardLayout({ children }) {
             />
           </div>
 
-          <div className={`w-full md:w-[calc(70%-10px)] `}>
+          <div className={`w-full md:w-[calc(50%-10px)] `}>
             <SearchInput
               placeholder={intl.company_list_company_radioNumber}
               onInput={setPttNo}
@@ -346,7 +367,7 @@ export default function DashboardLayout({ children }) {
             />
           </div>
 
-          <div className={`w-full md:w-[calc(70%-10px)] `}>
+          <div className={`w-full md:w-[calc(50%-10px)] `}>
             <SearchInput
               placeholder={intl.form_component_sales_channel}
               onInput={setSalesChannel}
@@ -354,7 +375,7 @@ export default function DashboardLayout({ children }) {
             />
           </div>
 
-          <div className={`w-full md:w-[calc(70%-10px)] `}>
+          <div className={`w-full md:w-[calc(50%-10px)] `}>
             <SearchInput
               placeholder={intl.machine_name}
               onInput={setDevice}
@@ -388,14 +409,14 @@ export default function DashboardLayout({ children }) {
             searchDashboard();
           }}
         >
-          <div className={`w-full md:w-[calc(70%-10px)] `}>
+          <div className={`w-full md:w-[calc(50%-10px)] `}>
             <SearchInput
               placeholder={intl.company_list_company_radioNumber}
               onInput={setPttNo}
               value={pttNo}
             />
           </div>
-          <div className={`w-full md:w-[calc(70%-10px)] `}>
+          <div className={`w-full md:w-[calc(50%-10px)] `}>
             <SearchInput
               placeholder={intl.user_userId_label}
               onInput={setUserId}
@@ -403,7 +424,7 @@ export default function DashboardLayout({ children }) {
             />
           </div>
 
-          <div className={`w-full md:w-[calc(70%-10px)] `}>
+          <div className={`w-full md:w-[calc(50%-10px)] `}>
             <SearchInput
               placeholder={intl.machine_name}
               onInput={setDevice}

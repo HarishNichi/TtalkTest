@@ -161,6 +161,11 @@ export const breadUserCrumbLinks = [
   { title: "ユーザーの追加", link: "#" },
 ];
 
+export const dashboardLinks = [
+  { title: intl.user_display_settings_home_option1, link: "/dashboard" },
+  { title: intl.search_results, link: "#" },
+];
+
 export const fileName = "C:/Users/Public/Downloads";
 
 /**SA-7A data */
