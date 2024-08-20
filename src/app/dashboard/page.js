@@ -211,7 +211,7 @@ const Dashboard = () => {
       <ToastContainer />
       <div className="flex flex-col">
         {Admin && (
-          <div className="grid grid-cols-2 xl:grid-cols-6 md:gap-2 mb-2">
+          <div className="grid grid-cols-2 xl:grid-cols-6 md:gap-2 mb-2 pb-2">
             <div className={`pr-2 pb-2 lg:p-0`}>
            
               <CardIcon
@@ -277,7 +277,7 @@ const Dashboard = () => {
         )}
 
         {!Admin && (
-          <div className="grid grid-cols-2 xl:grid-cols-5 md:gap-2 mb-2">
+          <div className="grid grid-cols-2 xl:grid-cols-5 md:gap-2 mb-2 pb-2">
             <div className={`pr-2 pb-2 lg:p-0`}>
               <CardIcon
                 title={intl.dashboard_card_number_of_connections_label}

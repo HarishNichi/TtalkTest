@@ -453,6 +453,11 @@ input::-webkit-calendar-picker-indicator {
 .Toastify__toast--error  {
   background-color: #BA1818 !important;
 }
+.no-hover{
+  background-color: #BA1818 !important;
+  color: white !important;
+  border-color: #BA1818 !important;
+}
 
 .no-hover:hover {
   background-color: #BA1818 !important;
