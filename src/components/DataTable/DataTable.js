@@ -181,7 +181,7 @@ export default function DataTable(props) {
               options={props.defaultPaeSizeOptions}
             />
           </div>
-          <div className="flex-initial pl-2">
+          <div className="flex-initial pl-2 overflow-auto">
             <Pagination
               current={props.current}
               pageSize={props.page}
