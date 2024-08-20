@@ -54,6 +54,8 @@ export default function Header({
   }, [isToggler]);
 
   useEffect(() => {
+    // eslint-disable-next-line no-console
+    console.log(headerRef)
     function handleOutsideClick(event) {
       if (
         headerRef.current &&
