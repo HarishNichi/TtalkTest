@@ -6,7 +6,7 @@ export default function ToggleBoxMedium(props) {
   return (
     <>
     
-      <label className={`flex flex-1 items-center justify-between pr-2 ${cursorClass}`}>
+      <label className={`flex flex-1 items-center justify-between pr-2 py-3 ${cursorClass}`}>
         <div
           className={`text-ellipsis overflow-hidden truncate  ${props.labelClass}`}
           style={{ color: props.labelColor, fontSize: "16px" }}
