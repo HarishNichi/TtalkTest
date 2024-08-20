@@ -417,6 +417,10 @@ body {
   font-family: inherit !important;
 }
 
+.ant-modal-root {
+  font-family: inherit !important;
+}
+
 .ant-picker {
   font-family: inherit !important;
 }
