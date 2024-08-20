@@ -27,15 +27,15 @@ export default function ToggleBoxMedium(props) {
           onChange={() => {
             props.setToggle(!props.toggle);
           }}
-          onColor={'#214BB9'} 
-          onHandleColor={'#214BB9'}
+          onColor={'#19388B'} 
+          onHandleColor={'#19388B'}
           handleDiameter={props.handleDiameter}
           uncheckedIcon={props.uncheckedIcon}
           checkedIcon={props.checkedIcon}
-          boxShadow={props.boxShadow}
-          activeBoxShadow={props.activeBoxShadow}
-          height={props.height}
-          width={props.width}
+          // boxShadow={props.boxShadow}
+          // activeBoxShadow={props.activeBoxShadow}
+          height={14}
+          width={34}
           className={`react-switch ${props.additionalClass} ${cursorClass}`}
           id={props.id}
         />

@@ -586,29 +586,29 @@ export default function Subsection() {
                         </div>
                       )}
                     </div>
-                    <div className="mt-2 flex justify-end pb-[16px] px-[20px]"> 
-                    <div className="flex gap-x-2">
-                      <IconLeftBtn
-                        text={intl.help_settings_addition_modal_cancel}
-                        textColor="text-white font-normal text-base"
-                        py="py-[8px] px-[29px]"
-                        bgColor="bg-customBlue"
-                        textBold={true}
-                        rounded="rounded-lg"
-                        icon={() => null}
-                        onClick={() => handleAddButton()}
-                      />
-                      <IconLeftBtn
-                        text={intl.help_settings_addition_keep}
-                        textColor="text-white font-normal text-base"
-                        py="py-[8px] px-[55px]"
-                        bgColor="bg-customBlue"
-                        textBold={true}
-                        rounded="rounded-lg"
-                        icon={() => null}
-                        onClick={handleFileButtonClick}
-                      />
-                    </div>
+                    <div className="mt-2 flex justify-end pb-[16px] px-[20px]">
+                      <div className="flex gap-x-2">
+                        <IconLeftBtn
+                          text={intl.help_settings_addition_modal_cancel}
+                          textColor="text-white font-normal text-base"
+                          py="py-[8px] px-[29px]"
+                          bgColor="bg-customBlue"
+                          textBold={true}
+                          rounded="rounded-lg"
+                          icon={() => null}
+                          onClick={() => handleAddButton()}
+                        />
+                        <IconLeftBtn
+                          text={intl.help_settings_addition_keep}
+                          textColor="text-white font-normal text-base"
+                          py="py-[8px] px-[55px]"
+                          bgColor="bg-customBlue"
+                          textBold={true}
+                          rounded="rounded-lg"
+                          icon={() => null}
+                          onClick={handleFileButtonClick}
+                        />
+                      </div>
                     </div>
                   </div>
                 )}
