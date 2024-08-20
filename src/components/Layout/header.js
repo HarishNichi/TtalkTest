@@ -57,11 +57,13 @@ export default function Header({
   useEffect(() => {
     // eslint-disable-next-line no-console
     console.log(mobileHeaderRef)
+
     function handleOutsideClick(event) {
+      const targetElement = event.target || event.srcElement;
       const isMobile = window.innerWidth <= 768;
       if (
         headerRef.current &&
-        !headerRef.current.contains(event.target) &&
+        !headerRef.current.contains(targetElement) &&
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target) && 
         !isMobile
@@ -73,9 +75,7 @@ export default function Header({
       }
       if (
         mobileHeaderRef.current &&
-        !mobileHeaderRef.current.contains(event.target) &&
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target) && 
+        !mobileHeaderRef.current.contains(targetElement) &&
         isMobile
       ) {
         // eslint-disable-next-line no-console
@@ -226,6 +226,8 @@ export default function Header({
               <RxCaretDown
                 className="text-white text-2xl font-bold"
                 onClick={() => {
+                  // eslint-disable-next-line no-console
+                  console.log(headerRef,"LL")
                   toggle(!on);
                   toggler(!on);
                 }}
