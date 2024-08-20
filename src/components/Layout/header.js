@@ -86,8 +86,8 @@ export default function Header({
         />
         <div className="flex gap-5 lg:hidden">
           <span onClick={() => {
-           alert("JJ");
             toggle(!on)
+            toggler(!on);
           }
             } data-testid="options-icon">
             <HeaderTabOptions />
@@ -101,6 +101,7 @@ export default function Header({
                   width: "170px",
                 }}
                 data-testid="options-dropdown"
+                ref={dropdownRef}
               >
                 <ul
                   className="py-2 pl-2 font-bold text-[14px]"
