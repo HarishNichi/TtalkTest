@@ -34,7 +34,7 @@ export default function ToggleBoxMedium(props) {
           checkedIcon={props.checkedIcon}
           boxShadow={props.boxShadow}
           activeBoxShadow={props.activeBoxShadow}
-          height={"18px"}
+          height={props.height}
           width={props.width}
           className={`react-switch ${props.additionalClass} ${cursorClass}`}
           id={props.id}
