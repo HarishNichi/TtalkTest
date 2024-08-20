@@ -64,7 +64,7 @@ export default function Header({
         !dropdownRef.current.contains(event.target)
       ) {
         // eslint-disable-next-line no-console
-        console.log("test")
+        console.log("test",headerRef)
         toggle(false);
         // Close the dropdown here
       }
