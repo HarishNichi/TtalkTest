@@ -85,7 +85,11 @@ export default function Header({
           style={{ width: "100px", paddingTop: "5px", paddingBottom: "5px" }}
         />
         <div className="flex gap-5 lg:hidden">
-          <span onClick={() => toggle(!on)} data-testid="options-icon">
+          <span onClick={() => {
+           alert("JJ");
+            toggle(!on)
+          }
+            } data-testid="options-icon">
             <HeaderTabOptions />
           </span>
           {on && (
