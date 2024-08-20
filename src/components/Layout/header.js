@@ -88,8 +88,8 @@ export default function Header({
   return (
     <>
     <div className="w-full bg-header-blue">
-      <div className="flex justify-between items-center px-5 lg:hidden">
-        <span className="lg:hidden" onClick={toggleSidebar} ref={headerRef}>
+      <div className="flex justify-between items-center px-5 lg:hidden" ref={headerRef}>
+        <span className="lg:hidden" onClick={toggleSidebar}>
           <HeaderTabMenu data-testid="menu-icon" />
         </span>
         <Image
