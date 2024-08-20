@@ -268,7 +268,7 @@ const CompanyForm = (props) => {
         )}
 
         <div className="flex  flex-col mt-[32px]">
-          <div className="bg-input-gray py-3 pl-4 rounded-lg">
+          <div className="">
             <ToggleBoxMedium
               isDisabled={disabled}
               toggle={isTranslate}
@@ -323,7 +323,7 @@ const CompanyForm = (props) => {
           </div>
         </div>
         <div className="flex  flex-col mt-[32px] mb-[32px]">
-          <div className="bg-input-gray py-3 pl-4 rounded-lg">
+          <div className="">
             <ToggleBoxMedium
               isDisabled={disabled}
               toggle={sosLocation}
@@ -352,7 +352,7 @@ const CompanyForm = (props) => {
         {!props.isCreatePage && (
           <>
             <div className="flex  flex-col mt-[32px]">
-              <div className="bg-input-gray py-3 pl-4 rounded-lg ">
+              <div className="">
                 <ToggleBoxMedium
                   isDisabled={disabled}
                   toggle={isStatus}
