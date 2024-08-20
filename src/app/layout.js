@@ -16,6 +16,7 @@ import "react-toastify/dist/ReactToastify.css";
 import localStorage from "redux-persist/es/storage";
 import { ToastContainer, toast } from "react-toastify";
 import api from "@/utils/api";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const natoSans = Noto_Sans_JP({ subsets: ["latin"] });
 
@@ -109,6 +110,7 @@ export default function RootLayout({ children }) {
         </head>
         <body className={natoSans.className} style={natoSans.style}>
           <Providers>
+          <SpeedInsights/>
             <ProtectedRoute allowedRoles={[]}>{children} </ProtectedRoute>
           </Providers>
         </body>
@@ -127,6 +129,7 @@ export default function RootLayout({ children }) {
       </head>
       <body className={natoSans.className} style={natoSans.style}>
         <Providers>
+        <SpeedInsights/>
           <div className="w-full" style={bgStyle}>
             <div className="w-full sticky z-10 top-0">
               <Header

@@ -17,6 +17,7 @@
     "@aws-amplify/api": "^5.4.5",
     "@reduxjs/toolkit": "^1.9.5",
     "@uidotdev/usehooks": "^2.0.1",
+    "@vercel/speed-insights": "^1.0.12",
     "antd": "^5.6.3",
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
