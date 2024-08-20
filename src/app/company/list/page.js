@@ -278,6 +278,7 @@ export default function CompanyList() {
       setCsvUploadInitiated(() => payload.channel);
       setCurrentAPI("organizations/import");
       let result = await api.post("organizations/import", payload);
+      setLoading(false);
     } catch (err) {
       subscriptionTrack.unsubscribe();
       setLoading(false);
