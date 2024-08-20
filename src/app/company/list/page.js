@@ -827,7 +827,7 @@ export default function CompanyList() {
           </span>
         </div>
         {isMobileSearch && (
-          <form className="md:w-[96%] w-[92%]  flex lg:hidden gap-2 flex-wrap flex-shrink-0 flex-grow-0  py-6 px-5 rounded-xl mb-4 md:mx-auto md:justify-start lg:justify-normal absolute z-20 justify-start">
+          <form className="md:w-[96%] w-[92%] bg-white  flex lg:hidden gap-2 flex-wrap flex-shrink-0 flex-grow-0  py-6 px-5 rounded-xl mb-4 md:mx-auto md:justify-start lg:justify-normal absolute z-20 justify-start">
             <div className={`w-full md:w-[calc(50%-10px)] `}>
               <SearchInput
                 placeholder={intl.company_list_company_name}
