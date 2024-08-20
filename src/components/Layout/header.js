@@ -47,6 +47,7 @@ export default function Header({
 
   const headerRef = useRef(null);
   const dropdownRef = useRef(null);
+  const [show,setShow] = useState(false)
 
   useEffect(() => {
     toggle(isToggler);
@@ -71,7 +72,15 @@ export default function Header({
       document.removeEventListener("click", handleOutsideClick);
     };
   }, []);
-
+  function updateState() {
+    toggle(!on)
+    toggler(!on);
+  }
+  useEffect(()=>{
+    // eslint-disable-next-line no-console
+    console.log(on,"OOO")
+    setShow(on?true:false)
+  },[on])
   return (
     <>
     <div className="w-full bg-header-blue">
@@ -86,13 +95,14 @@ export default function Header({
         />
         <div className="flex gap-5 lg:hidden">
           <span onClick={() => {
-            toggle(!on)
-            toggler(!on);
+            // eslint-disable-next-line no-console
+            console.log(on,"llll")
+             updateState();
           }
             } data-testid="options-icon">
             <HeaderTabOptions />
           </span>
-          {on && (
+          {show && (
             <>
               <div
                 id="dropdownDelay"
