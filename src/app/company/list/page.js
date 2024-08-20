@@ -51,6 +51,7 @@ export default function CompanyList() {
     fontSize: "14px",
   };
   const [downloadCsvLink, setDownloadCsvLink] = useState(null);
+  const [comCreated, setComCreated] = useState(false);
   const CSVDownloadRef = useRef("");
   /**columns of company list and its operations */
   const companyColumns = [
@@ -309,6 +310,10 @@ export default function CompanyList() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    comCreated && fetchData();
+  }, [comCreated]);
 
   useEffect(() => {
     const fetchOrg = async () => {
@@ -1277,7 +1282,10 @@ export default function CompanyList() {
             onCancel={handleCloseModal}
           >
             <div className="flex flex-col">
-              <AddUser />
+              <AddUser
+                setIsModalOpen={setIsModalOpen}
+                setComCreated={setComCreated}
+              />
             </div>
           </AntModal>
         )}

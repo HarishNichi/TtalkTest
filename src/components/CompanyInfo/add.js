@@ -11,7 +11,7 @@ import api from "@/utils/api";
 import { ToastContainer, toast } from "react-toastify";
 import LoaderOverlay from "../Loader/loadOverLay";
 
-export default function AddUser() {
+export default function AddUser({ setIsModalOpen, setComCreated }) {
   const router = useRouter();
   const [organizationsData, setOrganizationsData] = useState(null);
   const [errors, setErrors] = useState({});
@@ -36,9 +36,13 @@ export default function AddUser() {
       delete record.accountDetail.organization.isStatus;
       await api.post(`organizations/create`, { ...record });
       setLoading(false);
+      setIsModalOpen(false);
+      setComCreated(true);
       router.push("/company/list");
     } catch (error) {
       setLoading(false);
+      setComCreated(false);
+      setIsModalOpen(false);
       setErrors(error.message);
       if (!isToastActive) {
         setIsToastActive(true);
