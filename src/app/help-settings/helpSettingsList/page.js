@@ -194,7 +194,7 @@ export default function HelpSettingsList() {
             updateDate: formatDate(updateDate),
             createDate: formatDate(createDate),
             id: item.setId,
-            key: item.id,
+            key: item.setId,
             subSetId: item.subSetId,
           };
         });
