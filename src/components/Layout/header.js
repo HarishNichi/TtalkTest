@@ -76,7 +76,7 @@ export default function Header({
     <>
     <div className="w-full bg-header-blue">
       <div className="flex justify-between items-center px-5 lg:hidden">
-        <span className="lg:hidden" onClick={toggleSidebar}>
+        <span className="lg:hidden" onClick={toggleSidebar} ref={headerRef}>
           <HeaderTabMenu data-testid="menu-icon" />
         </span>
         <Image
@@ -93,49 +93,50 @@ export default function Header({
             <HeaderTabOptions />
           </span>
           {on && (
-              <>
-                <div
-                  id="dropdownDelay"
-                  className="z-10 absolute right-5  divide-y divide-gray-100 rounded-xl shadow bg-[#0C4278] text-white"
-                  style={{
-                    width: "170px",
-                    top: "4.5rem",
-                  }}
-                  data-testid="user-menu-dropdown"
-                  ref={dropdownRef}
+            <>
+              <div
+                id="dropdownDelay"
+                className="z-auto absolute right-5 top-16 divide-y divide-gray-100 rounded-xl shadow bg-[#0C4278] text-white "
+                style={{
+                  width: "170px",
+                }}
+                data-testid="options-dropdown"
+                ref={dropdownRef}
+              >
+                <ul
+                  className="py-2 pl-2 font-bold text-[14px]"
+                  aria-labelledby="dropdownDelayButton"
+                  data-testid="dropdown-menu-first"
                 >
-                  <ul
-                    className="py-2  pl-2 font-bold text-[14px]"
-                    aria-labelledby="dropdownDelayButton"
-                  >
-                    {!Admin && (
-                      <li>
-                        <Link
-                          href="/update-password"
-                          className="block px-4 py-2 hover:text-link"
-                          onClick={() => {
-                            toggle(false);
-                            toggler(false);
-                          }}
-                        >
-                          パスワードリセット
-                        </Link>
-                      </li>
-                    )}
+                  {!Admin && (
                     <li>
-                      <p
-                        className="block px-4 py-2 hover:text-link  cursor-pointer"
+                      <Link
+                        href="/update-password"
+                        className="block px-4 py-2 hover:text-link"
                         onClick={() => {
-                          setLogoutModal(true)
+                          toggle(false);
+                          toggler(false);
                         }}
                       >
-                        ログアウト
-                      </p>
+                        パスワードリセット
+                      </Link>
                     </li>
-                  </ul>
-                </div>
-              </>
-            )}
+                  )}
+
+                  <li>
+                    <p
+                      className="block px-4 py-2 hover:text-link cursor-pointer"
+                      onClick={() => {
+                        setLogoutModal(true)
+                      }}
+                    >
+                      ログアウト
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            </>
+          )}
         </div>
       </div>
       <div
