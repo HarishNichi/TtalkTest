@@ -198,8 +198,7 @@ export default function DashboardLayout({ children }) {
   return (
     <>
       {loading && <LoaderOverlay />}
-      {window.location.pathname}
-      { window.location.pathname.startsWith('/dashboard/search-result') &&
+      { window.location.pathname == '/dashboard/search-result' &&
       (
         <>
         <div className="mb-1">
