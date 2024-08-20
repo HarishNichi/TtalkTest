@@ -38,6 +38,7 @@ export default function DashboardLayout({ children }) {
   const [companyListDropdown, setCompanyListDropdown] = useState([]);
   const [deviceList, setDeviceList] = useState([]);
   const dispatch = useAppDispatch();
+  const [showResult,setShowResult] = useState(false);
   let Admin = false;
   if (isAuthenticated && Object.keys(UserData).length > 0) {
     const User = UserData ? JSON.parse(UserData) : null;
@@ -49,9 +50,12 @@ export default function DashboardLayout({ children }) {
   }, [tabResetProp]);
 
   useEffect(()=>{
-    
-    // eslint-disable-next-line no-console
-    console.log(router)
+    if(router == "/dashboard/search-result") {
+    setShowResult(true)
+    }
+    else {
+      setShowResult(false)
+    }
   },[router])
 
   function clickHere(v) {
@@ -204,7 +208,7 @@ export default function DashboardLayout({ children }) {
   return (
     <>
       {loading && <LoaderOverlay />}
-      { window.location.pathname == '/dashboard/search-result' &&
+      {showResult &&
       (
         <>
         <div className="mb-1">
