@@ -276,7 +276,7 @@ const CompanyForm = (props) => {
                 setIsTranslate(val);
               }}
               label={"同時通訳"}
-              labelColor={"#7B7B7B"}
+              labelColor={"#0D0E11"}
               id={"Id"}
               onColor={"#1E1E1E"}
               onHandleColor={"#00ACFF"}
@@ -304,7 +304,7 @@ const CompanyForm = (props) => {
                 setIsTranscribe(val);
               }}
               label={"文字おこし"}
-              labelColor={"#7B7B7B"}
+              labelColor={"#0D0E11"}
               id={"Id"}
               onColor={"#1E1E1E"}
               onHandleColor={"#00ACFF"}
@@ -331,7 +331,7 @@ const CompanyForm = (props) => {
                 setSosLocation(val);
               }}
               label={"SOS位置情報"}
-              labelColor={"#7B7B7B"}
+              labelColor={"#0D0E11"}
               id={"Id"}
               onColor={"#1E1E1E"}
               onHandleColor={"#00ACFF"}
@@ -360,7 +360,7 @@ const CompanyForm = (props) => {
                     setIsStatus(val);
                   }}
                   label={"スターテス"}
-                  labelColor={"#7B7B7B"}
+                  labelColor={"#0D0E11"}
                   id={"Id"}
                   onColor={"#1E1E1E"}
                   onHandleColor={"#00ACFF"}
@@ -465,7 +465,7 @@ const FormField = ({
             disabled ? "bg-[#AAAAAA] cursor-not-allowed text-white " : ""
           } block w-full pl-5 text-base pr-[30px] h-[40px]`}
           label={label}
-          labelColor="#7B7B7B"
+          labelColor="#0D0E11"
           id={id}
           name={id}
           value={value}
