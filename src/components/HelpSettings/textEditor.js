@@ -80,7 +80,7 @@ const EditorComponent = ({ onChange, ContentValue }) => {
           formats={formats}
           value={value}
           onChange={handleValueChange}
-          className="dark:text-black"
+          className="dark:text-black bg-white h-[328px]"
         />
       </div>
       <div>

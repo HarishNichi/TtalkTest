@@ -91,7 +91,7 @@ const FileUpload = ({ onFileUpload }) => {
 
         <label
           style={{ ...fileUploadBtn, border: "2px solid #5283B3" }} // Adding a blue border
-          className="text-customBlue px-7 py-1.5 rounded cursor-pointer mt-2 bg-white hover:bg-[#E8F1FB]"
+          className="text-customBlue flex justify-center items-center h-[32px] w-[144px] rounded cursor-pointer  bg-white hover:bg-[#E8F1FB]"
         >
           <button
             className="text-[14px] text-center font-semibold cursor-pointer text-customBlue"

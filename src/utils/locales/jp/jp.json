@@ -183,6 +183,7 @@
   "tab_group_label": "グループ",
   "tab_contact_address": "連絡先",
   "helpSettings_buttonCard_text_label": "テキスト",
+
   "update_password": "パスワード変更 ",
   "company_list_company_name": " 会社名",
   "company_list_user_no": "ユーザー数",
@@ -199,7 +200,10 @@
   "user_layout_enter_ptt_number": "PTT番号を入力",
   "user_layout_import_settings": "インポート設定",
   "help_settings_subsection_delete": "サブセクション を削除してよろしいですか ?",
+  "help_settings_subsection_added_help": "ヘルプ項目追加",
+  "help_settings_help_title": "ヘルプタイトル",
   "device_delete_message": "端末を削除してよろしいですか？",
+  "help_settings_delete_help_item": "ヘルプ項目を削除しますか",
   "device_user_attach": "端末は使用中のため削除できません",
   "user_name": "ユーザー名",
   "transcribe": "文字おこし",

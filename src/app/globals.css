@@ -94,7 +94,9 @@ body {
 .ant-table-tbody > tr:not(.history-settings-tables) > td {
   padding: 2px 16px !important;
 }
-
+.ant-upload {
+  width: 100%;
+}
 .ant-select-selector,
 .ant-select-focused,
 .ant-select-selector:focus,
@@ -104,6 +106,7 @@ body {
   box-shadow: none !important;
   border-radius: 0px;
 }
+
 .ant-pagination-item {
   border: 1px solid #d9d9d9; /* Border for all pagination items */
   border-radius: 4px; /* Optional: Slight rounding for a box effect */
@@ -219,8 +222,8 @@ body {
   padding-top: 10px !important;
   width: 100%;
   flex-shrink: 0;
-  border-radius: 9px !important;
-  border: 1px solid black;
+  border-radius: 4px !important;
+  /* border: 1px solid black; */
 }
 
 .ql-snow.ql-toolbar button,
@@ -431,6 +434,10 @@ body {
   font-family: inherit !important;
 }
 .ant-table {
+  font-family: inherit !important;
+}
+
+.ant-tabs {
   font-family: inherit !important;
 }
 
