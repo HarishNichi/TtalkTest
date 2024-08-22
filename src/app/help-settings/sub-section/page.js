@@ -568,13 +568,16 @@ export default function Subsection() {
   return (
     <ProtectedRoute allowedRoles={["admin"]}>
       {loading && <LoaderOverlay />}
-      <div className="flex flex-col md:flex-row">
-        {/* Left Column */}
-        <div className="w-full md:w-1/2 p-4">
-          <div className="flex">
+      <div className="p-2">
+      <div className="flex">
             <Breadcrumb links={helperSubSectionLinks} />
           </div>
           <h1 className="text-xl font-semibold">{Help.section}</h1>
+      </div>
+      <div className="flex flex-col md:flex-row">
+        {/* Left Column */}
+        <div className="w-full md:w-1/2 p-2">
+       
 
           <SubSection
             selected={selectedTab}
@@ -675,7 +678,15 @@ export default function Subsection() {
               </Tabs>
             </div>
             <div className=" flex flex-col sm:flex-row justify-end mt-4 space-y-2 sm:space-y-0 sm:space-x-2">
-              <button className="text-[14px] h-[32px] w-[120px] mr-[10px] text-center font-semibold cursor-pointer text-customBlue border border-customBlue bg-white rounded">
+              <button className="text-[14px] h-[32px] w-[120px] mr-[10px] text-center font-semibold cursor-pointer text-customBlue border border-customBlue bg-white rounded"
+              onClick={() => {
+                if (tabKey == "1") {
+                  handleAddButton();
+                } else {
+                  fileUploadCardRef.current.handleCancel();
+                }
+              }}
+              >
                 {intl.help_settings_addition_modal_cancel}
               </button>
               <button

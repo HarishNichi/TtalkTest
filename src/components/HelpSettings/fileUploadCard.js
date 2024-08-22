@@ -167,6 +167,7 @@ const FileUploadCard = forwardRef(({
 
   useImperativeHandle(ref, () => ({
     handleAdd: handleAdd,
+    handleCancel: handleAddButton,
   }));
 
   function handleAdd() {
