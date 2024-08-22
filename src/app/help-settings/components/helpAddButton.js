@@ -3,7 +3,7 @@
 export default function HelpAddButton(props) {
   return (
     <button
-      className={`px-[20px] border-[2px] lg:border-[2.5px] h-[32px] ${
+      className={`px-[20px] border-[2px] lg:border-[2.5px] h-[40px] ${
         props.borderColor
       } bg-transparent  ${props?.textColor} ${
         props?.text
