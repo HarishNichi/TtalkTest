@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useRef } from "react";
+import React, { useState, useEffect,useRef,forwardRef,useImperativeHandle } from "react";
 import DynamicLabel from "@/components/Label/dynamicLabel";
 import HelpSettingPdf from "@/components/Icons/helpSettingPdf";
 import ServiceDelete from "@/components/Icons/serviceDelete";
@@ -9,7 +9,7 @@ import DeleteIcon from "../Icons/deleteIcon";
 import UploadIcon from "../Icons/uploadIcon";
 import { toast } from "react-toastify";
 
-const FileUploadCard = ({
+const FileUploadCard = forwardRef(({
   handleUploadButtonClick,
   CardHeight,
   HeaderTitle,
@@ -24,7 +24,7 @@ const FileUploadCard = ({
   setErrors,
   sectionName,
   setTouched, handleAddButton
-}) => {
+},ref) => {
   const [isMobile, setIsMobile] = useState(false);
   const [error, setError] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState(fileName);
@@ -156,6 +156,48 @@ const FileUploadCard = ({
   };
   function deleteIcon() {
     return <DeleteIcon />;
+  }
+
+  useImperativeHandle(ref, () => ({
+    handleAdd: handleAdd,
+  }));
+
+  function handleAdd() {
+    if (!file && isAdd) {
+      setError("ファイルを選択してください。");
+      if (!sectionName) {
+        setTouched((prevTouched) => {
+          if (
+            !Object.prototype.hasOwnProperty.call(
+              prevTouched,
+              "sectionName"
+            )
+          ) {
+            return {
+              ...prevTouched,
+              sectionName: true,
+            };
+          }
+          return prevTouched; // If 'sectionName' key exists, return unchanged state
+        });
+        setErrors((prevState) => {
+          if (
+            !Object.prototype.hasOwnProperty.call(
+              prevState,
+              "sectionName"
+            )
+          ) {
+            return {
+              ...prevState,
+              sectionName: intl.validation_required,
+            };
+          }
+          return prevState; // If 'sectionName' key exists, return unchanged state
+        });
+      }
+    } else {
+      handleUploadButtonClick(file);
+    }
   }
 
   return (
@@ -304,7 +346,7 @@ const FileUploadCard = ({
           </div>
         )}
       </div>
-      <div className="flex justify-end  lg:px-[10px] pb-2">
+      <div className=" hidden ">
         <div className="flex justify-end">
           <div className="flex gap-x-2">
             <IconLeftBtn
@@ -326,41 +368,7 @@ const FileUploadCard = ({
               rounded="rounded-lg"
               icon={() => null}
               onClick={() => {
-                if (!file && isAdd) {
-                  setError("ファイルを選択してください。");
-                  if (!sectionName) {
-                    setTouched((prevTouched) => {
-                      if (
-                        !Object.prototype.hasOwnProperty.call(
-                          prevTouched,
-                          "sectionName"
-                        )
-                      ) {
-                        return {
-                          ...prevTouched,
-                          sectionName: true,
-                        };
-                      }
-                      return prevTouched; // If 'sectionName' key exists, return unchanged state
-                    });
-                    setErrors((prevState) => {
-                      if (
-                        !Object.prototype.hasOwnProperty.call(
-                          prevState,
-                          "sectionName"
-                        )
-                      ) {
-                        return {
-                          ...prevState,
-                          sectionName: intl.validation_required,
-                        };
-                      }
-                      return prevState; // If 'sectionName' key exists, return unchanged state
-                    });
-                  }
-                } else {
-                  handleUploadButtonClick(file);
-                }
+                
               }}
             />
           </div>
@@ -369,6 +377,8 @@ const FileUploadCard = ({
       </div>
     </div>
   );
-};
+});
+
+FileUploadCard.displayName = 'FileUploadCard';
 
 export default FileUploadCard;
