@@ -10,83 +10,68 @@ const SubSection = ({
   handleEditClick,
   handleDeleteClick,
 }) => {
-  const sectionStyle = {
-    borderRadius: "9px",
-    background: "#FFF",
-    boxShadow: "0px 0px 15px 0px rgba(0, 0, 0, 0.10)",
-    overflow: "auto",
-  };
-
-  const headingStyle = {
-    borderRadius: "9px",
-    borderBottomLeftRadius: "0px",
-    borderBottomRightRadius: "0px",
-    textAlign: "center",
-    fontSize: "16px",
-    fontStyle: "normal",
-    fontWeight: "500",
-    height: "62px",
-  };
-
-  const buttonStyle = {
-    borderRadius: "8px",
-    background: "#19388B",
-    marginBottom: "10px",
-  };
-
   return (
-    <div className="h-full" style={sectionStyle}>
+    <div className="w-full mt-4">
       <div
         className="flex justify-left items-center mb-2 pl-[30px] bg-customBlue text-white"
-        style={headingStyle}
+        style={{
+          borderRadius: "9px",
+          borderBottomLeftRadius: "0px",
+          borderBottomRightRadius: "0px",
+          textAlign: "center",
+          fontSize: "16px",
+          fontStyle: "normal",
+          fontWeight: "500",
+          height: "62px",
+        }}
       >
         <span className="ml-[20px]">
           {intl.help_settings_component_subsection}
         </span>
       </div>
 
-      <div className="px-[32px] md:max-h-[369px] 2xl:max-h-[740px] overflow-y-auto">
-        {tabs.map((tab, index) => {
-          const textStyle = {
-            fontStyle: "normal",
-            fontWeight: 400,
-            lineHeight: "29px",
-            textAlign: "center",
-            marginLeft: "20px",
-          };
-
-          return (
-            <div
-              key={tab.id}
-              style={selected === index ? buttonStyle : null}
-              className={`tabs.length === index + 1 ? "mb-2" : ""`}
-            >
-              <span className="flex justify-between items-center h-[53px] cursor-pointer ">
-                <p
-                  className={`text-[16px] truncate ${
-                    selected === index
-                      ? "text-[#FFF]"
-                      : "text-[#848484] hover:text-[#bfbfbf]"
-                  }`}
-                  style={textStyle}
-                  onClick={() => handleTabClick(index, tab)}
+      <ul className="mt-4 border-t">
+        {tabs.map((tab, index) => (
+          <li
+            key={tab.id}
+            className={`cursor-pointer p-2 hover:bg-blue-100 bg-white border-b-2 ${
+              selected === index ? "bg-blue-100" : ""
+            }`}
+            onClick={() => handleTabClick(index, tab)}
+          >
+            <span className="flex justify-between items-center h-[53px]">
+              <p
+                className={`text-[16px] truncate ${
+                  selected === index
+                    ? "text-[#FFF]"
+                    : "text-[#848484] hover:text-[#bfbfbf]"
+                }`}
+                style={{
+                  fontStyle: "normal",
+                  fontWeight: 400,
+                  lineHeight: "29px",
+                  textAlign: "center",
+                  marginLeft: "20px",
+                }}
+              >
+                {tab.name}
+              </p>
+              <p className="flex">
+                <span
+                  data-testid={`delete-${index}`}
+                  className="mr-[11px] ml-[25px]"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeleteClick(tab);
+                  }}
                 >
-                  {tab.name}
-                </p>
-                <p className="flex ">
-                  <span
-                    data-testid={`delete-${index}`}
-                    className="mr-[11px] ml-[25px]"
-                    onClick={() => handleDeleteClick(tab)}
-                  >
-                    <SectionDeleteIcon isActive={selected === index} />
-                  </span>
-                </p>
-              </span>
-            </div>
-          );
-        })}
-      </div>
+                  <SectionDeleteIcon isActive={selected === index} />
+                </span>
+              </p>
+            </span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
