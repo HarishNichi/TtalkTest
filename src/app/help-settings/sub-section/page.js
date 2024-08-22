@@ -644,12 +644,12 @@ export default function Subsection() {
                     )}
                   </TabPane>
                   <TabPane tab="ファイル" key="2">
-                    <Upload>
+                   
                       <FileUpload
                         onFileUpload={handleFileUpload}
                         key={fileName}
                       />
-                    </Upload>
+                 
                   </TabPane>
                 </Tabs>
               </div>

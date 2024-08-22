@@ -237,6 +237,10 @@ body {
   margin-right: 8px !important;
 }
 
+.ql-editor  {
+  overflow: auto !important;
+}
+
 .ql-toolbar.ql-snow {
   box-sizing: border-box;
   padding: 0px !important;
