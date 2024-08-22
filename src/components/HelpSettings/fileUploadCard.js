@@ -284,7 +284,9 @@ const FileUploadCard = ({
           </button>
           <input
             type="file"
+            id="fileInput"
             className="hidden"
+            accept=".pdf"
             onChange={handleFileSelect}
             ref={fileInputRef}
           />
