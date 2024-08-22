@@ -38,7 +38,7 @@ const EditorComponent = dynamic(
 
 export default function Subsection() {
   const router = useRouter();
-  const [activeButton, setActiveButton] = useState("file");
+  const [activeButton, setActiveButton] = useState("text");
   const Help = useAppSelector((state) => state.helpReducer.help);
   const [isAdd, setIsAdd] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -78,6 +78,9 @@ export default function Subsection() {
   };
 
   const onTabChange = (key) => {
+    // eslint-disable-next-line no-console
+    console.log(`onTabChange: ${key}`);
+    handleActiveButtonChange(key==1?"text":"file");
     setTabKey(key);
   };
   const addHelp = () => {
@@ -510,13 +513,16 @@ export default function Subsection() {
     }
   };
 
+  
   const handleEditorChange = (content) => {
-    if (selectedHelp !== null) {
-      setEditorContents((prevContents) => ({
-        ...prevContents,
-        [selectedHelp]: content,
-      }));
+    let text = content;
+    const pattern = /^<p><br><\/p>$/;
+
+    if (pattern.test(text)) {
+      text = text.replace(pattern, "");
     }
+    setEditorValue(text);
+    setTouched((prevTouched) => ({ ...prevTouched, editorValue: true }));
   };
 
   const deleteSubSection = async (record) => {
