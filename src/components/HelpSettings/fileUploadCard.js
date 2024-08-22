@@ -37,10 +37,15 @@ const FileUploadCard = forwardRef(({
   };
 
   const handleDrop = (event) => {
+    
+ 
     try {
-      event.preventDefault();
-      const droppedFile = event.dataTransfer.files[0];
-      setFile(droppedFile);
+      handleFileSelect(event);
+      // eslint-disable-next-line no-console
+      console.log(event);
+      // event.preventDefault();
+      // const droppedFile = event.dataTransfer.files[0];
+      // setFile(droppedFile);
       // onFileUpload(droppedFile);
     } catch (e) {
       !file && notify();
@@ -93,6 +98,8 @@ const FileUploadCard = forwardRef(({
   }, []);
 
   const handleFileSelect = (event) => {
+    // eslint-disable-next-line no-console
+    console.log(event.target.files[0]);
     const files = event.target.files[0];
     const maxSizeInBytes = 5 * 1024 * 1024; // 5MB in bytes
 
@@ -287,7 +294,8 @@ const FileUploadCard = forwardRef(({
           </div>
         )}
         {((isAdd && !selectedFileName) || (!isAdd && !selectedFileName)) && (
-          <div className="w-full flex:col items-center justify-center py-[20px]">
+          <div className="w-full flex:col items-center justify-center py-[20px]" onDragOver={handleDragOver}
+          onDrop={handleDrop}>
                <div className="flex flex-col items-center justify-center h-full">
         <UploadIcon />
         <span className="mb-1">

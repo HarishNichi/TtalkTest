@@ -25,9 +25,7 @@ import { code, helperSubSectionLinks, maxLimit } from "@/utils/constant";
 import ProtectedRoute from "@/utils/auth";
 import Breadcrumb from "@/components/Layout/breadcrumb";
 import AddIcon from "@/components/Icons/addIcon";
-import { Tabs, Upload, Button } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
-import FileUpload from "@/components/ImportModal/fileUpload";
+import { Tabs, Button } from "antd";
 import { Modal as AntModal } from "antd";
 const EditorComponent = dynamic(
   () => import("../../../components/HelpSettings/textEditor"),

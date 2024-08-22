@@ -1,6 +1,6 @@
 "use client";
 
-export default function IconOutlineBtn(props) {
+export default function HelpAddButton(props) {
   return (
     <button
       className={`px-[20px] border-[2px] lg:border-[2.5px] h-[32px] ${
@@ -9,7 +9,7 @@ export default function IconOutlineBtn(props) {
         props?.text
       } rounded-lg flex items-center justify-center ${
         props?.btnWidth ? props.btnWidth : "w-full"
-      } max-w-max  hover:bg-gray-300`}
+      }   hover:bg-gray-300`}
       onClick={props.onClick}
     >
       <div className="md:pr-1 md:py-1 text-2xl  ">{props.icon()}</div>

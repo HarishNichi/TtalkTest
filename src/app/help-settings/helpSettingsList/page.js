@@ -22,6 +22,9 @@ import { validateHandler, formatDate } from "@/validation/helperFunction";
 import LoaderOverlay from "@/components/Loader/loadOverLay";
 import { ToastContainer, toast } from "react-toastify";
 import ProtectedRoute from "@/utils/auth";
+import DeleteIcon from "@/components/Icons/deleteIcon";
+import { Button } from "antd";
+import DeleteIconDisabled from "@/components/Icons/deleteDisabledIcon";
 
 export default function HelpSettingsList() {
   const router = useRouter();
@@ -72,7 +75,7 @@ export default function HelpSettingsList() {
             >
               <SectionEditIcon />
             </span>
-            <span
+            {/* <span
               className="ml-[50px] cursor-pointer rounded-full px-3 py-2  bg-[#EDF2F5] hover:bg-[#DCE7F0]"
               onClick={(event) => {
                 event.stopPropagation();
@@ -80,7 +83,7 @@ export default function HelpSettingsList() {
               }}
             >
               <SectionDeleteIcon />
-            </span>
+            </span> */}
           </p>
         </div>
       ),
@@ -103,10 +106,44 @@ export default function HelpSettingsList() {
   const [current, setCurrent] = useState(1);
   const [selectedRows, setSelectedRows] = React.useState([]);
   const [selectAll, setSelectAll] = useState(false);
+  const [data, setData] = useState([]);
   function editIcon(flag) {
     return <AddIcon isMobile={flag} />;
   }
-
+  function deleteIcon(flag) {
+    return <DeleteIcon isMobile={flag} />;
+  }
+  function disabledDeleteIcon(flag) {
+    return <DeleteIconDisabled isMobile={flag} />;
+  }
+  function importIcon() {
+    return (
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g clip-path="url(#clip0_5185_3186)">
+          <path
+            d="M12.0002 15.4115C11.8797 15.4115 11.7676 15.3923 11.6637 15.3538C11.5599 15.3154 11.4612 15.2494 11.3675 15.1558L8.25799 12.0463C8.10933 11.8974 8.03591 11.7233 8.03774 11.524C8.03974 11.3247 8.11316 11.1474 8.25799 10.9922C8.41316 10.8373 8.59133 10.7572 8.79249 10.752C8.99383 10.7468 9.17208 10.8218 9.32724 10.977L11.2502 12.9V5.25C11.2502 5.03717 11.3221 4.859 11.4657 4.7155C11.6092 4.57183 11.7874 4.5 12.0002 4.5C12.2131 4.5 12.3912 4.57183 12.5347 4.7155C12.6784 4.859 12.7502 5.03717 12.7502 5.25V12.9L14.6732 10.977C14.8221 10.8283 14.9987 10.7549 15.203 10.7568C15.4075 10.7588 15.5873 10.8373 15.7425 10.9922C15.8873 11.1474 15.9623 11.3231 15.9675 11.5192C15.9727 11.7154 15.8977 11.8911 15.7425 12.0463L12.633 15.1558C12.5393 15.2494 12.4406 15.3154 12.3367 15.3538C12.2329 15.3923 12.1207 15.4115 12.0002 15.4115ZM6.30799 19.5C5.80283 19.5 5.37524 19.325 5.02524 18.975C4.67524 18.625 4.50024 18.1974 4.50024 17.6923V15.7308C4.50024 15.5179 4.57208 15.3398 4.71574 15.1962C4.85924 15.0526 5.03741 14.9808 5.25024 14.9808C5.46308 14.9808 5.64124 15.0526 5.78474 15.1962C5.92841 15.3398 6.00024 15.5179 6.00024 15.7308V17.6923C6.00024 17.7692 6.03233 17.8398 6.09649 17.9038C6.16049 17.9679 6.23099 18 6.30799 18H17.6925C17.7695 18 17.84 17.9679 17.904 17.9038C17.9682 17.8398 18.0002 17.7692 18.0002 17.6923V15.7308C18.0002 15.5179 18.0721 15.3398 18.2157 15.1962C18.3592 15.0526 18.5374 14.9808 18.7502 14.9808C18.9631 14.9808 19.1412 15.0526 19.2847 15.1962C19.4284 15.3398 19.5002 15.5179 19.5002 15.7308V17.6923C19.5002 18.1974 19.3252 18.625 18.9752 18.975C18.6252 19.325 18.1977 19.5 17.6925 19.5H6.30799Z"
+            fill="#19388B"
+          />
+        </g>
+        <defs>
+          <clipPath id="clip0_5185_3186">
+            <rect
+              width="24"
+              height="24"
+              fill="white"
+              transform="translate(0.000244141)"
+            />
+          </clipPath>
+        </defs>
+      </svg>
+    );
+  }
   function handelEdit(record) {
     setEditModal(() => false);
     setAddModal(() => false);
@@ -317,40 +354,73 @@ export default function HelpSettingsList() {
     }
   };
 
-  const deleteSection = async (record) => {
+  const deleteSection = async () => {
+    // Check if there are selected rows
+    if (selectedRows.length === 0) {
+      toast.error("No rows selected for deletion.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored",
+        type: "error",
+      });
+      return;
+    }
+
     toast.dismiss();
     setLoading(true);
+
     try {
-      const config = {
-        data: {
-          parent: "null",
-          child: record.subSetId,
-        },
-      };
-      const response = await api.delete(`help/delete`, config);
-      if (response.data.status.code == code.OK) {
-        setLoading(false);
-        setDeleteModal(false);
-        fetchData();
-      }
-    } catch (error) {
-      setLoading(false);
-      setDeleteModal(false);
-      toast(
-        error.response?.data?.status?.message
-          ? error.response?.data?.status?.message
-          : error.response.data.message,
-        {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          theme: "colored",
-          type: "error",
+      // Iterate through selected rows to delete them
+      for (const record of selectedRows) {
+        const config = {
+          data: {
+            parent: "null",
+            child: record.subSetId,
+          },
+        };
+
+        const response = await api.delete(`help/delete`, config);
+
+        if (response.data.status.code !== code.OK) {
+          throw new Error(
+            response.data.status.message || "Failed to delete record"
+          );
         }
+      }
+
+      // Update the state to remove the deleted records
+      setData((prevData) =>
+        prevData.filter(
+          (item) => !selectedRows.some((selected) => selected.id === item.id)
+        )
       );
+
+      // Reset selectedRows state
+      setSelectedRows([]);
+
+      // Hide the delete modal
+      setDeleteModal(false);
+
+      // Optionally, fetch fresh data if needed
+      fetchData();
+    } catch (error) {
+      // Handle errors and display a toast message
+      toast(error.message || "An error occurred while deleting the record.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored",
+        type: "error",
+      });
+    } finally {
+      setLoading(false); // Ensure loading state is reset
     }
   };
 
@@ -366,25 +436,60 @@ export default function HelpSettingsList() {
           <div className="flex  justify-between mb-2 xl:mb-2 ">
             <div className="flex items-center">
               <DynamicLabel
-                text={intl.help_settings_title}
+                text={intl.helper_sub_section_terminal_help_list}
                 alignment="text-center"
-                fontSize="text-[22px]"
-                fontWeight="font-medium"
+                fontSize="text-xl"
+                fontWeight="font-semibold"
                 textColor="#000000"
                 disabled={false}
               />
             </div>
             <div className="hidden md:flex ">
               <IconOutlineBtn
-                text={intl.help_settings_addition_btn}
+                text={
+                  selectedRows.length === 0
+                    ? `${intl.help_settings_addition_delete}`
+                    : `${intl.help_settings_addition_delete}(${selectedRows.length})`
+                }
+                textColor={
+                  selectedRows.length === 0
+                    ? "text-[#FFCCCC]"
+                    : "text-[#BA1818]"
+                } // Light red when disabled, darker red otherwise
+                borderColor={"border-none"} // Light border when disabled, no border otherwise
+                textBold={true}
+                py={"xl:py-2.5 md:py-1.5 py-1.5"}
+                px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
+                icon={
+                  selectedRows.length === 0 ? disabledDeleteIcon : deleteIcon
+                }
+                disabled={selectedRows.length === 0} // Disable the button when selectedRows is empty
+                onClick={(event) => {
+                  event.stopPropagation();
+                  if (selectedRows.length > 0) {
+                    handelDelete(selectedRows); // Call your delete handler with selected rows
+                  }
+                }}
+              />
+
+              {/* <IconOutlineBtn
+                text={intl.company_list_company_import}
+                textColor={"text-customBlue"}
+                textBold={true}
+                py={"xl:py-2.5 md:py-1.5 py-1.5"}
+                px={"xl:px-[32px] md:px-[33.5px] px-[33.5px]"}
+                icon={() => importIcon()}
+              /> */}
+              <IconOutlineBtn
+                text={intl.help_settings_help_category}
                 textColor={"text-customBlue"}
                 textBold={true}
                 py={"xl:py-2.5 md:py-1.5 py-1.5"}
                 px={"px-[20px]"}
                 icon={() => editIcon(false)}
-                borderColor={"border-customBlue"}
+                borderColor={"border-none"}
                 onClick={async () => {
-                  await setEditModal(() => false);
+                  setEditModal(() => false);
                   await setAddModal(() => false);
                   await addHandler();
                 }}
@@ -406,23 +511,23 @@ export default function HelpSettingsList() {
             </div>
           </div>
           <div className="mb-[5px] flex items-center">
-          <label
-            key={"selectAll"}
-            className="flex items-center text-customBlue"
-          >
-            <input
-              type="checkbox"
-              disabled={helpSettingsData?.length == 0}
-              value={selectAll}
-              checked={selectAll}
-              className="h-[16px] w-[16px] text-[#19388B]  focus:ring-[#19388B] focus:ring-opacity-50 rounded-lg bg-[#19388B] bg-opacity-88 text-opacity-88"
-              onChange={(evt) => {
-                setSelectAll(evt.target.checked);
-              }}
-            />
-            <span className="ml-1"> {"すべて選択"}</span>
-          </label>
-        </div>
+            <label
+              key={"selectAll"}
+              className="flex items-center text-customBlue"
+            >
+              <input
+                type="checkbox"
+                disabled={helpSettingsData?.length == 0}
+                value={selectAll}
+                checked={selectAll}
+                className="h-[16px] w-[16px] text-[#19388B]  focus:ring-[#19388B] focus:ring-opacity-50 rounded-lg bg-[#19388B] bg-opacity-88 text-opacity-88"
+                onChange={(evt) => {
+                  setSelectAll(evt.target.checked);
+                }}
+              />
+              <span className="ml-1"> {"すべて選択"}</span>
+            </label>
+          </div>
           <div className="mb-[20px] relative" style={{ width: "100%" }}>
             <DataTable
               scrollVertical={tableHeight > 450 ? tableHeight : 450}
@@ -451,18 +556,14 @@ export default function HelpSettingsList() {
               fontSize="text-xl"
               fontWeight="font-semibold"
               textColor="#19388B"
-              text={
-                addModal
-                  ? "セクションを追加"
-                  : intl.help_settings_addition_modal_edit
-              }
+              text={intl.help_settings_help_category}
               onCloseHandler={onClose}
               modalFooter={() => {
                 return (
                   <IconLeftBtn
-                    text={intl.help_settings_addition_keep}
+                    text={intl.help_settings_addition_btn}
                     textColor={"text-white font-semibold text-[16px]"}
-                    py="py-[8px] px-[55px]"
+                    py="py-[8px] px-[55px] w-full"
                     bgColor={"bg-customBlue"}
                     textBold={true}
                     icon={() => {
@@ -480,13 +581,13 @@ export default function HelpSettingsList() {
                 );
               }}
             >
-              <div className="flex flex-col px-[4%]">
-                <div className="flex flex-col mt-[20px] mb-[80px]">
+              <div className="flex flex-col ">
+                <div className="flex flex-col  ">
                   <TextPlain
                     isRequired={true}
                     type={"text"}
                     for={addModal ? "addSettings" : "editSettings"}
-                    placeholder={intl.help_settings_addition_section_name}
+                    placeholder={intl.help_settings_help_name}
                     borderRound={"rounded-xl"}
                     padding={"p-[10px]"}
                     focus={
@@ -495,7 +596,7 @@ export default function HelpSettingsList() {
                     border={"border border-gray-300"}
                     bg={"bg-white "}
                     additionalClass={"flex w-full pl-5 text-base pr-[30px]"}
-                    label={intl.help_settings_addition_section_name}
+                    label={intl.help_settings_help_name}
                     labelColor={"#7B7B7B"}
                     id={addModal ? "addSettings" : "editSettings"}
                     value={addModal ? addSettings : editSettings}
@@ -529,52 +630,37 @@ export default function HelpSettingsList() {
               fontSize="text-xl"
               fontWeight="font-semibold"
               textColor="#19388B"
-              text={intl.help_settings_addition_delete}
+              text={intl.help_settings_delete_help_category}
               onCloseHandler={setDeleteModal}
               modalFooter={() => {
                 return (
-                  <div className=" flex justify-between">
-                    <div>
-                      <IconLeftBtn
-                        text={intl.help_settings_addition_modal_cancel}
-                        textColor={"text-white font-semibold text-sm w-full"}
-                        py={"py-[11px]"}
-                        px={"px-[10.5px] md:px-[17.5px]"}
-                        bgColor={"bg-customBlue"}
-                        textBold={true}
-                        icon={() => {
-                          return null;
-                        }}
-                        onClick={() => {
-                          setDeleteModal(() => false);
-                        }}
-                      />
-                    </div>
-                    <div>
-                      <IconLeftBtn
-                        text={intl.help_settings_addition_delete}
-                        textColor={
-                          "text-white font-semibold text-sm w-full ml-2"
-                        }
-                        py={"py-[11px]"}
-                        px={"px-[30.5px] md:px-[38.5px]"}
-                        bgColor={"bg-customBlue"}
-                        textBold={true}
-                        icon={() => {
-                          return null;
-                        }}
-                        onClick={() => {
-                          deleteSection(editRecord);
-                        }}
-                      />
-                    </div>
+                  <div className="flex flex-col sm:flex-row justify-center gap-4 w-full">
+                    <Button
+                      key="cancel"
+                      className="flex-1 h-[40px] text-[#19388B] border border-[#19388B] hover:bg-[#e0e7ff] focus:outline-none focus:ring-2 focus:ring-[#19388B] focus:ring-opacity-50"
+                      onClick={() => {
+                        setDeleteModal(false);
+                      }}
+                    >
+                      {intl.help_settings_addition_modal_cancel}
+                    </Button>
+                    <Button
+                      key="delete"
+                      className="flex-1 bg-[#BA1818] h-[40px] text-white no-hover focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50"
+                      onClick={() => {
+                        deleteSection(editRecord);
+                      }}
+                    >
+                      {intl.help_settings_addition_delete}({selectedRows.length}
+                      )
+                    </Button>
                   </div>
                 );
               }}
             >
               <div className="flex flex-col">
-                <div className="flex-grow py-[90px] pt-[60px] dark:text-black">
-                  {intl.help_settings_addition_msg}
+                <div className="flex-grow dark:text-black text-base font-normal">
+                  {intl.help_settings_help_items_deleted}
                 </div>
               </div>
             </Modal>
