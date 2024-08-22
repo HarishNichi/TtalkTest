@@ -601,25 +601,34 @@ export default function Subsection() {
           {/* {selectedHelp !== null && ( */}
             <>
               <TextPlain
-                type={"text"}
-                borderRound={"rounded-xl"}
-                padding={"p-[10px]"}
-                focus={
-                  "focus:outline-none focus:ring-2  focus:ring-customBlue "
-                }
-                border={"border border-gray-300"}
-                bg={"bg-white"}
-                additionalClass={"block w-full pl-5 text-base pr-[30px] "}
-                label={intl.help_settings_help_title}
-                labelColor={"#7B7B7B"}
-                labelClass={"mt-[5vw]"}
-                value={sectionName}
-                onChange={handleChange}
+                 type="text"
+                 for="sectionName"
+                 placeholder=""
+                 borderRound="rounded"
+                 padding="p-2"
+                 focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
+                 border="border border-gray-300"
+                 bg="bg-white"
+                 additionalClass="block w-full pl-5 text-base pr-[30px]"
+                 label={intl.help_title}
+                 labelColor="#7B7B7B"
+                 id="sectionName"
+                 isRequired={true}
+                 value={sectionName}
+                 onChange={handleChange}
               />
+                {errors?.sectionName && touched?.sectionName && (
+                    <div
+                      className="pl-1 validation-font"
+                      style={{ color: "red" }}
+                    >
+                      {errors?.sectionName}
+                    </div>
+                  )}
               <div className="mt-4">
                 <label className="block text-gray-700">説明</label>
                 <Tabs defaultActiveKey={"1"} activeKey={tabKey} className="mt-2" onChange={onTabChange}>
-                  <TabPane tab="テキスト" key="1">
+                  <TabPane tab="テキスト" key="1" className="max-h-[500px]">
                     <EditorComponent
                       ContentValue={editorValue}
                       onChange={handleEditorChange}

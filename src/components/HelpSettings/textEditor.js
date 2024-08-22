@@ -73,14 +73,14 @@ const EditorComponent = ({ onChange, ContentValue }) => {
 
   return (
     <>
-      <div className="flex h-full dark:text-black">
+      <div className="flex max-h-[328px] dark:text-black">
         <ReactQuill
           theme="snow"
           modules={modules}
           formats={formats}
           value={value}
           onChange={handleValueChange}
-          className="dark:text-black bg-white h-[328px]"
+          className="dark:text-black bg-white h-[328px] max-h-[328px]"
         />
       </div>
       <div>

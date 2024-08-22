@@ -239,6 +239,7 @@ body {
 
 .ql-editor  {
   overflow: auto !important;
+  max-height: 250px !important;
 }
 
 .ql-toolbar.ql-snow {

@@ -40,13 +40,15 @@ const FileUploadCard = forwardRef(({
     
  
     try {
-      handleFileSelect(event);
-      // eslint-disable-next-line no-console
-      console.log(event);
-      // event.preventDefault();
-      // const droppedFile = event.dataTransfer.files[0];
-      // setFile(droppedFile);
-      // onFileUpload(droppedFile);
+      event.preventDefault(); // Prevent default behavior
+      event.stopPropagation(); // Stop propagation to avoid any default handling
+    
+      const droppedFiles = event.dataTransfer.files; // Extract files from the drop event
+    
+      if (droppedFiles.length > 0) {
+        handleFileSelect({ target: { files: droppedFiles } }); // Pass files to handleFileSelect
+      }
+
     } catch (e) {
       !file && notify();
     }
@@ -98,8 +100,6 @@ const FileUploadCard = forwardRef(({
   }, []);
 
   const handleFileSelect = (event) => {
-    // eslint-disable-next-line no-console
-    console.log(event.target.files[0]);
     const files = event.target.files[0];
     const maxSizeInBytes = 5 * 1024 * 1024; // 5MB in bytes
 
