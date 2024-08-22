@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import DynamicLabel from "@/components/Label/dynamicLabel";
 import SubSection from "@/components/HelpSettings/subsection";
 import TextPlain from "@/components/Input/textPlain";
@@ -57,6 +57,8 @@ export default function Subsection() {
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [helpToDelete, setHelpToDelete] = useState("");
   const [editorContents, setEditorContents] = useState({});
+  const fileUploadCardRef = useRef(null);
+  const [tabKey,setTabKey] = useState(1)
   
   useEffect(() => {
     if (selectedHelp !== null) {
@@ -73,6 +75,10 @@ export default function Subsection() {
       i === index ? newValue : item
     );
     setHelpList(updatedList);
+  };
+
+  const onTabChange = (key) => {
+    setTabKey(key);
   };
   const addHelp = () => {
     const newHelpItem = `New Help Item ${helpList.length + 1}`; // Example item
@@ -583,7 +589,7 @@ export default function Subsection() {
         </div>
 
         <div className="w-full md:w-1/2 p-4 border-l md:border-l-0 md:border-t md:mt-0 ">
-          {selectedHelp !== null && (
+          {/* {selectedHelp !== null && ( */}
             <>
               <TextPlain
                 type={"text"}
@@ -598,12 +604,12 @@ export default function Subsection() {
                 label={intl.help_settings_help_title}
                 labelColor={"#7B7B7B"}
                 labelClass={"mt-[5vw]"}
-                value={helpList[selectedHelp]}
-                onChange={(e) => updateHelpItem(selectedHelp, e.target.value)}
+                value={sectionName}
+                onChange={handleChange}
               />
               <div className="mt-4">
                 <label className="block text-gray-700">説明</label>
-                <Tabs defaultActiveKey="1" className="mt-2">
+                <Tabs defaultActiveKey="1" className="mt-2" onChange={onTabChange}>
                   <TabPane tab="テキスト" key="1">
                     <EditorComponent
                       ContentValue={editorValue}
@@ -621,6 +627,7 @@ export default function Subsection() {
                   <TabPane tab="ファイル" key="2">
                    
                     <FileUploadCard
+                    ref={fileUploadCardRef}
                       isAdd={isAdd}
                       file={file}
                       sectionName={sectionName}
@@ -657,13 +664,23 @@ export default function Subsection() {
                 <button
                   style={HeaderButton}
                   className="text-base w-[150px] truncate  bg-customBlue hover:bg-[#5283B3] h-[32px] border border-customBlue  rounded"
-                  onClick={() => handleFileButtonClick()}
+                  onClick={() =>
+                  {
+                    if(tabKey=="1")
+                    {
+                     handleFileButtonClick()
+                    }
+                    else
+                    {
+                      fileUploadCardRef.current.handleAdd();
+                    }
+                  }}
                 >
                   {intl.help_settings_addition_keep}
                 </button>
               </div>
             </>
-          )}
+          {/* )} */}
         </div>
 
         <AntModal
