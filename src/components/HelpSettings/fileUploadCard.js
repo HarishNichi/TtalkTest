@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import DynamicLabel from "@/components/Label/dynamicLabel";
 import HelpSettingPdf from "@/components/Icons/helpSettingPdf";
 import ServiceDelete from "@/components/Icons/serviceDelete";
@@ -6,6 +6,8 @@ import IconLeftBtn from "@/components/Button/iconLeftBtn";
 import intl from "../../utils/locales/jp/jp.json";
 import IconBtn from "../Button/iconBtn";
 import DeleteIcon from "../Icons/deleteIcon";
+import UploadIcon from "../Icons/uploadIcon";
+import { toast } from "react-toastify";
 
 const FileUploadCard = ({
   handleUploadButtonClick,
@@ -26,6 +28,43 @@ const FileUploadCard = ({
   const [isMobile, setIsMobile] = useState(false);
   const [error, setError] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState(fileName);
+  const [files, setFiles] = useState(null);
+  const fileInputRef = useRef(null);
+
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
+  };
+
+  const handleDrop = (event) => {
+    try {
+      event.preventDefault();
+      const droppedFile = event.dataTransfer.files[0];
+      setFile(droppedFile);
+      // onFileUpload(droppedFile);
+    } catch (e) {
+      !file && notify();
+    }
+  };
+
+  const fileUploadBtn = {
+    borderRadius: "5px",
+    fontSize: "14px",
+  };
+
+  const notify = () => {
+    toast.error("何か問題が発生しました");
+  };
+
+  const handleButtonClick = () => {
+    fileInputRef.current.click();
+  };
+  const divStyle = {
+    height: "188px",
+    background: "#F9F9FA",
+    border: "",
+    borderRadius: "8px",
+  };
   const uploadButtonStyle = {
     borderRadius: "9px",
     border: "2px solid #19388B",
@@ -141,7 +180,7 @@ const FileUploadCard = ({
             *
           </span>
         </div>
-        <div className="flex justify-end w-full md:w-1/2">
+        {/* <div className="flex justify-end w-full md:w-1/2">
           <IconBtn
             text={intl.help_settings_addition_btn}
             textColor={"text-customBlue"}
@@ -164,7 +203,7 @@ const FileUploadCard = ({
               });
             }}
           />
-        </div>
+        </div> */}
       </div>
       <div className="flex items-center justify-center flex-grow lg:px-[10px] py-[20px]">
         {((!isAdd && selectedFileName) || (isAdd && selectedFileName)) && (
@@ -207,31 +246,50 @@ const FileUploadCard = ({
         )}
         {((isAdd && !selectedFileName) || (!isAdd && !selectedFileName)) && (
           <div className="w-full flex:col items-center justify-center py-[20px]">
-            <label
-              htmlFor="fileInput"
-              className="cursor-pointer w-full flex items-center justify-center"
-            >
-              {/* Styled upload button */}
-              <button
-                className="py-[8px] w-2/5 md:w-2/5 sm:w-full  bg-[#F2FAFF]
-                text-[#19388B] hover:bg-[#CCE6FF]"
-                style={uploadButtonStyle}
-                onClick={() => {
-                  // When the styled button is clicked, trigger the click event on the hidden file input
-                  document.getElementById("fileInput").click();
-                }}
-              >
-                {intl.helpersettings_fileuploadcard_upload}
-              </button>
-              {/* Hidden file input */}
-              <input
-                type="file"
-                id="fileInput"
-                accept=".pdf" // Specify the accepted file types (optional)
-                onChange={handleFileSelect}
-                className="hidden"
-              />
-            </label>
+               <div className="flex flex-col items-center justify-center h-full">
+        <UploadIcon />
+        <span className="mb-1">
+          <DynamicLabel
+            text={intl.importmodal_fileupload_drag_drop_file}
+            alignment="text-center"
+            fontSize="text-[14px]"
+            fontWeight="font-normal"
+            textColor="#7B7B7B"
+            disabled={false}
+          />
+        </span>
+        <span className="mb-1">
+          <DynamicLabel
+            text={intl.importmodal_fileupload_or}
+            alignment="text-center"
+            fontSize="text-[14px]"
+            fontWeight="font-normal"
+            textColor="#7B7B7B"
+            disabled={false}
+          />
+        </span>
+
+        <label
+          style={{ ...fileUploadBtn, border: "2px solid #5283B3" }} // Adding a blue border
+          className="text-customBlue flex justify-center items-center h-[32px] w-[144px] rounded cursor-pointer  bg-white hover:bg-[#E8F1FB]"
+        >
+          <button
+            className="text-[14px] text-center font-semibold cursor-pointer text-customBlue"
+            onClick={()=>{
+              document.getElementById("fileInput").click();
+            }}
+          >
+            {intl.importmodal_fileupload_browse}
+          </button>
+          <input
+            type="file"
+            className="hidden"
+            onChange={handleFileSelect}
+            ref={fileInputRef}
+          />
+        </label>
+      </div>
+          
             {error && (
               <div
                 className="validation-font text-sm flex justify-center mt-2"
