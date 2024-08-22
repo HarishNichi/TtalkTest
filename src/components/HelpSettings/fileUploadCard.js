@@ -270,6 +270,7 @@ const FileUploadCard = ({
         </span>
 
         <label
+         htmlFor="fileInput"
           style={{ ...fileUploadBtn, border: "2px solid #5283B3" }} // Adding a blue border
           className="text-customBlue flex justify-center items-center h-[32px] w-[144px] rounded cursor-pointer  bg-white hover:bg-[#E8F1FB]"
         >
