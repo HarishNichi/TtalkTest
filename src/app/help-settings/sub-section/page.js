@@ -57,6 +57,7 @@ export default function Subsection() {
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [helpToDelete, setHelpToDelete] = useState("");
   const [editorContents, setEditorContents] = useState({});
+  
   useEffect(() => {
     if (selectedHelp !== null) {
       const content = editorContents[selectedHelp] || "";
@@ -645,10 +646,32 @@ export default function Subsection() {
                   </TabPane>
                   <TabPane tab="ファイル" key="2">
                    
-                      <FileUpload
-                        onFileUpload={handleFileUpload}
-                        key={fileName}
-                      />
+                    <FileUploadCard
+                      isAdd={isAdd}
+                      file={file}
+                      sectionName={sectionName}
+                      setIsAdd={setIsAdd}
+                      setErrors={setErrors}
+                      setTouched={setTouched}
+                      setSubSectionDetails={setSubSectionDetails}
+                      setFileName={setFileName}
+                      setFile={setFile}
+                      fileName={
+                        subSectionDetails?.file
+                          ? subSectionDetails.file
+                          : fileName
+                      }
+                      handleUploadButtonClick={handleFileUpload}
+                      setActiveButton={setActiveButton}
+                      CardHeight={isAdd ? "322px" : "375px"}
+                      HeaderTitle={
+                        isAdd
+                          ? intl.help_settings_addition_upload_file
+                          : intl.help_settings_addition_service_manual
+                      }
+                      handleAddButton={handleAddButton}
+                    />
+                      
                  
                   </TabPane>
                 </Tabs>
