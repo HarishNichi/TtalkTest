@@ -83,9 +83,6 @@ export default function Subsection() {
     setTabKey(key);
   };
   const addHelp = () => {
-    const newHelpItem = `New Help Item ${helpList.length + 1}`; // Example item
-    const newHelpList = [...helpList, newHelpItem];
-    setHelpList(newHelpList);
     setIsAdd(true);
     setSelectedTab(null);
     setEditorValue("");
@@ -95,16 +92,7 @@ export default function Subsection() {
     setFileName("");
     setErrors({});
     setTouched({});
-
-    // Set the newly added item as selected
-    const newItemIndex = newHelpList.length - 1;
-    setSelectedHelp(newItemIndex);
-
-    // Initialize editor content for the new item
-    setEditorContents((prevContents) => ({
-      ...prevContents,
-      [newItemIndex]: "", // Set default editor content
-    }));
+    setTabKey("1");
   };
 
   const schema = Yup.object().shape({
@@ -117,8 +105,8 @@ export default function Subsection() {
 
   const handleAddButton = () => {
     // setActiveButton("file");
-    setTabKey(2);
-    setActiveButton("file");
+    setTabKey("1");
+    setActiveButton("text");
     setIsAdd(true);
     setSelectedTab(null);
     setEditorValue("");
@@ -402,7 +390,7 @@ export default function Subsection() {
         if (response && response.data.status.code == code.CREATED) {
           setLoading(false);
           getSubsetValues();
-          setTabKey(1);
+          setTabKey("1");
           setActiveButton("text");
           setIsAdd(true);
           setSelectedTab(null);
@@ -476,7 +464,7 @@ export default function Subsection() {
         if (response && response.data.status.code == code.OK) {
           setLoading(false);
           getSubsetValues();
-          setTabKey(1);
+          setTabKey("1");
           setActiveButton("text");
           setIsAdd(true);
           setSelectedTab(null);
@@ -569,16 +557,14 @@ export default function Subsection() {
     <ProtectedRoute allowedRoles={["admin"]}>
       {loading && <LoaderOverlay />}
       <div className="p-2">
-      <div className="flex">
-            <Breadcrumb links={helperSubSectionLinks} />
-          </div>
-          <h1 className="text-xl font-semibold">{Help.section}</h1>
+        <div className="flex">
+          <Breadcrumb links={helperSubSectionLinks} />
+        </div>
+        <h1 className="text-xl font-semibold">{Help.section}</h1>
       </div>
       <div className="flex flex-col md:flex-row">
         {/* Left Column */}
         <div className="w-full md:w-1/2 p-2">
-       
-
           <SubSection
             selected={selectedTab}
             tabs={tabs}
@@ -677,21 +663,22 @@ export default function Subsection() {
                 </TabPane>
               </Tabs>
             </div>
-            <div className=" flex flex-col sm:flex-row justify-end mt-4 space-y-2 sm:space-y-0 sm:space-x-2">
-              <button className="text-[14px] h-[32px] w-[120px] mr-[10px] text-center font-semibold cursor-pointer text-customBlue border border-customBlue bg-white rounded"
-              onClick={() => {
-                if (tabKey == "1") {
-                  handleAddButton();
-                } else {
-                  fileUploadCardRef.current.handleCancel();
-                }
-              }}
+            <div className=" flex flex-row justify-end mt-2 sm:space-y-0 sm:space-x-2">
+              <button
+                className="text-[14px] h-[32px] w-[120px] mr-[10px] text-center font-semibold cursor-pointer text-customBlue border border-customBlue bg-white rounded"
+                onClick={() => {
+                  if (tabKey == "1") {
+                    handleAddButton();
+                  } else {
+                    fileUploadCardRef.current.handleCancel();
+                  }
+                }}
               >
                 {intl.help_settings_addition_modal_cancel}
               </button>
               <button
                 style={HeaderButton}
-                className="text-base w-[150px] truncate  bg-customBlue hover:bg-[#5283B3] h-[32px] border border-customBlue  rounded"
+                className="text-base w-[150px] truncate bg-customBlue hover:bg-[#5283B3] h-[32px] border border-customBlue rounded"
                 onClick={() => {
                   if (tabKey == "1") {
                     handleFileButtonClick();
@@ -708,40 +695,45 @@ export default function Subsection() {
         </div>
 
         <AntModal
-      title={
-        <div className="px-[40px] pt-[40px] mb-[2vw] text-customBlue text-center">
-          {intl.help_settings_delete_help_item}
-        </div>
-      }
-      open={deleteModal}
-      onCancel={() => setDeleteModal(false)}
-      footer={[null]}
-      style={{ padding: "40px" }}
-    >
-      <p
-        style={{ textAlign: "center" }}
-        className="px-[40px] font-normal text-base"
-      >
-        {intl.help_settings_subsection_delete}
-      </p>
-      <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]">
-          <Button
-            key="cancel"
-             className="flex-1 text-blue-500 border-blue-500 "
-            onClick={() => setDeleteModal(false)}
+          title={
+            <div className="px-[40px] pt-[40px] mb-[2vw] text-customBlue text-center">
+              {intl.help_settings_delete_help_item}
+            </div>
+          }
+          open={deleteModal}
+          onCancel={()=>{
+            setDeleteModal(false);
+          }}
+          footer={[null]}
+          style={{ padding: "40px" }}
+        >
+          <p
+            style={{ textAlign: "center" }}
+            className="px-[40px] font-normal text-base"
           >
-            {intl.help_settings_addition_modal_cancel}
-          </Button>,
-          <Button
-            key="delete"
-             className="flex-1 bg-[#BA1818] border-[#BA1818] text-white hover:bg-red-500 no-hover"
-            onClick={() => deleteSubSection(childData)}
-          >
-            {intl.help_settings_addition_delete}
-          </Button>
-        </div>
-    </AntModal>
-
+            {helpToDelete}
+          </p>
+          <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]">
+            <Button
+              key="cancel"
+              className="flex-1 text-blue-500 border-blue-500 "
+              onClick={() => {
+                setDeleteModal(false);
+              }}
+            >
+              {intl.help_settings_addition_modal_cancel}
+            </Button>
+            <Button
+              key="delete"
+              className="flex-1 bg-[#BA1818] border-[#BA1818] text-white hover:bg-red-500 no-hover"
+              onClick={()=>{
+                deleteSubSection(childData);
+              }}
+            >
+              {intl.help_settings_addition_delete}
+            </Button>
+          </div>
+        </AntModal>
       </div>
     </ProtectedRoute>
   );
