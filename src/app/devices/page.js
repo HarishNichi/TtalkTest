@@ -250,6 +250,7 @@ export default function Devices() {
             endDate: item.endDate ? dayjs(item.endDate).format('YYYY/MM/DD') : "",
             isToggleOn: item.startDate && item.endDate ? true : false,
             id: item.id,
+            key:item.id,
             deleted: item.isDeleted,
             deviceAttachedCount: item.deviceAttachedCount,
           };

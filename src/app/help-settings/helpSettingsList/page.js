@@ -60,6 +60,7 @@ export default function HelpSettingsList() {
     {
       title: "",
       dataIndex: "deleteEdit",
+      align: "right",
       render: (text, record) => (
         <div
           className="md:float-right"
@@ -444,7 +445,7 @@ export default function HelpSettingsList() {
                 disabled={false}
               />
             </div>
-            <div className="hidden md:flex ">
+            <div className="flex ">
               <IconOutlineBtn
                 text={
                   selectedRows.length === 0
@@ -495,7 +496,7 @@ export default function HelpSettingsList() {
                 }}
               />
             </div>
-            <div className="flex md:hidden">
+            {/* <div className="flex md:hidden">
               <IconBtn
                 text={intl.help_settings_addition_btn}
                 textColor={"text-customBlue"}
@@ -508,7 +509,7 @@ export default function HelpSettingsList() {
                   await addHandler();
                 }}
               />
-            </div>
+            </div> */}
           </div>
           <div className="mb-[5px] flex items-center">
             <label

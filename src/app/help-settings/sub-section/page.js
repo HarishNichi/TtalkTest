@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect,useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import DynamicLabel from "@/components/Label/dynamicLabel";
 import SubSection from "@/components/HelpSettings/subsection";
 import TextPlain from "@/components/Input/textPlain";
@@ -27,6 +27,7 @@ import Breadcrumb from "@/components/Layout/breadcrumb";
 import AddIcon from "@/components/Icons/addIcon";
 import { Tabs, Button } from "antd";
 import { Modal as AntModal } from "antd";
+import HelpAddButton from "../components/helpAddButton";
 const EditorComponent = dynamic(
   () => import("../../../components/HelpSettings/textEditor"),
   {
@@ -56,8 +57,8 @@ export default function Subsection() {
   const [helpToDelete, setHelpToDelete] = useState("");
   const [editorContents, setEditorContents] = useState({});
   const fileUploadCardRef = useRef(null);
-  const [tabKey,setTabKey] = useState("1")
-  
+  const [tabKey, setTabKey] = useState("1");
+
   useEffect(() => {
     if (selectedHelp !== null) {
       const content = editorContents[selectedHelp] || "";
@@ -78,7 +79,7 @@ export default function Subsection() {
   const onTabChange = (key) => {
     // eslint-disable-next-line no-console
     console.log(`onTabChange: ${key}`);
-    handleActiveButtonChange(key==1?"text":"file");
+    handleActiveButtonChange(key == 1 ? "text" : "file");
     setTabKey(key);
   };
   const addHelp = () => {
@@ -317,7 +318,7 @@ export default function Subsection() {
           filePath: item.file?.path,
         };
         setSubSectionDetails(formattedData);
-        setTabKey(formattedData.type=="text"?"1":"2")
+        setTabKey(formattedData.type == "text" ? "1" : "2");
         setActiveButton(formattedData.type);
         setSectionName(formattedData.name);
         setEditorValue(formattedData.description);
@@ -516,7 +517,6 @@ export default function Subsection() {
     }
   };
 
-  
   const handleEditorChange = (content) => {
     let text = content;
     const pattern = /^<p><br><\/p>$/;
@@ -577,20 +577,20 @@ export default function Subsection() {
           <h1 className="text-xl font-semibold">{Help.section}</h1>
 
           <SubSection
-                  selected={selectedTab}
-                  tabs={tabs}
-                  handleTabClick={handleTabClick}
-                  handleEditClick={handleEditClick}
-                  handleDeleteClick={handleDeleteClick}
-                />
+            selected={selectedTab}
+            tabs={tabs}
+            handleTabClick={handleTabClick}
+            handleEditClick={handleEditClick}
+            handleDeleteClick={handleDeleteClick}
+          />
           <div className="mt-[2vw] w-full">
-            <IconOutlineBtn
+            <HelpAddButton
               text={intl.help_settings_subsection_added_help}
               textColor={"text-[#214BB9]"}
               textBold={true}
               py={"xl:py-2.5 md:py-1.5 py-1.5 mt-2"}
               px={"xl:px-[32.5px] md:px-[22.5px] px-[22.5px]"}
-              borderColor={"border-[#214BB9]"}
+              borderColor={"border-[#214BB9] bg-white"}
               icon={() => editIcon()}
               onClick={addHelp}
             />
@@ -599,142 +599,138 @@ export default function Subsection() {
 
         <div className="w-full md:w-1/2 p-4 border-l md:border-l-0 md:border-t md:mt-0 ">
           {/* {selectedHelp !== null && ( */}
-            <>
-              <TextPlain
-                 type="text"
-                 for="sectionName"
-                 placeholder=""
-                 borderRound="rounded"
-                 padding="p-2"
-                 focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
-                 border="border border-gray-300"
-                 bg="bg-white"
-                 additionalClass="block w-full pl-5 text-base pr-[30px]"
-                 label={intl.help_title}
-                 labelColor="#7B7B7B"
-                 id="sectionName"
-                 isRequired={true}
-                 value={sectionName}
-                 onChange={handleChange}
-              />
-                {errors?.sectionName && touched?.sectionName && (
+          <>
+            <TextPlain
+              type="text"
+              for="sectionName"
+              placeholder=""
+              borderRound="rounded"
+              padding="p-2"
+              focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
+              border="border border-gray-300"
+              bg="bg-white"
+              additionalClass="block w-full pl-5 text-base pr-[30px]"
+              label={intl.help_title}
+              labelColor="#7B7B7B"
+              id="sectionName"
+              isRequired={true}
+              value={sectionName}
+              onChange={handleChange}
+            />
+            {errors?.sectionName && touched?.sectionName && (
+              <div className="pl-1 validation-font" style={{ color: "red" }}>
+                {errors?.sectionName}
+              </div>
+            )}
+            <div className="mt-4">
+              <label className="block text-gray-700">説明</label>
+              <Tabs
+                defaultActiveKey={"1"}
+                activeKey={tabKey}
+                className="mt-2"
+                onChange={onTabChange}
+              >
+                <TabPane tab="テキスト" key="1" className="max-h-[500px]">
+                  <EditorComponent
+                    ContentValue={editorValue}
+                    onChange={handleEditorChange}
+                  />
+                  {errors?.editorValue && touched?.editorValue && (
                     <div
                       className="pl-1 validation-font"
                       style={{ color: "red" }}
                     >
-                      {errors?.sectionName}
+                      {errors?.editorValue}
                     </div>
                   )}
-              <div className="mt-4">
-                <label className="block text-gray-700">説明</label>
-                <Tabs defaultActiveKey={"1"} activeKey={tabKey} className="mt-2" onChange={onTabChange}>
-                  <TabPane tab="テキスト" key="1" className="max-h-[500px]">
-                    <EditorComponent
-                      ContentValue={editorValue}
-                      onChange={handleEditorChange}
-                    />
-                    {errors?.editorValue && touched?.editorValue && (
-                      <div
-                        className="pl-1 validation-font"
-                        style={{ color: "red" }}
-                      >
-                        {errors?.editorValue}
-                      </div>
-                    )}
-                  </TabPane>
-                  <TabPane tab="ファイル" key="2">
-                   
-                    <FileUploadCard
+                </TabPane>
+                <TabPane tab="ファイル" key="2">
+                  <FileUploadCard
                     ref={fileUploadCardRef}
-                      isAdd={isAdd}
-                      file={file}
-                      sectionName={sectionName}
-                      setIsAdd={setIsAdd}
-                      setErrors={setErrors}
-                      setTouched={setTouched}
-                      setSubSectionDetails={setSubSectionDetails}
-                      setFileName={setFileName}
-                      setFile={setFile}
-                      fileName={
-                        subSectionDetails?.file
-                          ? subSectionDetails.file
-                          : fileName
-                      }
-                      handleUploadButtonClick={handleFileUpload}
-                      setActiveButton={setActiveButton}
-                      CardHeight={isAdd ? "322px" : "375px"}
-                      HeaderTitle={
-                        isAdd
-                          ? intl.help_settings_addition_upload_file
-                          : intl.help_settings_addition_service_manual
-                      }
-                      handleAddButton={handleAddButton}
-                    />
-                      
-                 
-                  </TabPane>
-                </Tabs>
-              </div>
-              <div className=" flex flex-col sm:flex-row justify-end mt-4 space-y-2 sm:space-y-0 sm:space-x-2">
-                <button className="text-[14px] h-[32px] w-[120px] mr-[10px] text-center font-semibold cursor-pointer text-customBlue border border-customBlue bg-white rounded">
-                  {intl.help_settings_addition_modal_cancel}
-                </button>
-                <button
-                  style={HeaderButton}
-                  className="text-base w-[150px] truncate  bg-customBlue hover:bg-[#5283B3] h-[32px] border border-customBlue  rounded"
-                  onClick={() =>
-                  {
-                    if(tabKey=="1")
-                    {
-                     handleFileButtonClick()
+                    isAdd={isAdd}
+                    file={file}
+                    sectionName={sectionName}
+                    setIsAdd={setIsAdd}
+                    setErrors={setErrors}
+                    setTouched={setTouched}
+                    setSubSectionDetails={setSubSectionDetails}
+                    setFileName={setFileName}
+                    setFile={setFile}
+                    fileName={
+                      subSectionDetails?.file
+                        ? subSectionDetails.file
+                        : fileName
                     }
-                    else
-                    {
-                      fileUploadCardRef.current.handleAdd();
+                    handleUploadButtonClick={handleFileUpload}
+                    setActiveButton={setActiveButton}
+                    CardHeight={isAdd ? "322px" : "375px"}
+                    HeaderTitle={
+                      isAdd
+                        ? intl.help_settings_addition_upload_file
+                        : intl.help_settings_addition_service_manual
                     }
-                  }}
-                >
-                  {intl.help_settings_addition_keep}
-                </button>
-              </div>
-            </>
+                    handleAddButton={handleAddButton}
+                  />
+                </TabPane>
+              </Tabs>
+            </div>
+            <div className=" flex flex-col sm:flex-row justify-end mt-4 space-y-2 sm:space-y-0 sm:space-x-2">
+              <button className="text-[14px] h-[32px] w-[120px] mr-[10px] text-center font-semibold cursor-pointer text-customBlue border border-customBlue bg-white rounded">
+                {intl.help_settings_addition_modal_cancel}
+              </button>
+              <button
+                style={HeaderButton}
+                className="text-base w-[150px] truncate  bg-customBlue hover:bg-[#5283B3] h-[32px] border border-customBlue  rounded"
+                onClick={() => {
+                  if (tabKey == "1") {
+                    handleFileButtonClick();
+                  } else {
+                    fileUploadCardRef.current.handleAdd();
+                  }
+                }}
+              >
+                {intl.help_settings_addition_keep}
+              </button>
+            </div>
+          </>
           {/* )} */}
         </div>
 
         <AntModal
-          title={
-            <div className="px-[40px] pt-[40px] mb-[2vw] text-customBlue text-center">
-              {intl.help_settings_delete_help_item}
-            </div>
-          }
-          open={isDeleteModalVisible}
-          onCancel={cancelDelete}
-          footer={[null]}
-          style={{ padding: "40px" }}
-        >
-          <p
-            style={{ textAlign: "center" }}
-            className="px-[40px] font-normal text-base"
+      title={
+        <div className="px-[40px] pt-[40px] mb-[2vw] text-customBlue text-center">
+          {intl.help_settings_delete_help_item}
+        </div>
+      }
+      open={deleteModal}
+      onCancel={() => setDeleteModal(false)}
+      footer={[null]}
+      style={{ padding: "40px" }}
+    >
+      <p
+        style={{ textAlign: "center" }}
+        className="px-[40px] font-normal text-base"
+      >
+        {intl.help_settings_subsection_delete}
+      </p>
+      <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]">
+          <Button
+            key="cancel"
+             className="flex-1 text-blue-500 border-blue-500 "
+            onClick={() => setDeleteModal(false)}
           >
-            {helpToDelete}
-          </p>
-          <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]">
-            <Button
-              key="cancel"
-              className="flex-1 text-blue-500 border-blue-500 "
-              onClick={cancelDelete}
-            >
-              {intl.help_settings_addition_modal_cancel}
-            </Button>
-            <Button
-              key="delete"
-              className="flex-1 bg-[#BA1818] border-[#BA1818] text-white hover:bg-red-500 no-hover"
-              onClick={confirmDelete}
-            >
-              {intl.help_settings_addition_delete}
-            </Button>
-          </div>
-        </AntModal>
+            {intl.help_settings_addition_modal_cancel}
+          </Button>,
+          <Button
+            key="delete"
+             className="flex-1 bg-[#BA1818] border-[#BA1818] text-white hover:bg-red-500 no-hover"
+            onClick={() => deleteSubSection(childData)}
+          >
+            {intl.help_settings_addition_delete}
+          </Button>
+        </div>
+    </AntModal>
+
       </div>
     </ProtectedRoute>
   );
