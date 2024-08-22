@@ -683,6 +683,7 @@ export default function Subsection() {
                 <button
                   style={HeaderButton}
                   className="text-base w-[150px] truncate  bg-customBlue hover:bg-[#5283B3] h-[32px] border border-customBlue  rounded"
+                  onClick={() => handleAddButton()}
                 >
                   {intl.help_settings_addition_keep}
                 </button>
