@@ -206,7 +206,7 @@ const FileUploadCard = forwardRef(({
       className={`flex flex-col h-${CardHeight}  md:h-full`}
     >
       <div className="flex items-center justify-start mt-3">
-        <div className="flex w-full md:w-1/2">
+        {/* <div className="flex w-full md:w-1/2">
           <DynamicLabel
             text={HeaderTitle}
             alignment="text-center"
@@ -221,7 +221,7 @@ const FileUploadCard = forwardRef(({
           >
             *
           </span>
-        </div>
+        </div> */}
         {/* <div className="flex justify-end w-full md:w-1/2">
           <IconBtn
             text={intl.help_settings_addition_btn}

@@ -117,6 +117,8 @@ export default function Subsection() {
   const [fieldsToShow, setFieldsToShow] = useState(0);
 
   const handleAddButton = () => {
+    // setActiveButton("file");
+    setTabKey(2);
     setActiveButton("file");
     setIsAdd(true);
     setSelectedTab(null);
@@ -317,6 +319,7 @@ export default function Subsection() {
           filePath: item.file?.path,
         };
         setSubSectionDetails(formattedData);
+        setTabKey(formattedData.type=="text"?"1":"2")
         setActiveButton(formattedData.type);
         setSectionName(formattedData.name);
         setEditorValue(formattedData.description);
@@ -400,7 +403,8 @@ export default function Subsection() {
         if (response && response.data.status.code == code.CREATED) {
           setLoading(false);
           getSubsetValues();
-          setActiveButton("file");
+          setTabKey(1);
+          setActiveButton("text");
           setIsAdd(true);
           setSelectedTab(null);
           setEditorValue("");
@@ -473,7 +477,8 @@ export default function Subsection() {
         if (response && response.data.status.code == code.OK) {
           setLoading(false);
           getSubsetValues();
-          setActiveButton("file");
+          setTabKey(1);
+          setActiveButton("text");
           setIsAdd(true);
           setSelectedTab(null);
           setSectionName("");
@@ -615,7 +620,7 @@ export default function Subsection() {
               />
               <div className="mt-4">
                 <label className="block text-gray-700">説明</label>
-                <Tabs defaultActiveKey="1" className="mt-2" onChange={onTabChange}>
+                <Tabs defaultActiveKey={tabKey} activeKey={tabKey} className="mt-2" onChange={onTabChange}>
                   <TabPane tab="テキスト" key="1">
                     <EditorComponent
                       ContentValue={editorValue}
