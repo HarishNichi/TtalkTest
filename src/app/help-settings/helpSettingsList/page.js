@@ -40,14 +40,14 @@ export default function HelpSettingsList() {
   });
   const helpSettingsColumns = [
     {
-      title: intl.helpSettingsList_section_label,
+      title: intl.help_settings_help_name,
       dataIndex: "section",
       render: (text) => <a>{text}</a>,
       width: 120,
       align: "left",
     },
     {
-      title: intl.helpSettingsList_Subsection_label,
+      title: intl.help_settings_count,
       dataIndex: "numberOfSubsections",
       render: (text) => (
         <a className="" style={{ paddingRight: "10px" }}>

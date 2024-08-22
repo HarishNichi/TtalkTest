@@ -15,9 +15,10 @@
   "help_settings_addition_msg": "セクションを削除してよろしいですか?",
   "help_settings_addition_modal_cancel": "キャンセル",
   "help_settings_help_category": "カテゴリ追加",
-  "help_settings_help_name": "ヘルプカテゴリ名",
+  "help_settings_help_name": "ヘルプカテゴリ",
   "help_settings_delete_help_category": "ヘルプカテゴリを削除しますか",
   "help_settings_help_items_deleted": "全てのヘルプ項目が削除されます",
+  "help_settings_count": "項目数",
   "company_details_company_management": "会社管理",
   "company_details_company_add": "会社追加",
   "company_details_company_details": "会社の詳細",
@@ -242,5 +243,5 @@
   "add_new_company": "新規会社追加",
   "delete_company": "会社情報を削除しますか？",
   "company_list_delete": "会社に関連付けられているユーザーも削除されます。",
-  "help_title":"ヘルプタイトル"
+  "help_title": "ヘルプタイトル"
 }
