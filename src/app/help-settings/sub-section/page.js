@@ -557,7 +557,7 @@ export default function Subsection() {
     <ProtectedRoute allowedRoles={["admin"]}>
       {loading && <LoaderOverlay />}
       <div className="p-2">
-        <div className="flex">
+        <div className="flex pt-[16px]">
           <Breadcrumb links={helperSubSectionLinks} />
         </div>
         <h1 className="text-xl font-semibold">{Help.section}</h1>
@@ -586,7 +586,7 @@ export default function Subsection() {
           </div>
         </div>
 
-        <div className="w-full md:w-1/2 p-4 border-l md:border-l-0 md:border-t md:mt-0 ">
+        <div className="w-full md:w-1/2 p-4 pt-0 pr-0 border-l md:border-l-0 md:border-t md:mt-0 ">
           {/* {selectedHelp !== null && ( */}
           <>
             <TextPlain
@@ -701,7 +701,7 @@ export default function Subsection() {
             </div>
           }
           open={deleteModal}
-          onCancel={()=>{
+          onCancel={() => {
             setDeleteModal(false);
           }}
           footer={[null]}
@@ -726,7 +726,7 @@ export default function Subsection() {
             <Button
               key="delete"
               className="flex-1 bg-[#BA1818] border-[#BA1818] text-white hover:bg-red-500 no-hover"
-              onClick={()=>{
+              onClick={() => {
                 deleteSubSection(childData);
               }}
             >

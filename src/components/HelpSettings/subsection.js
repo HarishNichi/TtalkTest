@@ -2,15 +2,10 @@
 import React from "react";
 import SectionDeleteIcon from "../Icons/sectionDelete";
 
-const SubSection = ({
-  selected,
-  tabs,
-  handleTabClick,
-  handleDeleteClick,
-}) => {
+const SubSection = ({ selected, tabs, handleTabClick, handleDeleteClick }) => {
   return (
-    <div className="w-full mt-4">
-      <ul className="mt-4 border-t">
+    <div className="w-full   max-h-[350px] overflow-auto">
+      <ul className=" border-t">
         {tabs.map((tab, index) => (
           <li
             key={tab.id}
