@@ -58,7 +58,7 @@ export default function Subsection() {
   const [helpToDelete, setHelpToDelete] = useState("");
   const [editorContents, setEditorContents] = useState({});
   const fileUploadCardRef = useRef(null);
-  const [tabKey,setTabKey] = useState(1)
+  const [tabKey,setTabKey] = useState("1")
   
   useEffect(() => {
     if (selectedHelp !== null) {
@@ -620,7 +620,7 @@ export default function Subsection() {
               />
               <div className="mt-4">
                 <label className="block text-gray-700">説明</label>
-                <Tabs defaultActiveKey={tabKey} activeKey={tabKey} className="mt-2" onChange={onTabChange}>
+                <Tabs defaultActiveKey={"1"} activeKey={tabKey} className="mt-2" onChange={onTabChange}>
                   <TabPane tab="テキスト" key="1">
                     <EditorComponent
                       ContentValue={editorValue}
