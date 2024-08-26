@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import EditIcon from "../Icons/editIcon";
 import AddIcon from "../Icons/addIcon";
-import waterMark from "../../../public/waterMark.jpg";
+import waterMark from "../../../public/waterMark.png";
 import Image from "next/image";
 
 export default function SearchCard({
