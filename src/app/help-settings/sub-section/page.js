@@ -389,12 +389,12 @@ export default function Subsection() {
         const response = await api.post("help/create", payload);
         if (response && response.data.status.code == code.CREATED) {
           setLoading(false);
-          setErrors({});
-          setTouched((prevTouched) => ({
-            ...prevTouched,
-            sectionName: false,
-            editorValue: false,
-          }));
+          // setErrors({});
+          // setTouched((prevTouched) => ({
+          //   ...prevTouched,
+          //   sectionName: false,
+          //   editorValue: false,
+          // }));
           getSubsetValues();
           setTabKey("1");
           setActiveButton("text");
@@ -467,12 +467,12 @@ export default function Subsection() {
         const response = await api.put("help/update", payload);
         if (response && response.data.status.code == code.OK) {
           setLoading(false);
-          setErrors({});
-          setTouched((prevTouched) => ({
-            ...prevTouched,
-            sectionName: false,
-            editorValue: false,
-          }));
+          // setErrors({});
+          // setTouched((prevTouched) => ({
+          //   ...prevTouched,
+          //   sectionName: false,
+          //   editorValue: false,
+          // }));
           getSubsetValues();
           setTabKey("1");
           setActiveButton("text");
