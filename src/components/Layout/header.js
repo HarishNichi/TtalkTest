@@ -131,12 +131,15 @@ export default function Header({
                 className="z-auto absolute right-5 top-16 divide-y divide-gray-100 rounded-xl shadow bg-[#0C4278] text-white "
                 style={{
                   width: "170px",
+                  backgroundColor: "white",
+                  color: "black",
+                  borderRadius: "0px"
                 }}
                 data-testid="options-dropdown"
                 ref={dropdownRef}
               >
                 <ul
-                  className="py-2 pl-2 font-bold text-[14px]"
+                  className="py-2  font-bold text-[14px]"
                   aria-labelledby="dropdownDelayButton"
                   data-testid="dropdown-menu-first"
                 >
@@ -144,7 +147,7 @@ export default function Header({
                     <li>
                       <Link
                         href="/update-password"
-                        className="block px-4 py-2 hover:text-link"
+                        className="block px-4 py-2 hover:text-link border-b  border-[#E7E7E9]"
                         onClick={() => {
                           toggle(false);
                           toggler(false);
@@ -254,14 +257,14 @@ export default function Header({
                   ref={dropdownRef}
                 >
                   <ul
-                    className="py-2  pl-2 font-bold text-[14px]"
+                    className="py-2   font-bold text-[14px]"
                     aria-labelledby="dropdownDelayButton"
                   >
                     {!Admin && (
                       <li>
                         <Link
                           href="/update-password"
-                          className="block px-4 py-2 hover:text-link"
+                          className="block px-4 py-2 hover:text-link border-b  border-[#E7E7E9]"
                           onClick={() => {
                             toggle(false);
                             toggler(false);
