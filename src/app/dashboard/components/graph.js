@@ -168,7 +168,6 @@ const LineChart = (graphData) => {
             height: "370px",
             maxHeight: "370px",
             minHeight: "370px",
-            minWidth: "500px",
           }}
         />
       </div>
