@@ -521,7 +521,10 @@ export default function Subsection() {
       text = text.replace(pattern, "");
     }
     setEditorValue(text);
+    if(text)
+    {
     setTouched((prevTouched) => ({ ...prevTouched, editorValue: true }));
+    }
   };
 
   const deleteSubSection = async (record) => {
