@@ -243,5 +243,8 @@
   "add_new_company": "新規会社追加",
   "delete_company": "会社情報を削除しますか？",
   "company_list_delete": "会社に関連付けられているユーザーも削除されます。",
-  "help_title": "ヘルプタイトル"
+  "help_title": "ヘルプタイトル",
+  "device_terminal": "端末",
+  "device_add_device": "端末追加",
+  "device_delete_device": "選択した端末を削除しますか"
 }
