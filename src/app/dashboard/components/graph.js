@@ -78,8 +78,8 @@ const LineChart = (graphData) => {
         borderWidth: 2,
       },
       point: {
-        radius: 4,
-        hoverRadius: 6,
+        radius: 0,
+        hoverRadius: 0,
       },
     },
   };
