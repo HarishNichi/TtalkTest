@@ -543,7 +543,7 @@ export default function Subsection() {
         </div>
 
         <div className="w-full md:w-1/2 p-4 pt-0 pr-0 border-l md:border-l-0 md:border-t md:mt-0 ">
-          {showDetails !== null && (
+          {showDetails && (
           <>
             <TextPlain
               type="text"
