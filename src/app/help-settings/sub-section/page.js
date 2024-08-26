@@ -51,30 +51,12 @@ export default function Subsection() {
   const [fileName, setFileName] = useState("");
   const [file, setFile] = useState("");
   const [editorValue, setEditorValue] = useState("");
-  const [selectedHelp, setSelectedHelp] = useState(null);
-  const [content, setContent] = useState("(ver3.3.0)\n1.説明内容");
-  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [helpToDelete, setHelpToDelete] = useState("");
-  const [editorContents, setEditorContents] = useState({});
   const fileUploadCardRef = useRef(null);
   const [tabKey, setTabKey] = useState("1");
+  const [showDetails,setShowDetails] = useState(false);
 
-  useEffect(() => {
-    if (selectedHelp !== null) {
-      const content = editorContents[selectedHelp] || "";
-      setEditorContents(content);
-    }
-  }, [selectedHelp]);
-  const handleTextChange = (newContent) => {
-    setContent(newContent);
-  };
   const { TabPane } = Tabs;
-  const updateHelpItem = (index, newValue) => {
-    const updatedList = helpList.map((item, i) =>
-      i === index ? newValue : item
-    );
-    setHelpList(updatedList);
-  };
 
   const onTabChange = (key) => {
     // eslint-disable-next-line no-console
@@ -93,6 +75,7 @@ export default function Subsection() {
     setErrors({});
     setTouched({});
     setTabKey("1");
+    setShowDetails(true);
   };
 
   const schema = Yup.object().shape({
@@ -116,6 +99,7 @@ export default function Subsection() {
     setFileName("");
     setErrors({});
     setTouched({});
+    setShowDetails(false);
   };
   function deleteIcon() {
     return <DeleteIcon />;
@@ -182,49 +166,7 @@ export default function Subsection() {
     setShowModal(!showModal);
   };
 
-  const [helpList, setHelpList] = useState([]);
 
-  // State to keep track of the next item to add
-  const [nextItemIndex, setNextItemIndex] = useState(0);
-  const allHelpItems = [
-    "PTTコール発信方法について",
-    "PTTコールの音量調整",
-    "PTTコールの発信先登録方法",
-    "ワンタップPTTコール発信",
-  ];
-  const addNewHelpItem = () => {
-    if (nextItemIndex < allHelpItems.length) {
-      // Add the next item to the helpList
-      setHelpList((prevHelpList) => [
-        ...prevHelpList,
-        allHelpItems[nextItemIndex],
-      ]);
-      // Update the index for the next item to add
-      setNextItemIndex((prevIndex) => prevIndex + 1);
-    }
-  };
-  const handleDelete = (index) => {
-    setHelpToDelete(helpList[index]);
-    setIsDeleteModalVisible(true);
-  };
-  const confirmDelete = () => {
-    // Handle delete confirmation
-    setHelpList((prev) => {
-      const updatedList = prev.filter((_, i) => i !== selectedHelp);
-      // Update selectedHelp to show the previous item or clear if the list is empty
-      setSelectedHelp(
-        updatedList.length > 0 ? Math.max(selectedHelp - 1, 0) : null
-      );
-      return updatedList;
-    });
-    setIsDeleteModalVisible(false);
-    setHelpToDelete("");
-  };
-
-  const cancelDelete = () => {
-    setIsDeleteModalVisible(false);
-    setHelpToDelete("");
-  };
   const handleDeleteClick = (data) => {
     setDeleteModal(true);
     setDeleteChidData(data);
@@ -312,6 +254,7 @@ export default function Subsection() {
         setEditorValue(formattedData.description);
         setErrors({});
         setTouched({});
+        setShowDetails(true);
       }
     } catch (error) {
       setLoading(false);
@@ -405,6 +348,7 @@ export default function Subsection() {
           setFile("");
           setSubSectionDetails({});
           setFileName("");
+          setShowDetails(false);
         }
       } catch (error) {
         setLoading(false);
@@ -483,6 +427,7 @@ export default function Subsection() {
           setFile("");
           setSubSectionDetails({});
           setFileName("");
+          setShowDetails(false);
         }
       } catch (error) {
         setLoading(false);
@@ -598,7 +543,7 @@ export default function Subsection() {
         </div>
 
         <div className="w-full md:w-1/2 p-4 pt-0 pr-0 border-l md:border-l-0 md:border-t md:mt-0 ">
-          {/* {selectedHelp !== null && ( */}
+          {showDetails !== null && (
           <>
             <TextPlain
               type="text"
@@ -702,7 +647,7 @@ export default function Subsection() {
               </button>
             </div>
           </>
-          {/* )} */}
+          )} 
         </div>
 
         <AntModal

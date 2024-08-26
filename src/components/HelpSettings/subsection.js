@@ -15,7 +15,6 @@ const SubSection = ({ selected, tabs, handleTabClick, handleDeleteClick }) => {
             } dark:text-black cursor-pointer p-2 hover:bg-blue-100  border-b-2 `}
             onClick={() => handleTabClick(index, tab)}
           >
-             {selected} {index}
             {tab.name}
             <button
               className="text-red-500 float-right"
