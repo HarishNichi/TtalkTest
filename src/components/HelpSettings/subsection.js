@@ -7,6 +7,7 @@ const SubSection = ({ selected, tabs, handleTabClick, handleDeleteClick }) => {
     <div className="w-full   max-h-[350px] overflow-auto">
       <ul className=" border-t">
         {tabs.map((tab, index) => (
+         
           <li
             key={tab.id}
             className={`dark:text-black cursor-pointer p-2 hover:bg-blue-100 bg-white border-b-2 ${
@@ -14,6 +15,7 @@ const SubSection = ({ selected, tabs, handleTabClick, handleDeleteClick }) => {
             }`}
             onClick={() => handleTabClick(index, tab)}
           >
+             {selected} {index}
             {tab.name}
             <button
               className="text-red-500 float-right"
