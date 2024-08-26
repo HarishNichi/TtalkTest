@@ -62,14 +62,14 @@ const LineChart = (graphData) => {
         grid: {
           display: false,
         },
-       
+
         min: 0, // Set the minimum value for the y-axis
-        max: graphData?.graphData.max==10?10:graphData.max , // Set the minimum value for the y-axis
+        max: graphData?.graphData.max == 10 ? 10 : graphData.max, // Set the minimum value for the y-axis
         ticks: {
           stepSize: graphData.step,
-          callback: function(value, index, values) {
+          callback: function (value, index, values) {
             return Number(value).toFixed(0); // Convert the value to a whole number
-        }
+          },
         },
       },
     },
@@ -132,10 +132,16 @@ const LineChart = (graphData) => {
   };
   return (
     <>
-      <div className="py-2 block pl-4 pr-3 bg-white border border-gray-200 rounded-xl shadow relative flex flex-col" style={{maxHeight:"490px",minHeight:"490px"}}>
+      <div
+        className="py-2 block pl-4 pr-3 bg-white border border-gray-200 rounded-xl shadow relative flex flex-col"
+        style={{ maxHeight: "490px", minHeight: "490px" }}
+      >
         <span className="text-base md:text-xl mb-[30px] dark:text-black">
-          <span className="fond-bold" style={{fontWeight:600}}> {intl.card_graphcard_calls_per_day} </span>
-          <span className="text-[#595959] font-bold">
+          <span className="fond-bold" style={{ fontWeight: 600 }}>
+            {" "}
+            {intl.card_graphcard_calls_per_day}{" "}
+          </span>
+          <span className="text-[#595959] font-semibold text-[16px]">
             {intl.card_graphcard_past_28days}
           </span>
         </span>
@@ -157,7 +163,12 @@ const LineChart = (graphData) => {
           options={options}
           data={data}
           className="flex flex-col h-full w-full flex-1 pt-[10px]"
-          style={{ width: "100%", height: "370px",maxHeight:"370px",minHeight:"370px" }}
+          style={{
+            width: "100%",
+            height: "370px",
+            maxHeight: "370px",
+            minHeight: "370px",
+          }}
         />
       </div>
     </>

@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import EditIcon from "../Icons/editIcon";
 import AddIcon from "../Icons/addIcon";
+import waterMark from "../../../public/waterMark.jpg";
+import Image from "next/image";
 
 export default function SearchCard({
   onInput,
@@ -17,7 +19,6 @@ export default function SearchCard({
 }) {
   const [searchText, setSearchText] = useState("");
   const router = useRouter();
-
   function editIcon() {
     return (
       <svg
@@ -88,7 +89,7 @@ export default function SearchCard({
           <div className="relative mb-2 w-[65%]">
             <input
               type="text"
-              className="w-full h-[32px] max-h-[32px] pl-10 pr-3 border bg-[white] rounded-lg focus:outline-none placeholder-[#AEA8A8] dark:text-black"
+              className="w-full h-[32px] max-h-[32px] pl-3 pr-3 border bg-[white] rounded-lg focus:outline-none placeholder-[#AEA8A8] dark:text-black"
               placeholder={
                 Admin
                   ? intl.user_sos_company_search_placeholder
@@ -99,9 +100,9 @@ export default function SearchCard({
                 // onInput(evt.target.value);
               }}
             />
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3">
+            {/* <div className="absolute inset-y-0 left-0 flex items-center pl-3">
               <HiSearch className="text-[#AEAEAE] font-bold" />
-            </div>
+            </div> */}
           </div>
           <div className="ml-[2%] w-[33%] max-h-[32px]">
             <IconOutlineBtn
@@ -130,17 +131,26 @@ export default function SearchCard({
               return (
                 <li
                   id={`id-${index}`}
+                  className="flex items-center"
                   key={
                     Admin
                       ? result.companyName + "" + index
                       : result.userName + "" + index
                   }
                 >
+                  <Image
+                    src={waterMark}
+                    alt="Ptalk"
+                    height={24}
+                    width={24}
+                    className="mr-2 max-h-[24px]"
+                  />
                   <Link
                     href={result.link}
                     className="text-[#19388B] hover:text-blue-700 text-[14px]"
                     onClick={(event) => onLinkClick(event, result)}
                   >
+                    {/* <WaterMark /> */}
                     {Admin ? result.companyName : result.userName}
                   </Link>
                 </li>

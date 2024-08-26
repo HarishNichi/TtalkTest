@@ -276,8 +276,8 @@ export default function Login() {
                 alt="ptalk logo"
               />
             </div>
-            <div className="p-[40px] pb-[10px] w-full">
-              <div className="w-full px-[60px] py-[40px] bg-white rounded-xl shadow-md text-black">
+            <div className=" xl:p-[80px] lg:p-[60px] md:p-[40px] p-[20px] pb-[10px] w-full">
+              <div className="w-full md:px-[60px] md:py-[40px] px-[40px] py-[20px] bg-white rounded-xl shadow-md text-black">
                 <div className="text-xl font-semibold mb-6 text-left">
                   {intl.login_btn_label}
                 </div>
