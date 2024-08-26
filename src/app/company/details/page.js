@@ -168,7 +168,7 @@ export default function CompanyInformation() {
                 <Button
                   type="danger"
                   onClick={handleDeleteClick}
-                  className="text-[#BA1818]"
+                  className="text-[#BA1818] flex "
                 >
                   <svg
                     width="24"
@@ -188,7 +188,7 @@ export default function CompanyInformation() {
                 <Button
                   type="danger"
                   onClick={handleEditClick}
-                  className="text-customBlue"
+                  className="text-customBlue flex"
                 >
                   <svg
                     width="24"
@@ -279,22 +279,30 @@ export default function CompanyInformation() {
                     {organizationsData.salesChannel}
                   </div>
                   <div className="text-sm font-normal">
+                    {intl.form_component_simulataneous_intepretation}
+                  </div>
+                  <div className="text-sm font-semibold">
+                    {organizationsData.isTranslate ? "ON" : "OFF"}
+                  </div>
+                  <div className="text-sm font-normal">
                     {intl.form_component_transcription}
                   </div>
                   <div className="text-sm font-semibold">
                     {organizationsData.isTranscribe ? "ON" : "OFF"}
                   </div>
+
                   <div className="text-sm font-normal">
-                    {intl.form_component_sales_channel}
+                    {intl.company_list_sos_location}
+                  </div>
+                  <div className="text-sm font-semibold">
+                    {organizationsData.sosLocation ? "ON" : "OFF"}
+                  </div>
+
+                  <div className="text-sm font-normal">
+                    {intl.company_list_company_status}
                   </div>
                   <div className="text-sm font-semibold">
                     {organizationsData.isStatus ? "ON" : "OFF"}
-                  </div>
-                  <div className="text-sm font-normal">
-                    {intl.form_component_simulataneous_intepretation}
-                  </div>
-                  <div className="text-sm font-semibold">
-                    {organizationsData.isTranslate ? "ON" : "OFF"}
                   </div>
                 </div>
               </div>
@@ -369,7 +377,7 @@ export default function CompanyInformation() {
               className="flex-1 bg-[#BA1818] border-[#BA1818] text-white hover:bg-red-500 no-hover"
               onClick={handleDeleteConfirm}
             >
-              {intl.help_settings_addition_delete}
+              {intl.help_settings_addition_delete_button}
             </Button>
           </div>
         </AntModal>

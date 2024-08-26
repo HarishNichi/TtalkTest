@@ -23,15 +23,15 @@ export const columns = [
 export const tableDefaultPageSizeOption = [
   {
     value: 50,
-    label: "50",
+    label: "50件",
   },
   {
     value: 100,
-    label: "100",
+    label: "100件",
   },
   {
     value: 200,
-    label: "200",
+    label: "200件",
   },
 ];
 export const data = [

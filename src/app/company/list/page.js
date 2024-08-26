@@ -712,7 +712,7 @@ export default function CompanyList() {
             className="sm:flex-1 w-full sm:w-auto bg-[#BA1818] text-white no-hover"
             onClick={() => deleteOrganization(selectedRows)}
           >
-            {intl.help_settings_addition_delete}
+            {intl.help_settings_addition_delete_button}({selectedRows.length})
           </Button>
         </div>
       </AntModal>

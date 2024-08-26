@@ -43,15 +43,13 @@ const Dashboard = () => {
 
   useEffect(() => {
     /* eslint-disable no-undef*/
-    Promise.allSettled([
-      fetchData(),
-      fetchGraphData(),
-      fetchCount(),
-    ]).then((res) => {
-      setLoading(false)
-    }).finally(() => {
-      setLoading(false)
-    })
+    Promise.allSettled([fetchData(), fetchGraphData(), fetchCount()])
+      .then((res) => {
+        setLoading(false);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   useEffect(() => {
@@ -67,7 +65,6 @@ const Dashboard = () => {
     };
   }, []);
 
-
   const fetchGraphData = async () => {
     toast.dismiss();
     setLoading(true);
@@ -81,18 +78,18 @@ const Dashboard = () => {
       const response = await api.get("others/graph", params);
       let data = response.data.data;
       let max = Math.max(...data.graph);
-      let max2=max==0?10:max
-       let step =max > 10 ? Math.floor(max / 10) : 500;
+      let max2 = max == 0 ? 10 : max;
+      let step = max > 10 ? Math.floor(max / 10) : 500;
       let graph = {
         total: data.total,
         avg: data.avg,
         graph: data.graph,
         step: step,
-        max:max2
+        max: max2,
       };
       setGraphData(graph);
     } finally {
-      toast.dismiss()
+      toast.dismiss();
     }
   };
 
@@ -110,14 +107,12 @@ const Dashboard = () => {
     let org = {
       orgCount: data.orgCount,
       licenseCount: data.empCount,
-      totalSimultaneousInterpretation:
-        data.simultaneousInterpretationCount,
+      totalSimultaneousInterpretation: data.simultaneousInterpretationCount,
       totalTranscribe: data.transcribeCount,
       numberOfLoggedInCount: data.loggedInCount,
       numberOfLoggedOutCount: data.loggedOutCount,
     };
     setCounter(org);
-
   };
 
   const fetchData = async () => {
@@ -180,7 +175,7 @@ const Dashboard = () => {
       if (Admin) {
         setSearchResults(organizationsData);
       } else {
-        setSearchResults(employeeData)
+        setSearchResults(employeeData);
       }
     }
   }
@@ -213,15 +208,12 @@ const Dashboard = () => {
         {Admin && (
           <div className="grid grid-cols-2 xl:grid-cols-6 md:gap-2 mb-2 pb-2">
             <div className={`pr-2 pb-2 lg:p-0`}>
-           
               <CardIcon
                 title={intl.dashboard_card_number_of_companies_label}
                 value={counter.orgCount || 0}
                 borderVarient="border-[#39A1EA]"
-                icon = {<DashboardOrganization isMobile={isMobile} />}
-              >
-               
-              </CardIcon>
+                icon={<DashboardOrganization isMobile={isMobile} />}
+              ></CardIcon>
             </div>
             <div className={`pl-2 pb-2 lg:p-0`}>
               <CardIcon
@@ -229,29 +221,23 @@ const Dashboard = () => {
                 value={counter.licenseCount || 0}
                 borderVarient="border-[#FEB558]"
                 icon={<DashboardConnections isMobile={isMobile} />}
-              >
-              
-              </CardIcon>
+              ></CardIcon>
             </div>
             <div className={`pr-2 pt-2 pb-2 lg:p-0`}>
               <CardIcon
                 title={intl.dashboard_card_active_connection_label}
                 value={counter.numberOfLoggedInCount || 0}
                 borderVarient="border-[#29AB91]"
-                icon={ <DashboardActiveConnection isMobile={isMobile} />}
-              >
-               
-              </CardIcon>
+                icon={<DashboardActiveConnection isMobile={isMobile} />}
+              ></CardIcon>
             </div>
             <div className={`pl-2 pt-2 pb-2 lg:p-0`}>
               <CardIcon
                 title={intl.dashboard_card_invalid_connection_label}
                 value={counter.numberOfLoggedOutCount || 0}
                 borderVarient="border-[#FF7555]"
-                icon={ <DashboardDisabledConnections isMobile={isMobile} />}
-              >
-               
-              </CardIcon>
+                icon={<DashboardDisabledConnections isMobile={isMobile} />}
+              ></CardIcon>
             </div>
             <div className={`pr-2 pt-2 pb-2 lg:p-0`}>
               <CardIcon
@@ -259,19 +245,15 @@ const Dashboard = () => {
                 value={counter.totalTranscribe || 0}
                 borderVarient="border-[#E8C50D]"
                 icon={<Transcribe isMobile={isMobile} />}
-              >
-               
-              </CardIcon>
+              ></CardIcon>
             </div>
             <div className={`pl-2 pt-2 pb-2 lg:p-0`}>
               <CardIcon
                 title={intl.simulations_call_count}
                 value={counter.totalSimultaneousInterpretation || 0}
                 borderVarient="border-[#67E364]"
-                icon={ <DashboardCall isMobile={isMobile} />}
-              >
-               
-              </CardIcon>
+                icon={<DashboardCall isMobile={isMobile} />}
+              ></CardIcon>
             </div>
           </div>
         )}
@@ -284,9 +266,7 @@ const Dashboard = () => {
                 value={counter.licenseCount || 0}
                 borderVarient="border-[#39A1EA]"
                 icon={<DashboardConnections isMobile={isMobile} />}
-              >
-               
-              </CardIcon>
+              ></CardIcon>
             </div>
             <div className={`pr-2 pb-2 lg:p-0`}>
               <CardIcon
@@ -294,9 +274,7 @@ const Dashboard = () => {
                 value={counter.numberOfLoggedInCount || 0}
                 borderVarient="border-[#29AB91]"
                 icon={<DashboardActiveConnection isMobile={isMobile} />}
-              >
-               
-              </CardIcon>
+              ></CardIcon>
             </div>
             <div className={`pr-2 pb-2 lg:p-0`}>
               <CardIcon
@@ -304,9 +282,7 @@ const Dashboard = () => {
                 value={counter.numberOfLoggedOutCount || 0}
                 borderVarient="border-[#FF7555]"
                 icon={<DashboardDisabledConnections isMobile={isMobile} />}
-              >
-               
-              </CardIcon>
+              ></CardIcon>
             </div>
             <div className={`pr-2 pb-2 lg:p-0`}>
               <CardIcon
@@ -314,9 +290,7 @@ const Dashboard = () => {
                 value={counter.totalTranscribe || 0}
                 borderVarient="border-[#E8C50D]"
                 icon={<Transcribe isMobile={isMobile} />}
-              >
-               
-              </CardIcon>
+              ></CardIcon>
             </div>
             <div className={`pr-2 pb-2 lg:p-0`}>
               <CardIcon
@@ -324,9 +298,7 @@ const Dashboard = () => {
                 value={counter.totalSimultaneousInterpretation || 0}
                 borderVarient="border-[#67E364]"
                 icon={<DashboardCall isMobile={isMobile} />}
-              >
-               
-              </CardIcon>
+              ></CardIcon>
             </div>
           </div>
         )}
@@ -340,7 +312,6 @@ const Dashboard = () => {
               onLinkClick={handleLinkClick}
               height={490}
             />
-
           </div>
           <div className="flex flex-col gap-y-2  lg:w-2/3">
             <LineChart graphData={graphData} />
