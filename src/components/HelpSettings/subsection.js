@@ -10,9 +10,9 @@ const SubSection = ({ selected, tabs, handleTabClick, handleDeleteClick }) => {
          
           <li
             key={tab.id}
-            className={`dark:text-black cursor-pointer p-2 hover:bg-blue-100 bg-white border-b-2 ${
+            className={`${
               selected == index ? "bg-blue-100" : ""
-            }`}
+            } dark:text-black cursor-pointer p-2 hover:bg-blue-100 bg-white border-b-2 `}
             onClick={() => handleTabClick(index, tab)}
           >
              {selected} {index}
