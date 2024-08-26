@@ -635,7 +635,6 @@ export default function Subsection() {
                     ContentValue={editorValue}
                     onChange={handleEditorChange}
                   />
-                  {JSON.stringify(touched)}
                   {errors?.editorValue && touched?.editorValue && (
                     <div
                       className="pl-1 validation-font"
