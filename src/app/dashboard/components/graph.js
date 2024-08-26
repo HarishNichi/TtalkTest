@@ -60,7 +60,7 @@ const LineChart = (graphData) => {
       y: {
         display: true,
         grid: {
-          display: false,
+          display: true,
         },
 
         min: 0, // Set the minimum value for the y-axis
