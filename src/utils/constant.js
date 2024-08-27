@@ -146,7 +146,7 @@ export const companyAddLinks = [
 ];
 
 export const companyDetailLinks = [
-  { title: intl.company_details_company_management, link: "/company/list" },
+  { title: intl.components_card_searchlist_companylist, link: "/company/list" },
   { title: intl.company_details_company_details, link: "/company/details" },
 ];
 

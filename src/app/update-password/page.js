@@ -3,9 +3,7 @@ import { Noto_Sans_JP } from "next/font/google";
 import { useState, useEffect } from "react";
 import * as Yup from "yup";
 import intl from "@/utils/locales/jp/jp.json";
-import {
-  PASSWORD_PATTERN,
-} from "@/validation/validationPattern";
+import { PASSWORD_PATTERN } from "@/validation/validationPattern";
 import { validateHandler } from "@/validation/helperFunction";
 import { useRouter } from "next/navigation";
 import api from "@/utils/api";
@@ -24,19 +22,17 @@ const natoSans = Noto_Sans_JP({ subsets: ["latin"] });
 
 // Yup schema to validate the form
 const schema = Yup.object().shape({
-  currentPassword: Yup.string()
-    .required(intl.validation_required),
+  currentPassword: Yup.string().required(intl.validation_required),
 
   password: Yup.string()
     .required(intl.validation_required)
     .matches(PASSWORD_PATTERN.regex, PASSWORD_PATTERN.message),
 
   confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'パスワードが一致しません')
-    .required(intl.validation_required)
-
+    .oneOf([Yup.ref("password"), null], "パスワードが一致しません")
+    .required(intl.validation_required),
 });
-export default function UpdatePassword() {
+export default function UpdatePassword(setIsResetModal) {
   const routerPath = useRouter();
   const [currentPassword, setCurrentPassword] = useState("");
   const [password, setPassword] = useState("");
@@ -44,8 +40,8 @@ export default function UpdatePassword() {
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
   const [loading, setLoading] = useState(false);
-  const [type1, setType1] = useState('password');
-  const [type2, setType2] = useState('password');
+  const [type1, setType1] = useState("password");
+  const [type2, setType2] = useState("password");
 
   useEffect(() => {
     const formValues = { currentPassword, password, confirmPassword };
@@ -144,30 +140,27 @@ export default function UpdatePassword() {
       {loading && <LoaderOverlay />}
       <ToastContainer />
       <ProtectedRoute allowedRoles={["organization"]}>
-        <div className="mb-[5px]">
-          <Breadcrumb links={links} />
-        </div>
-        <div className="flex justify-between mb-[10px]">
-          <div className="flex items-center">
+        <div className="flex justify-center pt-[30px]">
+          <div className="flex justify-center mb-[10px]">
+            {/* <DynamicLabel
+              text="パスワードを変更"
+              alignment="text-center text-customBlue"
+              fontSize="text-xl"
+              fontWeight="font-semibold"
+              disabled={false}
+            /> */}
             <DynamicLabel
               text="パスワードを変更"
-              alignment="text-center"
-              fontSize="text-2xl"
-              fontWeight="font-medium"
-              textColor="#000000"
+              alignment="text-center text-customBlue "
+              fontSize="text-xl"
+              fontWeight="font-semibold"
               disabled={false}
             />
           </div>
         </div>
-        <div
-          style={cardStyle}
-          className="pt-[37px] p-[20px] md:px-[60px]  xl:px-[80px] xl:pt-[50px] xl:pb-[40px] flex flex-col flex-1 h-full"
-        >
-          <form
-            onSubmit={handleSave}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-y-4 gap-x-12 lg:gap-y-8 lg:gap-x-24 "
-          >
-            <div className="flex flex-col ">
+        <div className="pt-[37px] p-[20px] md:px-[60px] xl:px-[80px] xl:pt-[50px] xl:pb-[40px] flex flex-col flex-1 h-full">
+          <form onSubmit={handleSave} className="space y-6 ">
+            <div className="flex flex-col mb-[10px] ">
               <IconRight
                 icon={passwordIcon}
                 id={"currentPassword"}
@@ -175,7 +168,6 @@ export default function UpdatePassword() {
                 for={"currentPassword"}
                 onChange={handleChange}
                 placeholder={"今のパスワード"}
-                borderRound={"rounded-xl"}
                 padding={"p-[10px]"}
                 label={"今のパスワード"}
                 labelColor={"#7B7B7B"}
@@ -199,41 +191,40 @@ export default function UpdatePassword() {
               )}
             </div>
             <div className="flex flex-col">
-            <div className="relative">
-              <TextPlain
-                type={type1}
-                for={"password"}
-                value={password}
-                onChange={handleChange}
-                placeholder={""}
-                borderRound={"rounded-xl"}
-                padding={"p-[10px]"}
-                focus={
-                  "focus:outline-none focus:ring-2  focus:ring-customBlue "
-                }
-                border={"border border-gray-300"}
-                bg={"bg-white "}
-                additionalClass={"block w-full pl-5 text-base pr-[40px]"}
-                label={"新しいパスワード"}
-                labelColor={"#7B7B7B"}
-                isRequired={true}
-                id={"password"}
-                name={"password"}
-              />
-               <button
-                    className="absolute inset-y-0 right-0 pr-3 pt-7 flex items-center justify-center"
-                    onClick={(event) => {
-                      event.preventDefault();
-                      setType1(type1 === 'password' ? 'text' : 'password');
-                    }}
-                  >
-                    {type1 == "password" ? (
-                      <IoEyeOffOutline className="text-2xl text-[#A3A3A3]" />
-                    ) : (
-                      <IoEyeOutline className="text-2xl text-[#A3A3A3]" />
-                    )}
-                  </button>
-                  </div>
+              <div className="relative mb-[10px]">
+                <TextPlain
+                  type={type1}
+                  for={"password"}
+                  value={password}
+                  onChange={handleChange}
+                  placeholder={""}
+                  padding={"p-[10px]"}
+                  focus={
+                    "focus:outline-none focus:ring-2  focus:ring-customBlue "
+                  }
+                  border={"border border-gray-300"}
+                  bg={"bg-white "}
+                  additionalClass={"block w-full pl-5 text-base pr-[40px]"}
+                  label={"新しいパスワード"}
+                  labelColor={"#7B7B7B"}
+                  isRequired={true}
+                  id={"password"}
+                  name={"password"}
+                />
+                <button
+                  className="absolute inset-y-0 right-0 pr-3 pt-7 flex items-center justify-center"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    setType1(type1 === "password" ? "text" : "password");
+                  }}
+                >
+                  {type1 == "password" ? (
+                    <IoEyeOffOutline className="text-2xl text-[#A3A3A3]" />
+                  ) : (
+                    <IoEyeOutline className="text-2xl text-[#A3A3A3]" />
+                  )}
+                </button>
+              </div>
               {errors?.password && touched?.password && (
                 <div className="pl-1 validation-font" style={{ color: "red" }}>
                   {errors?.password}
@@ -241,56 +232,54 @@ export default function UpdatePassword() {
               )}
             </div>
 
-            <div className="flex flex-col"></div>
             <div className="flex flex-col">
-            <div className="relative">
-              <TextPlain
-                type={type2}
-                placeholder={""}
-                for={"confirmPassword"}
-                borderRound={"rounded-xl"}
-                padding={"p-[10px]"}
-                focus={
-                  "focus:outline-none focus:ring-2  focus:ring-customBlue "
-                }
-                border={"border border-gray-300"}
-                bg={"bg-white "}
-                additionalClass={"block w-full pl-5 text-base pr-[30px]"}
-                isRequired={true}
-                label={"パスワードを認証する"}
-                labelColor={"#7B7B7B"}
-                id={"confirmPassword"}
-                name={"confirmPassword"}
-                value={confirmPassword}
-                onChange={handleChange}
-              />
-               <button
-                    className="absolute inset-y-0 right-0 pr-3 pt-7 flex items-center justify-center"
-                    onClick={(event) => {
-                      event.preventDefault();
-                      setType2(type2 === 'password' ? 'text' : 'password');
-                    }}
-                  >
-                    {type2 == "password" ? (
-                      <IoEyeOffOutline className="text-2xl text-[#A3A3A3]" />
-                    ) : (
-                      <IoEyeOutline className="text-2xl text-[#A3A3A3]" />
-                    )}
-                  </button>
-                  </div>
+              <div className="relative mb-[10px]">
+                <TextPlain
+                  type={type2}
+                  placeholder={""}
+                  for={"confirmPassword"}
+                  padding={"p-[10px]"}
+                  focus={
+                    "focus:outline-none focus:ring-2  focus:ring-customBlue "
+                  }
+                  border={"border border-gray-300"}
+                  bg={"bg-white "}
+                  additionalClass={"block w-full pl-5 text-base pr-[30px]"}
+                  isRequired={true}
+                  label={"パスワードを認証する"}
+                  labelColor={"#7B7B7B"}
+                  id={"confirmPassword"}
+                  name={"confirmPassword"}
+                  value={confirmPassword}
+                  onChange={handleChange}
+                />
+                <button
+                  className="absolute inset-y-0 right-0 pr-3 pt-7 flex items-center justify-center"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    setType2(type2 === "password" ? "text" : "password");
+                  }}
+                >
+                  {type2 == "password" ? (
+                    <IoEyeOffOutline className="text-2xl text-[#A3A3A3]" />
+                  ) : (
+                    <IoEyeOutline className="text-2xl text-[#A3A3A3]" />
+                  )}
+                </button>
+              </div>
               {errors?.confirmPassword && touched?.confirmPassword && (
                 <div className="pl-1 validation-font" style={{ color: "red" }}>
                   {errors?.confirmPassword}
                 </div>
               )}
             </div>
-            <div className="flex flex-col"></div>
-            <div className="flex justify-end">
-              <div className="flex justify-end">
+
+            <div className="">
+              <div className="mt-[30px] w-full pb-[30px]">
                 <IconLeftBtn
                   text={"保存"}
                   type="submit"
-                  py="py-[8px] px-[55px]"
+                  py="py-[8px] px-[55px] w-full"
                   textColor="text-white font-normal text-[16px]"
                   bgColor="bg-customBlue"
                   textBold={true}

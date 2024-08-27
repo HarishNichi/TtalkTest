@@ -276,9 +276,9 @@ export default function Login() {
                 alt="ptalk logo"
               />
             </div>
-            <div className=" xl:p-[80px] lg:p-[60px] md:p-[40px] p-[20px] pb-[10px] w-full">
+            <div className=" xl:px-[80px] lg:px-[60px] md:px-[40px] py-[24px] p-[20px] pb-[10px] w-full">
               <div className="w-full md:px-[60px] md:py-[40px] px-[40px] py-[20px] bg-white rounded-xl shadow-md text-black">
-                <div className="text-xl font-semibold mb-6 text-left">
+                <div className="text-xl font-semibold mb-[32px] text-left">
                   {intl.login_btn_label}
                 </div>
                 {loginError && (
@@ -290,7 +290,7 @@ export default function Login() {
                   </div>
                 )}
                 <form onSubmit={handleSubmit}>
-                  <div className="mb-4">
+                  <div className="mb-[32px]">
                     <input
                       type="id"
                       name="id"
@@ -309,39 +309,41 @@ export default function Login() {
                       </div>
                     )}
                   </div>
-                  <div className="mb-4">
-                    <label
-                      htmlFor="password"
-                      className="block text-sm font-medium"
-                    ></label>
-                    <input
-                      id="password"
-                      name="password"
-                      type={type}
-                      className="mt-1 p-2 w-full border rounded-md focus:ring-blue-500 focus:border-blue-500"
-                      placeholder={intl.login_password_placeholder}
-                      value={password}
-                      onChange={handleChange}
-                      autoComplete="off"
-                      onKeyUp={async (e) => {
-                        if (e.key === "Enter") {
-                          await handleSubmit(e);
-                        }
-                      }}
-                    />
-                    <button
-                      className="-ml-8"
-                      onClick={(event) => {
-                        event.preventDefault();
-                        setType(type === "password" ? "text" : "password");
-                      }}
-                    >
-                      {type === "password" ? (
-                        <IoEyeOffOutline className="text-2xl text-[#A3A3A3]" />
-                      ) : (
-                        <IoEyeOutline className="text-2xl text-[#A3A3A3]" />
-                      )}
-                    </button>
+                  <div className="mb-4 ">
+                    <div className="flex">
+                      <label
+                        htmlFor="password"
+                        className="block text-sm font-medium"
+                      ></label>
+                      <input
+                        id="password"
+                        name="password"
+                        type={type}
+                        className="mt-1 p-2 w-full border rounded-md focus:ring-blue-500 focus:border-blue-500 flex items-center"
+                        placeholder={intl.login_password_placeholder}
+                        value={password}
+                        onChange={handleChange}
+                        autoComplete="off"
+                        onKeyUp={async (e) => {
+                          if (e.key === "Enter") {
+                            await handleSubmit(e);
+                          }
+                        }}
+                      />
+                      <button
+                        className="-ml-8"
+                        onClick={(event) => {
+                          event.preventDefault();
+                          setType(type === "password" ? "text" : "password");
+                        }}
+                      >
+                        {type === "password" ? (
+                          <IoEyeOffOutline className="text-2xl text-[#A3A3A3]" />
+                        ) : (
+                          <IoEyeOutline className="text-2xl text-[#A3A3A3]" />
+                        )}
+                      </button>
+                    </div>
                     {errors?.password && touched?.password && (
                       <div
                         className="mb-8 pl-1 validation-font"
@@ -351,7 +353,7 @@ export default function Login() {
                       </div>
                     )}
                   </div>
-                  <div className="text-right mb-4 font-normal text-base">
+                  <div className="text-right mb-[35px] font-normal text-base">
                     <a
                       href="#"
                       className="text-sm text-blue-600 hover:underline"
@@ -362,7 +364,7 @@ export default function Login() {
                   </div>
                   <button
                     type="submit"
-                    className="w-full bg-customBlue text-white font-semibold text-base py-2 mt-4 rounded-md"
+                    className="w-full bg-customBlue text-white font-semibold text-base py-2  rounded-md"
                   >
                     {intl.login_btn_label}
                   </button>
@@ -370,7 +372,7 @@ export default function Login() {
               </div>
             </div>
 
-            <div className="flex justify-center gap-x-8 lg:gap-x-16 font-normal text-base mt-2 mb-2">
+            <div className="flex justify-center gap-x-8 lg:gap-x-16 font-normal text-base mb-[24px]">
               <a href="/terms" className="text-white hover:underline">
                 {intl.login_terms_of_service}
               </a>
@@ -382,7 +384,7 @@ export default function Login() {
                 {intl.login_privacy_policy}
               </a>
             </div>
-            <div className="mt-4 text-center font-normal text-base text-white">
+            <div className="text-center font-normal text-base text-white mb-[24px]">
               TELENet Inc. All Rights Reserved
             </div>
           </div>
