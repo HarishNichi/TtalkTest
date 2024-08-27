@@ -364,7 +364,7 @@ export default function Login() {
                   </div>
                   <button
                     type="submit"
-                    className="w-full bg-customBlue text-white font-semibold text-base py-2  rounded-md"
+                    className="w-full bg-customBlue hover:bg-[#5283B3] text-white font-semibold text-base py-2  rounded-md"
                   >
                     {intl.login_btn_label}
                   </button>
