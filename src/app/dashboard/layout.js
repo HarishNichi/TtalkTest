@@ -229,7 +229,7 @@ export default function DashboardLayout({ children }) {
       )}
       {Admin && (
         <form
-          className="w-full  hidden lg:flex gap-2 flex-wrap flex-shrink-0 flex-grow-0 py-2 rounded-xl mb-2 md:mx-auto md:justify-center lg:justify-normal"
+          className="w-full  hidden lg:flex gap-2 flex-wrap flex-shrink-0 flex-grow-0 py-2 rounded-xl mb-2 md:mx-auto md:justify-center lg:justify-normal pt-0"
           onSubmit={(e) => {
             e.preventDefault();
             searchDashboard();
@@ -299,7 +299,7 @@ export default function DashboardLayout({ children }) {
       )}
       {!Admin && (
         <form
-          className="w-full  hidden lg:flex gap-2 flex-wrap flex-shrink-0 flex-grow-0 py-2  rounded-xl mb-2 md:mx-auto md:justify-center lg:justify-normal"
+          className="w-full  hidden lg:flex gap-2 flex-wrap flex-shrink-0 flex-grow-0 py-2  rounded-xl mb-2 md:mx-auto md:justify-center lg:justify-normal pt-0"
           onSubmit={(e) => {
             e.preventDefault();
             searchDashboard();

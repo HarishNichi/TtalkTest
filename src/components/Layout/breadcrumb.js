@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function Breadcrumb({ links }) {
   return (
     <div className="max-w-fit  ">
-      <div className="flex items-center  text-[14px] py-1 overflow-x-auto">
+      <div className="flex items-center  text-[14px] pb-1 overflow-x-auto">
         {links.length > 0 &&
           links.map((link, index) => {
             return links.length - 1 !== index ? (

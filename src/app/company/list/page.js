@@ -718,7 +718,7 @@ export default function CompanyList() {
       </AntModal>
 
       <div>
-        <div className="flex justify-between items-center mt-[2vw] mb-[2vw]">
+        <div className="flex justify-between items-center  mb-[16px]">
           <h1 className="text-lg font-bold">
             {intl.components_card_searchlist_companylist}
           </h1>

@@ -160,8 +160,8 @@ export default function CompanyInformation() {
         <div className="mb-1">
           <Breadcrumb links={companyDetailLinks} />
           <div className="">
-            <div className="flex justify-between items-center">
-              <h2 className="text-lg font-semibold ml-[16px]">
+            <div className="flex justify-between items-center mb-[16px]">
+              <h2 className="text-lg font-semibold">
                 {organizationsData?.name || ""}
               </h2>
               <div className="flex space-x-2">
