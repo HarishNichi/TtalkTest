@@ -167,7 +167,7 @@ export default function RootLayout({ children }) {
                   transition: "auto",
                 }}
               >
-                <main className="px-4  py-4 md:pb-5 2xl:pb-3 md:pt-2  h-full">
+                <main className="px-[24px]  py-[40px] h-full">
                   <div className="rounded flex flex-col  flex-grow  h-full">
                     <ProtectedRoute allowedRoles={["admin", "organization"]}>
                       {children}
