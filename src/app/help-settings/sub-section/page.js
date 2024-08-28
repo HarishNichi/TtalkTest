@@ -54,7 +54,7 @@ export default function Subsection() {
   const [helpToDelete, setHelpToDelete] = useState("");
   const fileUploadCardRef = useRef(null);
   const [tabKey, setTabKey] = useState("1");
-  const [showDetails,setShowDetails] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
 
   const { TabPane } = Tabs;
 
@@ -165,7 +165,6 @@ export default function Subsection() {
     // Handle edit icon click for the tab at the given index
     setShowModal(!showModal);
   };
-
 
   const handleDeleteClick = (data) => {
     setDeleteModal(true);
@@ -466,9 +465,8 @@ export default function Subsection() {
       text = text.replace(pattern, "");
     }
     setEditorValue(text);
-    if(text)
-    {
-    setTouched((prevTouched) => ({ ...prevTouched, editorValue: true }));
+    if (text) {
+      setTouched((prevTouched) => ({ ...prevTouched, editorValue: true }));
     }
   };
 
@@ -486,7 +484,23 @@ export default function Subsection() {
       if (response && response.data.status.code == code.OK) {
         setLoading(false);
         setDeleteModal(false);
+        setErrors({});
+        setTouched((prevTouched) => ({
+          ...prevTouched,
+          sectionName: false,
+          editorValue: false,
+        }));
         getSubsetValues();
+        setTabKey("1");
+        setActiveButton("text");
+        setIsAdd(true);
+        setSelectedTab(null);
+        setEditorValue("");
+        setSectionName("");
+        setFile("");
+        setSubSectionDetails({});
+        setFileName("");
+        setShowDetails(false);
       }
     } catch (error) {
       setLoading(false);
@@ -544,110 +558,110 @@ export default function Subsection() {
 
         <div className="w-full md:w-1/2 p-4 pt-0 pr-0 border-l md:border-l-0 md:border-t md:mt-0 ">
           {showDetails && (
-          <>
-            <TextPlain
-              type="text"
-              for="sectionName"
-              placeholder=""
-              borderRound="rounded"
-              padding="p-2"
-              focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
-              border="border border-gray-300"
-              bg="bg-white"
-              additionalClass="block w-full pl-5 text-base pr-[30px]"
-              label={intl.help_title}
-              labelColor="#7B7B7B"
-              id="sectionName"
-              isRequired={true}
-              value={sectionName}
-              onChange={handleChange}
-            />
-            {errors?.sectionName && touched?.sectionName && (
-              <div className="pl-1 validation-font" style={{ color: "red" }}>
-                {errors?.sectionName}
+            <>
+              <TextPlain
+                type="text"
+                for="sectionName"
+                placeholder=""
+                borderRound="rounded"
+                padding="p-2"
+                focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
+                border="border border-gray-300"
+                bg="bg-white"
+                additionalClass="block w-full pl-5 text-base pr-[30px]"
+                label={intl.help_title}
+                labelColor="#7B7B7B"
+                id="sectionName"
+                isRequired={true}
+                value={sectionName}
+                onChange={handleChange}
+              />
+              {errors?.sectionName && touched?.sectionName && (
+                <div className="pl-1 validation-font" style={{ color: "red" }}>
+                  {errors?.sectionName}
+                </div>
+              )}
+              <div className="mt-4">
+                <label className="block text-gray-700">説明</label>
+                <Tabs
+                  defaultActiveKey={"1"}
+                  activeKey={tabKey}
+                  className="mt-2"
+                  onChange={onTabChange}
+                >
+                  <TabPane tab="テキスト" key="1" className="max-h-[500px]">
+                    <EditorComponent
+                      ContentValue={editorValue}
+                      onChange={handleEditorChange}
+                    />
+                    {errors?.editorValue && touched?.editorValue && (
+                      <div
+                        className="pl-1 validation-font"
+                        style={{ color: "red" }}
+                      >
+                        {errors?.editorValue}
+                      </div>
+                    )}
+                  </TabPane>
+                  <TabPane tab="ファイル" key="2">
+                    <FileUploadCard
+                      ref={fileUploadCardRef}
+                      isAdd={isAdd}
+                      file={file}
+                      sectionName={sectionName}
+                      setIsAdd={setIsAdd}
+                      setErrors={setErrors}
+                      setTouched={setTouched}
+                      setSubSectionDetails={setSubSectionDetails}
+                      setFileName={setFileName}
+                      setFile={setFile}
+                      fileName={
+                        subSectionDetails?.file
+                          ? subSectionDetails.file
+                          : fileName
+                      }
+                      handleUploadButtonClick={handleFileUpload}
+                      setActiveButton={setActiveButton}
+                      CardHeight={isAdd ? "322px" : "375px"}
+                      HeaderTitle={
+                        isAdd
+                          ? intl.help_settings_addition_upload_file
+                          : intl.help_settings_addition_service_manual
+                      }
+                      handleAddButton={handleAddButton}
+                    />
+                  </TabPane>
+                </Tabs>
               </div>
-            )}
-            <div className="mt-4">
-              <label className="block text-gray-700">説明</label>
-              <Tabs
-                defaultActiveKey={"1"}
-                activeKey={tabKey}
-                className="mt-2"
-                onChange={onTabChange}
-              >
-                <TabPane tab="テキスト" key="1" className="max-h-[500px]">
-                  <EditorComponent
-                    ContentValue={editorValue}
-                    onChange={handleEditorChange}
-                  />
-                  {errors?.editorValue && touched?.editorValue && (
-                    <div
-                      className="pl-1 validation-font"
-                      style={{ color: "red" }}
-                    >
-                      {errors?.editorValue}
-                    </div>
-                  )}
-                </TabPane>
-                <TabPane tab="ファイル" key="2">
-                  <FileUploadCard
-                    ref={fileUploadCardRef}
-                    isAdd={isAdd}
-                    file={file}
-                    sectionName={sectionName}
-                    setIsAdd={setIsAdd}
-                    setErrors={setErrors}
-                    setTouched={setTouched}
-                    setSubSectionDetails={setSubSectionDetails}
-                    setFileName={setFileName}
-                    setFile={setFile}
-                    fileName={
-                      subSectionDetails?.file
-                        ? subSectionDetails.file
-                        : fileName
+              <div className=" flex flex-row justify-end mt-2 sm:space-y-0 sm:space-x-2">
+                <button
+                  className="text-[14px] h-[32px] w-[120px] mr-[10px] text-center font-semibold cursor-pointer text-customBlue border border-customBlue bg-white rounded"
+                  onClick={() => {
+                    if (tabKey == "1") {
+                      handleAddButton();
+                    } else {
+                      fileUploadCardRef.current.handleCancel();
                     }
-                    handleUploadButtonClick={handleFileUpload}
-                    setActiveButton={setActiveButton}
-                    CardHeight={isAdd ? "322px" : "375px"}
-                    HeaderTitle={
-                      isAdd
-                        ? intl.help_settings_addition_upload_file
-                        : intl.help_settings_addition_service_manual
+                  }}
+                >
+                  {intl.help_settings_addition_modal_cancel}
+                </button>
+                <button
+                  style={HeaderButton}
+                  className="text-base w-[150px] truncate bg-customBlue hover:bg-[#5283B3] h-[32px] border border-customBlue rounded"
+                  onClick={() => {
+                    if (tabKey == "1") {
+                      handleFileButtonClick();
+                    } else {
+                      fileUploadCardRef.current.handleAdd();
                     }
-                    handleAddButton={handleAddButton}
-                  />
-                </TabPane>
-              </Tabs>
-            </div>
-            <div className=" flex flex-row justify-end mt-2 sm:space-y-0 sm:space-x-2">
-              <button
-                className="text-[14px] h-[32px] w-[120px] mr-[10px] text-center font-semibold cursor-pointer text-customBlue border border-customBlue bg-white rounded"
-                onClick={() => {
-                  if (tabKey == "1") {
-                    handleAddButton();
-                  } else {
-                    fileUploadCardRef.current.handleCancel();
-                  }
-                }}
-              >
-                {intl.help_settings_addition_modal_cancel}
-              </button>
-              <button
-                style={HeaderButton}
-                className="text-base w-[150px] truncate bg-customBlue hover:bg-[#5283B3] h-[32px] border border-customBlue rounded"
-                onClick={() => {
-                  if (tabKey == "1") {
-                    handleFileButtonClick();
-                  } else {
-                    fileUploadCardRef.current.handleAdd();
-                  }
-                }}
-              >
-                {intl.help_settings_addition_keep}
-              </button>
-            </div>
-          </>
-          )} 
+                  }}
+                >
+                  {intl.help_settings_addition_keep}
+                </button>
+              </div>
+            </>
+          )}
         </div>
 
         <AntModal

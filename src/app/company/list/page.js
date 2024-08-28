@@ -755,7 +755,7 @@ export default function CompanyList() {
         </div>
 
         <form
-          className="w-full  hidden lg:flex gap-2 flex-wrap flex-shrink-0 flex-grow-0 pb-2 px-2 rounded-xl mb-2 md:mx-auto md:justify-center lg:justify-normal mb-[10px] "
+          className="w-full mb-[16px]  hidden lg:flex gap-2 flex-wrap flex-shrink-0 flex-grow-0  px-2 rounded-xl  md:mx-auto md:justify-center lg:justify-normal  "
           onSubmit={(e) => {
             e.preventDefault();
             //searchOrganization();
@@ -1076,7 +1076,7 @@ export default function CompanyList() {
             </span>
           </div> */}
         </div>
-        <div className="mb-[5px] flex items-center">
+        <div className="mb-[16px] flex items-center">
           <label
             key={"selectAll"}
             className="flex items-center text-customBlue"
@@ -1094,7 +1094,7 @@ export default function CompanyList() {
             <span className="ml-1"> {"すべて選択"}</span>
           </label>
         </div>
-        <div className="mb-[20px] relative" style={{ width: "100%" }}>
+        <div className=" relative" style={{ width: "100%" }}>
           <DataTable
             scrollVertical={tableHeight > 450 ? tableHeight : 450}
             loading={loading}
@@ -1124,7 +1124,7 @@ export default function CompanyList() {
           />
         </div>
         {selectedRows.length > 0 && (
-          <div className="flex justify-between items-center mt-4 bg-white py-3 px-[4vw] shadow-lg">
+          <div className="mt-[20px] flex justify-between items-center  bg-white py-3 px-[4vw] shadow-lg">
             {/* Left side: Buttons */}
             <div className="text-base font-semibold">
               {selectedRows.length}件選択中

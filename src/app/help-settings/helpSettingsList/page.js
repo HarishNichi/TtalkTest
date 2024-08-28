@@ -434,7 +434,7 @@ export default function HelpSettingsList() {
       <ProtectedRoute allowedRoles={["admin"]}>
         {loading && <LoaderOverlay />}
         <div>
-          <div className="flex  justify-between mb-2 xl:mb-2 ">
+          <div className="flex  justify-between mb-4 xl:mb-2 ">
             <div className="flex items-center">
               <DynamicLabel
                 text={intl.helper_sub_section_terminal_help_list}
@@ -511,7 +511,7 @@ export default function HelpSettingsList() {
               />
             </div> */}
           </div>
-          <div className="mb-[5px] flex items-center">
+          <div className="mb-[16px] flex items-center">
             <label
               key={"selectAll"}
               className="flex items-center text-customBlue"
@@ -529,7 +529,7 @@ export default function HelpSettingsList() {
               <span className="ml-1"> {"すべて選択"}</span>
             </label>
           </div>
-          <div className="mb-[20px] relative" style={{ width: "100%" }}>
+          <div className=" relative" style={{ width: "100%" }}>
             <DataTable
               scrollVertical={tableHeight > 450 ? tableHeight : 450}
               rowSelectionFlag
@@ -589,8 +589,7 @@ export default function HelpSettingsList() {
                     type={"text"}
                     for={addModal ? "addSettings" : "editSettings"}
                     placeholder={intl.help_settings_help_name}
-                    borderRound={"rounded-xl"}
-                    padding={"p-[10px]"}
+                    padding={"p-[10px] h-[40px]"}
                     focus={
                       "focus:outline-none focus:ring-2  focus:ring-customBlue "
                     }

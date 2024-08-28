@@ -43,8 +43,9 @@ export default function HelpSettingsList() {
   const employeeData = useAppSelector(
     (state) => state.employeeReducer.employeeSearchList
   );
-  let employeeDataCopy = JSON.parse(JSON.stringify(employeeData))
-  const [employeeDataList, setEmployeeDataList] = React.useState(employeeDataCopy);
+  let employeeDataCopy = JSON.parse(JSON.stringify(employeeData));
+  const [employeeDataList, setEmployeeDataList] =
+    React.useState(employeeDataCopy);
   const [loading, setLoading] = useState(false);
   const [downloadCsvLink, setDownloadCsvLink] = useState(null);
   const CSVDownloadRef = useRef("");
@@ -63,10 +64,10 @@ export default function HelpSettingsList() {
   }, []);
 
   useEffect(() => {
-    let employeeDataCopy = JSON.parse(JSON.stringify(employeeData))
+    let employeeDataCopy = JSON.parse(JSON.stringify(employeeData));
     setEmployeeDataList(employeeDataCopy);
-    setSearchFlag(!searchFlag)
-    setSelectAll(false)
+    setSearchFlag(!searchFlag);
+    setSelectAll(false);
   }, [employeeData]);
 
   let Admin = false;
@@ -86,8 +87,7 @@ export default function HelpSettingsList() {
       width: 120,
       align: "left",
       sorter: (a, b) => a.radioNumber.localeCompare(b.radioNumber),
-      sortDirections: ['ascend', 'descend','ascend'], 
-
+      sortDirections: ["ascend", "descend", "ascend"],
     },
     {
       title: intl.user_userId_label,
@@ -96,7 +96,7 @@ export default function HelpSettingsList() {
       width: 120,
       align: "left",
       sorter: (a, b) => a.userId - b.userId,
-      sortDirections: ['ascend', 'descend','ascend'], 
+      sortDirections: ["ascend", "descend", "ascend"],
     },
 
     {
@@ -106,7 +106,7 @@ export default function HelpSettingsList() {
       width: 120,
       align: "left",
       sorter: (a, b) => a.machine.localeCompare(b.machine),
-      sortDirections: ['ascend', 'descend','ascend'], 
+      sortDirections: ["ascend", "descend", "ascend"],
     },
     {
       title: "",
@@ -173,7 +173,7 @@ export default function HelpSettingsList() {
       width: 100,
       align: "left",
       sorter: (a, b) => a.organization.localeCompare(b.organization),
-      sortDirections: ['ascend', 'descend','ascend'], 
+      sortDirections: ["ascend", "descend", "ascend"],
     };
 
     let salesChannel = {
@@ -190,9 +190,8 @@ export default function HelpSettingsList() {
   const [columns, setColumns] = React.useState(companyColumns);
   const [qrCodeModal, setQrCodeModal] = React.useState(false);
   const [exportModal, setExportModal] = React.useState(false);
-  const [searchFlag, setSearchFlag] = useState(false)
+  const [searchFlag, setSearchFlag] = useState(false);
 
- 
   useEffect(() => {
     const handleResize = () => {
       setTableHeight(window.innerHeight - 300);
@@ -218,10 +217,14 @@ export default function HelpSettingsList() {
   useEffect(() => {
     let maxCurrent = (current - 1) * page + page;
     if (employeeDataList.length > 0) {
-      let temp = employeeDataList.map((el,index) => {
-        if (el.radioNumber == received.pttNo && index >= (current - 1) * page && index <= maxCurrent) {
+      let temp = employeeDataList.map((el, index) => {
+        if (
+          el.radioNumber == received.pttNo &&
+          index >= (current - 1) * page &&
+          index <= maxCurrent
+        ) {
           el.status = received.status;
-          el.timestamp = new Date().getTime()
+          el.timestamp = new Date().getTime();
         }
         return el;
       });
@@ -237,21 +240,21 @@ export default function HelpSettingsList() {
     let setIntervalCount;
     if (!setIntervalCount) {
       setIntervalCount = setInterval(() => {
-        let temp = employeeDataList.length > 0 && employeeDataList.map((el, index) => {
-          if (el?.status == "online") {
-            if ((new Date().getTime() - el.timestamp) > 1000 * 60 * 3) {
-              el.status = "unknown";
+        let temp =
+          employeeDataList.length > 0 &&
+          employeeDataList.map((el, index) => {
+            if (el?.status == "online") {
+              if (new Date().getTime() - el.timestamp > 1000 * 60 * 3) {
+                el.status = "unknown";
+              }
             }
-          }
-          return el;
-        });
+            return el;
+          });
         temp?.length && temp.length > 0 && setEmployeeDataList(temp);
-
-      }, 1000 * 60 * 5)
+      }, 1000 * 60 * 5);
     }
-    return () => clearInterval(setIntervalCount)
-  }, [received])
-
+    return () => clearInterval(setIntervalCount);
+  }, [received]);
 
   function handelExport() {
     toast.dismiss();
@@ -441,7 +444,7 @@ export default function HelpSettingsList() {
             </span>
           </div>
         </div> */}
-        <div className="mb-[5px] flex items-center">
+        <div className="mb-[16px] flex items-center">
           <label
             key={"selectAll"}
             className="flex items-center text-customBlue"
@@ -459,7 +462,7 @@ export default function HelpSettingsList() {
             <span className="ml-1"> {"すべて選択"}</span>
           </label>
         </div>
-        <div className="mb-[20px] relative" style={{ width: "100%" }}>
+        <div className=" relative" style={{ width: "100%" }}>
           <DataTable
             scrollVertical={tableHeight > 450 ? tableHeight : 450}
             rowSelectionFlag

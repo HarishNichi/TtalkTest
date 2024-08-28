@@ -1,6 +1,5 @@
 "use client";
 
-
 import Link from "next/link";
 import Image from "next/image";
 import TelnetLogo from "../../../public/telnetLogo.svg";
@@ -20,7 +19,7 @@ export default function Sidebar({
 }) {
   const currentRoute = usePathname();
   const userRoleStr = localStorage.getItem("user");
-  const version = JSON.parse(userRoleStr)?.version || "0.0.1"
+  const version = JSON.parse(userRoleStr)?.version || "0.0.1";
   const userRole = JSON.parse(userRoleStr);
   const roles = userRole?.role ? JSON.parse(userRole.role) : [];
   const Admin = roles
@@ -29,7 +28,7 @@ export default function Sidebar({
 
   const links = [
     {
-      title: intl.layout_sidebar_dashboard_label,
+      title: intl.user_display_settings_home_option1,
       link: "/dashboard",
       icon: (color) => MenuDashboard(color),
       module: "dashboard",
@@ -40,25 +39,25 @@ export default function Sidebar({
     // Add the admin-only sections if 'Admin' is true
     links.push(
       {
-        title: intl.layout_sidebar_company_label,
+        title: intl.components_card_searchlist_companylist,
         link: "/company/list",
         icon: (color) => MenuOrganization(color),
         module: "company",
       },
       {
-        title: intl.layout_sidebar_user_label,
+        title: intl.dashboard_user_list,
         link: "/user",
         icon: (color) => MenuUsers(color),
         module: "user",
       },
       {
-        title: intl.layout_sidebar_helperSettings_label,
+        title: intl.helper_sub_section_terminal_help_list,
         link: "/help-settings/helpSettingsList",
         icon: (color) => MenuSettings(color),
         module: "help-settings",
       },
       {
-        title: intl.machine,
+        title: intl.sidebar_corporate_management,
         link: "/devices",
         icon: (color) => DeviceSettings(color),
         module: "devices",
@@ -110,14 +109,16 @@ export default function Sidebar({
                 onClick={on ? toggleSidebar : handleOnClick}
                 className={
                   currentRoute.includes(linkElm.module)
-                    ? `flex ${isExpandSidebar
-                      ? "flex-grow px-2"
-                      : "flex-grow lg:justify-center px-2"
-                    } bg-[#dce5ed]  text-[#19388B] rounded py-2  items-center min-h-[40px] max-h-[40px]`
-                    : `flex ${isExpandSidebar
-                      ? "flex-grow px-2"
-                      : "flex-grow lg:justify-center px-2"
-                    }  py-2 rounded text-[#817E78] items-center min-h-[40px] max-h-[40px]  hover:bg-[#dce5ed] hover:text-[#19388B]`
+                    ? `flex ${
+                        isExpandSidebar
+                          ? "flex-grow px-2"
+                          : "flex-grow lg:justify-center px-2"
+                      } bg-[#dce5ed]  text-[#19388B] rounded py-2  items-center min-h-[40px] max-h-[40px]`
+                    : `flex ${
+                        isExpandSidebar
+                          ? "flex-grow px-2"
+                          : "flex-grow lg:justify-center px-2"
+                      }  py-2 rounded text-[#817E78] items-center min-h-[40px] max-h-[40px]  hover:bg-[#dce5ed] hover:text-[#19388B]`
                 }
               >
                 {currentRoute === linkElm.link

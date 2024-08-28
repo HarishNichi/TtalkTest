@@ -10,14 +10,19 @@ import api from "@/utils/api";
 import { ToastContainer, toast } from "react-toastify";
 import { searchEmployee } from "@/redux/features/employee";
 import LoaderOverlay from "@/components/Loader/loadOverLay";
-import { EmployeeSearchLimit, code, dashboardLinks, maxLimit } from "@/utils/constant";
+import {
+  EmployeeSearchLimit,
+  code,
+  dashboardLinks,
+  maxLimit,
+} from "@/utils/constant";
 import dayjs from "dayjs";
-import isSameOrAfter from "dayjs/plugin/isSameOrAfter"
-import isSameOrBefore from "dayjs/plugin/isSameOrBefore"
+import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
+import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import DynamicLabel from "@/components/Label/dynamicLabel";
 import Breadcrumb from "@/components/Layout/breadcrumb";
-dayjs.extend(isSameOrBefore)
-dayjs.extend(isSameOrAfter)
+dayjs.extend(isSameOrBefore);
+dayjs.extend(isSameOrAfter);
 
 export default function DashboardLayout({ children }) {
   const router = usePathname();
@@ -38,7 +43,7 @@ export default function DashboardLayout({ children }) {
   const [companyListDropdown, setCompanyListDropdown] = useState([]);
   const [deviceList, setDeviceList] = useState([]);
   const dispatch = useAppDispatch();
-  const [showResult,setShowResult] = useState(false);
+  const [showResult, setShowResult] = useState(false);
   let Admin = false;
   if (isAuthenticated && Object.keys(UserData).length > 0) {
     const User = UserData ? JSON.parse(UserData) : null;
@@ -49,14 +54,13 @@ export default function DashboardLayout({ children }) {
     !isSidebarVisible && setIsSidebarVisible(true);
   }, [tabResetProp]);
 
-  useEffect(()=>{
-    if(router == "/dashboard/search-result") {
-    setShowResult(true)
+  useEffect(() => {
+    if (router == "/dashboard/search-result") {
+      setShowResult(true);
+    } else {
+      setShowResult(false);
     }
-    else {
-      setShowResult(false)
-    }
-  },[router])
+  }, [router]);
 
   function clickHere(v) {
     setIsSidebarVisible(v);
@@ -122,8 +126,11 @@ export default function DashboardLayout({ children }) {
             status: org?.accountDetail?.employee?.status || "unknown",
             onlineStatus: org?.onlineStatus || "offline",
             timestamp: new Date().getTime(),
-            machine: org.accountDetail.employee?.machine?.id &&
-              machineList.includes(org.accountDetail.employee?.machine?.id) ? org.accountDetail.employee?.machine.name + " - 期限切れ" : org.accountDetail.employee?.machine?.name || "-",
+            machine:
+              org.accountDetail.employee?.machine?.id &&
+              machineList.includes(org.accountDetail.employee?.machine?.id)
+                ? org.accountDetail.employee?.machine.name + " - 期限切れ"
+                : org.accountDetail.employee?.machine?.name || "-",
             link: "/user/details",
           };
         });
@@ -169,14 +176,16 @@ export default function DashboardLayout({ children }) {
       setLoading(false);
       if (response && response.data.status.code == code.OK) {
         const data = response.data.data;
-        let today = data?.todayDatetodayDate || dayjs().format('YYYY-MM-DD')
+        let today = data?.todayDatetodayDate || dayjs().format("YYYY-MM-DD");
         data.Items.map((item) => {
           if (item.startDate && item.endDate) {
             let futureDate = dayjs(today).isBefore(item.startDate);
             if (!futureDate) {
-              let isValid = dayjs(today).isSameOrBefore(item.endDate) && dayjs(today).isSameOrAfter(item.startDate);
+              let isValid =
+                dayjs(today).isSameOrBefore(item.endDate) &&
+                dayjs(today).isSameOrAfter(item.startDate);
               if (!isValid) {
-                deviceListMap.push(item.id)
+                deviceListMap.push(item.id);
               }
             }
           }
@@ -187,7 +196,7 @@ export default function DashboardLayout({ children }) {
       setLoading(false);
       return [];
     }
-  }
+  };
 
   useEffect(() => {
     const fetchOrg = async () => {
@@ -197,24 +206,23 @@ export default function DashboardLayout({ children }) {
           "organizations/projection",
           {}
         );
-        setCompanyListDropdown(() => projectionList.data.Items)
+        setCompanyListDropdown(() => projectionList.data.Items);
         setLoading(false);
       } catch (error) {
         setLoading(false);
       }
     };
-    Admin && fetchOrg()
-  }, [])
+    Admin && fetchOrg();
+  }, []);
   return (
     <>
       {loading && <LoaderOverlay />}
-      {showResult &&
-      (
+      {showResult && (
         <>
-        <div className="mb-1">
-          <Breadcrumb links={dashboardLinks} />
-        </div>
-         <div className="flex">
+          <div className="mb-[16px]">
+            <Breadcrumb links={dashboardLinks} />
+          </div>
+          <div className="flex mb-[16px]">
             <DynamicLabel
               text={intl.search_results}
               alignment="text-center"
@@ -225,7 +233,6 @@ export default function DashboardLayout({ children }) {
             />
           </div>
         </>
-
       )}
       {Admin && (
         <form
@@ -251,7 +258,10 @@ export default function DashboardLayout({ children }) {
           </div>
 
           <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
-            <input list="company_search" name="company_search" className={`w-full border flex  py-2.5 text-xs  pl-2  rounded-lg focus:outline-none placeholder-[#AEA8A8] 
+            <input
+              list="company_search"
+              name="company_search"
+              className={`w-full border flex  py-2.5 text-xs  pl-2  rounded-lg focus:outline-none placeholder-[#AEA8A8] 
         placeholder:text-center md:placeholder:text-left md:placeholder:pl-0
         dark:text-black`}
               placeholder={intl.company_list_company_name}
@@ -259,7 +269,10 @@ export default function DashboardLayout({ children }) {
               value={compName}
             />
             <datalist id="company_search">
-              {companyListDropdown.length > 0 && companyListDropdown.map((item) => { return (<option value={item.name} key={item.value}></option>) })}
+              {companyListDropdown.length > 0 &&
+                companyListDropdown.map((item) => {
+                  return <option value={item.name} key={item.value}></option>;
+                })}
             </datalist>
           </div>
 

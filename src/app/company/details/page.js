@@ -158,7 +158,9 @@ export default function CompanyInformation() {
         {loading && <LoaderOverlay />}
         <ToastContainer />
         <div className="mb-1">
-          <Breadcrumb links={companyDetailLinks} />
+          <div className="mb-[16px]">
+            <Breadcrumb links={companyDetailLinks} />
+          </div>
           <div className="">
             <div className="flex justify-between items-center mb-[16px]">
               <h2 className="text-lg font-semibold">

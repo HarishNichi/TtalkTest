@@ -152,7 +152,7 @@ export default function Devices() {
       title: intl.machine_name,
       dataIndex: "machineName",
       render: (text) => <a className="truncate">{text}</a>,
-      width: "70%",
+      width: "140px",
       align: "left",
       sorter: (a, b) => a.machineName.localeCompare(b.machineName),
       sortDirections: ["ascend", "descend", "ascend"],
@@ -796,7 +796,7 @@ export default function Devices() {
         {loading && <LoaderOverlay />}
 
         <div>
-          <div className="flex  justify-between mb-2 xl:mb-2 ">
+          <div className="flex  justify-between mb-4 xl:mb-2 ">
             <div className="flex items-center">
               <DynamicLabel
                 text={intl.device_terminal}
@@ -864,7 +864,7 @@ export default function Devices() {
               />
             </div>
           </div>
-          <div className="mb-[5px] flex items-center">
+          <div className="mb-[16px] flex items-center">
             <label
               key={"selectAll"}
               className="flex items-center text-customBlue"
@@ -882,7 +882,7 @@ export default function Devices() {
               <span className="ml-1"> {"すべて選択"}</span>
             </label>
           </div>
-          <div className="mb-[20px] relative" style={{ width: "100%" }}>
+          <div className=" relative" style={{ width: "100%" }}>
             <DataTable
               rowSelectionFlag
               scrollVertical={tableHeight > 450 ? tableHeight : 450}
@@ -958,7 +958,6 @@ export default function Devices() {
                       type={"text"}
                       for={addModal ? "addSettings" : "editSettings"}
                       placeholder={"端末名"}
-                      borderRound={"rounded-xl"}
                       padding={"p-[10px] h-[40px]"}
                       focus={
                         "focus:outline-none focus:ring-2  focus:ring-customBlue "
