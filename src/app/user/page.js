@@ -289,6 +289,7 @@ export default function UserList() {
                   let password = response.data.data;
                   password = decrypt(password);
                   copy(password);
+                  setLoading(false);
                   toast.dismiss();
                   toast.success("パスワードをコピーしました", {
                     position: "top-right",

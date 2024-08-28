@@ -114,7 +114,7 @@ export default function AddUser({ setIsModalOpen, setComCreated }) {
   };
 
   const fetchData = async () => {
-    setLoading(true);
+    setLoading(false);
     try {
       let { data: response } = await api.post("organizations/projection", {});
       response = response.data.Items.map((org, index) => {
