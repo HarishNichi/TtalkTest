@@ -24,6 +24,7 @@ import copy from "copy-to-clipboard";
 import Modal from "@/components/Modal/modal";
 import TextPlain from "@/components/Input/textPlain";
 import IconLeftBtn from "@/components/Button/iconLeftBtn";
+import { Modal as AntModal } from "antd";
 
 import DropdownMedium from "@/components/Input/dropdownMedium";
 import ImportModal from "@/components/ImportModal/empImport";
@@ -36,7 +37,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import LoaderOverlay from "@/components/Loader/loadOverLay";
 import { ToastContainer, toast } from "react-toastify";
 import { decrypt } from "@/utils/decryption";
-import { DatePicker, Popover, Tooltip } from "antd";
+import { Button, DatePicker, Popover, Tooltip } from "antd";
 import DeleteIcon from "@/components/Icons/deleteIcon";
 import SearchInput from "@/components/Search/SearchInput";
 
@@ -48,11 +49,12 @@ import locale from "antd/es/date-picker/locale/en_US";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import "dayjs/locale/ja.js";
 import { FaRegCopy } from "react-icons/fa";
-import isSameOrAfter from "dayjs/plugin/isSameOrAfter"
-import isSameOrBefore from "dayjs/plugin/isSameOrBefore"
+import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
+import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
+import AddUser from "./add/page";
 dayjs.extend(customParseFormat);
-dayjs.extend(isSameOrBefore)
-dayjs.extend(isSameOrAfter)
+dayjs.extend(isSameOrBefore);
+dayjs.extend(isSameOrAfter);
 Amplify.configure(gen);
 export default function UserList() {
   const router = useRouter();
@@ -62,7 +64,11 @@ export default function UserList() {
   const dispatch = useAppDispatch();
   const fileStyle = { fontWeight: "400", color: "#7B7B7B", fontSize: "12px" };
   const changeLink = { fontWeight: "700", fontSize: "12px" };
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [comCreated, setComCreated] = useState(false);
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
   const auth = localStorage.getItem("accessToken");
   const isAuthenticated = auth ? true : false;
   const UserData = useAppSelector((state) => state.userReducer.user);
@@ -90,7 +96,7 @@ export default function UserList() {
       width: 130,
       align: "left",
       sorter: (a, b) => a.radioNumber.localeCompare(b.radioNumber),
-      sortDirections: ['ascend', 'descend','ascend'], 
+      sortDirections: ["ascend", "descend", "ascend"],
     },
     {
       title: intl.user_userId_label,
@@ -106,8 +112,87 @@ export default function UserList() {
       width: 120,
       align: "left",
       sorter: (a, b) => a.userId - b.userId,
-      sortDirections: ['ascend', 'descend','ascend'], 
+      sortDirections: ["ascend", "descend", "ascend"],
     },
+    // {
+    //   title: "パスワード",
+    //   dataIndex: "password",
+    //   render: (text, record) => {
+
+    //     const Msg = ({ closeToast, toastProps, password, userId }) => (
+    //       <div>
+    //         <div>
+    //           {intl.user_userId_label}　:　{userId}
+    //         </div>
+    //         <div className="flex gap-x-[15px]">
+    //           パスワード　:　{password}{" "}
+    //           <button onClick={() => copy(password)}>
+    //             <FaRegCopy />
+    //           </button>
+    //         </div>
+    //       </div>
+    //     );
+    //     return (
+    //       <div className="text-left">
+    //         <button
+    //           type="button"
+    //           style={{ width: "105px" }}
+    //           className="text-left"
+    //           onClick={async (event) => {
+    //             event.stopPropagation();
+    //             toast.dismiss();
+    //             try {
+    //               setLoading(true);
+    //               let response = await api.post(
+    //                 `employees/hint?id=${record.id}`
+    //               );
+    //               let password = response.data.data;
+    //               password = decrypt(password);
+    //               setLoading(false);
+    //               toast(<Msg password={password} userId={record.userId} />, {
+    //                 position: "top-right",
+    //                 autoClose: false,
+    //                 hideProgressBar: true,
+    //                 closeOnClick: false,
+    //                 pauseOnHover: true,
+    //                 draggable: true,
+    //                 theme: "colored",
+    //                 type: "success",
+    //               });
+    //             } catch (error) {
+    //               setLoading(false);
+    //               toast(
+    //                 error.response?.data?.status?.message
+    //                   ? error.response?.data?.status?.message
+    //                   : error?.response?.data?.message,
+    //                 {
+    //                   position: "top-right",
+    //                   autoClose: 5000,
+    //                   hideProgressBar: true,
+    //                   closeOnClick: true,
+    //                   pauseOnHover: true,
+    //                   draggable: true,
+    //                   theme: "colored",
+    //                   type: "error",
+    //                 }
+    //               );
+    //             }
+    //           }}
+    //         >
+    //           <div className=" flex hover:text-[#69b1ff]">
+    //             ******
+    //             <FaRegCopy
+    //               className="ml-2 text-[#69b1ff] cursor-pointer"
+
+    //             />
+    //           </div>
+    //         </button>
+    //       </div>
+    //     );
+    //   },
+    //   width: 105,
+    //   align: "left",
+    // },
     {
       title: "パスワード",
       dataIndex: "password",
@@ -115,15 +200,37 @@ export default function UserList() {
         const Msg = ({ closeToast, toastProps, password, userId }) => (
           <div>
             <div>
-              {intl.user_userId_label}　:　{userId}
+              {intl.user_userId_label} : {userId}
             </div>
-            <div className="flex gap-x-[15px]">パスワード　:　{password} <button onClick={() => copy(password)}><FaRegCopy />
-            </button></div>
+            <div className="flex gap-x-[15px]">
+              パスワード : {password}{" "}
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(password);
+                  toast.dismiss();
+                  toast.success(
+                    "パスワードがクリップボードにコピーされました。",
+                    {
+                      position: "top-right",
+                      autoClose: 3000,
+                      hideProgressBar: true,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      theme: "colored",
+                    }
+                  );
+                }}
+              >
+                <FaRegCopy />
+              </button>
+            </div>
           </div>
-        )
+        );
+
         return (
           <div className="text-left">
-            <button
+            {/* <button
               type="button"
               style={{ width: "105px" }}
               className="text-left"
@@ -167,9 +274,35 @@ export default function UserList() {
                   );
                 }
               }}
-            >
-              <div className="hover:text-[#69b1ff]">******</div>
-            </button>
+            > */}
+            <div className="flex hover:text-[#69b1ff]">
+              ******
+              <FaRegCopy
+                className="ml-2 text-[#69b1ff] cursor-pointer"
+                onClick={async (event) => {
+                  event.stopPropagation();
+                  toast.dismiss();
+                  setLoading(true);
+                  let response = await api.post(
+                    `employees/hint?id=${record.id}`
+                  );
+                  let password = response.data.data;
+                  password = decrypt(password);
+                  copy(password);
+                  toast.dismiss();
+                  toast.success("パスワードをコピーしました", {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    theme: "colored",
+                  });
+                }}
+              />
+            </div>
+            {/* </button> */}
           </div>
         );
       },
@@ -181,7 +314,7 @@ export default function UserList() {
       title: intl.machineName,
       dataIndex: "machine",
       render: (text) => {
-        let content = <span className="text-white">{text}</span>
+        let content = <span className="text-white">{text}</span>;
         return (
           <Popover content={content} color="#19388B">
             <a className="text-ellipsis">{text}</a>
@@ -191,7 +324,7 @@ export default function UserList() {
       width: 115,
       align: "left",
       sorter: (a, b) => a.machine.localeCompare(b.machine),
-      sortDirections: ['ascend', 'descend','ascend'], 
+      sortDirections: ["ascend", "descend", "ascend"],
     },
     {
       title: "グループ",
@@ -262,7 +395,7 @@ export default function UserList() {
       width: 160,
       align: "left",
       sorter: (a, b) => new Date(a.createdAtDate) - new Date(b.createdAtDate),
-      sortDirections: ['ascend', 'descend','ascend'], 
+      sortDirections: ["ascend", "descend", "ascend"],
     },
     {
       title: "最終オンライン日時",
@@ -392,8 +525,7 @@ export default function UserList() {
       align: "left",
 
       sorter: (a, b) => a.organization.localeCompare(b.organization),
-      sortDirections: ['ascend', 'descend','ascend'], 
-
+      sortDirections: ["ascend", "descend", "ascend"],
     };
     companyColumns.splice(3, 0, org);
   }
@@ -426,7 +558,8 @@ export default function UserList() {
   const [confirmationExport, setConfirmationExport] = useState(false);
   const [shouldOpenInNewTab, setIsPdf] = useState(false);
   const [csvUploadInitiated, setCsvUploadInitiated] = useState(null);
-  const [csvUploadInitiatedSettings, setCsvUploadInitiatedSettings] = useState(null);
+  const [csvUploadInitiatedSettings, setCsvUploadInitiatedSettings] =
+    useState(null);
   const [currentAPI, setCurrentAPI] = useState(null);
   const [subscriptionTrack, setSubscriptionTrack] = useState(null);
   const [companyListDropdown, setCompanyListDropdown] = useState([]);
@@ -576,7 +709,7 @@ export default function UserList() {
         data = {
           ids,
           filename: csvFileName + downloadFileName,
-        }
+        };
       } else {
         toast("ユーザーを選択してください。", errorToastSettings);
         setLoading(false);
@@ -695,62 +828,106 @@ export default function UserList() {
 
   function getDeleteModalFooter() {
     return (
-      <div className="grid grid-cols-2 gap-2 place-content-center">
-        <div>
-          <IconLeftBtn
-            text={intl.help_settings_addition_modal_cancel}
-            textColor={"text-white font-semibold text-sm w-full"}
-            py={"py-[11px]"}
-            px={"px-6"}
-            bgColor={"bg-customBlue"}
-            textBold={true}
-            icon={() => {
-              return null;
-            }}
-            onClick={() => {
-              setDeleteModal(() => false);
-            }}
-          />
-        </div>
-        <div>
-          <IconLeftBtn
-            text={intl.help_settings_addition_delete}
-            textColor={"text-white font-semibold text-sm w-full"}
-            py={"py-[11px]"}
-            px={"px-6"}
-            bgColor={"bg-customBlue"}
-            textBold={true}
-            icon={() => {
-              return null;
-            }}
-            onClick={() => {
-              deleteEmployee(selectedRows);
-            }}
-          />
-        </div>
+      // <div className="grid grid-cols-2 gap-2 place-content-center">
+      //   <div>
+      //     <IconLeftBtn
+      //       text={intl.help_settings_addition_modal_cancel}
+      //       textColor={"text-white font-semibold text-sm w-full"}
+      //       py={"py-[11px]"}
+      //       px={"px-6"}
+      //       bgColor={"bg-customBlue"}
+      //       textBold={true}
+      //       icon={() => {
+      //         return null;
+      //       }}
+      //       onClick={() => {
+      //         setDeleteModal(() => false);
+      //       }}
+      //     />
+      //   </div>
+      //   <div>
+      //     <IconLeftBtn
+      //       text={intl.help_settings_addition_delete}
+      //       textColor={"text-white font-semibold text-sm w-full"}
+      //       py={"py-[11px]"}
+      //       px={"px-6"}
+      //       bgColor={"bg-customBlue"}
+      //       textBold={true}
+      //       icon={() => {
+      //         return null;
+      //       }}
+      //       onClick={() => {
+      //         deleteEmployee(selectedRows);
+      //       }}
+      //     />
+      //   </div>
+      // </div>
+      <div className="flex flex-col sm:flex-row justify-center gap-4 w-full">
+        <Button
+          key="cancel"
+          className="flex-1 h-[40px] text-[#19388B] border border-[#19388B] hover:bg-[#e0e7ff] focus:outline-none focus:ring-2 focus:ring-[#19388B] focus:ring-opacity-50"
+          onClick={() => {
+            setDeleteModal(() => false);
+          }}
+        >
+          {intl.help_settings_addition_modal_cancel}
+        </Button>
+        <Button
+          key="delete"
+          className="flex-1 bg-[#BA1818] h-[40px] text-white no-hover focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50"
+          onClick={() => {
+            deleteEmployee(selectedRows);
+          }}
+        >
+          {intl.help_settings_addition_delete}({selectedRows.length})
+        </Button>
       </div>
     );
   }
   function qrCodeIcons() {
     return <GetIconQRCode />;
   }
-  function importIcon() {
+  function copyIcon() {
     return (
       <svg
-        width="29"
-        height="25"
-        viewBox="0 0 29 25"
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M20.0693 13.3013H20.0471C20.0471 13.3124 20.0471 13.3346 20.0471 13.3457C20.0471 14.6541 20.0471 15.9736 20.0471 17.2819C20.0471 18.5903 20.0471 19.932 20.0471 21.2625C20.0471 21.5619 20.0249 21.8835 19.781 22.1163C19.5371 22.3603 19.1933 22.3824 18.9494 22.3935C13.86 22.3713 8.77062 22.3713 3.69231 22.3935C3.38184 22.3935 3.09355 22.3603 2.86071 22.1274C2.62786 21.8946 2.59459 21.5619 2.59459 21.2736C2.59459 18.3575 2.59459 15.4413 2.60568 12.5252V6.92574C2.60568 6.80378 2.59459 6.68181 2.58351 6.55984C2.53915 6.12741 2.47263 5.59518 2.84962 5.19601C3.22661 4.79685 3.78101 4.87446 4.19127 4.91881C4.27997 4.91881 4.35759 4.94099 4.4352 4.94099C4.41303 3.86545 4.42412 3.06712 4.4352 2.32422C3.81428 2.33531 3.20444 2.32422 2.58351 2.32422H1.55232C0.487872 2.33531 0 2.81209 0 3.88763C0 10.3963 0 16.905 0 23.4247C0 24.5224 0.476785 24.9881 1.59667 24.9992H8.90367H11.343H14.104C16.4657 24.9992 18.8385 24.9992 21.2003 24.9992C22.0984 24.9992 22.6528 24.5002 22.6639 23.7019C22.6639 21.7393 22.6639 19.7767 22.6639 17.8142C22.6639 16.3173 22.6639 14.8204 22.6639 13.3235C21.7547 13.3346 20.912 13.3457 20.0693 13.3235V13.3013Z"
+          d="M6.0385 11.6667C5.70172 11.6667 5.41667 11.5501 5.18333 11.3167C4.95 11.0834 4.83333 10.7984 4.83333 10.4616V2.87191C4.83333 2.53514 4.95 2.25008 5.18333 2.01675C5.41667 1.78341 5.70172 1.66675 6.0385 1.66675H11.6282C11.9649 1.66675 12.25 1.78341 12.4833 2.01675C12.7167 2.25008 12.8333 2.53514 12.8333 2.87191V10.4616C12.8333 10.7984 12.7167 11.0834 12.4833 11.3167C12.25 11.5501 11.9649 11.6667 11.6282 11.6667H6.0385ZM6.0385 10.6667H11.6282C11.6795 10.6667 11.7265 10.6454 11.7692 10.6026C11.8119 10.5599 11.8333 10.5129 11.8333 10.4616V2.87191C11.8333 2.82058 11.8119 2.77358 11.7692 2.73091C11.7265 2.68814 11.6795 2.66675 11.6282 2.66675H6.0385C5.98717 2.66675 5.94017 2.68814 5.8975 2.73091C5.85472 2.77358 5.83333 2.82058 5.83333 2.87191V10.4616C5.83333 10.5129 5.85472 10.5599 5.8975 10.6026C5.94017 10.6454 5.98717 10.6667 6.0385 10.6667ZM3.70517 14.0001C3.36839 14.0001 3.08333 13.8834 2.85 13.6501C2.61667 13.4167 2.5 13.1317 2.5 12.7949V4.70525C2.5 4.56336 2.54789 4.44453 2.64367 4.34875C2.73933 4.25308 2.85811 4.20525 3 4.20525C3.14189 4.20525 3.26072 4.25308 3.3565 4.34875C3.45217 4.44453 3.5 4.56336 3.5 4.70525V12.7949C3.5 12.8462 3.52139 12.8932 3.56417 12.9359C3.60683 12.9787 3.65383 13.0001 3.70517 13.0001H9.79483C9.93672 13.0001 10.0556 13.0479 10.1513 13.1436C10.247 13.2394 10.2948 13.3582 10.2948 13.5001C10.2948 13.642 10.247 13.7607 10.1513 13.8564C10.0556 13.9522 9.93672 14.0001 9.79483 14.0001H3.70517Z"
           fill="#19388B"
         />
-        <path
-          d="M15.9336 2.15931C15.9336 2.625 15.7451 3.25702 15.978 3.53422C16.2552 3.85577 16.9094 3.65619 17.3861 3.63401C19.382 3.57857 21.3335 3.76707 23.1297 4.73172C26.6114 6.6056 28.4409 9.53283 28.6405 13.4802C28.6737 14.0235 28.4631 14.4226 27.9198 14.5557C27.3986 14.6777 27.0549 14.3783 26.8442 13.9237C25.6467 11.44 23.7174 9.85439 21.0119 9.2889C19.4153 8.95626 17.7964 9.16693 16.1886 9.11149C15.9114 9.11149 15.8893 9.25563 15.8893 9.4663C15.8893 10.2092 15.8893 10.9521 15.8893 11.6839C15.8893 12.0942 15.7784 12.4268 15.4014 12.6375C14.9911 12.8592 14.6363 12.7262 14.2926 12.4712C11.9419 10.7082 9.59127 8.94517 7.24061 7.17109C6.6086 6.6943 6.6086 6.0512 7.24061 5.56332C9.59127 3.80033 11.953 2.03734 14.3037 0.274343C14.6252 0.030407 14.969 -0.102649 15.357 0.0969351C15.7673 0.296519 15.9004 0.651336 15.8893 1.08377C15.8893 1.44967 15.8893 1.80449 15.8893 2.17039C15.9004 2.17039 15.9114 2.17039 15.9336 2.17039V2.15931Z"
-          fill="#19388B"
-        />
+      </svg>
+    );
+  }
+  function importIcon() {
+    return (
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g clip-path="url(#clip0_5185_3186)">
+          <path
+            d="M12.0002 15.4115C11.8797 15.4115 11.7676 15.3923 11.6637 15.3538C11.5599 15.3154 11.4612 15.2494 11.3675 15.1558L8.25799 12.0463C8.10933 11.8974 8.03591 11.7233 8.03774 11.524C8.03974 11.3247 8.11316 11.1474 8.25799 10.9922C8.41316 10.8373 8.59133 10.7572 8.79249 10.752C8.99383 10.7468 9.17208 10.8218 9.32724 10.977L11.2502 12.9V5.25C11.2502 5.03717 11.3221 4.859 11.4657 4.7155C11.6092 4.57183 11.7874 4.5 12.0002 4.5C12.2131 4.5 12.3912 4.57183 12.5347 4.7155C12.6784 4.859 12.7502 5.03717 12.7502 5.25V12.9L14.6732 10.977C14.8221 10.8283 14.9987 10.7549 15.203 10.7568C15.4075 10.7588 15.5873 10.8373 15.7425 10.9922C15.8873 11.1474 15.9623 11.3231 15.9675 11.5192C15.9727 11.7154 15.8977 11.8911 15.7425 12.0463L12.633 15.1558C12.5393 15.2494 12.4406 15.3154 12.3367 15.3538C12.2329 15.3923 12.1207 15.4115 12.0002 15.4115ZM6.30799 19.5C5.80283 19.5 5.37524 19.325 5.02524 18.975C4.67524 18.625 4.50024 18.1974 4.50024 17.6923V15.7308C4.50024 15.5179 4.57208 15.3398 4.71574 15.1962C4.85924 15.0526 5.03741 14.9808 5.25024 14.9808C5.46308 14.9808 5.64124 15.0526 5.78474 15.1962C5.92841 15.3398 6.00024 15.5179 6.00024 15.7308V17.6923C6.00024 17.7692 6.03233 17.8398 6.09649 17.9038C6.16049 17.9679 6.23099 18 6.30799 18H17.6925C17.7695 18 17.84 17.9679 17.904 17.9038C17.9682 17.8398 18.0002 17.7692 18.0002 17.6923V15.7308C18.0002 15.5179 18.0721 15.3398 18.2157 15.1962C18.3592 15.0526 18.5374 14.9808 18.7502 14.9808C18.9631 14.9808 19.1412 15.0526 19.2847 15.1962C19.4284 15.3398 19.5002 15.5179 19.5002 15.7308V17.6923C19.5002 18.1974 19.3252 18.625 18.9752 18.975C18.6252 19.325 18.1977 19.5 17.6925 19.5H6.30799Z"
+            fill="#19388B"
+          />
+        </g>
+        <defs>
+          <clipPath id="clip0_5185_3186">
+            <rect
+              width="24"
+              height="24"
+              fill="white"
+              transform="translate(0.000244141)"
+            />
+          </clipPath>
+        </defs>
       </svg>
     );
   }
@@ -758,20 +935,46 @@ export default function UserList() {
   function exportIcon() {
     return (
       <svg
-        width="29"
-        height="25"
-        viewBox="0 0 29 25"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path
-          d="M17.0313 9.10656C15.8116 9.05112 14.348 9.12874 12.9398 9.7164C11.199 10.4482 9.85732 11.6235 8.92592 13.2646C8.80396 13.4752 8.69307 13.697 8.58219 13.9188C8.36043 14.3734 8.02779 14.6727 7.50666 14.5508C6.96335 14.4288 6.76376 14.0186 6.77485 13.4863C6.84138 11.424 7.42904 9.52791 8.65981 7.85362C10.7111 5.05944 13.4942 3.68452 16.9536 3.65126C17.6522 3.65126 18.3618 3.62908 19.0604 3.65126C19.4152 3.66235 19.5593 3.57364 19.5482 3.18556C19.515 2.48702 19.5482 1.77739 19.5482 1.07884C19.5482 0.646408 19.6702 0.291592 20.0805 0.0920078C20.4796 -0.0964884 20.8123 0.0254798 21.1338 0.269416C23.4845 2.03241 25.8351 3.7954 28.1858 5.56949C28.8289 6.05736 28.8289 6.68937 28.1858 7.17725C25.8351 8.95133 23.4845 10.7032 21.1338 12.4773C20.7901 12.7323 20.4353 12.8654 20.025 12.6436C19.648 12.4441 19.5261 12.1003 19.5372 11.6901C19.5372 10.9693 19.5261 10.2486 19.5372 9.52791C19.5372 9.20635 19.4595 9.09547 19.1269 9.10656C18.5171 9.12874 17.9072 9.10656 17.0313 9.10656Z"
-          fill="#19388B"
-        />
-        <path
-          d="M14.2592 24.9855C16.5766 24.9855 18.9051 24.9855 21.2225 24.9855C22.0873 24.9855 22.6417 24.4866 22.6528 23.7104C22.6639 21.9918 22.6639 20.262 22.6639 18.5434C22.6639 17.4013 22.6639 16.2704 22.6639 15.1283C21.7879 15.1394 20.912 15.1505 20.036 15.1283V15.1505C20.036 16.1816 20.036 17.2017 20.036 18.2329C20.036 19.253 20.036 20.2842 20.036 21.3043C20.036 21.5815 20.0139 21.892 19.781 22.1359C19.5482 22.3798 19.2377 22.4131 18.9605 22.402C13.8489 22.3798 8.74844 22.3909 3.64796 22.402C3.45946 22.402 3.09355 22.402 2.83853 22.147C2.60568 21.9142 2.58351 21.6037 2.58351 21.3598C2.60568 16.2371 2.60568 11.1144 2.58351 5.99177C2.58351 5.74783 2.61677 5.42628 2.84962 5.19343C3.08247 4.96058 3.38184 4.93841 3.65904 4.93841C4.44629 4.94949 5.23354 4.94949 6.02079 4.93841C6.69716 4.93841 7.38462 4.93841 8.06098 4.93841C8.03881 3.88504 8.03881 3.06453 8.06098 2.31055C6.54193 2.33272 5.03396 2.32163 3.5149 2.32163H1.64103C0.44352 2.33272 0 2.77624 0 3.97375V23.3334C0 24.5198 0.454609 24.9855 1.62994 24.9855H8.47124H11.3209H14.2592Z"
-          fill="#19388B"
-        />
+        <g clip-path="url(#clip0_5219_7792)">
+          <path
+            d="M6.30775 19.5C5.80258 19.5 5.375 19.325 5.025 18.975C4.675 18.625 4.5 18.1974 4.5 17.6922V15.7307C4.5 15.5179 4.57183 15.3397 4.7155 15.1962C4.859 15.0525 5.03717 14.9807 5.25 14.9807C5.46283 14.9807 5.641 15.0525 5.7845 15.1962C5.92817 15.3397 6 15.5179 6 15.7307V17.6922C6 17.7692 6.03208 17.8397 6.09625 17.9037C6.16025 17.9679 6.23075 18 6.30775 18H17.6923C17.7692 18 17.8398 17.9679 17.9038 17.9037C17.9679 17.8397 18 17.7692 18 17.6922V15.7307C18 15.5179 18.0718 15.3397 18.2155 15.1962C18.359 15.0525 18.5372 14.9807 18.75 14.9807C18.9628 14.9807 19.141 15.0525 19.2845 15.1962C19.4282 15.3397 19.5 15.5179 19.5 15.7307V17.6922C19.5 18.1974 19.325 18.625 18.975 18.975C18.625 19.325 18.1974 19.5 17.6923 19.5H6.30775ZM11.25 7.38845L9.327 9.31145C9.17817 9.46012 9.00158 9.53354 8.79725 9.5317C8.59275 9.5297 8.41292 9.45112 8.25775 9.29595C8.11292 9.14095 8.03792 8.96537 8.03275 8.7692C8.02758 8.57304 8.10258 8.39737 8.25775 8.2422L11.3672 5.1327C11.4609 5.03904 11.5597 4.97304 11.6635 4.9347C11.7673 4.8962 11.8795 4.87695 12 4.87695C12.1205 4.87695 12.2327 4.8962 12.3365 4.9347C12.4403 4.97304 12.5391 5.03904 12.6328 5.1327L15.7423 8.2422C15.8909 8.39087 15.9643 8.56495 15.9625 8.76445C15.9605 8.96379 15.8871 9.14095 15.7423 9.29595C15.5871 9.45112 15.4089 9.53129 15.2078 9.53645C15.0064 9.54162 14.8282 9.46662 14.673 9.31145L12.75 7.38845V15.0385C12.75 15.2513 12.6782 15.4295 12.5345 15.573C12.391 15.7166 12.2128 15.7885 12 15.7885C11.7872 15.7885 11.609 15.7166 11.4655 15.573C11.3218 15.4295 11.25 15.2513 11.25 15.0385V7.38845Z"
+            fill="#19388B"
+          />
+        </g>
+        <defs>
+          <clipPath id="clip0_5219_7792">
+            <rect width="24" height="24" fill="white" />
+          </clipPath>
+        </defs>
+      </svg>
+    );
+  }
+  function settingsIcon() {
+    return (
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g clip-path="url(#clip0_5691_1807)">
+          <path
+            d="M10.8922 21.5C10.5512 21.5 10.2567 21.3868 10.0087 21.1605C9.76058 20.9343 9.60958 20.6558 9.55574 20.325L9.31149 18.4538C9.04366 18.3641 8.76899 18.2385 8.48749 18.077C8.20616 17.9153 7.95458 17.7423 7.73274 17.5577L5.99999 18.2943C5.68583 18.4328 5.37016 18.4462 5.05299 18.3345C4.73566 18.223 4.48916 18.0205 4.31349 17.727L3.18649 15.773C3.01083 15.4795 2.96024 15.1689 3.03474 14.8413C3.10908 14.5138 3.27958 14.2436 3.54624 14.0308L5.04424 12.9058C5.02124 12.7571 5.00491 12.6077 4.99524 12.4578C4.98558 12.3077 4.98074 12.1583 4.98074 12.0095C4.98074 11.8673 4.98558 11.7228 4.99524 11.576C5.00491 11.4292 5.02124 11.2686 5.04424 11.0943L3.54624 9.96925C3.27958 9.75642 3.11066 9.48458 3.03949 9.15375C2.96833 8.82308 3.02058 8.51092 3.19624 8.21725L4.31349 6.29225C4.48916 6.00508 4.73566 5.80417 5.05299 5.6895C5.37016 5.57467 5.68583 5.5865 5.99999 5.725L7.72299 6.452C7.96416 6.261 8.22158 6.08633 8.49524 5.928C8.76891 5.76967 9.03783 5.64242 9.30199 5.54625L9.55574 3.675C9.60958 3.34417 9.76058 3.06567 10.0087 2.8395C10.2567 2.61317 10.5512 2.5 10.8922 2.5H13.1077C13.4487 2.5 13.7432 2.61317 13.9912 2.8395C14.2394 3.06567 14.3904 3.34417 14.4442 3.675L14.6885 5.55575C14.9885 5.66475 15.2599 5.792 15.5027 5.9375C15.7457 6.083 15.991 6.2545 16.2385 6.452L18.0097 5.725C18.3237 5.5865 18.6394 5.57467 18.9567 5.6895C19.2741 5.80417 19.5205 6.00508 19.696 6.29225L20.8135 8.227C20.9892 8.5205 21.0397 8.83108 20.9652 9.15875C20.8909 9.48625 20.7204 9.75642 20.4537 9.96925L18.9172 11.123C18.9531 11.2845 18.9727 11.4355 18.976 11.576C18.9792 11.7163 18.9807 11.8577 18.9807 12C18.9807 12.1358 18.9775 12.274 18.971 12.4145C18.9647 12.5548 18.9417 12.7154 18.902 12.8963L20.4095 14.0308C20.6762 14.2436 20.8483 14.5138 20.926 14.8413C21.0035 15.1689 20.9544 15.4795 20.7787 15.773L19.646 17.7172C19.4705 18.0109 19.2225 18.2135 18.902 18.325C18.5815 18.4365 18.2642 18.423 17.95 18.2845L16.2385 17.548C15.991 17.7455 15.7384 17.9202 15.4807 18.072C15.2231 18.224 14.959 18.3481 14.6885 18.4443L14.4442 20.325C14.3904 20.6558 14.2394 20.9343 13.9912 21.1605C13.7432 21.3868 13.4487 21.5 13.1077 21.5H10.8922ZM11 20H12.9655L13.325 17.3212C13.8353 17.1879 14.3017 16.9985 14.724 16.753C15.1465 16.5073 15.5539 16.1916 15.9462 15.8057L18.4307 16.85L19.4155 15.15L17.2462 13.5155C17.3296 13.2565 17.3862 13.0026 17.4162 12.7537C17.4464 12.5051 17.4615 12.2538 17.4615 12C17.4615 11.7397 17.4464 11.4884 17.4162 11.2463C17.3862 11.0039 17.3296 10.7564 17.2462 10.5038L19.4345 8.85L18.45 7.15L15.9365 8.2095C15.6018 7.85183 15.2009 7.53583 14.7337 7.2615C14.2664 6.98717 13.7937 6.79292 13.3155 6.67875L13 4H11.0155L10.6845 6.66925C10.1743 6.78975 9.70324 6.97433 9.27124 7.223C8.83908 7.47183 8.42683 7.79233 8.03449 8.1845L5.54999 7.15L4.56549 8.85L6.72499 10.4595C6.64166 10.6968 6.58333 10.9437 6.54999 11.2C6.51666 11.4563 6.49999 11.7262 6.49999 12.0095C6.49999 12.2698 6.51666 12.525 6.54999 12.775C6.58333 13.025 6.63849 13.2718 6.71549 13.5155L4.56549 15.15L5.54999 16.85L8.02499 15.8C8.40449 16.1897 8.81024 16.5089 9.24224 16.7578C9.67441 17.0064 10.152 17.1974 10.675 17.3307L11 20ZM12.0115 15C12.8435 15 13.5515 14.708 14.1355 14.124C14.7195 13.54 15.0115 12.832 15.0115 12C15.0115 11.168 14.7195 10.46 14.1355 9.876C13.5515 9.292 12.8435 9 12.0115 9C11.1692 9 10.4586 9.292 9.87974 9.876C9.30091 10.46 9.01149 11.168 9.01149 12C9.01149 12.832 9.30091 13.54 9.87974 14.124C10.4586 14.708 11.1692 15 12.0115 15Z"
+            fill="#214BB9"
+          />
+        </g>
+        <defs>
+          <clipPath id="clip0_5691_1807">
+            <rect width="24" height="24" fill="white" />
+          </clipPath>
+        </defs>
       </svg>
     );
   }
@@ -791,16 +994,18 @@ export default function UserList() {
       setLoading(false);
       if (response && response.data.status.code == code.OK) {
         const data = response.data.data;
-        let today = data?.todayDatetodayDate || dayjs().format('YYYY-MM-DD')
+        let today = data?.todayDatetodayDate || dayjs().format("YYYY-MM-DD");
         data.Items.map((item) => {
           if (item.startDate && item.endDate) {
             let futureDate = dayjs(today).isBefore(item.startDate);
             if (!futureDate) {
-              let isValid = dayjs(today).isSameOrBefore(item.endDate) && dayjs(today).isSameOrAfter(item.startDate);
+              let isValid =
+                dayjs(today).isSameOrBefore(item.endDate) &&
+                dayjs(today).isSameOrAfter(item.startDate);
               if (!isValid) {
                 item.name = item.name + " - 期限切れ";
-                deviceListMap.push(item.id)
-                setDeviceList((prv) => [...prv, item.id])
+                deviceListMap.push(item.id);
+                setDeviceList((prv) => [...prv, item.id]);
               }
             }
           }
@@ -816,8 +1021,6 @@ export default function UserList() {
     Admin ? fetchOrg() : withDeviceDetails([]);
   }, []);
 
-
-
   useEffect(() => {
     const channel = Admin ? adminChannel : organizationIdForChannel;
     const subscription = gen.subscribe(channel, ({ data }) => {
@@ -828,16 +1031,16 @@ export default function UserList() {
     return () => subscription.unsubscribe();
   }, []);
 
-
-
-
-
   useEffect(() => {
     let maxCurrent = (current - 1) * page + page;
-    console.log((current - 1) * page, maxCurrent)
+    console.log((current - 1) * page, maxCurrent);
     if (employeeData.length > 0) {
       let temp = employeeData.map((el, index) => {
-        if (el.radioNumber == received.pttNo && index >= (current - 1) * page && index <= maxCurrent) {
+        if (
+          el.radioNumber == received.pttNo &&
+          index >= (current - 1) * page &&
+          index <= maxCurrent
+        ) {
           el.status = received.status;
         }
         return el;
@@ -880,7 +1083,7 @@ export default function UserList() {
 
     const subscription = gen.subscribe(csvUploadInitiated, ({ data }) => {
       if (!hasMap.has(data.token)) {
-        hasMap.add(data.token)
+        hasMap.add(data.token);
         setLoading(true);
         let dataReceived = JSON.parse(data);
         toast.dismiss();
@@ -935,7 +1138,6 @@ export default function UserList() {
     return () => subscription.unsubscribe();
   }, [csvUploadInitiated]);
 
-
   // for settings
   useEffect(() => {
     /* eslint-disable no-undef*/
@@ -949,62 +1151,62 @@ export default function UserList() {
     let ecount = 0;
     let failedRowIndexes = [];
 
-    const subscription = gen.subscribe(csvUploadInitiatedSettings, ({ data }) => {
-
-      let dataReceived = JSON.parse(data);
-      if (!hasMap.has(dataReceived.token)) {
-        hasMap.add(dataReceived.token)
-        setLoading(true);
-        toast.dismiss();
-        if (dataReceived?.rowsInserted) {
-          dataReceived.rowsInserted =
-            (dataReceived?.rowsInserted &&
-              JSON.parse(dataReceived?.rowsInserted)) ||
-            0;
-          scount = scount + dataReceived?.rowsInserted;
-        }
-        if (dataReceived?.rowsFailed) {
-          dataReceived.rowsFailed =
-            dataReceived?.rowsFailed && JSON.parse(dataReceived?.rowsFailed);
-          ecount = ecount + dataReceived?.rowsFailed;
-        }
-
-        // get failed index
-        failedRowIndexes = [...failedRowIndexes, ...dataReceived.failures];
-
-        if (dataReceived?.currentChunk == dataReceived?.totalChunks) {
-          setImportModal(() => !importModal);
-          subscription.unsubscribe();
-          if (ecount == 0 && scount > 0) {
-            toast("正常にインポートされました。", successToastSettings);
-            Admin ? fetchOrg() : withDeviceDetails([]);
+    const subscription = gen.subscribe(
+      csvUploadInitiatedSettings,
+      ({ data }) => {
+        let dataReceived = JSON.parse(data);
+        if (!hasMap.has(dataReceived.token)) {
+          hasMap.add(dataReceived.token);
+          setLoading(true);
+          toast.dismiss();
+          if (dataReceived?.rowsInserted) {
+            dataReceived.rowsInserted =
+              (dataReceived?.rowsInserted &&
+                JSON.parse(dataReceived?.rowsInserted)) ||
+              0;
+            scount = scount + dataReceived?.rowsInserted;
+          }
+          if (dataReceived?.rowsFailed) {
+            dataReceived.rowsFailed =
+              dataReceived?.rowsFailed && JSON.parse(dataReceived?.rowsFailed);
+            ecount = ecount + dataReceived?.rowsFailed;
           }
 
-          if (ecount > 0) {
-            toast(
-              `${ecount} 行のデータインポートに失敗しました`,
-              errorToastSettings
-            );
-            try {
-              let csvLink = api.post(currentAPI, {
-                failures: failedRowIndexes,
-              });
-              setDownloadCsvLink(csvLink.data.data.failureFile);
-            } finally {
+          // get failed index
+          failedRowIndexes = [...failedRowIndexes, ...dataReceived.failures];
+
+          if (dataReceived?.currentChunk == dataReceived?.totalChunks) {
+            setImportModal(() => !importModal);
+            subscription.unsubscribe();
+            if (ecount == 0 && scount > 0) {
+              toast("正常にインポートされました。", successToastSettings);
               Admin ? fetchOrg() : withDeviceDetails([]);
             }
+
+            if (ecount > 0) {
+              toast(
+                `${ecount} 行のデータインポートに失敗しました`,
+                errorToastSettings
+              );
+              try {
+                let csvLink = api.post(currentAPI, {
+                  failures: failedRowIndexes,
+                });
+                setDownloadCsvLink(csvLink.data.data.failureFile);
+              } finally {
+                Admin ? fetchOrg() : withDeviceDetails([]);
+              }
+            }
+            setLoading(false);
+            setCsvUploadInitiatedSettings(() => null);
+            setCurrentAPI(() => null);
           }
-          setLoading(false);
-          setCsvUploadInitiatedSettings(() => null);
-          setCurrentAPI(() => null);
         }
       }
-    });
+    );
     setSubscriptionTrack(subscription);
     return () => subscription.unsubscribe();
   }, [csvUploadInitiatedSettings]);
-
-
 
   const fetchOrg = async () => {
     try {
@@ -1013,8 +1215,8 @@ export default function UserList() {
         "organizations/projection",
         {}
       );
-      setCompanyListDropdown(() => projectionList.data.Items)
-      await withDeviceDetails(projectionList.data.Items)
+      setCompanyListDropdown(() => projectionList.data.Items);
+      await withDeviceDetails(projectionList.data.Items);
     } catch (error) {
       setLoading(false);
     }
@@ -1036,7 +1238,7 @@ export default function UserList() {
       let expiredDeviceIds = await fetchDevice();
       await fetchData(projectionList, expiredDeviceIds);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   }
   const fetchData = async (projectionList, expDeviceList) => {
@@ -1074,8 +1276,11 @@ export default function UserList() {
             isActive: emp.isActive,
             onlineStatus:
               emp?.accountDetail?.employee?.onlineStatus || "offline",
-            machine: emp.accountDetail.employee?.machine.id &&
-              expDeviceList.includes(emp.accountDetail.employee?.machine.id) ? emp.accountDetail.employee?.machine.name + " - 期限切れ" : emp.accountDetail.employee?.machine.name || "-",
+            machine:
+              emp.accountDetail.employee?.machine.id &&
+              expDeviceList.includes(emp.accountDetail.employee?.machine.id)
+                ? emp.accountDetail.employee?.machine.name + " - 期限切れ"
+                : emp.accountDetail.employee?.machine.name || "-",
 
             fleetNumber: emp.fleetNumber,
             isTranscribe: emp.isTranscribe,
@@ -1138,24 +1343,24 @@ export default function UserList() {
     searchPayload.appLastSeenDateTime =
       (searchPayload.appLastSeenDateTime &&
         dayjs(searchPayload.appLastSeenDateTime).format("YYYY-MM-DD") +
-        "T00:00:00.000Z") ||
+          "T00:00:00.000Z") ||
       "";
     searchPayload.appLoginDateTime =
       (searchPayload.appLoginDateTime &&
         dayjs(searchPayload.appLoginDateTime).format("YYYY-MM-DD") +
-        "T00:00:00.000Z") ||
+          "T00:00:00.000Z") ||
       "";
 
     searchPayload.createdAt =
       (searchPayload.createdAt &&
         dayjs(searchPayload.createdAt).format("YYYY-MM-DD") +
-        "T00:00:00.000Z") ||
+          "T00:00:00.000Z") ||
       "";
 
     searchPayload.appLogoutDateTime =
       (searchPayload.appLogoutDateTime &&
         dayjs(searchPayload.appLogoutDateTime).format("YYYY-MM-DD") +
-        "T00:00:00.000Z") ||
+          "T00:00:00.000Z") ||
       "";
     let Payload = {};
     for (let key in searchPayload) {
@@ -1191,8 +1396,11 @@ export default function UserList() {
             isActive: emp.isActive,
             onlineStatus:
               emp?.accountDetail?.employee?.onlineStatus || "offline",
-            machine: emp.accountDetail.employee?.machine.id &&
-              deviceList.includes(emp.accountDetail.employee?.machine.id) ? emp.accountDetail.employee?.machine.name + "- 期限切れ" : emp.accountDetail.employee?.machine.name || "-",
+            machine:
+              emp.accountDetail.employee?.machine.id &&
+              deviceList.includes(emp.accountDetail.employee?.machine.id)
+                ? emp.accountDetail.employee?.machine.name + "- 期限切れ"
+                : emp.accountDetail.employee?.machine.name || "-",
 
             fleetNumber: emp.fleetNumber,
             isTranscribe: emp.isTranscribe,
@@ -1220,7 +1428,6 @@ export default function UserList() {
         setLoading(false);
         return;
       }
-
     } catch (error) {
       setLoading(false);
       setErrors(error.message);
@@ -1290,7 +1497,8 @@ export default function UserList() {
   async function uploadCsvFile(payload) {
     try {
       setLoading(true);
-      payload.channel = new Date().getTime() + "id" + organizationIdForChannel + "csvUpload";
+      payload.channel =
+        new Date().getTime() + "id" + organizationIdForChannel + "csvUpload";
       setCsvUploadInitiated(() => payload.channel);
       setCurrentAPI("employees/import");
       let result = await api.post("employees/import", payload);
@@ -1359,6 +1567,153 @@ export default function UserList() {
     <div id="userPage">
       {loading && <LoaderOverlay />}
       <ToastContainer />
+      <div className="flex justify-between mb-[16px] xl:mb-2 ">
+        <div className="flex items-center ">
+          <DynamicLabel
+            text={intl.dashboard_user_list}
+            alignment="text-center"
+            fontSize="text-xl"
+            fontWeight="font-semibold"
+            textColor="#000000"
+            disabled={false}
+          />
+        </div>
+        <div className="hidden  lg:flex gap-x-2">
+          <IconOutlineBtn
+            text={intl.company_list_company_import}
+            textColor={"text-customBlue"}
+            textBold={true}
+            py={"xl:py-2 md:py-1.5 py-1.5"}
+            px={" px-[33.5px]  md:px-[24.5px] xl:px-[24px]"}
+            icon={() => importIcon()}
+            onClick={async () => {
+              await setModelToggle(() => false);
+              await importHandler();
+            }}
+          />
+
+          {Admin && (
+            <IconOutlineBtn
+              text={intl.user_addUser_label}
+              textColor={"text-customBlue"}
+              textBold={true}
+              py={"xl:py-2 md:py-1.5 py-1.5"}
+              px={"xl:px-[32.5px] md:px-[22.5px] px-[22.5px]"}
+              icon={() => editIcon(false)}
+              onClick={() => {
+                setIsModalOpen(true);
+                //router.push("/company/add");
+              }}
+            />
+          )}
+
+          {/* <IconBtn
+            bg={"bg"}
+            textColor={"text-white"}
+            textBold={true}
+            icon={() => deleteIcon(false)}
+            onClick={() => {
+              toast.dismiss();
+              if (selectedRows.length <= 0) {
+                toast("ユーザーを選択してください。", {
+                  position: "top-right",
+                  autoClose: 5000,
+                  hideProgressBar: true,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  theme: "colored",
+                  type: "error",
+                });
+                setDeleteModal(false);
+                return;
+              }
+              setDeleteModal(() => true);
+            }}
+            additionalClass="px-2 py-2 rounded-lg"
+          /> */}
+        </div>
+        <div className="flex lg:hidden">
+          <span className="mr-2.5">
+            <IconBtn
+              textColor={"text-white"}
+              textBold={true}
+              icon={() => importIcon()}
+              onClick={async () => {
+                setModelToggle(() => false);
+                await importHandler();
+              }}
+              bg="bg-transparent border-none"
+            />
+          </span>
+          {/* <span className="mr-2.5">
+            <IconBtn
+              textColor={"text-white"}
+              textBold={true}
+              icon={() => exportIcon()}
+              bg="bg-transparent"
+              onClick={() => {
+                toast.dismiss();
+                if (selectedRows.length <= 0) {
+                  toast("ユーザーを選択してください。", {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    theme: "colored",
+                    type: "error",
+                  });
+                  setExportModal(false);
+                  return;
+                }
+                setExportModal(() => true);
+              }}
+            />
+          </span> */}
+          <span className="mr-2.5">
+            <IconBtn
+              textColor={"text-white"}
+              textBold={true}
+              icon={() => editIcon()}
+              bg="bg-transparent border-none"
+              onClick={() => {
+                router.push("/user/add");
+              }}
+            />
+          </span>
+          <span>
+            {/* <span>
+              <IconBtn
+                bg={"bg"}
+                textColor={"text-white"}
+                textBold={true}
+                icon={() => deleteIcon(false)}
+                additionalClass={"py-[7px] px-[8.5px]"}
+                onClick={() => {
+                  toast.dismiss();
+                  if (selectedRows.length <= 0) {
+                    toast("ユーザーを選択してください。", {
+                      position: "top-right",
+                      autoClose: 5000,
+                      hideProgressBar: true,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      theme: "colored",
+                      type: "error",
+                    });
+                    setDeleteModal(false);
+                    return;
+                  }
+                  setDeleteModal(() => true);
+                }}
+              />
+            </span> */}
+          </span>
+        </div>
+      </div>
       <div>
         {modelToggle && (
           <div>
@@ -1433,7 +1788,7 @@ export default function UserList() {
             </div>
           </Modal>
         )}
-        <form className="bg-white p-2 rounded-lg shadow-md mb-8">
+        <form className="bg-white p-2 rounded-lg shadow-md mb-[16px]">
           <div
             className="grid grid-cols-12 gap-2 max-h-72 overflow-y-auto md:h-auto px-2"
             id="search-panel-emp-list"
@@ -1467,19 +1822,25 @@ export default function UserList() {
                   onInput={(e) => updateSearchPayload(e)}
                 /> */}
 
-                <input list="company_search" name="company_search" className={`w-full border flex  py-2.5 text-xs  pl-2  rounded-lg focus:outline-none placeholder-[#AEA8A8] 
+                <input
+                  list="company_search"
+                  name="company_search"
+                  className={`w-full border flex  py-2.5 text-xs  pl-2  rounded-lg focus:outline-none placeholder-[#AEA8A8] 
         placeholder:text-center md:placeholder:text-left md:placeholder:pl-0
         dark:text-black`}
                   placeholder={intl.company_list_company_name}
                   id="organization"
                   onInput={(e) => updateSearchPayload(e)}
                   value={searchPayload.organization}
-
                 />
                 <datalist id="company_search">
-                  {companyListDropdown.length > 0 && companyListDropdown.map((item) => { return (<option value={item.name} key={item.value}></option>) })}
+                  {companyListDropdown.length > 0 &&
+                    companyListDropdown.map((item) => {
+                      return (
+                        <option value={item.name} key={item.value}></option>
+                      );
+                    })}
                 </datalist>
-
               </div>
             )}
             <div className="col-span-12 md:col-span-6 xl:col-span-2">
@@ -1644,184 +2005,7 @@ export default function UserList() {
           </div>
         </form>
 
-        <div className="flex justify-between mb-2 xl:mb-2 ">
-          <div className="flex items-center ">
-            <DynamicLabel
-              text={intl.user_screen_label}
-              alignment="text-center"
-              fontSize="text-[22px]"
-              fontWeight="font-medium"
-              textColor="#000000"
-              disabled={false}
-            />
-          </div>
-          <div className="hidden  lg:flex gap-x-2">
-            <IconOutlineBtn
-              text={intl.company_list_company_import}
-              textColor={"text-customBlue"}
-              textBold={true}
-              py={"xl:py-2 md:py-1.5 py-1.5"}
-              px={" px-[33.5px]  md:px-[24.5px] xl:px-[24px]"}
-              icon={() => importIcon()}
-              borderColor={"border-customBlue"}
-              onClick={async () => {
-                await setModelToggle(() => false);
-                await importHandler();
-              }}
-            />
-            <IconOutlineBtn
-              text={intl.company_list_company_export_title}
-              textColor={"text-customBlue"}
-              textBold={true}
-              py={"xl:py-2 md:py-1.5 py-1.5"}
-              px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
-              icon={() => exportIcon()}
-              borderColor={"border-customBlue"}
-              onClick={() => {
-                toast.dismiss();
-                if (selectedRows.length <= 0) {
-                  toast("ユーザーを選択してください。", {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    theme: "colored",
-                    type: "error",
-                  });
-                  setExportModal(false);
-                  return;
-                }
-                if (selectedRows.length > 2500) {
-                  setExceededLimitOfExport(true);
-                  return;
-                }
-                setExportModal(() => true);
-              }}
-            />
-            {Admin && (
-              <IconOutlineBtn
-                text={intl.user_addUser_label}
-                textColor={"text-customBlue"}
-                textBold={true}
-                py={"xl:py-2 md:py-1.5 py-1.5"}
-                px={"xl:px-[32.5px] md:px-[22.5px] px-[22.5px]"}
-                icon={() => editIcon(false)}
-                borderColor={"border-customBlue"}
-                onClick={() => router.push("/user/add")}
-              />
-            )}
-
-            <IconBtn
-              bg={"bg"}
-              textColor={"text-white"}
-              textBold={true}
-              icon={() => deleteIcon(false)}
-              onClick={() => {
-                toast.dismiss();
-                if (selectedRows.length <= 0) {
-                  toast("ユーザーを選択してください。", {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    theme: "colored",
-                    type: "error",
-                  });
-                  setDeleteModal(false);
-                  return;
-                }
-                setDeleteModal(() => true);
-              }}
-              additionalClass="px-2 py-2 rounded-lg"
-            />
-          </div>
-          <div className="flex lg:hidden">
-            <span className="mr-2.5">
-              <IconBtn
-                textColor={"text-white"}
-                textBold={true}
-                icon={() => importIcon()}
-                onClick={async () => {
-                  setModelToggle(() => false);
-                  await importHandler();
-                }}
-                bg="bg-transparent"
-              />
-            </span>
-            <span className="mr-2.5">
-              <IconBtn
-                textColor={"text-white"}
-                textBold={true}
-                icon={() => exportIcon()}
-                bg="bg-transparent"
-                onClick={() => {
-                  toast.dismiss();
-                  if (selectedRows.length <= 0) {
-                    toast("ユーザーを選択してください。", {
-                      position: "top-right",
-                      autoClose: 5000,
-                      hideProgressBar: true,
-                      closeOnClick: true,
-                      pauseOnHover: true,
-                      draggable: true,
-                      theme: "colored",
-                      type: "error",
-                    });
-                    setExportModal(false);
-                    return;
-                  }
-                  setExportModal(() => true);
-                }}
-              />
-            </span>
-            <span className="mr-2.5">
-              <IconBtn
-                textColor={"text-white"}
-                textBold={true}
-                icon={() => editIcon()}
-                additionalClass={"py-[8.5px] px-[8.5px]"}
-                bg="bg-transparent"
-                onClick={() => {
-                  router.push("/user/add");
-                }}
-              />
-            </span>
-            <span>
-              <span>
-                <IconBtn
-                  bg={"bg"}
-                  textColor={"text-white"}
-                  textBold={true}
-                  icon={() => deleteIcon(false)}
-                  additionalClass={"py-[7px] px-[8.5px]"}
-                  onClick={() => {
-                    toast.dismiss();
-                    if (selectedRows.length <= 0) {
-                      toast("ユーザーを選択してください。", {
-                        position: "top-right",
-                        autoClose: 5000,
-                        hideProgressBar: true,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        theme: "colored",
-                        type: "error",
-                      });
-                      setDeleteModal(false);
-                      return;
-                    }
-                    setDeleteModal(() => true);
-                  }}
-                />
-              </span>
-            </span>
-          </div>
-        </div>
-        <div className="mb-[5px] flex flex-col md:flex-row md:items-center justify-between ">
+        <div className="mb-[16px] flex flex-col md:flex-row md:items-center justify-between ">
           <label
             key={"selectAll"}
             className="flex items-center text-customBlue"
@@ -1856,7 +2040,7 @@ export default function UserList() {
             })}
           </div>
         </div>
-        <div className="mb-[20px] relative" style={{ width: "100%" }}>
+        <div className=" relative" style={{ width: "100%" }}>
           <DataTable
             scrollVertical={tableHeight > 450 ? tableHeight : 450}
             scrollHorizontal={1400}
@@ -1872,7 +2056,7 @@ export default function UserList() {
             defaultValue={1}
             onRowClick={(row, rowIndex) => {
               dispatch(addEmployee(row));
-              router.push("/user/details");
+              router.push("/user-details");
             }}
             selectAll={selectAll}
             setSelectAll={setSelectAll}
@@ -1885,6 +2069,84 @@ export default function UserList() {
             page={page}
           />
         </div>
+        {selectedRows.length > 0 && (
+          <div className="mt-[16px] flex justify-between items-center  bg-white py-3 px-[4vw] shadow-lg">
+            {/* Left side: Buttons */}
+            <div className="text-base font-semibold">
+              {selectedRows.length}
+              {intl.user_item_selected}
+            </div>
+            <div className="flex space-x-4">
+              <IconOutlineBtn
+                text={intl.user_change_settings}
+                textColor={"text-customBlue"}
+                textBold={true}
+                py={"xl:py-2 md:py-1.5 py-1.5"}
+                px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
+                icon={() => settingsIcon()}
+                borderColor={"border-customBlue"}
+              />
+              <IconOutlineBtn
+                text={intl.company_list_company_export_title}
+                textColor={"text-customBlue"}
+                textBold={true}
+                py={"xl:py-2 md:py-1.5 py-1.5"}
+                px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
+                icon={() => exportIcon()}
+                borderColor={"border-customBlue"}
+                onClick={() => {
+                  toast.dismiss();
+                  if (selectedRows.length <= 0) {
+                    toast("ユーザーを選択してください。", {
+                      position: "top-right",
+                      autoClose: 5000,
+                      hideProgressBar: true,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      theme: "colored",
+                      type: "error",
+                    });
+                    setExportModal(false);
+                    return;
+                  }
+                  if (selectedRows.length > 2500) {
+                    setExceededLimitOfExport(true);
+                    return;
+                  }
+                  setExportModal(() => true);
+                }}
+              />
+              <IconOutlineBtn
+                text={intl.help_settings_addition_delete}
+                textColor="text-[#BA1818]"
+                textBold={true}
+                borderColor="border-[#BA1818]"
+                py={"xl:py-2.5 md:py-1.5 py-1.5"}
+                px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
+                icon={() => deleteIcon()}
+                onClick={() => {
+                  toast.dismiss();
+                  if (selectedRows.length <= 0) {
+                    toast("ユーザーを選択してください。", {
+                      position: "top-right",
+                      autoClose: 5000,
+                      hideProgressBar: true,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      theme: "colored",
+                      type: "error",
+                    });
+                    setDeleteModal(false);
+                    return;
+                  }
+                  setDeleteModal(() => true);
+                }}
+              />
+            </div>
+          </div>
+        )}
 
         {editModal && (
           <Modal
@@ -2034,19 +2296,34 @@ export default function UserList() {
             </div>
           </Modal>
         )}
+        {isModalOpen && (
+          <AntModal
+            open={isModalOpen}
+            footer={null}
+            onCancel={handleCloseModal}
+          >
+            <div className="flex flex-col">
+              <AddUser
+                setIsModalOpen={setIsModalOpen}
+                setComCreated={setComCreated}
+              />
+            </div>
+          </AntModal>
+        )}
         {deleteModal && (
           <Modal
+            width="45vw"
             height="412px"
             fontSize="text-xl"
             fontWeight="font-semibold"
             textColor="#19388B"
-            text={intl.help_settings_addition_delete}
+            text={intl.user_delete_modal}
             onCloseHandler={setDeleteModal}
             modalFooter={getDeleteModalFooter}
           >
             <div className="flex flex-col">
-              <div className="flex-grow py-[50px] pt-[50px] px-6 dark:text-black">
-                {`ユーザーに関連付けられている PTT 番号、設定、グループ、連絡先も削除されます。 削除してよろしいですか？`}
+              <div className="flex-grow dark:text-black text-base font-normal">
+                {intl.user_modal_content}
               </div>
             </div>
           </Modal>

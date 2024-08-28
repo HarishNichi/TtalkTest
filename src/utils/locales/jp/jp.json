@@ -12,7 +12,7 @@
   "help_settings_addition_modal_edit": "編集",
   "help_settings_addition_section_name": "セクション名",
   "help_settings_addition_delete": "削除",
-  "help_settings_addition_delete_button":"削除する",
+  "help_settings_addition_delete_button": "削除する",
   "help_settings_addition_msg": "セクションを削除してよろしいですか?",
   "help_settings_addition_modal_cancel": "キャンセル",
   "help_settings_help_category": "カテゴリ追加",
@@ -93,7 +93,13 @@
   "user_userId_label": "ユーザーID",
   "user_details_screem_label": "ユーザーの詳細",
   "user_screen_label": "ユーザー情報",
-  "user_addUser_label": "ユーザーの追加",
+  "user_addUser_label": "ユーザー追加",
+  "user_item_selected": "件選択中",
+  "user_delete_modal": "選択したユーザーを削除しますか？",
+  "user_modal_content": "ユーザーに関連付けられている PTT 番号、設定、グループ、連絡先も削除されます。 削除してよろしいですか？",
+  "user_password_copy": "パスワードをコピーしました",
+  "user_change_settings": "設定変更",
+
   "helpSettingsList_section_label": "セクション",
   "helpSettingsList_Subsection_label": "サブセクション数",
   "reset_submit_btn": "パスワード変更",
@@ -248,5 +254,6 @@
   "help_title": "ヘルプタイトル",
   "device_terminal": "端末",
   "device_add_device": "端末追加",
-  "device_delete_device": "選択した端末を削除しますか"
+  "device_delete_device": "選択した端末を削除しますか",
+  "sidebar_corporate_management": "企業管理"
 }

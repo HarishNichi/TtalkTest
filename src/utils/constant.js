@@ -173,7 +173,13 @@ export const helperSubSectionLinks = [
   },
   { title: intl.help_settings_title, link: "/help-settings/sub-section" },
 ];
-
+export const userSubSectionLinks = [
+  {
+    title: intl.dashboard_user_list,
+    link: "/user",
+  },
+  { title: intl.user_details_screem_label, link: "/user-details" },
+];
 export const fileName = "C:/Users/Public/Downloads";
 
 /**SA-7A data */

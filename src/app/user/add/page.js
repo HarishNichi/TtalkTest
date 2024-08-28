@@ -6,7 +6,12 @@ import DynamicLabel from "../../../components/Label/dynamicLabel";
 import Input from "../../../components/Input/medium";
 import Breadcrumb from "../../../components/Layout/breadcrumb";
 import IconLeftBtn from "@/components/Button/iconLeftBtn";
-import { breadUserCrumbLinks, code, errorToastSettings, maxLimit } from "@/utils/constant";
+import {
+  breadUserCrumbLinks,
+  code,
+  errorToastSettings,
+  maxLimit,
+} from "@/utils/constant";
 import intl from "@/utils/locales/jp/jp.json";
 import TitleUserCard from "../components/titleUserCard";
 import { useRouter } from "next/navigation";
@@ -23,10 +28,10 @@ import LoaderOverlay from "@/components/Loader/loadOverLay";
 import ProtectedRoute from "@/utils/auth";
 import ToggleBoxMedium from "@/components/Input/toggleBoxMedium";
 import dayjs from "dayjs";
-import isSameOrAfter from "dayjs/plugin/isSameOrAfter"
-import isSameOrBefore from "dayjs/plugin/isSameOrBefore"
-dayjs.extend(isSameOrBefore)
-dayjs.extend(isSameOrAfter)
+import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
+import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
+dayjs.extend(isSameOrBefore);
+dayjs.extend(isSameOrAfter);
 
 // Yup schema to validate the form
 const schema = Yup.object().shape(
@@ -74,7 +79,7 @@ const schema = Yup.object().shape(
   ["emailId", "emailId"]
 );
 
-export default function AddUser() {
+export default function AddUser({ setIsModalOpen, setComCreated }) {
   const [user, setUser] = useState({
     phoneStatus: "active",
     onlineStatus: "online",
@@ -118,7 +123,7 @@ export default function AddUser() {
           name: org.name,
           label: org.name,
           value: org.id,
-          disabled: !org.accountDetail.organization.isStatus
+          disabled: !org.accountDetail.organization.isStatus,
         };
       });
       setOrganizationsData(response);
@@ -143,14 +148,16 @@ export default function AddUser() {
       // Assuming the response contains the "Items" array as shown in your example
       if (response && response.data.status.code == code.OK) {
         const data = response.data.data;
-        let today = data?.todayDate || dayjs().format('YYYY-MM-DD')
+        let today = data?.todayDate || dayjs().format("YYYY-MM-DD");
         let isValid = false;
         const formattedData = data.Items.map((item) => {
           item.disabled = false;
           if (item.startDate && item.endDate) {
             let futureDate = dayjs(today).isBefore(item.startDate);
             if (!futureDate) {
-              isValid = dayjs(today).isSameOrBefore(item.endDate) && dayjs(today).isSameOrAfter(item.startDate);
+              isValid =
+                dayjs(today).isSameOrBefore(item.endDate) &&
+                dayjs(today).isSameOrAfter(item.startDate);
               if (!isValid) {
                 item.name = item.name + " - 期限切れ";
                 item.disabled = true;
@@ -161,7 +168,7 @@ export default function AddUser() {
             label: item.name,
             id: item.id,
             value: item.id,
-            disabled: item.disabled
+            disabled: item.disabled,
           };
         });
         setDevices(formattedData);
@@ -219,12 +226,12 @@ export default function AddUser() {
       try {
         await api.post(`employees/create`, record);
         setLoading(false);
+        setIsModalOpen(false);
         router.push("/user");
       } catch (error) {
         setLoading(false);
         toast(
-          error.response?.data?.status?.message
-          ?? error?.message,
+          error.response?.data?.status?.message ?? error?.message,
           errorToastSettings
         );
       }
@@ -280,38 +287,35 @@ export default function AddUser() {
     <ProtectedRoute allowedRoles={["admin"]}>
       {loading && <LoaderOverlay />}
       <ToastContainer />
-      <div className="mb-4">
-        <Breadcrumb links={breadUserCrumbLinks} />
-      </div>
-      <div className="flex  ">
+
+      <div className="flex p-[40px] pb-0 justify-center items-center ">
         <TitleUserCard title={intl.user_add_screen_label} />
       </div>
       <div
-        style={cardStyle}
-        className="flex flex-col flex-1 h-full md:flex-row   md:gap-y-4 2xl:gap-y-12 gap-x-12 lg:gap-y-3 lg:gap-x-24 bg-white border-gray-200 rounded-lg shadow px-4 max-h-max py-4 mt-2 lg:mt-0 md:px-[60px]  xl:px-[80px] xl:pt-[30px] pb-[40px]"
+        className="flex flex-col h-full p-[40px] pt-[20px] pb-0 "
+        style={{ maxHeight: "450px", overflow: "auto" }}
       >
-        <div className="md:w-1/2">
+        <div className="w-full">
           {/* machine */}
-          <div className="mb-4 2xl:mb-6">
+          <div className="mb-[32px]">
             <DropdownMedium
               defaultSelectNoOption={false}
               isRequired={true}
               requiredColor={{
                 color: "#ED2E2E",
               }}
-              borderRound={"rounded-xl"}
-              padding={"py-[11px] pr-[120px]"}
+              padding={"h-[40px]"}
               options={deviceList}
               keys={"value"} // From options array
               optionLabel={"label"} // From options array
-              border={"border border-gray-400"}
+              border={"border border-gray-400 rounded"}
               focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
               bg=""
               text={"text-sm"}
               additionalClass={"block w-full pl-5"}
               id={"machine"}
               name={"machine"}
-              labelColor={"#7B7B7B"}
+              labelColor={"#0D0E11"}
               label={intl.machineName}
               value={machine}
               onChange={async (event) => {
@@ -326,11 +330,11 @@ export default function AddUser() {
             )}
           </div>
           {/* user name */}
-          <div className="mb-4 2xl:mb-6">
+          <div className="mb-[32px]">
             <DynamicLabel
               isRequired={true}
               text={intl.user_name}
-              textColor="#7B7B7B"
+              textColor="#0D0E11"
               fontWeight={"font-medium"}
               htmlFor="userName"
             />
@@ -339,12 +343,11 @@ export default function AddUser() {
               name="userName"
               type={"text"}
               placeholder={intl.user_name}
-              borderRound={"rounded-xl"}
               padding={"py-3"}
               focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
-              border={"border border-gray-400"}
+              border={"border border-gray-400 rounded"}
               bg=""
-              additionalClass={"block w-full pl-5 text-sm pr-[30px]"}
+              additionalClass={"block w-full pl-5 text-sm pr-[30px] h-[40px]"}
               value={userName}
               onChange={async (event) => {
                 setUserName(event.target.value);
@@ -357,11 +360,11 @@ export default function AddUser() {
             )}
           </div>
           {/* furigana */}
-          <div className="mb-4 2xl:mb-6 pt-1">
+          <div className="mb-[32px]">
             <DynamicLabel
               isRequired={true}
               text={intl.furigana}
-              textColor="#7B7B7B"
+              textColor="#0D0E11"
               fontWeight={"font-medium"}
               htmlFor="furigana"
             />
@@ -370,12 +373,11 @@ export default function AddUser() {
               name="furigana"
               type={"text"}
               placeholder={intl.furigana}
-              borderRound={"rounded-xl"}
               padding={"py-3"}
               focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
-              border={"border border-gray-400"}
+              border={"border border-gray-400 rounded"}
               bg=""
-              additionalClass={"block w-full pl-5 text-sm pr-[30px]"}
+              additionalClass={"block w-full pl-5 text-sm h-[40px] pr-[30px]"}
               value={furigana}
               onChange={async (event) => {
                 setFurigana(event.target.value);
@@ -390,7 +392,7 @@ export default function AddUser() {
           {/*  */}
 
           {/* org list */}
-          <div className="mb-4 2xl:mb-6">
+          <div className="mb-[32px]">
             {organizationList.length > 0 && (
               <DropdownMedium
                 defaultSelectNoOption={false}
@@ -398,19 +400,18 @@ export default function AddUser() {
                 requiredColor={{
                   color: "#ED2E2E",
                 }}
-                borderRound={"rounded-xl"}
-                padding={"py-[11px] pr-[120px]"}
+                padding={""}
                 options={organizationList}
                 keys={"value"} // From options array
                 optionLabel={"label"} // From options array
-                border={"border border-gray-400"}
+                border={"border border-gray-400 rounded"}
                 focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
                 bg=""
                 text={"text-sm"}
-                additionalClass={"block w-full pl-5"}
+                additionalClass={"block w-full pl-5 h-[40px]"}
                 id={"organization"}
                 name={"organization"}
-                labelColor={"#7B7B7B"}
+                labelColor={"#0D0E11"}
                 label={intl.user_add_company_name}
                 value={organization}
                 onChange={async (event) => {
@@ -434,25 +435,24 @@ export default function AddUser() {
         </div>
 
         {/* -------------- */}
-        <div className="md:w-1/2">
-          <div className="md:mb-24 2xl:mb-32 pt-1">
-            <div className="mb-4 2xl:mb-6">
+        <div className="md:w-full ">
+          <div className="">
+            <div className="mb-[32px]">
               <DynamicLabel
                 isRequired={true}
                 text={intl.user_add_specify_label}
-                textColor="#7B7B7B"
+                textColor="#0D0E11"
                 fontWeight={"font-medium"}
               />
               <Input
                 type={"text"}
                 name="designation"
                 placeholder={intl.user_add_specify_label}
-                borderRound={"rounded-xl"}
                 padding={"py-3"}
                 focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
-                border={"border border-gray-400"}
+                border={"border border-gray-400 rounded"}
                 bg=""
-                additionalClass={"block w-full pl-5 text-sm pr-[30px]"}
+                additionalClass={"block w-full pl-5 text-sm h-[40px] pr-[30px]"}
                 value={designation}
                 onChange={async (event) => {
                   setDesignation(event.target.value);
@@ -474,11 +474,11 @@ export default function AddUser() {
                   </div>
                 )}
             </div>
-            <div className="mb-4 2xl:mb-6">
+            <div className="mb-[32px]">
               <DynamicLabel
                 isRequired={false}
                 text={intl.user_email_id_label}
-                textColor="#7B7B7B"
+                textColor="#0D0E11"
                 fontWeight={"font-medium"}
               />
               <Input
@@ -486,12 +486,11 @@ export default function AddUser() {
                 placeholder={intl.user_email_id_label}
                 name="emailId"
                 id="emailId"
-                borderRound={"rounded-xl"}
                 padding={"py-3"}
                 focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
-                border={"border border-gray-400"}
+                border={"border border-gray-400 rounded"}
                 bg=""
-                additionalClass={"block w-full pl-5 text-sm pr-[30px]"}
+                additionalClass={"block w-full h-[40px] pl-5 text-sm pr-[30px]"}
                 testId="content-input-email"
                 value={emailId}
                 onChange={async (event) => {
@@ -508,23 +507,22 @@ export default function AddUser() {
 
             {/* telephone */}
 
-            <div className="mb-10 2xl:mb-12 pt-1">
+            <div className="mb-[32px]">
               <DynamicLabel
                 text={intl.user_add_telephone_number_label}
-                textColor="#7B7B7B"
+                textColor="#0D0E11"
                 fontWeight={"font-medium"}
               />
               <Input
                 type={"tel"}
                 placeholder={intl.user_add_telephone_number_label}
-                borderRound={"rounded-xl"}
                 name="telephoneNo"
                 id="telephoneNo"
                 padding={"py-3"}
                 focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
-                border={"border border-gray-400"}
+                border={"border border-gray-400 rounded"}
                 bg=""
-                additionalClass={"block w-full pl-5 text-sm pr-[30px]"}
+                additionalClass={"block w-full pl-5 h-[40px] text-sm pr-[30px]"}
                 value={telephoneNo}
                 onChange={async (event) => {
                   setTelephoneNo(event.target.value);
@@ -549,14 +547,14 @@ export default function AddUser() {
 
             {/* activity - no vaidation  */}
             <div className="mb-8 sm:mb-0">
-              <div className="bg-input-gray py-[13px] pl-4  rounded-lg">
+              <div className="rounded-lg">
                 <ToggleBoxMedium
                   toggle={seeUserActivity}
                   setToggle={(evt) => {
                     setSeeUserActivity(evt);
                   }}
                   label={intl.user_is_see_user_activity}
-                  labelColor={"#7B7B7B"}
+                  labelColor={"#0D0E11"}
                   id={"Id"}
                   onColor={"#1E1E1E"}
                   onHandleColor={"#00ACFF"}
@@ -575,22 +573,22 @@ export default function AddUser() {
               </div>
             </div>
           </div>
-          <div className="md:mt-6">
-            <div className="flex justify-end">
-              <IconLeftBtn
-                type="submit"
-                text={intl.help_settings_addition_keep}
-                py="py-[8px] px-[55px]"
-                textColor="text-white font-normal text-[16px]"
-                bgColor="bg-customBlue"
-                textBold={true}
-                rounded="rounded-lg"
-                icon={() => {
-                  return null;
-                }}
-                onClick={() => handleSubmit()}
-              />
-            </div>
+        </div>
+        <div className="md:mt-6 pb-[40px]">
+          <div className="flex justify-end">
+            <IconLeftBtn
+              type="submit"
+              text={intl.help_settings_addition_keep}
+              py="py-[8px] px-[55px] w-full"
+              textColor="text-white font-normal text-[16px]"
+              bgColor="bg-customBlue"
+              textBold={true}
+              rounded="rounded-lg"
+              icon={() => {
+                return null;
+              }}
+              onClick={() => handleSubmit()}
+            />
           </div>
         </div>
       </div>

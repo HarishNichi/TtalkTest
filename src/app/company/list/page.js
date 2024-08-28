@@ -104,7 +104,7 @@ export default function CompanyList() {
           </div>
         );
       },
-      width: 70,
+      width: 140,
       align: "left",
     },
   ];
@@ -1127,7 +1127,8 @@ export default function CompanyList() {
           <div className="mt-[20px] flex justify-between items-center  bg-white py-3 px-[4vw] shadow-lg">
             {/* Left side: Buttons */}
             <div className="text-base font-semibold">
-              {selectedRows.length}件選択中
+              {selectedRows.length}
+              {intl.user_item_selected}
             </div>
             <div className="flex space-x-4">
               <IconOutlineBtn
