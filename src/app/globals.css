@@ -489,3 +489,7 @@ input::-webkit-calendar-picker-indicator {
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
   color: #19388B !important;
 }
+
+.ant-tabs .ant-tabs-tab:hover {
+  color: #19388B;
+}

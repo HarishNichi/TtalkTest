@@ -1790,9 +1790,9 @@ export default function UserList() {
             </div>
           </Modal>
         )}
-        <form className=" p-2 rounded-lg  mb-[16px]">
+        <form className="rounded-lg  mb-[16px]">
           <div
-            className="grid grid-cols-12 gap-2 max-h-72 overflow-y-auto md:h-auto px-2"
+            className="grid grid-cols-12 gap-2 max-h-72 overflow-y-auto md:h-auto"
             id="search-panel-emp-list"
           >
             {/* <!-- Row 1 --> */}
