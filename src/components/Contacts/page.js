@@ -640,7 +640,7 @@ export default function Contact({
               />
 
               <IconOutlineBtn
-                text={intl.add_group}
+                text={intl.add_contact}
                 textColor="text-customBlue" // Red text color
                 borderColor="border-customBlue bg-white"
                 textBold={true}
