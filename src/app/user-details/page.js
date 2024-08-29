@@ -7,10 +7,12 @@ import { Tabs } from "antd";
 import Group from "@/components/Groups/page";
 import employee from "@/redux/features/employee";
 import UserDetails from "@/components/UserDetails/page";
+import Contact from "@/components/Contacts/page";
+import { useAppSelector } from "@/redux/hooks";
 
 export default function UserDetail() {
   const [tabKey, setTabKey] = useState("1");
-
+  const Employee = useAppSelector((state) => state.employeeReducer.employee);
   const { TabPane } = Tabs;
 
   const onTabChange = (key) => {
@@ -21,6 +23,9 @@ export default function UserDetail() {
   return (
     <div className="mb-[16px]">
       <Breadcrumb links={userSubSectionLinks} />
+      <div className="text-[20px] font-semibold text-[#0D0E11]">
+        {Employee.name}
+      </div>
       <div>
       <Tabs
       defaultActiveKey={"1"}
@@ -33,22 +38,23 @@ export default function UserDetail() {
               <UserDetails />
             </div>
           </TabPane>
-      <TabPane tab="Groups" key="2">
+      <TabPane tab="グループ" key="2">
         <div>
         <Group tab={tabKey} />
         </div>
-        {/* Content for Groups */}
       </TabPane>
-      <TabPane tab="Contacts" key="3">
-        {/* Content for Contacts */}
+      <TabPane tab="連絡先" key="3">
+        <div>
+          <Contact tab={tabKey} />
+        </div>
       </TabPane>
-      <TabPane tab="Settings" key="4">
+      <TabPane tab="端末設定" key="4">
         {/* Content for Settings */}
       </TabPane>
-      <TabPane tab="See Logs" key="5">
+      <TabPane tab="操作ログ" key="5">
         {/* Content for See Logs */}
       </TabPane>
-      <TabPane tab="Others" key="6">
+      <TabPane tab="その他" key="6">
         {/* Content for Others */}
       </TabPane>
     </Tabs>

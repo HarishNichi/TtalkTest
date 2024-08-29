@@ -984,16 +984,6 @@ export default function Group({
       <ToastContainer />
       <div>
         <div className="flex justify-between mb-2 xl:mb-2 ">
-          <div className="flex items-center">
-            <DynamicLabel
-              text={intl.user_group_mongst_list_grp_title}
-              alignment="text-center"
-              fontSize="text-[22px]"
-              fontWeight="font-medium"
-              textColor="#000000"
-              disabled={false}
-            />
-          </div>
         </div>
         <div className="flex flex-col justify-between  md:flex-row md:space-y-0 md:space-x-4 pt-[10px] pb-[20px]">
           <div className="w-full md:w-1/4 md:w-auto pb-[20px] md:pb-0">
