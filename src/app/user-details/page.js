@@ -9,6 +9,7 @@ import employee from "@/redux/features/employee";
 import UserDetails from "@/components/UserDetails/page";
 import Contact from "@/components/Contacts/page";
 import { useAppSelector } from "@/redux/hooks";
+import ViewLog from "@/components/Logs/page";
 
 export default function UserDetail() {
   const [tabKey, setTabKey] = useState("1");
@@ -52,6 +53,7 @@ export default function UserDetail() {
         {/* Content for Settings */}
       </TabPane>
       <TabPane tab="操作ログ" key="5">
+        <ViewLog tab={tabKey} />
         {/* Content for See Logs */}
       </TabPane>
       <TabPane tab="その他" key="6">
