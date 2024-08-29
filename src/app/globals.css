@@ -485,3 +485,7 @@ input::-webkit-calendar-picker-indicator {
   border-color: #ba1818 !important;
   border: 1px solid #ba1818 !important;
 }
+
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #19388B !important;
+}

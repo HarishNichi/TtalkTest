@@ -566,6 +566,7 @@ export default function UserList() {
   const [companyListDropdown, setCompanyListDropdown] = useState([]);
   const [current, setCurrent] = useState(1);
   const [page, setPage] = useState(50);
+  const [count, setCount] = useState(1);
 
   const [searchPayload, setSearchPayload] = useState({
     employeeId: "",
@@ -1020,7 +1021,7 @@ export default function UserList() {
   };
   useEffect(() => {
     Admin ? fetchOrg() : withDeviceDetails([]);
-  }, []);
+  }, [count]);
 
   useEffect(() => {
     const channel = Admin ? adminChannel : organizationIdForChannel;
@@ -1789,7 +1790,7 @@ export default function UserList() {
             </div>
           </Modal>
         )}
-        <form className="bg-white p-2 rounded-lg shadow-md mb-[16px]">
+        <form className=" p-2 rounded-lg  mb-[16px]">
           <div
             className="grid grid-cols-12 gap-2 max-h-72 overflow-y-auto md:h-auto px-2"
             id="search-panel-emp-list"
@@ -1865,7 +1866,7 @@ export default function UserList() {
             <div className="col-span-12 md:col-span-6 xl:col-span-2 custom-date-picker">
               <DatePicker
                 placeholder="登録日(YYYY/MM/DD)"
-                className="w-full py-[0.44rem] rounded-lg "
+                className="w-full py-[0.44rem] rounded-lg h-[38px] "
                 id="createdAt"
                 style={{
                   border: "1px solid #e5e7eb",
@@ -1891,7 +1892,7 @@ export default function UserList() {
             <div className="col-span-12 md:col-span-6 xl:col-span-2 custom-date-picker">
               <DatePicker
                 placeholder="最終オンライン日(YYYY/MM/DD)"
-                className="w-full py-[0.44rem] rounded-lg"
+                className="w-full py-[0.44rem] rounded-lg h-[38px]"
                 id="appLastSeenDateTime"
                 style={{
                   border: "1px solid #e5e7eb",
@@ -1917,7 +1918,7 @@ export default function UserList() {
             <div className="col-span-12 md:col-span-6 xl:col-span-2 custom-date-picker">
               <DatePicker
                 placeholder="利用開始日(YYYY/MM/DD)"
-                className="w-full py-[0.44rem] rounded-lg"
+                className="w-full py-[0.44rem] h-[38px] rounded-lg"
                 id="appLoginDateTime"
                 style={{
                   border: "1px solid #e5e7eb",
@@ -1945,7 +1946,7 @@ export default function UserList() {
             <div className="col-span-12 md:col-span-6 xl:col-span-2 custom-date-picker">
               <DatePicker
                 placeholder="利用停止日(YYYY/MM/DD)"
-                className="w-full py-[0.44rem] rounded-lg"
+                className="w-full py-[0.44rem] h-[38px] rounded-lg"
                 id="appLogoutDateTime"
                 style={{
                   border: "1px solid #e5e7eb",
@@ -2307,6 +2308,8 @@ export default function UserList() {
               <AddUser
                 setIsModalOpen={setIsModalOpen}
                 setComCreated={setComCreated}
+                setCount={setCount}
+                count={count}
               />
             </div>
           </AntModal>

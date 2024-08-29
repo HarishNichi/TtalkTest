@@ -7,7 +7,7 @@ import ProgressBar from "./plainProgressBar";
 import IconLeftBtn from "../Button/iconLeftBtn";
 import intl from "../../utils/locales/jp/jp.json";
 import { sampleLinks } from "@/utils/constant";
-export default function ImportModal(props) {
+export default function ImportUserModal(props) {
   const [empFile, setEmpFile] = useState(null);
   const [bulkFile, setBulkFile] = useState(null);
   const [empFileName, setEmpFileName] = useState(null);
@@ -137,47 +137,6 @@ export default function ImportModal(props) {
           modalFooter={modelFooter}
         >
           <div className="flex flex-col">
-            <div className="mb-6 md:px-[32px]">
-              <div
-                style={{
-                  width: "295px",
-                  height: "42px",
-                  flexShrink: 0,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  padding: "0 8px",
-                  borderRadius: "32px",
-                  background: "#EBEBEB",
-                  boxShadow: "0px 0px 7px 0px rgba(0, 0, 0, 0.05)",
-                }}
-              >
-                {/* Button 1 */}
-                <button
-                  style={
-                    props.activeButton === "employee"
-                      ? activeButtonStyles
-                      : inactiveButtonStyles
-                  }
-                  onClick={() => handleButtonClick("employee")}
-                >
-                  {"ユーザーインポート"}
-                </button>
-
-                {/* Button 2 */}
-                <button
-                  style={
-                    props.activeButton === "bulk"
-                      ? activeButtonStyles
-                      : inactiveButtonStyles
-                  }
-                  onClick={() => handleButtonClick("bulk")}
-                >
-                  {"一括インポート"}
-                </button>
-              </div>
-            </div>
-
             {props.activeButton == "bulk" && (
               <div className="flex flex-col mb-6 md:px-[32px] items-center">
                 <div className="mb-[10px] ">

@@ -79,7 +79,12 @@ const schema = Yup.object().shape(
   ["emailId", "emailId"]
 );
 
-export default function AddUser({ setIsModalOpen, setComCreated }) {
+export default function AddUser({
+  setIsModalOpen,
+  setComCreated,
+  setCount,
+  count,
+}) {
   const [user, setUser] = useState({
     phoneStatus: "active",
     onlineStatus: "online",
@@ -227,7 +232,7 @@ export default function AddUser({ setIsModalOpen, setComCreated }) {
         await api.post(`employees/create`, record);
         setLoading(false);
         setIsModalOpen(false);
-        router.push("/user");
+        setCount(count + 1);
       } catch (error) {
         setLoading(false);
         toast(

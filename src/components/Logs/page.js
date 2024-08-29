@@ -201,7 +201,7 @@ export default function ViewLog({tab}) {
             <div className="w-1/2">
               <DatePicker
                 className={
-                  "rounded-xl py-2 border border-gray-400 block w-full text-sm px-2 focus:outline-none focus:ring-2 focus:ring-customBlue text-[#8B8B8B] md:text-center"
+                  "rounded py-2 border border-gray-400 block w-full text-sm px-2 focus:outline-none focus:ring-2 focus:ring-customBlue text-[#8B8B8B] md:text-center"
                 }
                 onChange={(dateObj, dateString) => {
                   const newFromDate = dateString || null;
@@ -227,7 +227,7 @@ export default function ViewLog({tab}) {
                 key={reRender}
                 min={fromDate}
                 className={
-                  "rounded-xl py-2 border border-gray-400 block w-full text-sm  focus:outline-none focus:ring-2 focus:ring-customBlue text-[#8B8B8B] text-center px-2"
+                  "rounded py-2 border border-gray-400 block w-full text-sm  focus:outline-none focus:ring-2 focus:ring-customBlue text-[#8B8B8B] text-center px-2"
                 }
                 onChange={(event, dateString) => {
                   const newToDate = dateString;
@@ -248,7 +248,6 @@ export default function ViewLog({tab}) {
             </div>
           </div>
           <div className="mb-8 w-full max-h-[450px] 2xl:max-h-[740px]">
-            {logData.length > 0 && (
               <DataTable
                 scrollHorizontal={500}
                 scrollVertical={tableHeight > 450 ? tableHeight : 450}
@@ -276,13 +275,11 @@ export default function ViewLog({tab}) {
                 current={current}
                 setCurrent={setCurrent}
               />
-          
-            )}
-            {logData.length <= 0 && (
+            {/* {logData.length <= 0 && (
               <div className="flex justify-center dark:text-black">
                 {intl.data_not_found}
               </div>
-            )}
+            )} */}
           </div>
         </div>
       </div>

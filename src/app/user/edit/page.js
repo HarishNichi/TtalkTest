@@ -340,9 +340,12 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
       try {
         await api.put(`employees/update`, payload);
         setLoading(false);
+        setIsModalOpen(false);
+        router.push("/user");
         toast("正常に保存しました。", successToastSettings);
       } catch (error) {
         setLoading(false);
+
         toast(
           error.response?.data?.status?.message
             ? error.response?.data?.status?.message
@@ -851,8 +854,8 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
           </div>
 
           {/* onlineStatus - <<<<<<<<<<<<<<<<<<<<*/}
-          <div className="mb-[32px]">
-            <div className=" py-[13px] pl-4  ">
+          <div className="">
+            <div className="  pl-4  ">
               <ToggleBoxMedium
                 toggle={isActive}
                 setToggle={(evt) => {
@@ -879,8 +882,8 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
           </div>
 
           {/* activity - no vaidation  */}
-          <div className="mb-[32px]">
-            <div className=" py-[13px] pl-4  ">
+          <div className="">
+            <div className=" mb-[10px] pl-4  ">
               <ToggleBoxMedium
                 toggle={seeUserActivity}
                 setToggle={(evt) => {
@@ -907,12 +910,7 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
           </div>
         </div>
       </div>
-      <div className="flex flex-col sm:flex-row justify-center gap-4 w-full px-[16px]">
-        <ActionButton
-          title={intl.help_settings_addition_modal_cancel}
-          onClick={() => router.push("/user/details")}
-        />
-
+      <div className="flex  w-full px-[40px] mb-[10px]">
         <ActionButton
           title={intl.help_settings_addition_keep}
           onClick={updateUser}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import DynamicLabel from "../Label/dynamicLabel";
 import EditIcon from "@/components/Icons/editIcon";
 import TitleUserCard from "@/app/user/components/titleUserCard";
@@ -10,12 +10,7 @@ import intl from "@/utils/locales/jp/jp.json";
 import Input from "antd/es/input/Input";
 import ToggleBoxMedium from "@/components/Input/toggleBoxMedium";
 import api from "@/utils/api";
-import {
-  code,
-  errorToastSettings,
-  maxLimit,
-  successToastSettings,
-} from "@/utils/constant";
+
 import { getEmployee } from "@/redux/features/employee";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { ToastContainer, toast } from "react-toastify";
@@ -35,9 +30,24 @@ import Modal from "@/components/Modal/modal";
 import IconLeftBtn from "@/components/Button/iconLeftBtn";
 import IconOutlineBtn from "../Button/iconOutlineBtn";
 import { Button } from "antd";
-import ImportModal from "../ImportModal/empImport";
+import ImportUserModal from "../ImportModal/userImport";
 import { Modal as AntModal } from "antd";
 import UserEdit from "@/app/user/edit/page";
+import { sampleLinks } from "@/utils/constant";
+
+import {
+  fileName,
+  tableDefaultPageSizeOption,
+  EmployeeSearchLimit,
+  adminChannel,
+  errorToastSettings,
+  successToastSettings,
+  csvFileNameRegex,
+  maxLimit,
+  code,
+} from "@/utils/constant";
+import DropdownMedium from "../Input/dropdownMedium";
+import TextPlain from "../Input/textPlain";
 
 // Yup schema to validate the form
 const schema = Yup.object().shape({
@@ -63,9 +73,18 @@ export default function UserDetails() {
   const [csvUploadInitiated, setCsvUploadInitiated] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [comCreated, setComCreated] = useState(false);
+  const [downloadCsvLink, setDownloadCsvLink] = useState(null);
+  const [exportType, setExportType] = useState(1);
+  const CSVDownloadRef = useRef("");
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+  const [file, setFile] = useState(null);
+  const [fileName, setFileName] = useState(null);
+  const [fileValidationError, setFileValidationError] = useState(null);
+  const [csvFileName, setCsvFileName] = useState("");
+  const [fileNameError, setFileNameError] = useState(null);
+  const [shouldOpenInNewTab, setIsPdf] = useState(false);
 
   let [password, setPassword] = useState("");
   let [confirmPassword, setConfirmPassword] = useState("");
@@ -75,7 +94,61 @@ export default function UserDetails() {
   function importHandler() {
     setTimeout(() => {
       setImportModal(() => true);
-    }, 500);
+    }, 100);
+  }
+  useEffect(() => {
+    downloadCsvLink && CSVDownloadRef.current.click();
+  }, [downloadCsvLink]);
+
+  async function exportCSVFile() {
+    try {
+      let data;
+      let downloadFileName = exportType == 1 ? ".csv" : ".pdf";
+      let url = exportType == 1 ? "employees/export" : "employees/qr-code";
+      toast.dismiss();
+      if (!csvFileName) {
+        setFileNameError("ファイル名は必須です。");
+        return;
+      }
+      if (!csvFileNameRegex.test(csvFileName)) {
+        setFileNameError("ファイル名を確認してください。");
+        return;
+      }
+      setFileNameError("");
+      setLoading(true);
+      let id = [];
+      id.push(Employee.id);
+      data = { ids: id, filename: csvFileName + downloadFileName };
+      let result = await api.post(url, data);
+      setDownloadCsvLink(result?.data.data.path);
+      const shouldOpenInNewTab = result?.data.data.path.endsWith(".pdf");
+      setIsPdf(shouldOpenInNewTab);
+      setExportModal(() => false);
+      setCsvFileName("");
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      toast("ファイルのエクスポートに失敗しました", errorToastSettings);
+    }
+  }
+
+  function getExportModalFooter() {
+    return (
+      <IconLeftBtn
+        text={"エクスポート"}
+        textColor={"text-white font-semibold text-[16px] w-full"}
+        py={"py-[11px]"}
+        px={"w-[84%]"}
+        bgColor={"bg-customBlue"}
+        textBold={true}
+        icon={() => {
+          return null;
+        }}
+        onClick={() => {
+          exportCSVFile();
+        }}
+      />
+    );
   }
   useEffect(() => {
     /* eslint-disable no-undef*/
@@ -567,30 +640,37 @@ export default function UserDetails() {
       <div className="flex justify-end mb-4  space-x-4">
         <IconOutlineBtn
           text={intl.company_list_company_import}
-          textColor={"text-customBlue"}
-          borderColor={"border-customBlue"}
+          textColor={"text-customBlue "}
+          borderColor={"border-customBlue bg-white"}
           textBold={true}
-          py={"xl:py-2.5 md:py-1.5 py-1.5 bg-white "}
+          py={"xl:py-2.5 md:py-1.5 py-1.5  "}
           px={"xl:px-[32px] md:px-[33.5px] px-[33.5px]"}
           icon={() => importIcon()}
+          onClick={async () => {
+            setImportModal(false);
+            await importHandler();
+          }}
         />
         <IconOutlineBtn
           text={intl.company_list_company_export_title}
           textColor={"text-customBlue"}
           textBold={true}
           py={"xl:py-2.5 md:py-1.5 py-1.5"}
-          px={"xl:px-[20px] md:px-[22.5px] px-[22.5px] bg-white"}
+          px={"xl:px-[20px] md:px-[22.5px] px-[22.5px] "}
           icon={() => exportIcon()}
-          borderColor={"border-customBlue"}
+          borderColor={"border-customBlue bg-white"}
+          onClick={() => {
+            setExportModal(true);
+          }}
         />
         <IconOutlineBtn
           text={intl.help_settings_addition_modal_edit}
           textColor={"text-customBlue"}
           textBold={true}
           py={"xl:py-2.5 md:py-1.5 py-1.5"}
-          px={"xl:px-[20px] md:px-[22.5px] px-[22.5px] bg-white"}
+          px={"xl:px-[20px] md:px-[22.5px] px-[22.5px] "}
           icon={() => editIcon()}
-          borderColor={"border-customBlue"}
+          borderColor={"border-customBlue bg-white"}
           onClick={() => {
             setIsModalOpen(true);
           }}
@@ -700,22 +780,101 @@ export default function UserDetails() {
           </div>
         </AntModal>
       )}
-      {/* {modelToggle && (
-        <div>
-          <ImportModal
-            activeButton={activeButton}
-            setActiveButton={setActiveButton}
-            setSelectedOption={setSelectedOption}
-            modelToggle={modelToggle}
-            option={option}
-            onCloseHandler={() => {
-              setSelectedOption("settings");
-              setModelToggle(false);
-            }}
-            onClickImport={handelImport}
-          />
-        </div>
-      )} */}
+      {importModal && (
+        <ImportUserModal
+          modelToggle={importModal}
+          onCloseHandler={setImportModal}
+          file={file}
+          setFile={setFile}
+          fileName={fileName}
+          setFileName={setFileName}
+          fileValidationError={fileValidationError}
+          setFileValidationError={setFileValidationError}
+          operation="dynamic"
+          uploadCsvFile={(payload) => uploadCsvFile(payload)}
+          sampleLink={sampleLinks().companyImport}
+        />
+      )}
+      {exportModal && (
+        <Modal
+          height="500px"
+          fontSize="text-xl"
+          fontWeight="font-semibold"
+          textColor="#19388B"
+          text={intl.company_list_company_export_title}
+          onCloseHandler={() => {
+            setFileNameError("");
+            setExportModal(false);
+          }}
+          contentPaddingTop="pt-1"
+          contentPadding="px-0"
+          modalFooter={getExportModalFooter}
+        >
+          <div className="flex flex-col">
+            <div className="flex-grow">
+              <form className="grid grid-cols-1 gap-y-3">
+                <div className="flex flex-col">
+                  <TextPlain
+                    type="text"
+                    for={"id"}
+                    placeholder={"ファイル名"}
+                    borderRound="rounded-xl"
+                    padding="p-[10px]"
+                    focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
+                    border="border border-gray-300"
+                    bg="bg-white"
+                    additionalClass="block w-full pl-5 text-base pr-[30px] "
+                    label={"ファイル名"}
+                    labelColor="#7B7B7B"
+                    id={"id"}
+                    isRequired={true}
+                    labelClass={"float-left"}
+                    onChange={(event) => {
+                      setCsvFileName(event.target.value);
+                    }}
+                  />
+                  {fileNameError && (
+                    <div className="validation-font text-sm text-[red] text-left">
+                      {fileNameError}
+                    </div>
+                  )}
+                </div>
+                <div className="flex flex-col">
+                  <DropdownMedium
+                    borderRound={"rounded-xl"}
+                    padding={"pt-[12px] pb-[12px] pr-[120px]"}
+                    options={[
+                      { id: 1, value: "1", label: "CSV" },
+                      { id: 2, value: "2", label: "QR code" },
+                    ]}
+                    keys={"value"} // From options array
+                    optionLabel={"label"} // From options array
+                    border={"border border-gray-300"}
+                    value={exportType}
+                    focus={
+                      "focus:outline-none focus:ring-2 focus:ring-customBlue"
+                    }
+                    bg={"bg-white"}
+                    text={"text-sm"}
+                    additionalClass={"block w-full pl-5"}
+                    id={"Id"}
+                    labelColor={"#7B7B7B"}
+                    label={"ファイルタイプ"}
+                    disabled={false}
+                    isRequired={true}
+                    defaultSelectNoOption
+                    labelClass={"float-left"}
+                    dropIcon={"70%"}
+                    onChange={(val) => {
+                      setExportType(val);
+                    }}
+                  />
+                </div>
+              </form>
+            </div>
+          </div>
+        </Modal>
+      )}
     </>
   );
 }
