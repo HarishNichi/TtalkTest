@@ -4,6 +4,9 @@ import { useRouter } from "next/navigation";
 import Breadcrumb from "@/components/Layout/breadcrumb";
 import { userSubSectionLinks } from "@/utils/constant";
 import { Tabs } from "antd";
+import Group from "@/components/Groups/page";
+import employee from "@/redux/features/employee";
+import UserDetails from "@/components/UserDetails/page";
 
 export default function UserDetail() {
   const [tabKey, setTabKey] = useState("1");
@@ -25,10 +28,15 @@ export default function UserDetail() {
       className="mt-2"
       onChange={onTabChange}
     >
-      <TabPane tab="User Details" key="1">
-        {/* Content for User Details */}
-      </TabPane>
+     <TabPane tab="ユーザー詳細" key="1">
+            <div>
+              <UserDetails />
+            </div>
+          </TabPane>
       <TabPane tab="Groups" key="2">
+        <div>
+        <Group tab={tabKey} />
+        </div>
         {/* Content for Groups */}
       </TabPane>
       <TabPane tab="Contacts" key="3">

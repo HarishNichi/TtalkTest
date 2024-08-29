@@ -17,10 +17,10 @@ import LoaderOverlay from "@/components/Loader/loadOverLay";
 import DropdownMedium from "@/components/Input/dropdownMedium";
 import * as Yup from "yup";
 import dayjs from "dayjs";
-import isSameOrAfter from "dayjs/plugin/isSameOrAfter"
-import isSameOrBefore from "dayjs/plugin/isSameOrBefore"
-dayjs.extend(isSameOrBefore)
-dayjs.extend(isSameOrAfter)
+import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
+import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
+dayjs.extend(isSameOrBefore);
+dayjs.extend(isSameOrAfter);
 
 import {
   MAX_50_LENGTH_PATTERN,
@@ -81,7 +81,7 @@ const schema = Yup.object().shape(
   ]
 );
 
-export default function UserEdit() {
+export default function UserEdit({ setIsModalOpen, setComCreated }) {
   const [progressBarPtt, setProgressBarPtt] = useState(0);
   const [progressBarNotification, setProgressBarNotification] = useState(0);
   const Employee = useAppSelector((state) => state.employeeReducer.employee);
@@ -180,14 +180,16 @@ export default function UserEdit() {
       // Assuming the response contains the "Items" array as shown in your example
       if (response && response.data.status.code == code.OK) {
         const data = response.data.data;
-        let today = data?.todayDatetodayDate || dayjs().format('YYYY-MM-DD')
+        let today = data?.todayDatetodayDate || dayjs().format("YYYY-MM-DD");
         let isValid = false;
         const formattedData = data.Items.map((item) => {
           item.disabled = false;
           if (item.startDate && item.endDate) {
             let futureDate = dayjs(today).isBefore(item.startDate);
             if (!futureDate) {
-              isValid = dayjs(today).isSameOrBefore(item.endDate) && dayjs(today).isSameOrAfter(item.startDate);
+              isValid =
+                dayjs(today).isSameOrBefore(item.endDate) &&
+                dayjs(today).isSameOrAfter(item.startDate);
               if (!isValid) {
                 item.name = item.name + " - 期限切れ";
                 item.disabled = true;
@@ -198,7 +200,7 @@ export default function UserEdit() {
             label: item.name,
             id: item.id,
             value: item.id,
-            disabled: item.disabled
+            disabled: item.disabled,
           };
         });
         setDeviceList(formattedData);
@@ -395,13 +397,16 @@ export default function UserEdit() {
       {loading && <LoaderOverlay />}
       <ToastContainer />
 
-      <div className="flex justify-center mb-4">
+      <div className="flex p-[40px] pb-0 justify-center items-center">
         <TitleUserCard title={intl.user_edit_screen_label} />
       </div>
-      <div className="flex flex-col md:flex-row md:gap-x-4  md:gap-y-4 2xl:gap-y-12 mb-4">
-        <div className="w-full md:w-1/2">
+      <div
+        className="flex flex-col h-full p-[40px] pt-[20px] pb-0 "
+        style={{ maxHeight: "450px", overflow: "auto" }}
+      >
+        <div className="w-full">
           {/* device - >>>>>>>>>>>>>>>>>>>> */}
-          <div className="mb-3  2xl:mb-6">
+          <div className="mb-[32px]">
             <DynamicLabel
               text={intl.machineName}
               textColor="#7B7B7B"
@@ -410,7 +415,7 @@ export default function UserEdit() {
             />
 
             <select
-              className="rounded-lg border border-gray-400 focus:outline-none focus:ring-2 focus:ring-customBlue block w-full px-4 py-[8px] truncate dark:text-black"
+              className="rounded-lg border h-[40px] border-gray-400 focus:outline-none focus:ring-2 focus:ring-customBlue block w-full px-4 py-[8px] truncate dark:text-black"
               id={"device"}
               defaultValue={""}
               value={device}
@@ -429,9 +434,9 @@ export default function UserEdit() {
                   const optionLabel =
                     dropDownOption.label.length > maxLabelLength
                       ? `${dropDownOption.label.substring(
-                        0,
-                        maxLabelLength
-                      )}...` // Truncate the label
+                          0,
+                          maxLabelLength
+                        )}...` // Truncate the label
                       : dropDownOption.label; // Use the full label if not too long
 
                   return (
@@ -454,7 +459,7 @@ export default function UserEdit() {
             )}
           </div>
           {/* user id */}
-          <div className="mb-4 2xl:mb-6">
+          <div className="mb-[32px]">
             <DynamicLabel
               text={intl.user_userId_label}
               textColor="#7B7B7B"
@@ -472,14 +477,14 @@ export default function UserEdit() {
               border={"border border-gray-400"}
               bg={"bg-white"}
               additionalClass={
-                "font-medium  block w-full pl-5 text-[16px] pr-[30px]"
+                "font-medium  block w-full pl-5 h-[40px] text-[16px] pr-[30px]"
               }
               value={userId}
             />
           </div>
 
           {/* radioNumber */}
-          <div className="mb-4  2xl:mb-6">
+          <div className="mb-[32px]">
             <DynamicLabel
               isRequired={true}
               text={intl.company_list_company_radioNumber}
@@ -497,14 +502,14 @@ export default function UserEdit() {
               border={"border border-gray-400"}
               bg={""}
               additionalClass={
-                "font-medium  block w-full pl-5 text-sm pr-[30px]"
+                "font-medium  block h-[40px] w-full pl-5 text-sm pr-[30px]"
               }
               value={radioNumber}
             />
           </div>
 
           {/* user_name */}
-          <div className="mb-4  2xl:mb-6">
+          <div className="mb-[32px]">
             <DynamicLabel
               isRequired={true}
               text={intl.user_name}
@@ -521,7 +526,7 @@ export default function UserEdit() {
               border={"border border-gray-400"}
               bg={""}
               additionalClass={
-                "font-medium  block w-full pl-5 text-sm pr-[30px]"
+                "font-medium  block h-[40px] w-full pl-5 text-sm pr-[30px]"
               }
               value={userName}
               onChange={async (evt) => {
@@ -536,7 +541,7 @@ export default function UserEdit() {
             )}
           </div>
           {/* furigana */}
-          <div className="mb-4  2xl:mb-6">
+          <div className="mb-[32px]">
             <DynamicLabel
               isRequired={true}
               text={intl.furigana}
@@ -553,7 +558,7 @@ export default function UserEdit() {
               border={"border border-gray-400"}
               bg={""}
               additionalClass={
-                "font-medium  block w-full pl-5 text-sm pr-[30px]"
+                "font-medium  h-[40px] block w-full pl-5 text-sm pr-[30px]"
               }
               value={furigana}
               onChange={async (evt) => {
@@ -569,7 +574,7 @@ export default function UserEdit() {
           </div>
 
           {/* orgname */}
-          <div className="mb-4 2xl:mb-6">
+          <div className="mb-[32px]">
             <DynamicLabel
               text={intl.form_component_company_name_label}
               textColor="#7B7B7B"
@@ -586,13 +591,13 @@ export default function UserEdit() {
               border={"border border-gray-400"}
               bg={"bg-white"}
               additionalClass={
-                "font-medium  block w-full pl-5 text-[16px] pr-[30px]"
+                "font-medium h-[40px] block w-full pl-5 text-[16px] pr-[30px]"
               }
               value={companyName}
             />
           </div>
           {/* designation */}
-          <div className="mb-4  2xl:mb-6">
+          <div className="mb-[32px]">
             <DynamicLabel
               isRequired={true}
               text={intl.user_add_specify_label}
@@ -607,7 +612,7 @@ export default function UserEdit() {
               border={"border border-gray-400"}
               bg={""}
               additionalClass={
-                "font-medium  block w-full pl-5 text-sm pr-[30px]"
+                "font-medium h-[40px]  block w-full pl-5 text-sm pr-[30px]"
               }
               value={designation}
               onChange={async (evt) => {
@@ -626,7 +631,7 @@ export default function UserEdit() {
           </div>
 
           {/* メールID *  user_email_id_label*/}
-          <div className="mb-6 2xl:mb-6">
+          <div className="mb-[32px]">
             <DynamicLabel
               isRequired={false}
               text={intl.user_email_id_label}
@@ -641,7 +646,7 @@ export default function UserEdit() {
               border={"border border-gray-400"}
               bg={""}
               additionalClass={
-                "font-medium  block w-full pl-5 text-sm pr-[30px]"
+                "font-medium h-[40px] block w-full pl-5 text-sm pr-[30px]"
               }
               testId="content-input-email"
               value={email}
@@ -658,9 +663,9 @@ export default function UserEdit() {
           </div>
         </div>
 
-        <div className="w-full md:w-1/2">
+        <div className="w-full ">
           {/* phone ->>>>>>>>>>>>>>>> */}
-          <div className="mb-3 2xl:mb-6">
+          <div className="mb-[32px]">
             <DynamicLabel
               text={intl.user_add_telephone_number_label}
               textColor="#7B7B7B"
@@ -676,7 +681,7 @@ export default function UserEdit() {
               border={"border border-gray-400"}
               bg={""}
               additionalClass={
-                "font-medium  block w-full pl-5 text-sm pr-[30px]"
+                "font-medium h-[40px] block w-full pl-5 text-sm pr-[30px]"
               }
               value={phone}
               onChange={async (evt) => {
@@ -695,7 +700,7 @@ export default function UserEdit() {
           </div>
 
           {/* 登録日時  createdAtDate*/}
-          <div className="mb-4 2xl:mb-6">
+          <div className="mb-[32px]">
             <DynamicLabel
               text={"登録日時"}
               textColor="#7B7B7B"
@@ -713,7 +718,7 @@ export default function UserEdit() {
               border={"border border-gray-400"}
               bg={"bg-white"}
               additionalClass={
-                "font-medium  block w-full pl-5 text-[16px] pr-[30px]"
+                "font-medium h-[40px] block w-full pl-5 text-[16px] pr-[30px]"
               }
               value={userDetails.createdAtDate}
               onChange={(createdAtDate) => {
@@ -726,7 +731,7 @@ export default function UserEdit() {
           </div>
 
           {/* 最終オンライン日時  appLastSeenDateTime*/}
-          <div className="mb-4 2xl:mb-6">
+          <div className="mb-[32px]">
             <DynamicLabel
               text={"最終オンライン日時"}
               textColor="#7B7B7B"
@@ -742,7 +747,7 @@ export default function UserEdit() {
               border={"border border-gray-400"}
               bg={"bg-white"}
               additionalClass={
-                "font-medium  block w-full pl-5 text-[16px] pr-[30px]"
+                "font-medium h-[40px] block w-full pl-5 text-[16px] pr-[30px]"
               }
               value={userDetails.appLastSeenDateTime}
               onChange={(appLastSeenDateTime) => {
@@ -757,7 +762,7 @@ export default function UserEdit() {
           </div>
 
           {/* 利用開始日  appLoginDateTime*/}
-          <div className="mb-4 2xl:mb-6">
+          <div className="mb-[32px]">
             <DynamicLabel
               text={"利用開始日"}
               textColor="#7B7B7B"
@@ -775,7 +780,7 @@ export default function UserEdit() {
               border={"border border-gray-400"}
               bg={"bg-white"}
               additionalClass={
-                "font-medium  block w-full pl-5 text-[16px] pr-[30px]"
+                "font-medium h-[40px]  block w-full pl-5 text-[16px] pr-[30px]"
               }
               value={userDetails.appLoginDateTime}
               onChange={(appLoginDateTime) => {
@@ -787,7 +792,7 @@ export default function UserEdit() {
             />
           </div>
           {/* 利用停止日 appLogOutDateTime*/}
-          <div className="mb-4 2xl:mb-6">
+          <div className="mb-[32px]">
             <DynamicLabel
               text={"利用停止日"}
               textColor="#7B7B7B"
@@ -803,7 +808,7 @@ export default function UserEdit() {
               border={"border border-gray-400"}
               bg={"bg-white"}
               additionalClass={
-                "font-medium  block w-full pl-5 text-[16px] pr-[30px]"
+                "font-medium h-[40px] block w-full pl-5 text-[16px] pr-[30px]"
               }
               value={userDetails.appLogoutDateTime}
               onChange={(appLogoutDateTime) => {
@@ -815,7 +820,7 @@ export default function UserEdit() {
             />
           </div>
           {/* バージョン  version*/}
-          <div className="mb-10 2xl:mb-12">
+          <div className="mb-[32px]">
             <DynamicLabel
               text={"バージョン"}
               textColor="#7B7B7B"
@@ -833,7 +838,7 @@ export default function UserEdit() {
               border={"border border-gray-400"}
               bg={"bg-white"}
               additionalClass={
-                "font-medium  block w-full pl-5 text-[16px] pr-[30px]"
+                "font-medium  block h-[40px] w-full pl-5 text-[16px] pr-[30px]"
               }
               value={userDetails.appVersion}
               onChange={(version) => {
@@ -846,8 +851,8 @@ export default function UserEdit() {
           </div>
 
           {/* onlineStatus - <<<<<<<<<<<<<<<<<<<<*/}
-          <div className="mb-[2.4rem]  2xl:mb-[2.7rem]">
-            <div className="bg-input-gray py-[13px] pl-4  rounded-lg">
+          <div className="mb-[32px]">
+            <div className=" py-[13px] pl-4  ">
               <ToggleBoxMedium
                 toggle={isActive}
                 setToggle={(evt) => {
@@ -865,7 +870,7 @@ export default function UserEdit() {
                 activeBoxShadow={"0px 0px 1px 10px rgba(0, 0, 0, 0.2)"}
                 height={10}
                 width={27}
-                additionalClass={""}
+                additionalClass={"h-[40px]"}
                 labelClass={
                   "text-sm font-medium text-gray-900 dark:text-gray-300"
                 }
@@ -874,8 +879,8 @@ export default function UserEdit() {
           </div>
 
           {/* activity - no vaidation  */}
-          <div className="mb-4  2xl:mb-6">
-            <div className="bg-input-gray py-[13px] pl-4  rounded-lg">
+          <div className="mb-[32px]">
+            <div className=" py-[13px] pl-4  ">
               <ToggleBoxMedium
                 toggle={seeUserActivity}
                 setToggle={(evt) => {
@@ -893,7 +898,7 @@ export default function UserEdit() {
                 activeBoxShadow={"0px 0px 1px 10px rgba(0, 0, 0, 0.2)"}
                 height={10}
                 width={27}
-                additionalClass={""}
+                additionalClass={"h-[40px]"}
                 labelClass={
                   "text-sm font-medium text-gray-900 dark:text-gray-300"
                 }
@@ -902,19 +907,16 @@ export default function UserEdit() {
           </div>
         </div>
       </div>
-      <div className="flex  gap-x-2 md:justify-end float-right">
-        <div className="w-[120px] md:width[150px]">
-          <ActionButton
-            title={intl.help_settings_addition_modal_cancel}
-            onClick={() => router.push("/user/details")}
-          />
-        </div>
-        <div className="w-[120px] md:width[150px]">
-          <ActionButton
-            title={intl.help_settings_addition_keep}
-            onClick={updateUser}
-          />
-        </div>
+      <div className="flex flex-col sm:flex-row justify-center gap-4 w-full px-[16px]">
+        <ActionButton
+          title={intl.help_settings_addition_modal_cancel}
+          onClick={() => router.push("/user/details")}
+        />
+
+        <ActionButton
+          title={intl.help_settings_addition_keep}
+          onClick={updateUser}
+        />
       </div>
     </>
   );
