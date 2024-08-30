@@ -570,7 +570,7 @@ export default function TerminalSettings() {
                 ))}
               </select>
             </div>
-            <div className="mb-6 2xl:mb-6">
+            <div className="mb-4 2xl:mb-6">
               <DropdownMedium
                 borderRound={"rounded-lg"}
                 padding={"py-2 pr-[120px]"}
