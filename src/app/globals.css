@@ -491,5 +491,10 @@ input::-webkit-calendar-picker-indicator {
 }
 
 .ant-tabs .ant-tabs-tab:hover {
-  color: #19388B;
+  color: #19388B !important;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #19388B !important;
+  border-color: #19388B !important;
 }
