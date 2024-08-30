@@ -9,9 +9,10 @@ import { PASSWORD_PATTERN } from "@/validation/validationPattern";
 import { updateEmployee, validateHandler } from "@/validation/helperFunction";
 import Modal from "@/components/Modal/modal";
 import IconLeftBtn from "@/components/Button/iconLeftBtn";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { errorToastSettings, successToastSettings } from "@/utils/constant";
 import { useAppSelector } from "@/redux/hooks";
+import LoaderOverlay from "../Loader/loadOverLay";
 // Yup schema to validate the form
 const schema = Yup.object().shape({
   password: Yup.string()
@@ -88,6 +89,7 @@ export default function Other() {
     }
 
     try {
+      setLoading(true)
       const response = await updateEmployee({
         id: Employee.id,
         type: "resetPassword",
@@ -327,6 +329,8 @@ export default function Other() {
         </Button>
       </div>
     </div>
+    {loading && <LoaderOverlay />}
+      <ToastContainer />
     </>
   );
 }
