@@ -24,7 +24,7 @@ export default function DropdownMedium(props) {
     <main>
       <label
         htmlFor="countries"
-        className={`block pt-1 text-[16px] font-medium ${props.labelClass}`}
+        className={`block pt-1 text-[14px] font-medium ${props.labelClass}`}
         style={{ color: props.labelColor }}
       >
         {props.label}

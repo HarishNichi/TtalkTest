@@ -436,7 +436,7 @@ export default function TerminalSettings() {
       </div>
 
       <div className="mt-[16px] bg-white p-[16px]">
-        <div className="flex justify-center">
+        <div className="flex">
           <TitleUserCard title={intl.user_sound_settings_screen_label} />
         </div>
         <div className="flex flex-col md:flex-row md:gap-x-4">
@@ -570,10 +570,10 @@ export default function TerminalSettings() {
                 ))}
               </select>
             </div>
-            <div className="mb-6">
+            <div className="mb-6 2xl:mb-6">
               <DropdownMedium
                 borderRound={"rounded-lg"}
-                padding={"py-2.5 pr-[120px]"}
+                padding={"py-2 pr-[120px]"}
                 options={[
                   {
                     id: 1,
@@ -605,7 +605,7 @@ export default function TerminalSettings() {
             <div className="mb-8">
               <DropdownMedium
                 borderRound={"rounded-lg"}
-                padding={"py-2.5 pr-[120px]"}
+                padding={"py-2 pr-[120px]"}
                 options={[
                   {
                     id: 1,
@@ -650,7 +650,7 @@ export default function TerminalSettings() {
           </div>
           <div className="w-full md:w-1/2 flex flex-col ">
             <div className="w-full md:mb-9 2xl:mb-32">
-              <div className="mb-4 2xl:mb-6 m">
+              <div className="mb-1  2xl:mb-4 3xl:mb-4">
                 <DynamicLabel
                   text={intl.user_sound_settings_notifcation_volume}
                   textColor="#7B7B7B"
@@ -695,7 +695,7 @@ export default function TerminalSettings() {
                     width={27}
                     additionalClass={""}
                     labelClass={
-                      "text-sm font-medium text-gray-900 dark:text-gray-300"
+                      "text-[14px] font-medium text-gray-900 dark:text-gray-300"
                     }
                   />
                 </div>
@@ -732,7 +732,7 @@ export default function TerminalSettings() {
                       width={27}
                       additionalClass={""}
                       labelClass={
-                        "text-sm font-medium text-gray-900 dark:text-gray-300"
+                        "text-[14px] font-normal text-gray-900 dark:text-gray-300"
                       }
                     />
                   </div>
@@ -741,7 +741,7 @@ export default function TerminalSettings() {
               <div className="mb-6 pl-4">
                 <DropdownMedium
                   borderRound={"rounded-lg"}
-                  padding={"py-2.5 pr-[120px]"}
+                  padding={"py-2 pr-[120px]"}
                   options={[
                     { id: 1, value: "1sec", label: "1秒" },
                     { id: 2, value: "2sec", label: "2秒" },
@@ -761,8 +761,8 @@ export default function TerminalSettings() {
                     "focus:outline-none focus:ring-2 focus:ring-customBlue"
                   }
                   bg=""
-                  text={"text-sm"}
-                  additionalClass={"block w-full px-4"}
+                  text={"text-[14px] font-normal"}
+                  additionalClass={"block w-full px-4 text-[14px] font-normal"}
                   id={"boosterDuration"}
                   labelColor={"#7B7B7B"}
                   label="TPPブースター"
