@@ -498,3 +498,8 @@ input::-webkit-calendar-picker-indicator {
   background-color: #19388B !important;
   border-color: #19388B !important;
 }
+
+input[type="checkbox"]:checked {
+  background-color: #19388B !important; /* Custom background color when checked */
+  border-color: #19388B !important;
+}
