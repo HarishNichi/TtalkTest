@@ -93,7 +93,7 @@ export default function UserList() {
           </Popover>
         );
       },
-      width: 130,
+      width: 150,
       align: "left",
       sorter: (a, b) => a.radioNumber.localeCompare(b.radioNumber),
       sortDirections: ["ascend", "descend", "ascend"],
