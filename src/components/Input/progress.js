@@ -6,8 +6,8 @@ export default function Progress(props) {
   useEffect(() => {
     let id = props.id;
     const elm = document.getElementById(id);
-    const gradient = `linear-gradient(to right, #00ACFF, #85D6FD ${props.value}%, #282828 ${props.value}%)`;
-    elm.style.background = gradient;
+    // const gradient = `linear-gradient(to right, #00ACFF, #85D6FD ${props.value}%, #282828 ${props.value}%)`;
+    elm.style.background = "#19388B";
   }, [props.value]);
   return (
     <input

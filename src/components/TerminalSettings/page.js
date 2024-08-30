@@ -570,7 +570,7 @@ export default function TerminalSettings() {
                 ))}
               </select>
             </div>
-            <div className="mb-8">
+            <div className="mb-6">
               <DropdownMedium
                 borderRound={"rounded-lg"}
                 padding={"py-2.5 pr-[120px]"}
@@ -650,7 +650,7 @@ export default function TerminalSettings() {
           </div>
           <div className="w-full md:w-1/2 flex flex-col ">
             <div className="w-full md:mb-9 2xl:mb-32">
-              <div className="mb-4 2xl:mb-6 pl-4">
+              <div className="mb-4 2xl:mb-6 m">
                 <DynamicLabel
                   text={intl.user_sound_settings_notifcation_volume}
                   textColor="#7B7B7B"
@@ -665,11 +665,11 @@ export default function TerminalSettings() {
                 </div>
               </div>
               <div className="mb-4 2xl:mb-6">
-                <DynamicLabel
+                {/* <DynamicLabel
                   text={<a className="">&nbsp;</a>}
                   textColor="#7B7B7B"
                   htmlFor="vibrateOnRequestReceived"
-                />
+                /> */}
                 <div className="bg-white  pl-4 rounded-lg ">
                   <ToggleBoxMedium
                     toggle={userDetailsInfo.vibrateOnRequestReceived}
@@ -701,11 +701,11 @@ export default function TerminalSettings() {
                 </div>
               </div>
               <div className="mb-4 2xl:mb-6">
-                <DynamicLabel
+                {/* <DynamicLabel
                   text={<a className="">&nbsp;</a>}
                   textColor="#7B7B7B"
                   htmlFor="vibrationOnPtt"
-                />
+                /> */}
                 <div>
                   <div className="bg-white  pl-4 rounded-lg">
                     <ToggleBoxMedium
