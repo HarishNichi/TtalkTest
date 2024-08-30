@@ -32,7 +32,7 @@ import IconOutlineBtn from "../Button/iconOutlineBtn";
 import { Button } from "antd";
 import ImportUserModal from "../ImportModal/userImport";
 import { Modal as AntModal } from "antd";
-import UserEdit from "@/app/user/edit/page";
+import UserEdit from "../UserEdit/page";
 import { sampleLinks } from "@/utils/constant";
 
 import {
@@ -759,12 +759,12 @@ export default function UserDetails() {
             {userDetails?.isActive ? "ON" : "OFF"}
           </div>
 
-          <div className="text-sm font-normal mt-4">
+          {/* <div className="text-sm font-normal mt-4">
             ユーザーのアクティビティを見る権限
           </div>
           <div className="text-sm font-semibold">
             {userDetails?.viewUserActivity ? "ON" : "OFF"}
-          </div>
+          </div> */}
 
           <div className="text-sm font-normal mt-4">
             ユーザーのアクティビティを見る権限

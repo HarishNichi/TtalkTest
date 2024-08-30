@@ -51,7 +51,7 @@ import "dayjs/locale/ja.js";
 import { FaRegCopy } from "react-icons/fa";
 import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
-import AddUser from "./add/page";
+import AddUser from "@/components/UserAdd/page";
 dayjs.extend(customParseFormat);
 dayjs.extend(isSameOrBefore);
 dayjs.extend(isSameOrAfter);
