@@ -24,6 +24,10 @@ import LoaderOverlay from "../Loader/loadOverLay";
 import ActionButton from "@/app/dashboard/components/actionButton";
 import ToggleBoxMediumRevamp from "@/components/Input/toggleBoxMediumRevamp";
 import TitleUserCard from "@/app/dashboard/components/titleUserCard";
+import ToggleBoxMedium from "../Input/toggleBoxMedium";
+import DynamicLabel from "../Label/dynamicLabel";
+import Progress from "../Input/progress";
+import DropdownMedium from "../Input/dropdownMedium";
 
 export default function TerminalSettings() {
   const [loading, setLoading] = useState(false);
@@ -94,12 +98,158 @@ export default function TerminalSettings() {
     backgroundStart:
       EmployeeDetails?.accountDetail?.employee?.settings?.pTalk
         ?.backgroundStart,
+    pttNotificationVolume:
+      EmployeeDetails?.accountDetail?.employee?.settings?.sound
+        ?.pttNotificationVolume || 0,
+    notificationVolume:
+      EmployeeDetails?.accountDetail?.employee?.settings?.sound
+        ?.notificationVolume,
+    notificationSound:
+      EmployeeDetails?.accountDetail?.employee?.settings?.sound
+        ?.pttNotificationSound,
+    replyTone:
+      EmployeeDetails?.accountDetail?.employee?.settings?.sound?.replyTone,
+    toneRepeatSettings:
+      EmployeeDetails?.accountDetail?.employee?.settings?.sound?.repeatSetting,
+    vibrateOnRequestReceived:
+      EmployeeDetails?.accountDetail?.employee?.settings?.sound
+        ?.vibrateReplyRequestReceived,
+    vibrationOnPtt:
+      EmployeeDetails?.accountDetail?.employee?.settings?.sound
+        ?.vibrationReceivingPtt,
+    networkFailure:
+      EmployeeDetails?.accountDetail?.employee?.settings?.networkFailure
+        ?.failureIndication || "continuousAlarm",
+    callRejection:
+      EmployeeDetails?.accountDetail?.employee?.settings?.callRejectionSettings
+        ?.callRejection,
+    boosterDuration:
+      EmployeeDetails?.accountDetail?.employee?.settings?.pttBoaster
+        ?.durations || "1sec",
   };
-
+  const [progressBarPtt, setProgressBarPtt] = useState(
+    userInfo.pttNotificationVolume
+  );
+  const [progressBarNotification, setProgressBarNotification] = useState(
+    userInfo.notificationVolume
+  );
   const [userDetailsInfo, setUserDetailsInfo] = useState(userInfo);
+  const [selectedRejection, setSelectedRejection] = useState(userInfo);
+  async function pttBoasterSettingsUpdate() {
+    toast.dismiss();
+    setLoading(true);
+    if (Employee?.id) {
+      let payload = {
+        id: Employee.id,
+        type: "pttBoaster",
+        data: {
+          durations: userDetailsInfo.boosterDuration,
+        },
+      };
+      try {
+        const settingsUpdated = await updateEmployee(payload);
+        if (settingsUpdated) {
+          let id = Employee.id;
+          let result = await fetchEmpData(id);
+          result && dispatch(getEmployee(result));
+          toast(intl.settings_update_success, successToastSettings);
+        }
+      } catch (err) {
+        toast(intl.settings_update_failed, errorToastSettings);
+      } finally {
+        setLoading(false);
+      }
+    }
+  }
+  async function callRejectionUpdate() {
+    toast.dismiss();
+    setLoading(true);
+    if (Employee?.id) {
+      let payload = {
+        id: Employee.id,
+        type: "callRejectionSettings",
+        data: {
+          callRejection: selectedRejection,
+        },
+      };
+      try {
+        const settingsUpdated = await updateEmployee(payload);
+        if (settingsUpdated) {
+          let id = Employee.id;
+          let result = await fetchEmpData(id);
+          result && dispatch(getEmployee(result));
+          toast(intl.settings_update_success, successToastSettings);
+        }
+      } catch (err) {
+        toast(intl.settings_update_failed, errorToastSettings);
+      } finally {
+        setLoading(false);
+      }
+    }
+  }
+  async function updateNetworkFailureSettings() {
+    toast.dismiss();
+    setLoading(true);
+    if (Employee?.id) {
+      let payload = {
+        id: Employee.id,
+        type: "networkFailure",
+        data: {
+          failureIndication: userDetailsInfo.networkFailure,
+        },
+      };
+      try {
+        const settingsUpdated = await updateEmployee(payload);
+        if (settingsUpdated) {
+          let id = Employee.id;
+          let result = await fetchEmpData(id);
+          result && dispatch(getEmployee(result));
+          toast(intl.settings_update_success, successToastSettings);
+        }
+      } catch (err) {
+        toast(intl.settings_update_failed, errorToastSettings);
+      } finally {
+        setLoading(false);
+      }
+    }
+  }
+  async function updateSoundSettings() {
+    toast.dismiss();
+    setLoading(true);
+    let payload = {
+      id: Employee.id,
+      type: "sound",
+      data: {
+        pttNotificationVolume:
+          String(progressBarPtt) || userDetailsInfo.pttNotificationVolume,
+        notificationVolume:
+          String(progressBarNotification) || userDetailsInfo.notificationVolume,
+        pttNotificationSound: userDetailsInfo.notificationSound,
+        replyTone: userDetailsInfo.replyTone,
+        repeatSetting: userDetailsInfo.toneRepeatSettings,
+        vibrateReplyRequestReceived: userDetailsInfo.vibrateOnRequestReceived,
+        vibrationReceivingPtt: userDetailsInfo.vibrationOnPtt,
+      },
+    };
+    try {
+      const settingsUpdated = await updateEmployee(payload);
+      if (settingsUpdated) {
+        let id = Employee.id;
+        let result = await fetchEmpData(id);
+        result && dispatch(getEmployee(result));
+        toast(intl.settings_update_success, successToastSettings);
+      }
+    } catch (err) {
+      toast(intl.settings_update_success, errorToastSettings);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   function reset() {
     setUserDetailsInfo(userInfo);
+    setProgressBarPtt(userInfo.pttNotificationVolume);
+    setProgressBarNotification(userInfo.notificationVolume);
   }
 
   async function pTalkUpdate() {
@@ -282,6 +432,351 @@ export default function TerminalSettings() {
               />
             </div>
           </div> */}
+        </div>
+      </div>
+
+      <div className="mt-[16px] bg-white p-[16px]">
+        <div className="flex justify-center">
+          <TitleUserCard title={intl.user_sound_settings_screen_label} />
+        </div>
+        <div className="flex flex-col md:flex-row md:gap-x-4">
+          <div className="w-full md:w-1/2">
+            <div className="mb-4 2xl:mb-6">
+              <DynamicLabel
+                text={"PTT通知音量"}
+                textColor="#7B7B7B"
+                htmlFor="userId"
+              />
+              <div className="bg-input-white py-5 px-4 rounded-lg">
+                <Progress
+                  value={progressBarPtt}
+                  setValue={setProgressBarPtt}
+                  id="nv"
+                />
+              </div>
+            </div>
+            <div className="mb-4 2xl:mb-6">
+              <DynamicLabel
+                text="PTT通知音"
+                textColor="#7B7B7B"
+                htmlFor="userId"
+              />
+
+              <select
+                className="rounded-lg border border-gray-400 focus:outline-none focus:ring-2 focus:ring-customBlue block w-full px-4 py-2 dark:text-black"
+                defaultValue={"--選択する--"}
+                value={userDetailsInfo.notificationSound}
+                onChange={(evt) => {
+                  setUserDetailsInfo({
+                    ...userDetailsInfo,
+                    ...{ notificationSound: evt.target.value },
+                  });
+                }}
+              >
+                {[
+                  {
+                    id: 1,
+                    value: "pttNotificationSound1",
+                    label: "PTT通知音1",
+                  },
+                  {
+                    id: 2,
+                    value: "pttNotificationSound2",
+                    label: "PTT通知音2",
+                  },
+                ].map((dropDownOption, index) => (
+                  <option
+                    className="bg-white text-black rounded py-4"
+                    id={`id-${index}`}
+                    key={dropDownOption.value}
+                    value={dropDownOption.value}
+                  >
+                    {dropDownOption.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="mb-4 2xl:mb-6">
+              <DynamicLabel
+                text="返信要求繰り返し"
+                textColor="#7B7B7B"
+                htmlFor="user_sound_settings_tone_repeat"
+              />
+
+              <select
+                className="rounded-lg border border-gray-400 focus:outline-none focus:ring-2 focus:ring-customBlue block w-full px-4 py-2 dark:text-black"
+                value={userDetailsInfo.toneRepeatSettings}
+                onChange={(evt) => {
+                  setUserDetailsInfo({
+                    ...userDetailsInfo,
+                    ...{ toneRepeatSettings: evt.target.value },
+                  });
+                }}
+              >
+                <option disabled value={""} selected className="py-4">
+                  {"--選択する--"}
+                </option>
+                {[
+                  { id: 1, value: "1time", label: "1回のみ" },
+                  { id: 2, value: "1minuteInterval", label: "1分間隔" },
+                  { id: 3, value: "5minuteInterval", label: "５分間隔" },
+                  { id: 4, value: "30minuteInterval", label: "30分間隔" },
+                ].map((dropDownOption, index) => (
+                  <option
+                    className="bg-white text-black rounded py-4"
+                    id={`id-${index}`}
+                    key={dropDownOption.value}
+                    value={dropDownOption.value}
+                  >
+                    {dropDownOption.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className=" hidden mb-4 2xl:mb-6">
+              <DynamicLabel
+                text="返信要求繰り返し"
+                textColor="#7B7B7B"
+                htmlFor="userId"
+              />
+
+              <select
+                className="rounded-lg border border-gray-400 focus:outline-none focus:ring-2 focus:ring-customBlue block w-full px-4 py-2 dark:text-black"
+                id={"replyTone"}
+                defaultValue={"--選択する--"}
+                value={userDetailsInfo.replyTone}
+                onChange={(evt) => {
+                  setUserDetailsInfo({
+                    ...userDetailsInfo,
+                    ...{ replyTone: evt.target.value },
+                  });
+                }}
+              >
+                {[
+                  { id: 1, value: "1", label: "option 01" },
+                  { id: 2, value: "2", label: "option 02" },
+                  { id: 3, value: "3", label: "option 03" },
+                  { id: 4, value: "4", label: "option 04" },
+                ].map((dropDownOption, index) => (
+                  <option
+                    className="bg-white text-black rounded py-4"
+                    id={`id-${index}`}
+                    key={dropDownOption.value}
+                    value={dropDownOption.value}
+                  >
+                    {dropDownOption.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="mb-8">
+              <DropdownMedium
+                borderRound={"rounded-lg"}
+                padding={"py-2.5 pr-[120px]"}
+                options={[
+                  {
+                    id: 1,
+                    value: "continuousAlarm",
+                    label: intl.user_network_failure_alarm_option1,
+                  },
+                  { id: 2, value: "5times", label: "5回" },
+                  { id: 3, value: "off", label: "オフ" },
+                ]}
+                keys={"value"} // From options array
+                optionLabel={"label"} // From options array
+                border={"border border-gray-400"}
+                focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
+                bg=""
+                text={"text-sm"}
+                additionalClass={"block w-full px-4"}
+                id={"networkFailure"}
+                labelColor={"#7B7B7B"}
+                label="通信環境エラー音"
+                value={userDetailsInfo.networkFailure}
+                onChange={(networkFailure) => {
+                  setUserDetailsInfo({
+                    ...userDetailsInfo,
+                    ...{ networkFailure: networkFailure },
+                  });
+                }}
+              />
+            </div>
+            <div className="mb-8">
+              <DropdownMedium
+                borderRound={"rounded-lg"}
+                padding={"py-2.5 pr-[120px]"}
+                options={[
+                  {
+                    id: 1,
+                    value: "off",
+                    label: "オフ",
+                  },
+                  {
+                    id: 2,
+                    value: "customGroupCallRejection",
+                    label: "カスタムグループコール受信拒否",
+                  },
+                  {
+                    id: 3,
+                    value: "cloudGroupCallRejection",
+                    label: "クラウドグループコール受信拒否",
+                  },
+                  {
+                    id: 4,
+                    value: "individualCallRejection",
+                    label: "個別コール受信拒否",
+                  },
+                ]}
+                keys={"value"} // From options array
+                optionLabel={"label"} // From options array
+                border={"border border-gray-400"}
+                focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
+                bg=""
+                text={"text-sm"}
+                additionalClass={"block w-full px-4"}
+                id={"callRejection"}
+                labelColor={"#7B7B7B"}
+                label="受信拒否"
+                value={userDetailsInfo.callRejection}
+                onChange={(callRejection) => {
+                  setUserDetailsInfo({
+                    ...userDetailsInfo,
+                    ...{ callRejection: callRejection },
+                  });
+                }}
+              />
+            </div>
+          </div>
+          <div className="w-full md:w-1/2 flex flex-col ">
+            <div className="w-full md:mb-9 2xl:mb-32">
+              <div className="mb-4 2xl:mb-6 pl-4">
+                <DynamicLabel
+                  text={intl.user_sound_settings_notifcation_volume}
+                  textColor="#7B7B7B"
+                  htmlFor="userId"
+                />
+                <div className="bg-input-white py-5 px-4 rounded-lg">
+                  <Progress
+                    value={progressBarNotification}
+                    setValue={setProgressBarNotification}
+                    id="notification"
+                  />
+                </div>
+              </div>
+              <div className="mb-4 2xl:mb-6">
+                <DynamicLabel
+                  text={<a className="">&nbsp;</a>}
+                  textColor="#7B7B7B"
+                  htmlFor="vibrateOnRequestReceived"
+                />
+                <div className="bg-white  pl-4 rounded-lg ">
+                  <ToggleBoxMedium
+                    toggle={userDetailsInfo.vibrateOnRequestReceived}
+                    setToggle={(vibrateOnRequestReceived) => {
+                      setUserDetailsInfo({
+                        ...userDetailsInfo,
+                        ...{
+                          vibrateOnRequestReceived: vibrateOnRequestReceived,
+                        },
+                      });
+                    }}
+                    label={intl.user_ptalk_service_vibrate}
+                    labelColor={"#7B7B7B"}
+                    id={"Id"}
+                    onColor={"#1E1E1E"}
+                    onHandleColor={"#00ACFF"}
+                    handleDiameter={16}
+                    uncheckedIcon={false}
+                    checkedIcon={false}
+                    boxShadow={"0px 1px 5px rgba(0, 0, 0, 0.6)"}
+                    activeBoxShadow={"0px 0px 1px 10px rgba(0, 0, 0, 0.2)"}
+                    height={10}
+                    width={27}
+                    additionalClass={""}
+                    labelClass={
+                      "text-sm font-medium text-gray-900 dark:text-gray-300"
+                    }
+                  />
+                </div>
+              </div>
+              <div className="mb-4 2xl:mb-6">
+                <DynamicLabel
+                  text={<a className="">&nbsp;</a>}
+                  textColor="#7B7B7B"
+                  htmlFor="vibrationOnPtt"
+                />
+                <div>
+                  <div className="bg-white  pl-4 rounded-lg">
+                    <ToggleBoxMedium
+                      toggle={userDetailsInfo.vibrationOnPtt}
+                      setToggle={(vibrationOnPtt) => {
+                        setUserDetailsInfo({
+                          ...userDetailsInfo,
+                          ...{ vibrationOnPtt: vibrationOnPtt },
+                        });
+                      }}
+                      label={
+                        intl.user_sound_settings_vibration_when_receiving_on_ptt
+                      }
+                      labelColor={"#7B7B7B"}
+                      id={"Id"}
+                      onColor={"#1E1E1E"}
+                      onHandleColor={"#00ACFF"}
+                      handleDiameter={16}
+                      uncheckedIcon={false}
+                      checkedIcon={false}
+                      boxShadow={"0px 1px 5px rgba(0, 0, 0, 0.6)"}
+                      activeBoxShadow={"0px 0px 1px 10px rgba(0, 0, 0, 0.2)"}
+                      height={10}
+                      width={27}
+                      additionalClass={""}
+                      labelClass={
+                        "text-sm font-medium text-gray-900 dark:text-gray-300"
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="mb-6 pl-4">
+                <DropdownMedium
+                  borderRound={"rounded-lg"}
+                  padding={"py-2.5 pr-[120px]"}
+                  options={[
+                    { id: 1, value: "1sec", label: "1秒" },
+                    { id: 2, value: "2sec", label: "2秒" },
+                    { id: 3, value: "3sec", label: "3秒" },
+                    { id: 4, value: "4sec", label: "4秒" },
+                    { id: 5, value: "5sec", label: "5秒" },
+                    { id: 6, value: "6sec", label: "6秒" },
+                    { id: 7, value: "7sec", label: "7秒" },
+                    { id: 8, value: "8sec", label: "8秒" },
+                    { id: 9, value: "9sec", label: "9秒" },
+                    { id: 10, value: "10sec", label: "10秒" },
+                  ]}
+                  keys={"value"} // From options array
+                  optionLabel={"label"} // From options array
+                  border={"border border-gray-400"}
+                  focus={
+                    "focus:outline-none focus:ring-2 focus:ring-customBlue"
+                  }
+                  bg=""
+                  text={"text-sm"}
+                  additionalClass={"block w-full px-4"}
+                  id={"boosterDuration"}
+                  labelColor={"#7B7B7B"}
+                  label="TPPブースター"
+                  value={userDetailsInfo.boosterDuration}
+                  onChange={(boosterDuration) => {
+                    setUserDetailsInfo({
+                      ...userDetailsInfo,
+                      ...{ boosterDuration: boosterDuration },
+                    });
+                  }}
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>

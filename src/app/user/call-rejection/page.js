@@ -104,6 +104,8 @@ export default function OneTouchPtt() {
               <input
                 type="radio"
                 name="action_value"
+
+                
                 className="accent-[#19388B]"
                 id="customGroupCallRejection"
                 value={"customGroupCallRejection"}

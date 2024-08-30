@@ -196,7 +196,7 @@ export default function ViewLog({tab}) {
           <TitleUserCard title={intl.user_view_logo_screen_label} />
         </div> */}
 
-        <div className="w-full mx-auto">
+        <div className="w-full mx-auto mb-4">
           <div className="w-full flex gap-x-4 mb-8 px-2">
             <div className="w-1/2">
               <DatePicker
