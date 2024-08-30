@@ -494,6 +494,10 @@ input::-webkit-calendar-picker-indicator {
   color: #19388B !important;
 }
 
+.ant-checkbox:hover {
+  border-color: #19388B !important;
+}
+
 .ant-checkbox-checked .ant-checkbox-inner {
   background-color: #19388B !important;
   border-color: #19388B !important;
