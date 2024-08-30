@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 "use client";
-import React, { useEffect,useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import DynamicLabel from "@/components/Label/dynamicLabel";
 import IconOutlineBtn from "@/components/Button/iconOutlineBtn";
 import IconBtn from "@/components/Button/iconBtn";
@@ -40,12 +40,10 @@ import {
 import Amplify from "@aws-amplify/core";
 import * as gen from "@/generated";
 import DeleteIcon from "../Icons/deleteIcon";
+import { Button } from "antd";
 Amplify.configure(gen.config);
 
-export default function Contact({
-  children,
-  tab
-}) {
+export default function Contact({ children, tab }) {
   const radioNumberStyle = {
     color: "#19388B",
     fontWeight: "500",
@@ -67,7 +65,7 @@ export default function Contact({
         <a style={{ fontSize: "14px", fontWeight: "500" }}>{text}</a>
       ),
       align: "left",
-      width: 120
+      width: 120,
     },
   ];
   /**columns of company list and its operations ends here*/
@@ -103,7 +101,7 @@ export default function Contact({
   const [subscriptionTrack, setSubscriptionTrack] = React.useState(null);
   const [page, setPage] = React.useState(50);
   const [current, setCurrent] = React.useState(1);
-  const [addNewModalData,setAddNewModalData] = useState(false);
+  const [addNewModalData, setAddNewModalData] = useState(false);
   const [deleteModalData, setDeleteModalData] = useState(null);
   const [exportModal, setExportModal] = useState(false);
   const [importModal, setImportModal] = useState(false);
@@ -625,35 +623,34 @@ export default function Contact({
             />
           </div>
         </div> */}
-         <div className="flex justify-end">
+        <div className="flex justify-end">
           <IconOutlineBtn
-                text={intl.company_list_company_import}
-                textColor={"text-customBlue"}
-                textBold={true}
-                py={"xl:py-2.5 md:py-1.5 py-1.5"}
-                px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
-                icon={()=> importIcon()}
-                borderColor={"border-customBlue bg-white mr-2"}
-                onClick={() => {
-                  setImportModal(() => true);
-                }}
-              />
+            text={intl.company_list_company_import}
+            textColor={"text-customBlue"}
+            textBold={true}
+            py={"xl:py-2.5 md:py-1.5 py-1.5"}
+            px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
+            icon={() => importIcon()}
+            borderColor={"border-customBlue bg-white mr-2"}
+            onClick={() => {
+              setImportModal(() => true);
+            }}
+          />
 
-              <IconOutlineBtn
-                text={intl.add_contact}
-                textColor="text-customBlue" // Red text color
-                borderColor="border-customBlue bg-white"
-                textBold={true}
-                py={"xl:py-2.5 md:py-1.5 py-1.5"}
-                px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
-                icon={() => editIcon()}
-                onClick={() => {
-                  // check selected row
-                 setAddNewModal(() => true);
-                  
-                }}
-              />
-          </div>
+          <IconOutlineBtn
+            text={intl.add_contact}
+            textColor="text-customBlue" // Red text color
+            borderColor="border-customBlue bg-white"
+            textBold={true}
+            py={"xl:py-2.5 md:py-1.5 py-1.5"}
+            px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
+            icon={() => editIcon()}
+            onClick={() => {
+              // check selected row
+              setAddNewModal(() => true);
+            }}
+          />
+        </div>
 
         <div className="mb-[5px] flex items-center">
           <label
@@ -921,46 +918,67 @@ export default function Contact({
             }}
             modalFooter={() => {
               return (
-                <div className="grid grid-cols-2 gap-2 place-content-center">
-                  <div>
-                    <IconLeftBtn
-                      text={intl.help_settings_addition_modal_cancel}
-                      textColor={"text-white font-semibold text-sm w-full"}
-                      py={"py-[11px]"}
-                      px={"px-6"}
-                      bgColor={"bg-customBlue"}
-                      textBold={true}
-                      icon={() => {
-                        return null;
-                      }}
-                      onClick={() => {
-                        setDeleteModal(() => false);
-                        setDeleteModalData(false);
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <IconLeftBtn
-                      text={intl.help_settings_addition_delete}
-                      textColor={"text-white font-semibold text-sm w-full"}
-                      py={"py-[11px]"}
-                      px={"px-6"}
-                      bgColor={"bg-customBlue"}
-                      textBold={true}
-                      icon={() => {
-                        return null;
-                      }}
-                      onClick={() => {
-                        deleteContact(selectedRows);
-                      }}
-                    />
-                  </div>
+                // <div className="grid grid-cols-2 gap-2 place-content-center">
+                //   <div>
+                //     <IconLeftBtn
+                //       text={intl.help_settings_addition_modal_cancel}
+                //       textColor={"text-white font-semibold text-sm w-full"}
+                //       py={"py-[11px]"}
+                //       px={"px-6"}
+                //       bgColor={"bg-customBlue"}
+                //       textBold={true}
+                //       icon={() => {
+                //         return null;
+                //       }}
+                //       onClick={() => {
+                //         setDeleteModal(() => false);
+                //         setDeleteModalData(false);
+                //       }}
+                //     />
+                //   </div>
+                //   <div>
+                //     <IconLeftBtn
+                //       text={intl.help_settings_addition_delete}
+                //       textColor={"text-white font-semibold text-sm w-full"}
+                //       py={"py-[11px]"}
+                //       px={"px-6"}
+                //       bgColor={"bg-customBlue"}
+                //       textBold={true}
+                //       icon={() => {
+                //         return null;
+                //       }}
+                //       onClick={() => {
+                //         deleteContact(selectedRows);
+                //       }}
+                //     />
+                //   </div>
+                // </div>
+                <div className="flex flex-col sm:flex-row justify-center gap-4 w-full">
+                  <Button
+                    key="cancel"
+                    className="flex-1 h-[40px] text-[#19388B] border border-[#19388B] hover:bg-[#e0e7ff] focus:outline-none focus:ring-2 focus:ring-[#19388B] focus:ring-opacity-50"
+                    onClick={() => {
+                      setDeleteModal(() => false);
+                      setDeleteModalData(false);
+                    }}
+                  >
+                    {intl.help_settings_addition_modal_cancel}
+                  </Button>
+                  <Button
+                    key="delete"
+                    className="flex-1 bg-[#BA1818] h-[40px] text-white no-hover focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50"
+                    onClick={() => {
+                      deleteContact(selectedRows);
+                    }}
+                  >
+                    {intl.help_settings_addition_delete}({selectedRows.length})
+                  </Button>
                 </div>
               );
             }}
           >
-            <div className="flex flex-col px-[4%]">
-              <div className="flex-grow py-[90px] pt-[60px] dark:text-black">
+            <div className="flex flex-col ">
+              <div className="flex-grow dark:text-black">
                 {"連絡先を削除します。よろしいですか？"}
               </div>
             </div>

@@ -412,7 +412,7 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
           <div className="mb-[32px]">
             <DynamicLabel
               text={intl.machineName}
-              textColor="#7B7B7B"
+              textColor="#7B7B7B font text-base font-semibold"
               htmlFor="userName"
               isRequired={true}
             />

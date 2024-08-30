@@ -99,6 +99,8 @@
   "user_modal_content": "ユーザーに関連付けられている PTT 番号、設定、グループ、連絡先も削除されます。 削除してよろしいですか？",
   "user_password_copy": "パスワードをコピーしました",
   "user_change_settings": "設定変更",
+  "user_terminal_settings": "端末設定",
+  "user_restore_default_settings": "デフォルトに戻す",
 
   "helpSettingsList_section_label": "セクション",
   "helpSettingsList_Subsection_label": "サブセクション数",

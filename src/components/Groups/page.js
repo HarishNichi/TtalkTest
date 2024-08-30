@@ -33,31 +33,35 @@ import { ToastContainer, toast } from "react-toastify";
 import { validateHandler } from "@/validation/helperFunction";
 import * as Yup from "yup";
 import { MAX_100_LENGTH_PATTERN } from "@/validation/validationPattern";
-import { Checkbox } from "antd";
+import { Button, Checkbox } from "antd";
 import Amplify from "@aws-amplify/core";
 import * as gen from "@/generated";
 Amplify.configure(gen.config);
 import dayjs from "dayjs";
-import isSameOrAfter from "dayjs/plugin/isSameOrAfter"
-import isSameOrBefore from "dayjs/plugin/isSameOrBefore"
+import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
+import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import DeleteIcon from "../Icons/deleteIcon";
-dayjs.extend(isSameOrBefore)
-dayjs.extend(isSameOrAfter)
+dayjs.extend(isSameOrBefore);
+dayjs.extend(isSameOrAfter);
 
-export default function Group({
-  children,
-  tab
-
-}) {
+export default function Group({ children, tab }) {
   const Employee = useAppSelector((state) => state.employeeReducer.employee);
   const schema = Yup.object().shape({
-    groupNameCreate: Yup.string().required(intl.validation_required).matches(MAX_100_LENGTH_PATTERN.regex, MAX_100_LENGTH_PATTERN.message),
-    groupNameFurigana: Yup.string().required(intl.validation_required).matches(MAX_100_LENGTH_PATTERN.regex, MAX_100_LENGTH_PATTERN.message),
+    groupNameCreate: Yup.string()
+      .required(intl.validation_required)
+      .matches(MAX_100_LENGTH_PATTERN.regex, MAX_100_LENGTH_PATTERN.message),
+    groupNameFurigana: Yup.string()
+      .required(intl.validation_required)
+      .matches(MAX_100_LENGTH_PATTERN.regex, MAX_100_LENGTH_PATTERN.message),
   });
 
   const schemaUpdate = Yup.object().shape({
-    name: Yup.string().required(intl.validation_required).matches(MAX_100_LENGTH_PATTERN.regex, MAX_100_LENGTH_PATTERN.message),
-    furigana: Yup.string().required(intl.validation_required).matches(MAX_100_LENGTH_PATTERN.regex, MAX_100_LENGTH_PATTERN.message),
+    name: Yup.string()
+      .required(intl.validation_required)
+      .matches(MAX_100_LENGTH_PATTERN.regex, MAX_100_LENGTH_PATTERN.message),
+    furigana: Yup.string()
+      .required(intl.validation_required)
+      .matches(MAX_100_LENGTH_PATTERN.regex, MAX_100_LENGTH_PATTERN.message),
   });
 
   const radioNumberStyle = {
@@ -78,14 +82,18 @@ export default function Group({
     {
       title: intl.user_group_mongst_list_grp_name,
       dataIndex: "name",
-      render: (text) => <a style={{ fontSize: "14px", fontWeight: "500" }}>{text}</a>,
+      render: (text) => (
+        <a style={{ fontSize: "14px", fontWeight: "500" }}>{text}</a>
+      ),
       width: 240,
       align: "left",
     },
     {
       title: intl.user_group_mongst_list_numberOfContacts,
       dataIndex: "contactsCount",
-      render: (text) => <a style={{ fontSize: "14px", fontWeight: "500" }}>{text}</a>,
+      render: (text) => (
+        <a style={{ fontSize: "14px", fontWeight: "500" }}>{text}</a>
+      ),
       width: 110,
       align: "left",
     },
@@ -126,7 +134,9 @@ export default function Group({
   const [editRecord, setRecord] = React.useState(null);
   const [contactList, setContactData] = React.useState([]);
   const CSVDownloadRefGrp = useRef("");
-  const [contactDataDropdownList, setContactDataDropdownList] = React.useState([]);
+  const [contactDataDropdownList, setContactDataDropdownList] = React.useState(
+    []
+  );
   const [file, setFile] = React.useState(null);
   const [fileName, setFileName] = React.useState(null);
   const [groupNameCreate, setGroupNameCreate] = React.useState("");
@@ -143,7 +153,8 @@ export default function Group({
   const [deviceList, setDeviceList] = React.useState([]);
 
   const [groupListOptionFirst, setGroupListOptionFirst] = React.useState([]);
-  const [groupListOptionFirstValue, setGroupListOptionFirstValue] = React.useState("");
+  const [groupListOptionFirstValue, setGroupListOptionFirstValue] =
+    React.useState("");
 
   const [optionError, setSameOptionError] = React.useState("");
   const [selectedOption, setSelectedOption] = React.useState("");
@@ -160,7 +171,7 @@ export default function Group({
   const [detachContactFromGrp, setDetachContactFromGrp] = useState([]);
   const [page, setPage] = useState(50);
   const [current, setCurrent] = useState(1);
-  const [addNewModalData,setAddNewModalData] = useState(false);
+  const [addNewModalData, setAddNewModalData] = useState(false);
   const [deleteModalData, setDeleteModalData] = useState(null);
   const [exportModal, setExportModal] = useState(false);
   const [importModal, setImportModal] = useState(false);
@@ -214,7 +225,13 @@ export default function Group({
     let checked = !record.standByGroup;
     await fetchGroupDetails(record, checked);
 
-    setGroupListData((prevData) => prevData.map((item) => (item.key === record.key ? { ...item, standByGroup: !item.standByGroup } : item)));
+    setGroupListData((prevData) =>
+      prevData.map((item) =>
+        item.key === record.key
+          ? { ...item, standByGroup: !item.standByGroup }
+          : item
+      )
+    );
   };
 
   async function exportCSVFile() {
@@ -605,7 +622,7 @@ export default function Group({
           limit: maxLimit,
           offset: "null",
           userId: Employee.id,
-          all: true
+          all: true,
         },
       };
       const response = await api.get("contacts/list", params);
@@ -622,11 +639,13 @@ export default function Group({
             pttNo: item.pttNo,
             deviceId: item.deviceId,
             isDeleted: item.isDeleted,
-            isContactImported: item.isContactImported
+            isContactImported: item.isContactImported,
           };
         });
         let formattedData = formattedDataWithoutDeviceName.map((contact) => {
-          let device = deviceList.find((deviceItem) => deviceItem.id == contact.deviceId);
+          let device = deviceList.find(
+            (deviceItem) => deviceItem.id == contact.deviceId
+          );
           if (device) {
             contact.deviceName = device?.label || "";
           } else {
@@ -636,7 +655,11 @@ export default function Group({
         });
         setContactData(formattedData);
         let dropdownListTemp = formattedData.filter((el) => {
-          return !el.isDeleted && el.pttNo != Employee.radioNumber && !el.isContactImported;
+          return (
+            !el.isDeleted &&
+            el.pttNo != Employee.radioNumber &&
+            !el.isContactImported
+          );
         });
         setContactDataDropdownList(dropdownListTemp);
       }
@@ -669,7 +692,10 @@ export default function Group({
         ["name"]: true,
       }));
 
-      if ((errors && Object.keys(errors).length > 0) || groupContacts.length <= 0) {
+      if (
+        (errors && Object.keys(errors).length > 0) ||
+        groupContacts.length <= 0
+      ) {
         const formValues = {
           name: groupDetails.name,
           furigana: groupDetails.furigana,
@@ -730,7 +756,7 @@ export default function Group({
           furigana: groupDetails.furigana,
           contacts: groupContacts,
           standByGroup: isChecked,
-          detachedContact: []
+          detachedContact: [],
         };
         const response = await api.put("groups/update", payload);
         setSameOptionError("");
@@ -774,14 +800,16 @@ export default function Group({
       // Assuming the response contains the "Items" array as shown in your example
       if (response && response.data.status.code == code.OK) {
         const data = response.data.data;
-        let today = data?.todayDate || dayjs().format('YYYY-MM-DD')
+        let today = data?.todayDate || dayjs().format("YYYY-MM-DD");
         let isValid = false;
         const formattedData = data.Items.map((item) => {
           if (item.startDate && item.endDate) {
             let futureDate = dayjs(today).isBefore(item.startDate);
             item.disabled = false;
             if (!futureDate) {
-              isValid = dayjs(today).isSameOrBefore(item.endDate) && dayjs(today).isSameOrAfter(item.startDate);
+              isValid =
+                dayjs(today).isSameOrBefore(item.endDate) &&
+                dayjs(today).isSameOrAfter(item.startDate);
               if (!isValid) {
                 item.name = item.name + " - 期限切れ";
                 item.disabled = true;
@@ -792,7 +820,7 @@ export default function Group({
             label: item.name,
             id: item.id,
             value: item.id,
-            disabled: item.disabled
+            disabled: item.disabled,
           };
         });
         await setDeviceList(formattedData);
@@ -912,7 +940,6 @@ export default function Group({
   }
 
   useEffect(() => {
-
     if (!csvUploadInitiated) {
       setLoading(false);
       return;
@@ -926,17 +953,21 @@ export default function Group({
     let failedRowIndexes = [];
     const subscription = gen.subscribe(csvUploadInitiated, ({ data }) => {
       if (!hasMap.has(data.token)) {
-        hasMap.add(data.token)
+        hasMap.add(data.token);
         setLoading(true);
         let dataReceived = JSON.parse(data);
 
         if (dataReceived?.rowsInserted) {
-          dataReceived.rowsInserted = (dataReceived?.rowsInserted && JSON.parse(dataReceived?.rowsInserted)) || 0;
+          dataReceived.rowsInserted =
+            (dataReceived?.rowsInserted &&
+              JSON.parse(dataReceived?.rowsInserted)) ||
+            0;
           scount = scount + dataReceived?.rowsInserted;
         }
 
         if (dataReceived?.rowsFailed) {
-          dataReceived.rowsFailed = dataReceived?.rowsFailed && JSON.parse(dataReceived?.rowsFailed);
+          dataReceived.rowsFailed =
+            dataReceived?.rowsFailed && JSON.parse(dataReceived?.rowsFailed);
           ecount = ecount + dataReceived?.rowsFailed;
         }
 
@@ -957,7 +988,10 @@ export default function Group({
                 setDownloadCsvLink(csvLink.data.data.failureFile);
               } finally {
                 setLoading(false);
-                toast(`${ecount} 行のデータインポートに失敗しました`, errorToastSettings);
+                toast(
+                  `${ecount} 行のデータインポートに失敗しました`,
+                  errorToastSettings
+                );
                 subscription.unsubscribe();
                 fetchData();
               }
@@ -983,8 +1017,7 @@ export default function Group({
       {loading && <LoaderOverlay />}
       <ToastContainer />
       <div>
-        <div className="flex justify-between mb-2 xl:mb-2 ">
-        </div>
+        <div className="flex justify-between mb-2 xl:mb-2 "></div>
         <div className="flex flex-col justify-between  md:flex-row md:space-y-0 md:space-x-4 pt-[10px] pb-[20px]">
           <div className="w-full md:w-1/4 md:w-auto pb-[20px] md:pb-0">
             <DropdownMedium
@@ -1003,7 +1036,7 @@ export default function Group({
               id={"Id"}
               labelColor={"#7B7B7B"}
               placeholder={"最終発呼・同時待受グループ"}
-            //   label={"自端末最終発呼および同時待受グループ"}
+              //   label={"自端末最終発呼および同時待受グループ"}
               disabled={false}
               labelClass={"float-left"}
               dropIcon={"70%"}
@@ -1015,44 +1048,50 @@ export default function Group({
                 // Check if the value has changed before calling updatePriority
                 if (newValue !== previousValue) {
                   if (groupId) {
-                    updatePriority(displayOrder.displayOrderOne, false, groupId);
+                    updatePriority(
+                      displayOrder.displayOrderOne,
+                      false,
+                      groupId
+                    );
                   }
                 }
               }}
             />
           </div>
           <div className="flex">
-          <IconOutlineBtn
-                text={intl.company_list_company_import}
-                textColor={"text-customBlue"}
-                textBold={true}
-                py={"xl:py-2.5 md:py-1.5 py-1.5"}
-                px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
-                icon={()=> importIcon()}
-                borderColor={"border-customBlue bg-white mr-2"}
-                onClick={() => {
-                  setImportModal(() => true);
-                }}
-              />
+            <IconOutlineBtn
+              text={intl.company_list_company_import}
+              textColor={"text-customBlue"}
+              textBold={true}
+              py={"xl:py-2.5 md:py-1.5 py-1.5"}
+              px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
+              icon={() => importIcon()}
+              borderColor={"border-customBlue bg-white mr-2"}
+              onClick={() => {
+                setImportModal(() => true);
+              }}
+            />
 
-              <IconOutlineBtn
-                text={intl.add_group}
-                textColor="text-customBlue" // Red text color
-                borderColor="border-customBlue bg-white"
-                textBold={true}
-                py={"xl:py-2.5 md:py-1.5 py-1.5"}
-                px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
-                icon={() => editIcon()}
-                onClick={() => {
-                  // check selected row
-                 setAddNewModal(() => true);
-                  
-                }}
-              />
+            <IconOutlineBtn
+              text={intl.add_group}
+              textColor="text-customBlue" // Red text color
+              borderColor="border-customBlue bg-white"
+              textBold={true}
+              py={"xl:py-2.5 md:py-1.5 py-1.5"}
+              px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
+              icon={() => editIcon()}
+              onClick={() => {
+                // check selected row
+                setAddNewModal(() => true);
+              }}
+            />
           </div>
         </div>
         <div className="mb-[5px] flex items-center">
-          <label key={"selectAll"} className="flex items-center text-customBlue">
+          <label
+            key={"selectAll"}
+            className="flex items-center text-customBlue"
+          >
             <input
               type="checkbox"
               disabled={groupListData?.length == 0}
@@ -1175,46 +1214,34 @@ export default function Group({
           }}
           modalFooter={() => {
             return (
-              <div className="grid grid-cols-2 gap-2 place-content-center">
-                <div>
-                  <IconLeftBtn
-                    text={intl.help_settings_addition_modal_cancel}
-                    textColor={"text-white font-semibold text-sm w-full"}
-                    py={"py-[11px]"}
-                    px={"px-6"}
-                    bgColor={"bg-customBlue"}
-                    textBold={true}
-                    icon={() => {
-                      return null;
-                    }}
-                    onClick={() => {
-                      setDeleteModal(() => false);
-                      setDeleteModalData(false);
-                    }}
-                  />
-                </div>
-                <div>
-                  <IconLeftBtn
-                    text={intl.help_settings_addition_delete}
-                    textColor={"text-white font-semibold text-sm w-full"}
-                    py={"py-[11px]"}
-                    px={"px-6"}
-                    bgColor={"bg-customBlue"}
-                    textBold={true}
-                    icon={() => {
-                      return null;
-                    }}
-                    onClick={() => {
-                      deleteGroup(selectedRows);
-                    }}
-                  />
-                </div>
+              <div className="flex flex-col sm:flex-row justify-center gap-4 w-full">
+                <Button
+                  key="cancel"
+                  className="flex-1 h-[40px] text-[#19388B] border border-[#19388B] hover:bg-[#e0e7ff] focus:outline-none focus:ring-2 focus:ring-[#19388B] focus:ring-opacity-50"
+                  onClick={() => {
+                    setDeleteModal(() => false);
+                    setDeleteModalData(false);
+                  }}
+                >
+                  {intl.help_settings_addition_modal_cancel}
+                </Button>
+                <Button
+                  key="delete"
+                  className="flex-1 bg-[#BA1818] h-[40px] text-white no-hover focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50"
+                  onClick={() => {
+                    deleteGroup(selectedRows);
+                  }}
+                >
+                  {intl.help_settings_addition_delete}({selectedRows.length})
+                </Button>
               </div>
             );
           }}
         >
           <div className="flex flex-col">
-            <div className="flex-grow py-[90px] pt-[60px] dark:text-black">{intl.user_group_delete}</div>
+            <div className="flex-grow  dark:text-black">
+              {intl.user_group_delete}
+            </div>
           </div>
         </Modal>
       )}
@@ -1274,7 +1301,11 @@ export default function Group({
                       setCsvFileName(event.target.value);
                     }}
                   />
-                  {fileNameError && <div className="validation-font text-sm text-[red] text-left">{fileNameError}</div>}
+                  {fileNameError && (
+                    <div className="validation-font text-sm text-[red] text-left">
+                      {fileNameError}
+                    </div>
+                  )}
                 </div>
               </form>
             </div>
@@ -1375,11 +1406,16 @@ export default function Group({
                     onChange={handleChange}
                   />
 
-                  {addNewModal && errors?.groupNameCreate && touched?.groupNameCreate && (
-                    <div className="pl-1 validation-font flex" style={{ color: "red" }}>
-                      {errors?.groupNameCreate}
-                    </div>
-                  )}
+                  {addNewModal &&
+                    errors?.groupNameCreate &&
+                    touched?.groupNameCreate && (
+                      <div
+                        className="pl-1 validation-font flex"
+                        style={{ color: "red" }}
+                      >
+                        {errors?.groupNameCreate}
+                      </div>
+                    )}
                 </div>
                 <div className="flex flex-col">
                   <TextPlain
@@ -1402,11 +1438,16 @@ export default function Group({
                     onChange={handleChange}
                   />
 
-                  {addNewModal && errors?.groupNameFurigana && touched?.groupNameFurigana && (
-                    <div className="pl-1 validation-font flex" style={{ color: "red" }}>
-                      {errors?.groupNameFurigana}
-                    </div>
-                  )}
+                  {addNewModal &&
+                    errors?.groupNameFurigana &&
+                    touched?.groupNameFurigana && (
+                      <div
+                        className="pl-1 validation-font flex"
+                        style={{ color: "red" }}
+                      >
+                        {errors?.groupNameFurigana}
+                      </div>
+                    )}
                 </div>
                 <div className="flex flex-col">
                   <div className="flex flex-row items-center">
@@ -1419,7 +1460,9 @@ export default function Group({
                         keys={"value"} // From options array
                         optionLabel={"label"} // From options array
                         border={"border border-gray-300"}
-                        focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
+                        focus={
+                          "focus:outline-none focus:ring-2 focus:ring-customBlue"
+                        }
                         width="max-h-[300px]"
                         bg={"bg-white"}
                         text={"text-sm"}
@@ -1443,7 +1486,9 @@ export default function Group({
                         textColor={"text-white"}
                         textBold={true}
                         icon={() => editIcon()}
-                        additionalClass={"py-[10.5px] px-[8.5px] mt-[26px] ml-3"}
+                        additionalClass={
+                          "py-[10.5px] px-[8.5px] mt-[26px] ml-3"
+                        }
                         bg="bg-transparent"
                         onClick={() => {
                           setTouched((prevTouched) => ({
@@ -1453,10 +1498,15 @@ export default function Group({
                           if (!contactHolderDropDown) {
                             return;
                           }
-                          let isElementExists = groupContacts.find((el) => el == contactHolderDropDown);
+                          let isElementExists = groupContacts.find(
+                            (el) => el == contactHolderDropDown
+                          );
                           if (!isElementExists) {
                             setSameOptionError("");
-                            setGroupContacts((prv) => [...prv, contactHolderDropDown]);
+                            setGroupContacts((prv) => [
+                              ...prv,
+                              contactHolderDropDown,
+                            ]);
                             setContactHolderDropDown("");
                           } else {
                             setSelectedOption(contactHolderDropDown);
@@ -1467,11 +1517,16 @@ export default function Group({
                       />
                     </div>
                   </div>
-                  {addNewModal && touched?.contactHolderDropDown && (groupContacts.length <= 0 || optionError) && (
-                    <div className="pl-1 validation-font flex" style={{ color: "red" }}>
-                      {optionError || intl.validation_required}
-                    </div>
-                  )}
+                  {addNewModal &&
+                    touched?.contactHolderDropDown &&
+                    (groupContacts.length <= 0 || optionError) && (
+                      <div
+                        className="pl-1 validation-font flex"
+                        style={{ color: "red" }}
+                      >
+                        {optionError || intl.validation_required}
+                      </div>
+                    )}
                 </div>
                 <div style={{ display: "contents" }}>
                   <nav className="group-member-class">
@@ -1479,7 +1534,11 @@ export default function Group({
                       {groupContacts.length > 0 &&
                         groupContacts.map((member, index) => {
                           return (
-                            <li className="flex justify-between pr-1 my-2" key={member} id={index}>
+                            <li
+                              className="flex justify-between pr-1 my-2"
+                              key={member}
+                              id={index}
+                            >
                               <div className="w-[90%] truncate">
                                 <div
                                   className=""
@@ -1577,7 +1636,10 @@ export default function Group({
                     labelClass={"float-left"}
                   />
                   {editModal && errors?.name && touched?.name && (
-                    <div className="pl-1 validation-font flex" style={{ color: "red" }}>
+                    <div
+                      className="pl-1 validation-font flex"
+                      style={{ color: "red" }}
+                    >
                       {errors?.name}
                     </div>
                   )}
@@ -1604,7 +1666,10 @@ export default function Group({
                     labelClass={"float-left"}
                   />
                   {editModal && errors?.furigana && touched?.furigana && (
-                    <div className="pl-1 validation-font flex" style={{ color: "red" }}>
+                    <div
+                      className="pl-1 validation-font flex"
+                      style={{ color: "red" }}
+                    >
                       {errors?.furigana}
                     </div>
                   )}
@@ -1645,7 +1710,9 @@ export default function Group({
                             keys={"value"} // From options array
                             optionLabel={"label"} // From options array
                             border={"border border-gray-300"}
-                            focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
+                            focus={
+                              "focus:outline-none focus:ring-2 focus:ring-customBlue"
+                            }
                             bg={"bg-white"}
                             text={"text-sm"}
                             additionalClass={"block w-full pl-5"}
@@ -1669,7 +1736,9 @@ export default function Group({
                               textColor={"text-white"}
                               textBold={true}
                               icon={() => editIcon()}
-                              additionalClass={"py-[10.5px] px-[8.5px] mt-[26px] ml-3"}
+                              additionalClass={
+                                "py-[10.5px] px-[8.5px] mt-[26px] ml-3"
+                              }
                               bg="bg-transparent"
                               onClick={() => {
                                 setTouched((prevTouched) => ({
@@ -1677,14 +1746,21 @@ export default function Group({
                                   contactHolderDropDown: true,
                                 }));
                                 if (contactHolderDropDown) {
-                                  let isElementExists = groupContacts.find((el) => el == contactHolderDropDown);
+                                  let isElementExists = groupContacts.find(
+                                    (el) => el == contactHolderDropDown
+                                  );
                                   if (!isElementExists) {
-                                    setGroupContacts((prv) => [...prv, contactHolderDropDown]);
+                                    setGroupContacts((prv) => [
+                                      ...prv,
+                                      contactHolderDropDown,
+                                    ]);
                                     setSameOptionError("");
                                     setContactHolderDropDown("");
                                   } else {
                                     setSelectedOption(contactHolderDropDown);
-                                    setSameOptionError("連絡先はすでに存在します");
+                                    setSameOptionError(
+                                      "連絡先はすでに存在します"
+                                    );
                                   }
                                   return;
                                 }
@@ -1693,18 +1769,29 @@ export default function Group({
                           )}
                         </div>
                       </div>
-                      {editModal && touched?.contactHolderDropDown && (groupContacts.length <= 0 || optionError) && (
-                        <div className="pl-1 validation-font flex" style={{ color: "red" }}>
-                          {optionError || intl.validation_required}
-                        </div>
-                      )}
+                      {editModal &&
+                        touched?.contactHolderDropDown &&
+                        (groupContacts.length <= 0 || optionError) && (
+                          <div
+                            className="pl-1 validation-font flex"
+                            style={{ color: "red" }}
+                          >
+                            {optionError || intl.validation_required}
+                          </div>
+                        )}
                     </div>
                   )}
                   {detailsModal && (
                     <div className="w-full">
-                      <label htmlFor={"label-for-address"} className="flex mb-1 text-[16px] font-medium float-left" style={{ color: "#7B7B7B" }}>
+                      <label
+                        htmlFor={"label-for-address"}
+                        className="flex mb-1 text-[16px] font-medium float-left"
+                        style={{ color: "#7B7B7B" }}
+                      >
                         {"グループメンバー"}
-                        {!detailsModal && <span style={{ color: "red" }}> *</span>}
+                        {!detailsModal && (
+                          <span style={{ color: "red" }}> *</span>
+                        )}
                       </label>
                     </div>
                   )}
@@ -1714,7 +1801,11 @@ export default function Group({
                         {groupContacts.length > 0 &&
                           groupContacts.map((member, index) => {
                             return (
-                              <li className="pr-1 my-2 flex justify-between" key={member} id={index}>
+                              <li
+                                className="pr-1 my-2 flex justify-between"
+                                key={member}
+                                id={index}
+                              >
                                 <div className="w-[90%] truncate">
                                   <div
                                     className=""
@@ -1747,7 +1838,13 @@ export default function Group({
           </div>
         </Modal>
       )}
-      <a id={"linkCsv"} ref={CSVDownloadRefGrp} href={downloadCsvLink} download key={downloadCsvLink}></a>
+      <a
+        id={"linkCsv"}
+        ref={CSVDownloadRefGrp}
+        href={downloadCsvLink}
+        download
+        key={downloadCsvLink}
+      ></a>
     </>
   );
 }
