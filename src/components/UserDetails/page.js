@@ -633,6 +633,10 @@ export default function UserDetails() {
     );
   }
 
+  function deviceName(myId) {
+    const matchingOption = deviceList.find(dropDownOption => dropDownOption.value === myId);
+    return matchingOption? matchingOption.label : '';
+  }
   return (
     <>
       {loading && <LoaderOverlay />}
@@ -680,7 +684,7 @@ export default function UserDetails() {
         <div className="flex flex-col p-[16px] pr-0  w-full space-y-2 mt-[2vw]">
           <div className="text-sm font-normal">端末名</div>
           <div className="text-sm font-semibold">
-            {userDetails?.device?.id || "-"}
+            {deviceName(userDetails?.device?.id) || "-"}
           </div>
 
           <div className="text-sm font-normal">ユーザーID</div>
