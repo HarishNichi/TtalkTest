@@ -101,6 +101,7 @@
   "user_change_settings": "設定変更",
   "user_terminal_settings": "端末設定",
   "user_restore_default_settings": "デフォルトに戻す",
+  "user_change_history": "変更履歴",
 
   "helpSettingsList_section_label": "セクション",
   "helpSettingsList_Subsection_label": "サブセクション数",
@@ -127,7 +128,7 @@
   "user_network_failure_alarm_screen_label": "通信環境エラー音",
   "user_network_failure_alarm_repeat_setting_label": "繰り返し設定",
   "user_network_failure_alarm_option1": "連続発報",
-  "user_ptalk_service_screen_label": "TTALKの利用",
+  "user_ptalk_service_screen_label": "TTALK",
   "user_ptalk_service_useTalkUse_label": "クイックPTT",
   "user_ptalk_service_vibrate": "返信要求受信時の振動",
   "user_ptt_booster_screen_label": "PTTブースター ",
@@ -161,6 +162,7 @@
   "user_voice_recording_storage_label": "録音ファイルの保存容量",
   "user_voice_recording_storage_location": "保存場所",
   "user_details": "ユーザー詳細",
+
   "web_test_screen_label": "会社の数",
   "card_graphcard_calls_per_month": "月あたりの通話数",
   "card_graphcard_avg_calls_per_month": "月における1日の平均通話数",

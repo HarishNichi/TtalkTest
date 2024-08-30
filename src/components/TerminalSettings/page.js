@@ -1,0 +1,289 @@
+"use client";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Breadcrumb from "@/components/Layout/breadcrumb";
+import { userSubSectionLinks } from "@/utils/constant";
+import { Button, Tabs } from "antd";
+import Group from "@/components/Groups/page";
+import employee from "@/redux/features/employee";
+import UserDetails from "@/components/UserDetails/page";
+import Contact from "@/components/Contacts/page";
+
+import ViewLog from "@/components/Logs/page";
+import Other from "@/components/Other/page";
+import IconOutlineBtn from "../Button/iconOutlineBtn";
+import intl from "@/utils/locales/jp/jp.json";
+import { GearIcon } from "../Icons/gearIcon";
+import EditIcon from "../Icons/editIcon";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { ToastContainer, toast } from "react-toastify";
+import { updateEmployee, fetchEmpData } from "@/validation/helperFunction";
+import { errorToastSettings, successToastSettings } from "@/utils/constant";
+import { getEmployee } from "@/redux/features/employee";
+import LoaderOverlay from "../Loader/loadOverLay";
+import ActionButton from "@/app/dashboard/components/actionButton";
+import ToggleBoxMediumRevamp from "@/components/Input/toggleBoxMediumRevamp";
+import TitleUserCard from "@/app/dashboard/components/titleUserCard";
+
+export default function TerminalSettings() {
+  const [loading, setLoading] = useState(false);
+  function exportIcon() {
+    return (
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g clip-path="url(#clip0_5219_7792)">
+          <path
+            d="M6.30775 19.5C5.80258 19.5 5.375 19.325 5.025 18.975C4.675 18.625 4.5 18.1974 4.5 17.6922V15.7307C4.5 15.5179 4.57183 15.3397 4.7155 15.1962C4.859 15.0525 5.03717 14.9807 5.25 14.9807C5.46283 14.9807 5.641 15.0525 5.7845 15.1962C5.92817 15.3397 6 15.5179 6 15.7307V17.6922C6 17.7692 6.03208 17.8397 6.09625 17.9037C6.16025 17.9679 6.23075 18 6.30775 18H17.6923C17.7692 18 17.8398 17.9679 17.9038 17.9037C17.9679 17.8397 18 17.7692 18 17.6922V15.7307C18 15.5179 18.0718 15.3397 18.2155 15.1962C18.359 15.0525 18.5372 14.9807 18.75 14.9807C18.9628 14.9807 19.141 15.0525 19.2845 15.1962C19.4282 15.3397 19.5 15.5179 19.5 15.7307V17.6922C19.5 18.1974 19.325 18.625 18.975 18.975C18.625 19.325 18.1974 19.5 17.6923 19.5H6.30775ZM11.25 7.38845L9.327 9.31145C9.17817 9.46012 9.00158 9.53354 8.79725 9.5317C8.59275 9.5297 8.41292 9.45112 8.25775 9.29595C8.11292 9.14095 8.03792 8.96537 8.03275 8.7692C8.02758 8.57304 8.10258 8.39737 8.25775 8.2422L11.3672 5.1327C11.4609 5.03904 11.5597 4.97304 11.6635 4.9347C11.7673 4.8962 11.8795 4.87695 12 4.87695C12.1205 4.87695 12.2327 4.8962 12.3365 4.9347C12.4403 4.97304 12.5391 5.03904 12.6328 5.1327L15.7423 8.2422C15.8909 8.39087 15.9643 8.56495 15.9625 8.76445C15.9605 8.96379 15.8871 9.14095 15.7423 9.29595C15.5871 9.45112 15.4089 9.53129 15.2078 9.53645C15.0064 9.54162 14.8282 9.46662 14.673 9.31145L12.75 7.38845V15.0385C12.75 15.2513 12.6782 15.4295 12.5345 15.573C12.391 15.7166 12.2128 15.7885 12 15.7885C11.7872 15.7885 11.609 15.7166 11.4655 15.573C11.3218 15.4295 11.25 15.2513 11.25 15.0385V7.38845Z"
+            fill="#19388B"
+          />
+        </g>
+        <defs>
+          <clipPath id="clip0_5219_7792">
+            <rect width="24" height="24" fill="white" />
+          </clipPath>
+        </defs>
+      </svg>
+    );
+  }
+
+  function importIcon() {
+    return (
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g clip-path="url(#clip0_5185_3186)">
+          <path
+            d="M12.0002 15.4115C11.8797 15.4115 11.7676 15.3923 11.6637 15.3538C11.5599 15.3154 11.4612 15.2494 11.3675 15.1558L8.25799 12.0463C8.10933 11.8974 8.03591 11.7233 8.03774 11.524C8.03974 11.3247 8.11316 11.1474 8.25799 10.9922C8.41316 10.8373 8.59133 10.7572 8.79249 10.752C8.99383 10.7468 9.17208 10.8218 9.32724 10.977L11.2502 12.9V5.25C11.2502 5.03717 11.3221 4.859 11.4657 4.7155C11.6092 4.57183 11.7874 4.5 12.0002 4.5C12.2131 4.5 12.3912 4.57183 12.5347 4.7155C12.6784 4.859 12.7502 5.03717 12.7502 5.25V12.9L14.6732 10.977C14.8221 10.8283 14.9987 10.7549 15.203 10.7568C15.4075 10.7588 15.5873 10.8373 15.7425 10.9922C15.8873 11.1474 15.9623 11.3231 15.9675 11.5192C15.9727 11.7154 15.8977 11.8911 15.7425 12.0463L12.633 15.1558C12.5393 15.2494 12.4406 15.3154 12.3367 15.3538C12.2329 15.3923 12.1207 15.4115 12.0002 15.4115ZM6.30799 19.5C5.80283 19.5 5.37524 19.325 5.02524 18.975C4.67524 18.625 4.50024 18.1974 4.50024 17.6923V15.7308C4.50024 15.5179 4.57208 15.3398 4.71574 15.1962C4.85924 15.0526 5.03741 14.9808 5.25024 14.9808C5.46308 14.9808 5.64124 15.0526 5.78474 15.1962C5.92841 15.3398 6.00024 15.5179 6.00024 15.7308V17.6923C6.00024 17.7692 6.03233 17.8398 6.09649 17.9038C6.16049 17.9679 6.23099 18 6.30799 18H17.6925C17.7695 18 17.84 17.9679 17.904 17.9038C17.9682 17.8398 18.0002 17.7692 18.0002 17.6923V15.7308C18.0002 15.5179 18.0721 15.3398 18.2157 15.1962C18.3592 15.0526 18.5374 14.9808 18.7502 14.9808C18.9631 14.9808 19.1412 15.0526 19.2847 15.1962C19.4284 15.3398 19.5002 15.5179 19.5002 15.7308V17.6923C19.5002 18.1974 19.3252 18.625 18.9752 18.975C18.6252 19.325 18.1977 19.5 17.6925 19.5H6.30799Z"
+            fill="#19388B"
+          />
+        </g>
+        <defs>
+          <clipPath id="clip0_5185_3186">
+            <rect
+              width="24"
+              height="24"
+              fill="white"
+              transform="translate(0.000244141)"
+            />
+          </clipPath>
+        </defs>
+      </svg>
+    );
+  }
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const Employee = useAppSelector((state) => state.employeeReducer.employee);
+  const EmployeeDetails = useAppSelector(
+    (state) => state.employeeReducer.employeeDetails
+  );
+
+  const userInfo = {
+    userState:
+      EmployeeDetails?.accountDetail?.employee?.settings?.pTalk?.userState,
+    goOffline:
+      EmployeeDetails?.accountDetail?.employee?.settings?.pTalk?.goOffline,
+    backgroundStart:
+      EmployeeDetails?.accountDetail?.employee?.settings?.pTalk
+        ?.backgroundStart,
+  };
+
+  const [userDetailsInfo, setUserDetailsInfo] = useState(userInfo);
+
+  function reset() {
+    setUserDetailsInfo(userInfo);
+  }
+
+  async function pTalkUpdate() {
+    toast.dismiss();
+    setLoading(true);
+    if (Employee?.id) {
+      let payload = {
+        id: Employee.id,
+        type: "pTalk",
+        data: {
+          userState: userDetailsInfo.userState,
+          goOffline: userDetailsInfo.goOffline,
+          backgroundStart: userDetailsInfo.backgroundStart,
+        },
+      };
+      try {
+        const settingsUpdated = await updateEmployee(payload);
+        if (settingsUpdated) {
+          let id = Employee.id;
+          let result = await fetchEmpData(id);
+          result && dispatch(getEmployee(result));
+          toast(intl.settings_update_success, successToastSettings);
+        }
+      } catch (err) {
+        toast(intl.settings_update_failed, errorToastSettings);
+      } finally {
+        setLoading(false);
+      }
+    }
+  }
+  return (
+    <>
+      {loading && <LoaderOverlay />}
+      <ToastContainer />
+      <div className="flex justify-end mb-4  space-x-4">
+        <IconOutlineBtn
+          text={intl.company_list_company_export_title}
+          textColor={"text-customBlue "}
+          borderColor={"border-customBlue bg-white"}
+          textBold={true}
+          py={"xl:py-2.5 md:py-1.5 py-1.5  "}
+          px={"xl:px-[32px] md:px-[33.5px] px-[33.5px]"}
+          icon={() => exportIcon()}
+          // onClick={async () => {
+          //   setImportModal(false);
+          //   await importHandler();
+          // }}
+        />
+        <IconOutlineBtn
+          text={intl.company_list_company_import}
+          textColor={"text-customBlue"}
+          textBold={true}
+          py={"xl:py-2.5 md:py-1.5 py-1.5"}
+          px={"xl:px-[20px] md:px-[22.5px] px-[22.5px] "}
+          borderColor={"border-customBlue bg-white"}
+          icon={() => importIcon()}
+        />
+        <IconOutlineBtn
+          text={intl.user_change_history}
+          textColor={"text-customBlue"}
+          textBold={true}
+          py={"xl:py-2.5 md:py-1.5 py-1.5"}
+          px={"xl:px-[20px] md:px-[22.5px] px-[22.5px] "}
+          borderColor={"border-customBlue bg-white"}
+          icon={() => <GearIcon />}
+        />
+        <IconOutlineBtn
+          text={intl.help_settings_addition_modal_edit}
+          textColor={"text-customBlue"}
+          textBold={true}
+          py={"xl:py-2.5 md:py-1.5 py-1.5"}
+          px={"xl:px-[20px] md:px-[22.5px] px-[22.5px] "}
+          borderColor={"border-customBlue bg-white"}
+          icon={() => <EditIcon fill={"#214BB9"} />}
+        />
+      </div>
+      <div className=" p-[16px] bg-white">
+        <div className="flex flex-col md:flex-row  justify-between items-center space-y-4 md:space-y-0"></div>
+        <div className="flex flex-col space-y-4 ">
+          <TitleUserCard title={intl.user_ptalk_service_screen_label} />
+        </div>
+        {/* <div className="flex justify-end mb-4 md:pr-4">
+        <button
+          className=" text-customBlue font-bold hover:text-link"
+          onClick={() => reset()}
+        >
+          {intl.user_band_settings_reset_btn_label}
+        </button>
+      </div> */}
+
+        <div className="flex flex-col md:flex-row" id="ptalk-service">
+          <div className="flex flex-col w-full space-y-2    ">
+            <div className="">
+              <div>
+                <div className=" ml-2 mb-[16px]">
+                  <ToggleBoxMediumRevamp
+                    disabled={false}
+                    checked={!!userDetailsInfo.userState}
+                    setToggle={(userState) => {
+                      setUserDetailsInfo({
+                        ...userDetailsInfo,
+                        ...{
+                          userState: userState,
+                        },
+                      });
+                    }}
+                    toggle={userDetailsInfo.userState}
+                    id={"Id"}
+                  >
+                    <div className="text-[#434343]">{intl.ptalk_service}</div>
+                  </ToggleBoxMediumRevamp>
+                </div>
+              </div>
+              <div className="mb-2">
+                <div className="ml-2 ">
+                  <ToggleBoxMediumRevamp
+                    disabled={false}
+                    checked={!!userDetailsInfo.backgroundStart}
+                    setToggle={(backgroundStart) => {
+                      setUserDetailsInfo({
+                        ...userDetailsInfo,
+                        ...{
+                          backgroundStart: backgroundStart,
+                        },
+                      });
+                    }}
+                    toggle={userDetailsInfo.backgroundStart}
+                    label={"バックグラウンドで起動"}
+                    id={"Id"}
+                  >
+                    <div className="text-[#434343]">バックグラウンドで起動</div>
+                  </ToggleBoxMediumRevamp>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col ml-2 w-full space-y-2 mb-2">
+            <ToggleBoxMediumRevamp
+              disabled={false}
+              checked={!!userDetailsInfo.goOffline}
+              setToggle={(goOffline) => {
+                setUserDetailsInfo({
+                  ...userDetailsInfo,
+                  ...{
+                    goOffline: goOffline,
+                  },
+                });
+              }}
+              toggle={userDetailsInfo.goOffline}
+              label={"オフラインにする"}
+              id={"Id"}
+            >
+              <div className="text-[#434343]">{"強制オフライン"}</div>
+            </ToggleBoxMediumRevamp>
+          </div>
+
+          {/* <div className="flex justify-between mb-8 2xl:mb-6">
+            {[
+              { text: "利用可能", style: " bg-[#1AB517]" },
+              { text: "利用不在", style: " bg-[#FFA500]" },
+              { text: "利用停止", style: " bg-[#ED2E2E]" },
+              { style: "bg-[#C6C3C3]", text: "利用不可" },
+            ].map((el, index) => {
+              return (
+                <div className="flex gap-x-2 items-center" key={index}>
+                  <div
+                    className={`block rounded-full p-2 h-2 w-2 ${el.style}`}
+                  ></div>
+                  <div className="text-[#7B7B7B] text-sm">{el.text}</div>
+                </div>
+              );
+            })}
+          </div>
+          <div className="mb-0 flex justify-end">
+            <div className="w-[150px]">
+              <ActionButton
+                title={intl.help_settings_addition_keep}
+                onClick={pTalkUpdate}
+              />
+            </div>
+          </div> */}
+        </div>
+      </div>
+    </>
+  );
+}

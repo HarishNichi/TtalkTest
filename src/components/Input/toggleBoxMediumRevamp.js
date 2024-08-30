@@ -4,21 +4,21 @@ import Switch from "react-switch";
 export default function ToggleBoxMedium(props) {
   return (
     <>
-      <label className="flex flex-1 items-center justify-between cursor-pointer pr-2 ">
+      <label className="flex-col  flex-1 items-center justify-between cursor-pointer pr-2 ">
         <div
-          className={`text-ellipsis overflow-hidden truncate  ${props.labelClass}`}
-          style={{ fontSize: "16px" }}
+          className={`text-ellipsis overflow-hidden truncate font-normal mb-[8px] ${props.labelClass}`}
+          style={{ fontSize: "14px" }}
         >
           {props.children}
         </div>
         <Switch
-        disabled={props.isDisabled || false}
+          disabled={props.isDisabled || false}
           checked={props.toggle}
           onChange={() => {
             props.setToggle(!props.toggle);
           }}
-          onColor={"#1E1E1E"}
-          onHandleColor={"#00ACFF"}
+          onColor={"#19388B"}
+          onHandleColor={"#214BB9"}
           handleDiameter={16}
           uncheckedIcon={false}
           checkedIcon={false}

@@ -10,23 +10,26 @@ import intl from "@/utils/locales/jp/jp.json";
 import Input from "../../../components/Input/medium";
 import ToggleBoxMedium from "@/components/Input/toggleBoxMedium";
 import api from "@/utils/api";
-import { code, errorToastSettings, maxLimit, successToastSettings } from "@/utils/constant";
+import {
+  code,
+  errorToastSettings,
+  maxLimit,
+  successToastSettings,
+} from "@/utils/constant";
 import { getEmployee } from "@/redux/features/employee";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { ToastContainer, toast } from "react-toastify";
 import LoaderOverlay from "@/components/Loader/loadOverLay";
 import { formatDate, updateEmployee } from "@/validation/helperFunction";
 import dayjs from "dayjs";
-import isSameOrAfter from "dayjs/plugin/isSameOrAfter"
-import isSameOrBefore from "dayjs/plugin/isSameOrBefore"
-dayjs.extend(isSameOrBefore)
-dayjs.extend(isSameOrAfter)
+import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
+import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
+dayjs.extend(isSameOrBefore);
+dayjs.extend(isSameOrAfter);
 
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import * as Yup from "yup";
-import {
-  PASSWORD_PATTERN
-} from "@/validation/validationPattern";
+import { PASSWORD_PATTERN } from "@/validation/validationPattern";
 import { validateHandler } from "@/validation/helperFunction";
 import Modal from "@/components/Modal/modal";
 import IconLeftBtn from "@/components/Button/iconLeftBtn";
@@ -37,8 +40,8 @@ const schema = Yup.object().shape({
     .matches(PASSWORD_PATTERN.regex, PASSWORD_PATTERN.message),
 
   confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'パスワードが一致しません')
-    .required(intl.validation_required)
+    .oneOf([Yup.ref("password"), null], "パスワードが一致しません")
+    .required(intl.validation_required),
 });
 
 export default function UserDetails() {
@@ -55,8 +58,6 @@ export default function UserDetails() {
   const [touched, setTouched] = useState({});
   let [type1, setType1] = useState("password");
   let [type2, setType2] = useState("password");
-
-
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -172,13 +173,15 @@ export default function UserDetails() {
       // Assuming the response contains the "Items" array as shown in your example
       if (response && response.data.status.code == code.OK) {
         const data = response.data.data;
-        let today = data?.todayDate || dayjs().format('YYYY-MM-DD')
+        let today = data?.todayDate || dayjs().format("YYYY-MM-DD");
         let isValid = false;
         const formattedData = data.Items.map((item) => {
           if (item.startDate && item.endDate) {
             let futureDate = dayjs(today).isBefore(item.startDate);
             if (!futureDate) {
-              isValid = dayjs(today).isSameOrBefore(item.endDate) && dayjs(today).isSameOrAfter(item.startDate);
+              isValid =
+                dayjs(today).isSameOrBefore(item.endDate) &&
+                dayjs(today).isSameOrAfter(item.startDate);
               if (!isValid) {
                 item.name = item.name + " - 期限切れ";
               }
@@ -245,7 +248,13 @@ export default function UserDetails() {
       return;
     }
 
-    if ((errors && Object.keys(errors)?.length && Object.keys(errors)?.length > 0) || !password || !confirmPassword) {
+    if (
+      (errors &&
+        Object.keys(errors)?.length &&
+        Object.keys(errors)?.length > 0) ||
+      !password ||
+      !confirmPassword
+    ) {
       setLoading(false);
       return;
     }
@@ -256,8 +265,8 @@ export default function UserDetails() {
         type: "resetPassword",
         data: {
           password: password,
-          confirmPassword: confirmPassword
-        }
+          confirmPassword: confirmPassword,
+        },
       });
 
       setLoading(false);
@@ -824,58 +833,62 @@ export default function UserDetails() {
               setExportModal(false);
               setErrors(null);
               setTouched({});
-
             }}
             contentPaddingTop="pt-1"
             contentPadding="px-0"
-            modalFooter={() => (<div className="flex gap-x-3">
-              <div>
-                <IconLeftBtn
-                  text="キャンセル"
-                  textColor={"text-white font-semibold text-sm w-full rounded-lg"}
-                  py={"py-2"}
-                  px={"px-[10.5px] md:px-[17.5px]"}
-                  bgColor={""}
-                  textBold={true}
-                  icon={() => {
-                    return null;
-                  }}
-                  onClick={() => {
-                    setPassword(null);
-                    setConfirmPassword(null);
-                    setExportModal(false);
-                    setErrors(null);
-                    setTouched({});
-
-                  }}
-                />
+            modalFooter={() => (
+              <div className="flex gap-x-3">
+                <div>
+                  <IconLeftBtn
+                    text="キャンセル"
+                    textColor={
+                      "text-white font-semibold text-sm w-full rounded-lg"
+                    }
+                    py={"py-2"}
+                    px={"px-[10.5px] md:px-[17.5px]"}
+                    bgColor={""}
+                    textBold={true}
+                    icon={() => {
+                      return null;
+                    }}
+                    onClick={() => {
+                      setPassword(null);
+                      setConfirmPassword(null);
+                      setExportModal(false);
+                      setErrors(null);
+                      setTouched({});
+                    }}
+                  />
+                </div>
+                <div>
+                  <IconLeftBtn
+                    text={intl.reset_submit_btn}
+                    textColor={
+                      "text-white font-semibold text-sm w-full rounded-lg"
+                    }
+                    py={"py-2"}
+                    px={"px-[10.5px] md:px-[17.5px]"}
+                    bgColor={""}
+                    textBold={true}
+                    icon={() => {
+                      return null;
+                    }}
+                    onClick={() => {
+                      passwordReset();
+                    }}
+                  />
+                </div>
               </div>
-              <div>
-                <IconLeftBtn
-                  text={intl.reset_submit_btn}
-                  textColor={"text-white font-semibold text-sm w-full rounded-lg"}
-                  py={"py-2"}
-                  px={"px-[10.5px] md:px-[17.5px]"}
-                  bgColor={""}
-                  textBold={true}
-                  icon={() => {
-                    return null;
-                  }}
-                  onClick={() => {
-                    passwordReset()
-                  }}
-                />
-              </div>
-            </div>)}
+            )}
           >
             <div className="flex flex-col">
               <div className="flex-grow py-[27px]">
                 <form className="grid grid-cols-1 gap-y-3">
-
                   <div className="flex flex-col">
                     <div
-                      className={`flex items-center ${errors?.password && touched?.password ? "" : "mb-8"
-                        }`}
+                      className={`flex items-center ${
+                        errors?.password && touched?.password ? "" : "mb-8"
+                      }`}
                     >
                       <input
                         type={type1}
@@ -892,22 +905,21 @@ export default function UserDetails() {
                           handleChange(event);
                         }}
                       />
-                          {type1 == "password" ? (
-                  <IoEyeOffOutline
-                    className="text-2xl text-[#A3A3A3] -ml-12"
-                    onClick={() => {
-                      setType1("text");
-                    }}
-                  />
-                ) : (
-                  <IoEyeOutline
-                    className="text-2xl text-[#A3A3A3] -ml-12"
-                    onClick={() => {
-                      setType1("password");
-                    }}
-                  />
-                )}
-
+                      {type1 == "password" ? (
+                        <IoEyeOffOutline
+                          className="text-2xl text-[#A3A3A3] -ml-12"
+                          onClick={() => {
+                            setType1("text");
+                          }}
+                        />
+                      ) : (
+                        <IoEyeOutline
+                          className="text-2xl text-[#A3A3A3] -ml-12"
+                          onClick={() => {
+                            setType1("password");
+                          }}
+                        />
+                      )}
                     </div>
                     {errors?.password && touched?.password && (
                       <div
@@ -918,10 +930,11 @@ export default function UserDetails() {
                       </div>
                     )}
                     <div
-                      className={`flex items-center ${errors?.confirmPassword && touched?.confirmPassword
-                        ? ""
-                        : ""
-                        }`}
+                      className={`flex items-center ${
+                        errors?.confirmPassword && touched?.confirmPassword
+                          ? ""
+                          : ""
+                      }`}
                     >
                       <input
                         type={type2}
@@ -933,26 +946,28 @@ export default function UserDetails() {
                         focus:outline-none focus:ring-2 focus:ring-customBlue
                         border border-gray-400
                         block w-full pl-5 text-sm pr-[30px] font-medium text-black`}
-                        placeholder={intl.forgot_autenticate_password_placeholder}
+                        placeholder={
+                          intl.forgot_autenticate_password_placeholder
+                        }
                         onChange={(event) => {
                           handleChange(event);
                         }}
                       />
-  {type2 == "password" ? (
-                  <IoEyeOffOutline
-                    className="text-2xl text-[#A3A3A3] -ml-12"
-                    onClick={() => {
-                      setType2("text");
-                    }}
-                  />
-                ) : (
-                  <IoEyeOutline
-                    className="text-2xl text-[#A3A3A3] -ml-12"
-                    onClick={() => {
-                      setType2("password");
-                    }}
-                  />
-                )}
+                      {type2 == "password" ? (
+                        <IoEyeOffOutline
+                          className="text-2xl text-[#A3A3A3] -ml-12"
+                          onClick={() => {
+                            setType2("text");
+                          }}
+                        />
+                      ) : (
+                        <IoEyeOutline
+                          className="text-2xl text-[#A3A3A3] -ml-12"
+                          onClick={() => {
+                            setType2("password");
+                          }}
+                        />
+                      )}
                     </div>
                     {errors?.confirmPassword && touched?.confirmPassword && (
                       <div
@@ -962,25 +977,23 @@ export default function UserDetails() {
                         {errors?.confirmPassword}
                       </div>
                     )}
-
-
                   </div>
                 </form>
               </div>
             </div>
           </Modal>
         )}
-      </div >
-
-      <div className="flex flex-shrink justify-end max-w-max float-right">
-
-        <ActionButton
-          title={intl.user_details_password_reset_btn}
-          onClick={() => { setErrors(null); setExportModal(true) }}
-        />
       </div>
 
-
+      <div className="flex flex-shrink justify-end max-w-max float-right">
+        <ActionButton
+          title={intl.user_details_password_reset_btn}
+          onClick={() => {
+            setErrors(null);
+            setExportModal(true);
+          }}
+        />
+      </div>
     </>
   );
 }
