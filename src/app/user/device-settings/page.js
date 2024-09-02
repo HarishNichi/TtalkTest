@@ -224,8 +224,8 @@ export default function DeviceSettings() {
     });
 
     setTimeout(() => {
-      setThirdSection(() => updatedType)
-    }, 100)
+      setThirdSection(() => updatedType);
+    }, 100);
   }
 
   const fetchData = async () => {
@@ -364,12 +364,13 @@ export default function DeviceSettings() {
         <div className="mb-8">
           <div className="grid grid-cols-12 gap-4">
             <div
-              className={`${selectedButton && selectedType
-                ? "col-span-4"
-                : selectedButton
+              className={`${
+                selectedButton && selectedType
+                  ? "col-span-4"
+                  : selectedButton
                   ? "col-span-6"
                   : "col-span-12"
-                } rounded-lg bg-[#f6f6f6]`}
+              } rounded-lg bg-[#f6f6f6]`}
             >
               <div className="flex flex-col gap-y-2 rounded-lg p-4 w-full ">
                 {/* first section */}
@@ -378,10 +379,11 @@ export default function DeviceSettings() {
                     <button
                       key={index}
                       type="button"
-                      className={`${btnClass} ${el.name == selectedButton?.name
-                        ? "border border-customBlue"
-                        : ""
-                        }`}
+                      className={`${btnClass} ${
+                        el.name == selectedButton?.name
+                          ? "border border-customBlue"
+                          : ""
+                      }`}
                       onClick={() => {
                         setSelectedButton(el);
                         if (el.name == "pttButton") {
@@ -401,28 +403,28 @@ export default function DeviceSettings() {
             {/* second section */}
             {selectedButton && (
               <div
-                className={`${selectedButton && selectedType
-                  ? "col-span-4"
-                  : selectedButton
+                className={`${
+                  selectedButton && selectedType
+                    ? "col-span-4"
+                    : selectedButton
                     ? "col-span-6"
                     : ""
-                  } rounded-lg bg-[#f6f6f6]`}
+                } rounded-lg bg-[#f6f6f6]`}
               >
                 <div className="flex flex-col gap-y-2 rounded-lg p-4 w-full ">
-
-
                   {/* ptt */}
-                  { selectedButton.name !="pttButton" && pttButtonSettings && (
+                  {selectedButton.name != "pttButton" && pttButtonSettings && (
                     <button
                       type="button"
-                      className={`${selectedType == "ptt" ? "border border-customBlue" : ""
-                        }  ${btnClass}`}
+                      className={`${
+                        selectedType == "ptt" ? "border border-customBlue" : ""
+                      }  ${btnClass}`}
                       onClick={() => handleType("ptt", "クイックPTT名称を設定")}
                     >
                       <div>クイックPTT名称を設定</div>
                       <div className="text-customBlue">
                         {selectedButton.type[0].value.value ==
-                          selectedButton.type[0].value.optionName
+                        selectedButton.type[0].value.optionName
                           ? `${selectedButton.type[0].value.value}`
                           : `${selectedButton.type[0].value.optionName}
                         ${selectedButton.type[0].value.value ? ":" : ""}
@@ -431,32 +433,36 @@ export default function DeviceSettings() {
                     </button>
                   )}
 
-
                   {/* tap */}
-                  {(selectedButton.name !="volumeIncrease" && selectedButton.name !="volumeDecrease" ) && (
-                    <button
-                    type="button"
-                    className={`${selectedType == "tap" ? "border border-customBlue" : ""
-                      }  ${btnClass}`}
-                    onClick={() => handleType("tap", "タップ")}
-                  >
-                    <div>タップ</div>
-                    <div className="text-customBlue">
-                      <PttBtnHtml
-                        pttButtonSettings={pttButtonSettings}
-                        index={1}
-                      />
-                    </div>
-                  </button>
-                  )}
+                  {selectedButton.name != "volumeIncrease" &&
+                    selectedButton.name != "volumeDecrease" && (
+                      <button
+                        type="button"
+                        className={`${
+                          selectedType == "tap"
+                            ? "border border-customBlue"
+                            : ""
+                        }  ${btnClass}`}
+                        onClick={() => handleType("tap", "タップ")}
+                      >
+                        <div>タップ</div>
+                        <div className="text-customBlue">
+                          <PttBtnHtml
+                            pttButtonSettings={pttButtonSettings}
+                            index={1}
+                          />
+                        </div>
+                      </button>
+                    )}
 
                   {/* long press 2 */}
                   <button
                     type="button"
-                    className={`${selectedType == "longPress2sec"
-                      ? "border border-customBlue"
-                      : ""
-                      }  ${btnClass}`}
+                    className={`${
+                      selectedType == "longPress2sec"
+                        ? "border border-customBlue"
+                        : ""
+                    }  ${btnClass}`}
                     onClick={() => handleType("longPress2sec", "長押し（2秒）")}
                   >
                     <div>長押し（2秒）</div>
@@ -468,14 +474,14 @@ export default function DeviceSettings() {
                     </div>
                   </button>
 
-
                   {/* long press 5 */}
                   <button
                     type="button"
-                    className={`${selectedType == "longPress5sec"
-                      ? "border border-customBlue"
-                      : ""
-                      }  ${btnClass}`}
+                    className={`${
+                      selectedType == "longPress5sec"
+                        ? "border border-customBlue"
+                        : ""
+                    }  ${btnClass}`}
                     onClick={() => handleType("longPress5sec", "長押し（5秒）")}
                   >
                     <div>長押し（5秒）</div>
@@ -615,9 +621,7 @@ export default function DeviceSettings() {
                           className="accent-[#19388B]"
                           id="MikePlusCall"
                           value={"マイクアイコン＋通話"}
-                          checked={
-                            thirdSection == "マイクアイコン＋通話"
-                          }
+                          checked={thirdSection == "マイクアイコン＋通話"}
                           onChange={() => {
                             let settings = deviceSettings.map(
                               (deviceSetting) => {
@@ -715,7 +719,9 @@ export default function DeviceSettings() {
                             value={"SOSコール"}
                             checked={thirdSection == "SOSコール"}
                           />
-                          <label htmlFor="SOS_Call">SOSコール {thirdSection == "SOSコール"}</label>
+                          <label htmlFor="SOS_Call">
+                            SOSコール {thirdSection == "SOSコール"}
+                          </label>
                         </div>
                         {thirdSection == "SOSコール" && (
                           <div>
