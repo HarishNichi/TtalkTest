@@ -6,8 +6,8 @@ export default function Progress(props) {
   useEffect(() => {
     let id = props.id;
     const elm = document.getElementById(id);
-    // const gradient = `linear-gradient(to right, #00ACFF, #85D6FD ${props.value}%, #282828 ${props.value}%)`;
-    elm.style.background = "#19388B";
+    const gradient = `linear-gradient(to right, #19388B, #19388B ${props.value}%, #214BB9 ${props.value}%)`;
+    elm.style.background = gradient;
   }, [props.value]);
   return (
     <input
@@ -20,7 +20,7 @@ export default function Progress(props) {
       }}
       type="range"
       value={props.value}
-      className="h-1 w-full bg-black flex items-center rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700"
+      className="h-1 w-full bg-[#214BB9] flex items-center rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700"
     />
   );
 }

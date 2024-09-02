@@ -173,6 +173,14 @@ export const helperSubSectionLinks = [
   },
   { title: intl.help_settings_title, link: "/help-settings/sub-section" },
 ];
+export const userDetailsLinks = [
+  {
+    title: "ユーザー詳細",
+    link: "/user-details",
+  },
+  { title: "変更履歴", link: "/historySettings" },
+];
+
 export const userSubSectionLinks = [
   {
     title: intl.dashboard_user_list,

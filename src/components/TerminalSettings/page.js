@@ -820,7 +820,7 @@ export default function TerminalSettings() {
           borderColor={"border-customBlue bg-white"}
           icon={() => <GearIcon />}
           onClick={() => {
-            router.push("./user/history-settings");
+            router.push("./historySettings");
           }}
         />
         <IconOutlineBtn
