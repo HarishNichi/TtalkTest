@@ -8,6 +8,7 @@ import Group from "@/components/Groups/page";
 import employee from "@/redux/features/employee";
 import UserDetails from "@/components/UserDetails/page";
 import Contact from "@/components/Contacts/page";
+import * as Yup from "yup";
 
 import ViewLog from "@/components/Logs/page";
 import Other from "@/components/Other/page";
@@ -29,8 +30,22 @@ import DynamicLabel from "../Label/dynamicLabel";
 import Progress from "../Input/progress";
 import DropdownMedium from "../Input/dropdownMedium";
 
+import { validateHandler } from "@/validation/helperFunction";
+import TextPlain from "../Input/textPlain";
+import Medium from "../Input/medium";
+
 export default function TerminalSettings() {
   const [loading, setLoading] = useState(false);
+  const schema = Yup.object().shape({
+    recordedFileStorageLocation: Yup.string().matches(
+      /^(\/[0-9a-zA-Z]+)*\/?$/,
+      "パスが無効です。パターンは '/xxxxx/xxx' です。"
+    ),
+    recordedFileSize: Yup.number()
+      .required(intl.validation_required)
+      .max(1024, "録音ファイルの保存容量は 1024MB を超えることはできません")
+      .typeError("ファイルサイズを数字で入力してください"),
+  });
   function exportIcon() {
     return (
       <svg
@@ -126,6 +141,21 @@ export default function TerminalSettings() {
     boosterDuration:
       EmployeeDetails?.accountDetail?.employee?.settings?.pttBoaster
         ?.durations || "1sec",
+    isRecordingSettings:
+      EmployeeDetails?.accountDetail?.employee?.settings?.voiceRecording
+        ?.isRecordingSettings,
+    mobileStorage:
+      EmployeeDetails?.accountDetail?.employee?.settings?.voiceRecording
+        ?.storages || "internal",
+    recordedFileSize:
+      EmployeeDetails?.accountDetail?.employee?.settings?.voiceRecording
+        ?.totalStorageSizeLimit || "0",
+    recordedFileStorageLocation:
+      EmployeeDetails?.accountDetail?.employee?.settings?.voiceRecording
+        ?.paths || "",
+    quality:
+      EmployeeDetails?.accountDetail?.employee?.settings?.qualitySettings
+        ?.quality || "highQuality",
   };
   const [progressBarPtt, setProgressBarPtt] = useState(
     userInfo.pttNotificationVolume
@@ -135,6 +165,89 @@ export default function TerminalSettings() {
   );
   const [userDetailsInfo, setUserDetailsInfo] = useState(userInfo);
   const [selectedRejection, setSelectedRejection] = useState(userInfo);
+  const [touched, setTouched] = useState({});
+  const [errors, setErrors] = useState(null);
+  async function qualitySettingsUpdate() {
+    toast.dismiss();
+    setLoading(true);
+    if (Employee?.id) {
+      let payload = {
+        id: Employee.id,
+        type: "qualitySettings",
+        data: {
+          quality: userDetailsInfo.quality,
+        },
+      };
+      try {
+        const settingsUpdated = await updateEmployee(payload);
+        if (settingsUpdated) {
+          let id = Employee.id;
+          let result = await fetchEmpData(id);
+          result && dispatch(getEmployee(result));
+          toast(intl.settings_update_success, successToastSettings);
+        }
+      } catch (err) {
+        toast(intl.settings_update_failed, errorToastSettings);
+      } finally {
+        setLoading(false);
+      }
+    }
+  }
+  async function updateVoiceRecordingSettings() {
+    toast.dismiss();
+    const formValues = {
+      recordedFileStorageLocation: userDetailsInfo.recordedFileStorageLocation,
+      recordedFileSize: userDetailsInfo.recordedFileSize,
+    };
+    setTouched(() => ({
+      ...touched,
+      ["recordedFileStorageLocation"]: true,
+      ["recordedFileSize"]: true,
+    }));
+    await validateHandler(schema, formValues, setErrors);
+    if (errors && Object.keys(errors).length > 0) {
+      return;
+    }
+    setLoading(true);
+    if (Employee?.id) {
+      let payload = {
+        id: Employee.id,
+        type: "voiceRecording",
+        data: {
+          isRecordingSettings: userDetailsInfo.isRecordingSettings,
+          totalStorageSizeLimit: userDetailsInfo.recordedFileSize
+            ? String(userDetailsInfo.recordedFileSize)
+            : "0",
+          paths: userDetailsInfo.recordedFileStorageLocation,
+          storages: userDetailsInfo.mobileStorage,
+        },
+      };
+      try {
+        const settingsUpdated = await updateEmployee(payload);
+        if (settingsUpdated) {
+          let id = Employee.id;
+          let result = await fetchEmpData(id);
+          result && dispatch(getEmployee(result));
+          toast(intl.settings_update_success, successToastSettings);
+        }
+      } catch (err) {
+        toast(intl.settings_update_failed, errorToastSettings);
+      } finally {
+        setLoading(false);
+      }
+    }
+  }
+  useEffect(() => {
+    const formValues = {
+      recordedFileStorageLocation: userDetailsInfo.recordedFileStorageLocation,
+      recordedFileSize: userDetailsInfo.recordedFileSize,
+    };
+
+    validateHandler(schema, formValues, setErrors);
+  }, [
+    userDetailsInfo.recordedFileStorageLocation,
+    userDetailsInfo.recordedFileSize,
+  ]);
   async function pttBoasterSettingsUpdate() {
     toast.dismiss();
     setLoading(true);
@@ -774,6 +887,210 @@ export default function TerminalSettings() {
                     });
                   }}
                 />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-[16px] bg-white p-[16px]">
+        <div className="flex ">
+          <TitleUserCard title={intl.user_voice_recording_screen_label} />
+        </div>
+        <div className="flex flex-col md:flex-row md:gap-x-4">
+          <div className="w-full md:w-1/2">
+            <div className="mb-8">
+              <DropdownMedium
+                borderRound={"rounded-lg"}
+                padding={"py-2.5 pr-[120px]"}
+                options={[
+                  { id: 1, value: "highQuality", label: "高品質" },
+                  { id: 2, value: "lowQuality", label: "標準品質" },
+                ]}
+                keys={"value"} // From options array
+                optionLabel={"label"} // From options array
+                border={"border border-gray-400"}
+                focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
+                bg=""
+                text={"text-sm"}
+                additionalClass={"block w-full px-4 h-[40px]"}
+                id={"quality"}
+                labelColor={"#7B7B7B"}
+                label={intl.user_band_settings_quality_label}
+                value={userDetailsInfo.quality}
+                onChange={(quality) => {
+                  setUserDetailsInfo({
+                    ...userDetailsInfo,
+                    ...{ quality: quality },
+                  });
+                }}
+              />
+            </div>
+
+            <div className="mb-4 2xl:mb-6">
+              <TextPlain
+                type={"text"}
+                for={"recordedFileSize"}
+                placeholder={intl.user_voice_recording_storage_label}
+                padding={"p-[10px]"}
+                focus={
+                  "focus:outline-none focus:ring-2  focus:ring-customBlue "
+                }
+                border={"border border-gray-400 rounded-lg"}
+                bg={"bg-white "}
+                additionalClass={
+                  "flex w-full pl-5 text-base pr-[30px] h-[40px]"
+                }
+                label={intl.user_voice_recording_storage_label + "(MB)"}
+                labelColor={"#7B7B7B"}
+                id={"recordedFileSize"}
+                value={userDetailsInfo.recordedFileSize}
+                onChange={(event) => {
+                  setTouched(() => ({
+                    ...touched,
+                    ["recordedFileSize"]: true,
+                  }));
+                  setUserDetailsInfo({
+                    ...userDetailsInfo,
+                    ...{ recordedFileSize: event.target.value },
+                  });
+                }}
+              />
+              {touched &&
+                errors &&
+                errors.recordedFileSize &&
+                touched.recordedFileSize && (
+                  <div
+                    className="pl-1 validation-font"
+                    style={{ color: "red" }}
+                  >
+                    {errors.recordedFileSize}
+                  </div>
+                )}
+            </div>
+            <div className="mt-[18px] mb-4 2xl:mb-6">
+              <DynamicLabel
+                text={intl.user_voice_recording_storage_location}
+                textColor="#7B7B7B"
+                htmlFor="recordedFileStorageLocation"
+              />
+              <Medium
+                id="recordedFileStorageLocation"
+                type={"text"}
+                placeholder={""}
+                borderRound={"rounded-lg"}
+                padding={"p-[10px] py-3"}
+                focus={"focus:outline-none"}
+                border={"border border-gray-400"}
+                bg={"bg-[#f2f2f2]"}
+                isDisabled="true"
+                additionalClass={
+                  "block w-full pl-5 text-sm pr-[30px] h-[40px] text-[#C7C7C7]"
+                }
+                value={userDetailsInfo.recordedFileStorageLocation}
+                onChange={(evt) => {
+                  setTouched(() => ({
+                    ...touched,
+                    ["recordedFileStorageLocation"]: true,
+                  }));
+                  setUserDetailsInfo({
+                    ...userDetailsInfo,
+                    ...{
+                      recordedFileStorageLocation: evt.target.value,
+                    },
+                  });
+                }}
+              />
+              {touched &&
+                errors &&
+                errors.recordedFileStorageLocation &&
+                touched.recordedFileStorageLocation && (
+                  <div
+                    className="pl-1 validation-font"
+                    style={{ color: "red" }}
+                  >
+                    {errors.recordedFileStorageLocation}
+                  </div>
+                )}
+            </div>
+          </div>
+          <div className="w-full md:w-1/2 flex flex-col ">
+            <div className="">
+              <div className=" mt-1 2xl:mb-[19px]">
+                <div className="bg-white mb-[1px] py-[13px] pl-4 rounded-lg">
+                  <ToggleBoxMedium
+                    toggle={userDetailsInfo.isRecordingSettings}
+                    setToggle={(isRecordingSettings) => {
+                      setUserDetailsInfo({
+                        ...userDetailsInfo,
+                        ...{
+                          isRecordingSettings: isRecordingSettings,
+                        },
+                      });
+                    }}
+                    label={intl.user_voice_recording_setting_label}
+                    labelColor={"#7B7B7B"}
+                    id={"Id"}
+                    onColor={"#1E1E1E"}
+                    onHandleColor={"#00ACFF"}
+                    handleDiameter={16}
+                    uncheckedIcon={false}
+                    checkedIcon={false}
+                    boxShadow={"0px 1px 5px rgba(0, 0, 0, 0.6)"}
+                    activeBoxShadow={"0px 0px 1px 10px rgba(0, 0, 0, 0.2)"}
+                    height={10}
+                    width={27}
+                    additionalClass={""}
+                    labelClass={
+                      "text-sm font-medium text-gray-900 dark:text-gray-300"
+                    }
+                  />
+                </div>
+              </div>
+              <div className="mt-[8px] pl-4 2xl:mb-6">
+                <DynamicLabel
+                  text={intl.user_voice_recording_storage_location}
+                  textColor="#7B7B7B"
+                  htmlFor="recordedFileStorageLocation"
+                />
+                <Medium
+                  id="recordedFileStorageLocation"
+                  type={"text"}
+                  placeholder={""}
+                  borderRound={"rounded-lg"}
+                  padding={"p-[10px] py-3"}
+                  focus={"focus:outline-none"}
+                  border={"border border-gray-400"}
+                  bg={"bg-[#f2f2f2]"}
+                  isDisabled="true"
+                  additionalClass={
+                    "block w-full pl-5 text-sm mt-[1px] pr-[30px] h-[40px] text-[#C7C7C7]"
+                  }
+                  value={userDetailsInfo.recordedFileStorageLocation}
+                  onChange={(evt) => {
+                    setTouched(() => ({
+                      ...touched,
+                      ["recordedFileStorageLocation"]: true,
+                    }));
+                    setUserDetailsInfo({
+                      ...userDetailsInfo,
+                      ...{
+                        recordedFileStorageLocation: evt.target.value,
+                      },
+                    });
+                  }}
+                />
+                {touched &&
+                  errors &&
+                  errors.recordedFileStorageLocation &&
+                  touched.recordedFileStorageLocation && (
+                    <div
+                      className="pl-1 validation-font"
+                      style={{ color: "red" }}
+                    >
+                      {errors.recordedFileStorageLocation}
+                    </div>
+                  )}
               </div>
             </div>
           </div>
