@@ -36,7 +36,7 @@ export default function pToggleBoxMedium(props) {
           activeBoxShadow={props.activeBoxShadow}
           height={14}
           width={34}
-          className={`react-switch ${props.additionalClass} ${cursorClass} ml-2`}
+          className={`react-switch ${props.additionalClass} ${cursorClass} `}
           id={props.id}
         />
       </div>

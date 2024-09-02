@@ -144,9 +144,7 @@ export default function TerminalSettings() {
     boosterDuration:
       EmployeeDetails?.accountDetail?.employee?.settings?.pttBoaster
         ?.durations || "1sec",
-    isRecordingSettings:
-      EmployeeDetails?.accountDetail?.employee?.settings?.voiceRecording
-        ?.isRecordingSettings,
+
     mobileStorage:
       EmployeeDetails?.accountDetail?.employee?.settings?.voiceRecording
         ?.storages || "internal",
@@ -159,6 +157,25 @@ export default function TerminalSettings() {
     quality:
       EmployeeDetails?.accountDetail?.employee?.settings?.qualitySettings
         ?.quality || "highQuality",
+    simultaneousInterpretation:
+      EmployeeDetails?.accountDetail?.employee?.settings?.optionSettings
+        ?.simultaneousInterpretation,
+    isTranscribe:
+      EmployeeDetails?.accountDetail?.employee?.settings?.optionSettings
+        ?.isTranscribe,
+
+    isSOS:
+      EmployeeDetails?.accountDetail?.employee?.settings?.optionSettings?.isSOS,
+    locationInformation:
+      EmployeeDetails?.accountDetail?.employee?.settings?.optionSettings
+        ?.locationInformation,
+    sosScheduledTime:
+      EmployeeDetails?.accountDetail?.employee?.settings?.optionSettings
+        ?.sosScheduledTime || "5sec",
+
+    isRecordingSettings:
+      EmployeeDetails?.accountDetail?.employee?.settings?.voiceRecording
+        ?.isRecordingSettings,
   };
   const [progressBarPtt, setProgressBarPtt] = useState(
     userInfo.pttNotificationVolume
@@ -170,6 +187,27 @@ export default function TerminalSettings() {
   const [selectedRejection, setSelectedRejection] = useState(userInfo);
   const [touched, setTouched] = useState({});
   const [errors, setErrors] = useState(null);
+  const fetchOtherData = async () => {
+    setLoading(true);
+    try {
+      const params = {
+        params: {
+          id: Admin ? EmployeeDetails?.organizationId : orgId,
+        },
+      };
+      let { data } = await api.get("employees/get-organization", params);
+      let org = data.data.Item;
+      setLoading(false);
+      let response = {
+        isTranslate: org.accountDetail.organization.isTranslate,
+        isTranscribe: org.accountDetail.organization.isTranscribe,
+        sosLocation: org.accountDetail.organization.sosLocation,
+      };
+      setOrganizationsData(response);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
   async function qualitySettingsUpdate() {
     toast.dismiss();
     setLoading(true);
@@ -420,6 +458,22 @@ export default function TerminalSettings() {
   const [groupSearchResults, setGroupSearchResults] = useState([]);
   const [contactList, setContactData] = useState([]);
   const [history, setHistory] = useState("");
+  const [organizationsData, setOrganizationsData] = useState(null);
+  const auth = localStorage.getItem("accessToken");
+  const isAuthenticated = auth || false;
+  let Admin = false;
+  let orgId;
+  const UserData = useAppSelector((state) => state.userReducer.user);
+  useEffect(() => {
+    fetchOtherData();
+    setUserDetailsInfo({});
+  }, []);
+  if (isAuthenticated && Object.keys(UserData).length > 0) {
+    const User = UserData ? JSON.parse(UserData) : "";
+    const roles = User?.role ? JSON.parse(User.role) : [];
+    Admin = roles ? roles.some((role) => role.toLowerCase() == "admin") : false;
+    orgId = User.id;
+  }
 
   useEffect(() => {
     setDeviceSettings(defaultDeviceSettings);
@@ -699,6 +753,37 @@ export default function TerminalSettings() {
     fetchData();
     fetchContacts();
   }, []);
+  async function optionSettingsUpdate() {
+    toast.dismiss();
+    setLoading(true);
+    if (Employee?.id) {
+      let payload = {
+        id: Employee.id,
+        type: "optionSettings",
+        data: {
+          isTranscribe: userDetailsInfo.isTranscribe,
+          simultaneousInterpretation:
+            userDetailsInfo.simultaneousInterpretation,
+          isSOS: userDetailsInfo.isSOS,
+          locationInformation: userDetailsInfo.locationInformation,
+          sosScheduledTime: userDetailsInfo.sosScheduledTime,
+        },
+      };
+      try {
+        const settingsUpdated = await updateEmployee(payload);
+        if (settingsUpdated) {
+          let id = Employee.id;
+          let result = await fetchEmpData(id);
+          result && dispatch(getEmployee(result));
+          toast(intl.settings_update_success, successToastSettings);
+        }
+      } catch (err) {
+        toast(intl.settings_update_failed, errorToastSettings);
+      } finally {
+        setLoading(false);
+      }
+    }
+  }
   return (
     <>
       {loading && <LoaderOverlay />}
@@ -734,6 +819,9 @@ export default function TerminalSettings() {
           px={"xl:px-[20px] md:px-[22.5px] px-[22.5px] "}
           borderColor={"border-customBlue bg-white"}
           icon={() => <GearIcon />}
+          onClick={() => {
+            router.push("./user/history-settings");
+          }}
         />
         <IconOutlineBtn
           text={intl.help_settings_addition_modal_edit}
@@ -1089,7 +1177,7 @@ export default function TerminalSettings() {
                   textColor="#7B7B7B"
                   htmlFor="vibrateOnRequestReceived"
                 /> */}
-                <div className="bg-white  pl-4 rounded-lg ">
+                <div className="bg-white  pl-4 sm:pl-0 rounded-lg ">
                   <ToggleBoxMedium
                     toggle={userDetailsInfo.vibrateOnRequestReceived}
                     setToggle={(vibrateOnRequestReceived) => {
@@ -1126,7 +1214,7 @@ export default function TerminalSettings() {
                   htmlFor="vibrationOnPtt"
                 /> */}
                 <div>
-                  <div className="bg-white  pl-4 rounded-lg">
+                  <div className="bg-white  pl-4 sm:pl-0 rounded-lg">
                     <ToggleBoxMedium
                       toggle={userDetailsInfo.vibrationOnPtt}
                       setToggle={(vibrationOnPtt) => {
@@ -1157,7 +1245,7 @@ export default function TerminalSettings() {
                   </div>
                 </div>
               </div>
-              <div className="mb-6 pl-4">
+              <div className="mb-6 pl-4 sm:pl-0">
                 <DropdownMedium
                   borderRound={"rounded-lg"}
                   padding={"py-2 pr-[120px]"}
@@ -1322,8 +1410,8 @@ export default function TerminalSettings() {
           </div>
           <div className="w-full md:w-1/2 flex flex-col ">
             <div className="">
-              <div className=" mt-1 2xl:mb-[19px]">
-                <div className="bg-white mb-[1px] py-[13px] pl-4 rounded-lg">
+              <div className="2xl:mb-[19px]">
+                <div className="bg-white mb-[13px] md:mb-[45px] md:mt-[-8px]  pl-4 rounded-lg">
                   <ToggleBoxMedium
                     toggle={userDetailsInfo.isRecordingSettings}
                     setToggle={(isRecordingSettings) => {
@@ -1353,7 +1441,7 @@ export default function TerminalSettings() {
                   />
                 </div>
               </div>
-              <div className="mt-[8px] pl-4 2xl:mb-6">
+              <div className="mt-[8px] pl-4 sm:pl-0 2xl:mb-6">
                 <DynamicLabel
                   text={intl.user_voice_recording_storage_location}
                   textColor="#7B7B7B"
@@ -2000,6 +2088,186 @@ export default function TerminalSettings() {
               </div>
             </Modal>
           )}
+        </div>
+      </div>
+
+      <div className="mt-[16px] bg-white p-[16px]">
+        <div className="flex ">
+          <TitleUserCard title={"その他"} />
+        </div>
+        <div className="flex flex-col md:flex-row md:gap-x-4">
+          <div className="w-full md:w-1/2 md:mb-12">
+            <div className="mb-4 2xl:mb-6">
+              <div className="bg-white mb-4 pl-4 rounded-lg">
+                <ToggleBoxMedium
+                  toggle={
+                    organizationsData?.isTranscribe
+                      ? userDetailsInfo.isTranscribe
+                      : false
+                  }
+                  setToggle={(isTranscribe) => {
+                    setUserDetailsInfo({
+                      ...userDetailsInfo,
+                      ...{
+                        isTranscribe: isTranscribe,
+                      },
+                    });
+                  }}
+                  label={"文字おこし"}
+                  labelColor={"#7B7B7B"}
+                  id={"Id"}
+                  onColor={"#1E1E1E"}
+                  onHandleColor={"#00ACFF"}
+                  handleDiameter={16}
+                  uncheckedIcon={false}
+                  checkedIcon={false}
+                  boxShadow={"0px 1px 5px rgba(0, 0, 0, 0.6)"}
+                  activeBoxShadow={"0px 0px 1px 10px rgba(0, 0, 0, 0.2)"}
+                  height={10}
+                  width={27}
+                  additionalClass={" "}
+                  labelClass={
+                    "text-sm font-medium text-gray-900 dark:text-gray-300"
+                  }
+                  isDisabled={
+                    !organizationsData?.isTranscribe ||
+                    !userInfo.isRecordingSettings
+                  }
+                />
+              </div>
+            </div>
+
+            <div className="bg-white mb-4 pl-4 rounded-lg mb-4 2xl:mb-6 items-center">
+              <ToggleBoxMediumRevamp
+                isDisabled={!organizationsData?.sosLocation}
+                checked={userDetailsInfo.isSOS}
+                setToggle={(isSOS) => {
+                  setUserDetailsInfo({
+                    ...userDetailsInfo,
+                    ...{
+                      isSOS: isSOS,
+                      locationInformation: isSOS
+                        ? userDetailsInfo.locationInformation
+                        : false,
+                    },
+                  });
+                }}
+                toggle={
+                  organizationsData?.sosLocation ? userDetailsInfo.isSOS : false
+                }
+                id={"Id"}
+              >
+                <div className="text-[#434343]">{"SOS"}</div>
+              </ToggleBoxMediumRevamp>
+            </div>
+            <div className="bg-white mb-4 pl-4 rounded-lg mb-4 2xl:mb-6 items-center">
+              <ToggleBoxMediumRevamp
+                isDisabled={
+                  !organizationsData?.sosLocation || !userDetailsInfo.isSOS
+                }
+                checked={userDetailsInfo.locationInformation}
+                setToggle={(locationInformation) => {
+                  setUserDetailsInfo({
+                    ...userDetailsInfo,
+                    ...{
+                      locationInformation: locationInformation,
+                    },
+                  });
+                }}
+                toggle={
+                  organizationsData?.sosLocation
+                    ? userDetailsInfo.locationInformation
+                    : false
+                }
+                id={"Id"}
+              >
+                <div className="text-[#434343]">{"位置情報"}</div>
+              </ToggleBoxMediumRevamp>
+            </div>
+          </div>
+          <div className="w-full md:w-1/2 flex flex-col ">
+            <div className="">
+              <div className="bg-white  mb-4 pl-4 rounded-lg">
+                <ToggleBoxMedium
+                  toggle={
+                    organizationsData?.isTranslate
+                      ? userDetailsInfo.simultaneousInterpretation
+                      : false
+                  }
+                  setToggle={(simultaneousInterpretation) => {
+                    setUserDetailsInfo({
+                      ...userDetailsInfo,
+                      ...{
+                        simultaneousInterpretation: simultaneousInterpretation,
+                      },
+                    });
+                  }}
+                  label={"同時通訳"}
+                  labelColor={"#7B7B7B"}
+                  id={"Id"}
+                  onColor={"#1E1E1E"}
+                  onHandleColor={"#00ACFF"}
+                  handleDiameter={16}
+                  uncheckedIcon={false}
+                  checkedIcon={false}
+                  boxShadow={"0px 1px 5px rgba(0, 0, 0, 0.6)"}
+                  activeBoxShadow={"0px 0px 1px 10px rgba(0, 0, 0, 0.2)"}
+                  height={10}
+                  width={27}
+                  additionalClass={" "}
+                  labelClass={
+                    "text-sm font-medium text-gray-900 dark:text-gray-300"
+                  }
+                  isDisabled={
+                    !organizationsData?.isTranslate ||
+                    !userInfo.isRecordingSettings
+                  }
+                />
+              </div>
+            </div>
+
+            <div className="bg-white pl-4 rounded-lg mb-4 2xl:mb-6 grid grid-cols-4 items-start">
+              <div className="col-span-4 mb-[1px] ">
+                <div className="text-[#434343]">{"SOS定期時間"}</div>
+              </div>
+              <div className="col-span-4">
+                <div className=" pr-2  flex ">
+                  <select
+                    disabled={
+                      !organizationsData?.sosLocation || !userDetailsInfo.isSOS
+                    }
+                    className="rounded-lg border border-gray-400 h-[40px] focus:outline-none focus:ring-2 focus:ring-customBlue block px-4 py-2 w-24 dark:text-black"
+                    value={userDetailsInfo.sosScheduledTime}
+                    onChange={(evt) => {
+                      setUserDetailsInfo({
+                        ...userDetailsInfo,
+                        ...{ sosScheduledTime: evt.target.value },
+                      });
+                    }}
+                  >
+                    <option disabled value={""} selected className="py-4">
+                      {"--選択する--"}
+                    </option>
+                    {[
+                      { id: 1, value: "5sec", label: "5秒" },
+                      { id: 2, value: "10sec", label: "10秒" },
+                      { id: 3, value: "15sec", label: "15秒" },
+                      { id: 4, value: "20sec", label: "20秒" },
+                    ].map((dropDownOption, index) => (
+                      <option
+                        className="bg-white text-black rounded py-4"
+                        id={`id-${index}`}
+                        key={dropDownOption.value}
+                        value={dropDownOption.value}
+                      >
+                        {dropDownOption.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>

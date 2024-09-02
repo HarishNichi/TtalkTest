@@ -247,7 +247,7 @@ export default function ViewLog({tab}) {
               />
             </div>
           </div>
-          <div className="mb-8 w-full max-h-[450px] 2xl:max-h-[740px]">
+          <div className="mb-[24px] w-full">
               <DataTable
                 scrollHorizontal={500}
                 scrollVertical={tableHeight > 450 ? tableHeight : 450}
