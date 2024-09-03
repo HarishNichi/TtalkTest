@@ -52,6 +52,7 @@ import { FaRegCopy } from "react-icons/fa";
 import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import AddUser from "@/components/UserAdd/page";
+import CopyButton from "@/components/Icons/copyButton";
 dayjs.extend(customParseFormat);
 dayjs.extend(isSameOrBefore);
 dayjs.extend(isSameOrAfter);
@@ -275,9 +276,9 @@ export default function UserList() {
                 }
               }}
             > */}
-            <div className="flex hover:text-[#69b1ff]">
+            <div className="flex hover:text-[#69b1ff] text-customBlue">
               ******
-              <FaRegCopy
+              <CopyButton
                 className="ml-2 text-[#69b1ff] cursor-pointer"
                 onClick={async (event) => {
                   event.stopPropagation();

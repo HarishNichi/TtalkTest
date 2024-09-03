@@ -87,6 +87,21 @@ export default function ImportUserModal(props) {
         >
           <div className="flex flex-col">
 
+          <div data-testid="file-upload" className="md:px-[32px]">
+              <FileUpload
+                onFileUpload={handleFileUpload}
+                key={bulkFileName + empFileName}
+              />
+            </div>
+            {error && (
+              <div
+                className="validation-font text-sm flex justify-center mt-2"
+                style={{ color: "red" }}
+              >
+                {error}
+              </div>
+            )}
+
             {/* Progress bar component */}
 
             <div data-testid="progress-bar" className="mt-6 mb-3 md:px-[32px]">

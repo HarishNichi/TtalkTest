@@ -35,7 +35,6 @@ import { Modal as AntModal } from "antd";
 import UserEdit from "../UserEdit/page";
 import { sampleLinks } from "@/utils/constant";
 
-
 import {
   fileName,
   tableDefaultPageSizeOption,
@@ -116,7 +115,6 @@ export default function UserDetails() {
     downloadCsvLink && CSVDownloadRef.current.click();
   }, [downloadCsvLink]);
 
-
   async function exportCSVFile() {
     try {
       let data;
@@ -181,9 +179,6 @@ export default function UserDetails() {
     });
   };
 
-
-
-
   const handleChange = (event) => {
     const { name, value } = event.target;
     if (name == "password") {
@@ -198,7 +193,6 @@ export default function UserDetails() {
     const formValues = { password, confirmPassword };
     validateHandler(schema, formValues, setErrors);
   }, [password, confirmPassword]);
-
 
   const fetchData = async (projectionList) => {
     setLoading(true);
@@ -386,74 +380,74 @@ export default function UserDetails() {
     Admin ? fetchOrg() : fetchData([]);
     fetchDevices();
   }, []);
-  useEffect(() => {
-    /* eslint-disable no-undef*/
-    let hasMap = new Set();
-    if (!csvUploadInitiated) {
-      setLoading(false);
-      return;
-    }
-    toast.dismiss();
-    let scount = 0;
-    let ecount = 0;
-    let failedRowIndexes = [];
+  // useEffect(() => {
+  //   /* eslint-disable no-undef*/
+  //   let hasMap = new Set();
+  //   if (!csvUploadInitiated) {
+  //     setLoading(false);
+  //     return;
+  //   }
+  //   toast.dismiss();
+  //   let scount = 0;
+  //   let ecount = 0;
+  //   let failedRowIndexes = [];
 
-    const subscription = gen.subscribe(csvUploadInitiated, ({ data }) => {
-      if (!hasMap.has(data.token)) {
-        hasMap.add(data.token);
-        setLoading(true);
-        let dataReceived = JSON.parse(data);
-        toast.dismiss();
+  //   const subscription = gen.subscribe(csvUploadInitiated, ({ data }) => {
+  //     if (!hasMap.has(data.token)) {
+  //       hasMap.add(data.token);
+  //       setLoading(true);
+  //       let dataReceived = JSON.parse(data);
+  //       toast.dismiss();
 
-        if (dataReceived?.rowsInserted) {
-          dataReceived.rowsInserted =
-            (dataReceived?.rowsInserted &&
-              JSON.parse(dataReceived?.rowsInserted)) ||
-            0;
-          scount = scount + dataReceived?.rowsInserted;
-        }
-        if (dataReceived?.rowsFailed) {
-          dataReceived.rowsFailed =
-            dataReceived?.rowsFailed && JSON.parse(dataReceived?.rowsFailed);
-          ecount = ecount + dataReceived?.rowsFailed;
-        }
+  //       if (dataReceived?.rowsInserted) {
+  //         dataReceived.rowsInserted =
+  //           (dataReceived?.rowsInserted &&
+  //             JSON.parse(dataReceived?.rowsInserted)) ||
+  //           0;
+  //         scount = scount + dataReceived?.rowsInserted;
+  //       }
+  //       if (dataReceived?.rowsFailed) {
+  //         dataReceived.rowsFailed =
+  //           dataReceived?.rowsFailed && JSON.parse(dataReceived?.rowsFailed);
+  //         ecount = ecount + dataReceived?.rowsFailed;
+  //       }
 
-        // get failed index
-        failedRowIndexes = [...failedRowIndexes, ...dataReceived.failures];
+  //       // get failed index
+  //       failedRowIndexes = [...failedRowIndexes, ...dataReceived.failures];
 
-        if (dataReceived?.currentChunk == dataReceived?.totalChunks) {
-          setTimeout(async () => {
-            setImportModal(() => !importModal);
-            subscription.unsubscribe();
-            if (ecount == 0 && scount > 0) {
-              toast("正常にインポートされました。", successToastSettings);
-              Admin ? fetchOrg() : withDeviceDetails([]);
-            }
+  //       if (dataReceived?.currentChunk == dataReceived?.totalChunks) {
+  //         setTimeout(async () => {
+  //           setImportModal(() => !importModal);
+  //           subscription.unsubscribe();
+  //           if (ecount == 0 && scount > 0) {
+  //             toast("正常にインポートされました。", successToastSettings);
+  //             Admin ? fetchOrg() : withDeviceDetails([]);
+  //           }
 
-            if (ecount > 0) {
-              toast(
-                `${ecount} 行のデータインポートに失敗しました`,
-                errorToastSettings
-              );
-              try {
-                let csvLink = await api.post(currentAPI, {
-                  failures: failedRowIndexes,
-                });
-                setDownloadCsvLink(csvLink.data.data.failureFile);
-              } finally {
-                Admin ? fetchOrg() : withDeviceDetails([]);
-              }
-            }
-          }, 1500);
-          setLoading(false);
-          setCsvUploadInitiated(() => null);
-          setCurrentAPI(() => null);
-        }
-      }
-    });
-    setSubscriptionTrack(subscription);
-    return () => subscription.unsubscribe();
-  }, [csvUploadInitiated]);
+  //           if (ecount > 0) {
+  //             toast(
+  //               `${ecount} 行のデータインポートに失敗しました`,
+  //               errorToastSettings
+  //             );
+  //             try {
+  //               let csvLink = await api.post(currentAPI, {
+  //                 failures: failedRowIndexes,
+  //               });
+  //               setDownloadCsvLink(csvLink.data.data.failureFile);
+  //             } finally {
+  //               Admin ? fetchOrg() : withDeviceDetails([]);
+  //             }
+  //           }
+  //         }, 1500);
+  //         setLoading(false);
+  //         setCsvUploadInitiated(() => null);
+  //         setCurrentAPI(() => null);
+  //       }
+  //     }
+  //   });
+  //   setSubscriptionTrack(subscription);
+  //   return () => subscription.unsubscribe();
+  // }, [csvUploadInitiated]);
 
   const handelImport = async (file) => {
     let files;
@@ -462,14 +456,14 @@ export default function UserDetails() {
     const convertAndUpload = async (uploadFunction) => {
       const res = await convertBase64(file);
       files = res.split(",")[1];
-      let ids = selectedRows.map((el) => el.id);
+      // let ids = selectedRows.map((el) => el.id);
       const payload = { file: files, operation: "dynamic" };
 
       uploadFunction(payload);
     };
 
-      // If activeButton is "employee", upload using uploadCsvFile
-      await convertAndUpload(uploadCsvFile);
+    // If activeButton is "employee", upload using uploadCsvFile
+    await convertAndUpload(uploadCsvFile);
   };
 
   async function uploadCsvFile(payload) {
@@ -477,12 +471,16 @@ export default function UserDetails() {
       setLoading(true);
       payload.channel =
         new Date().getTime() + "id" + organizationIdForChannel + "csvUpload";
-      setCsvUploadInitiated(() => payload.channel);
-      setCurrentAPI("employees/import");
+      // setCsvUploadInitiated(() => payload.channel);
+      // setCurrentAPI("employees/import");
       let result = await api.post("employees/import", payload);
+      if (result.data.status.code == code.OK) {
+        toast("正常にインポートされました。", successToastSettings);
+      }
+      setLoading(false);
     } catch (err) {
       setLoading(false);
-      subscriptionTrack.unsubscribe();
+      // subscriptionTrack.unsubscribe();
       toast("インポートに失敗しました", errorToastSettings);
     }
   }
@@ -547,7 +545,7 @@ export default function UserDetails() {
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="mr-2"
+        className=""
       >
         <g clipPath="url(#clip0_5185_3856)">
           <path
@@ -719,12 +717,11 @@ export default function UserDetails() {
       )}
       {importModal && (
         <ImportUserModal
-        modelToggle={modelToggle}
-        option={option}
-        onCloseHandler={() => {
-          setImportModal(false);
-        }}
-        onClickImport={handelImport}
+          modelToggle={importModal}
+          onCloseHandler={() => {
+            setImportModal(false);
+          }}
+          onClickImport={handelImport}
         />
       )}
       {exportModal && (

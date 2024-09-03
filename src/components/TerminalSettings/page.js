@@ -63,6 +63,30 @@ export default function TerminalSettings() {
       .max(1024, "録音ファイルの保存容量は 1024MB を超えることはできません")
       .typeError("ファイルサイズを数字で入力してください"),
   });
+  function editIcon() {
+    return (
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className=""
+      >
+        <g clipPath="url(#clip0_5185_3856)">
+          <path
+            d="M5 19H6.2615L16.498 8.7635L15.2365 7.502L5 17.7385V19ZM4.404 20.5C4.14783 20.5 3.93317 20.4133 3.76 20.24C3.58667 20.0668 3.5 19.8522 3.5 19.596V17.8635C3.5 17.6197 3.54683 17.3873 3.6405 17.1663C3.734 16.9453 3.86283 16.7527 4.027 16.5885L16.6905 3.93075C16.8417 3.79342 17.0086 3.68733 17.1913 3.6125C17.3741 3.5375 17.5658 3.5 17.7663 3.5C17.9668 3.5 18.1609 3.53558 18.3488 3.60675C18.5368 3.67792 18.7032 3.79108 18.848 3.94625L20.0693 5.18275C20.2244 5.32758 20.335 5.49425 20.401 5.68275C20.467 5.87125 20.5 6.05975 20.5 6.24825C20.5 6.44942 20.4657 6.64133 20.397 6.824C20.3283 7.00683 20.2191 7.17383 20.0693 7.325L7.4115 19.973C7.24733 20.1372 7.05475 20.266 6.83375 20.3595C6.61275 20.4532 6.38033 20.5 6.1365 20.5H4.404ZM15.8562 8.14375L15.2365 7.502L16.498 8.7635L15.8562 8.14375Z"
+            fill="#19388B"
+          />
+        </g>
+        <defs>
+          <clipPath id="clip0_5185_3856">
+            <rect width="24" height="24" fill="white" />
+          </clipPath>
+        </defs>
+      </svg>
+    );
+  }
   function exportIcon() {
     return (
       <svg
@@ -985,7 +1009,7 @@ export default function TerminalSettings() {
           py={"xl:py-2.5 md:py-1.5 py-1.5"}
           px={"xl:px-[20px] md:px-[22.5px] px-[22.5px] "}
           borderColor={"border-customBlue bg-white"}
-          icon={() => <EditIcon fill={"#214BB9"} />}
+          icon={() => editIcon()}
         />
       </div>
       <div className=" p-[16px] bg-white">
@@ -1332,7 +1356,7 @@ export default function TerminalSettings() {
                   textColor="#7B7B7B"
                   htmlFor="vibrateOnRequestReceived"
                 /> */}
-                <div className="bg-white  pl-4 sm:pl-0 rounded-lg ">
+                <div className="bg-white  md:pl-4 pl-0 rounded-lg ">
                   <ToggleBoxMedium
                     toggle={userDetailsInfo.vibrateOnRequestReceived}
                     setToggle={(vibrateOnRequestReceived) => {
@@ -1369,7 +1393,7 @@ export default function TerminalSettings() {
                   htmlFor="vibrationOnPtt"
                 /> */}
                 <div>
-                  <div className="bg-white  pl-4 sm:pl-0 rounded-lg">
+                  <div className="bg-white  md:pl-4 pl-0 rounded-lg">
                     <ToggleBoxMedium
                       toggle={userDetailsInfo.vibrationOnPtt}
                       setToggle={(vibrationOnPtt) => {
@@ -1400,7 +1424,7 @@ export default function TerminalSettings() {
                   </div>
                 </div>
               </div>
-              <div className="mb-6 pl-4 sm:pl-0">
+              <div className="mb-6 md:pl-4 pl-0">
                 <DropdownMedium
                   borderRound={"rounded-lg"}
                   padding={"py-2 pr-[120px]"}
@@ -1566,7 +1590,7 @@ export default function TerminalSettings() {
           <div className="w-full md:w-1/2 flex flex-col ">
             <div className="">
               <div className="2xl:mb-[19px]">
-                <div className="bg-white mb-[13px] md:mb-[45px] md:mt-[-8px]  pl-4 sm:pl-0 rounded-lg">
+                <div className="bg-white mb-[13px] md:mb-[45px] md:mt-[-8px]  md:pl-4 pl-0 rounded-lg">
                   <ToggleBoxMedium
                     toggle={userDetailsInfo.isRecordingSettings}
                     setToggle={(isRecordingSettings) => {
@@ -1596,7 +1620,7 @@ export default function TerminalSettings() {
                   />
                 </div>
               </div>
-              <div className="mt-[8px] pl-4 sm:pl-0 2xl:mb-6">
+              <div className="mt-[8px] md:pl-4 pl-0 2xl:mb-6">
                 <DynamicLabel
                   text={intl.user_voice_recording_storage_location}
                   textColor="#7B7B7B"
