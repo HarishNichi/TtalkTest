@@ -12,7 +12,7 @@ import { useAppSelector } from "@/redux/hooks";
 import ViewLog from "@/components/Logs/page";
 import Other from "@/components/Other/page";
 import TerminalSettings from "@/components/TerminalSettings/page";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function UserDetail() {
   const [tabKey, setTabKey] = useState("1");
@@ -27,6 +27,7 @@ export default function UserDetail() {
   };
   return (
     <div className="mb-[16px]">
+        <ToastContainer />
       <Breadcrumb links={userSubSectionLinks} />
       <div className="text-[20px] font-semibold text-[#0D0E11]">
         {Employee.name}

@@ -1015,7 +1015,6 @@ export default function Group({ children, tab }) {
   return (
     <>
       {loading && <LoaderOverlay />}
-      <ToastContainer />
       <div>
         <div className="flex justify-between mb-2 xl:mb-2 "></div>
         <div className="flex flex-col justify-between  md:flex-row md:space-y-0 md:space-x-4 pt-[10px] pb-[20px]">

@@ -574,7 +574,6 @@ export default function UserDetails() {
   return (
     <>
       {loading && <LoaderOverlay />}
-      <ToastContainer />
       <div className="flex justify-end mb-4  space-x-4">
         <IconOutlineBtn
           text={intl.company_list_company_import}
