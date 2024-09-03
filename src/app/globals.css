@@ -543,3 +543,22 @@ input[type="checkbox"]:checked::after {
   overflow: visible;
   cursor: pointer;
 }
+
+.Toastify__toast-body {
+  padding-left: 40px !important;
+  padding-right: 40px !important;
+  padding-top: 16px !important;
+  padding-bottom: 16px !important;
+  margin: 0px;
+  border-radius: 8px;
+}
+
+.Toastify__toast {
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+.Toastify__toast-container {
+  margin: 0px !important;
+  padding: 0px !important;
+}
