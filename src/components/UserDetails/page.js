@@ -35,6 +35,7 @@ import { Modal as AntModal } from "antd";
 import UserEdit from "../UserEdit/page";
 import { sampleLinks } from "@/utils/constant";
 
+
 import {
   fileName,
   tableDefaultPageSizeOption,
@@ -48,7 +49,9 @@ import {
 } from "@/utils/constant";
 import DropdownMedium from "../Input/dropdownMedium";
 import TextPlain from "../Input/textPlain";
-
+import Amplify from "@aws-amplify/core";
+import * as gen from "@/generated";
+Amplify.configure(gen.config);
 // Yup schema to validate the form
 const schema = Yup.object().shape({
   password: Yup.string()
@@ -91,6 +94,19 @@ export default function UserDetails() {
   const [touched, setTouched] = useState({});
   let [type1, setType1] = useState("password");
   let [type2, setType2] = useState("password");
+  const auth = localStorage.getItem("accessToken");
+  const isAuthenticated = auth ? true : false;
+  const UserData = useAppSelector((state) => state.userReducer.user);
+  let Admin = false;
+  let organizationIdForChannel;
+  if (isAuthenticated && Object.keys(UserData).length > 0) {
+    const User = UserData ? JSON.parse(UserData) : "";
+    organizationIdForChannel = User.id;
+    const roles = User?.role ? JSON.parse(User.role) : [];
+    Admin = roles ? roles.some((role) => role.toLowerCase() == "admin") : false;
+  }
+  const [received, setReceived] = useState("");
+
   function importHandler() {
     setTimeout(() => {
       setImportModal(() => true);
@@ -99,6 +115,7 @@ export default function UserDetails() {
   useEffect(() => {
     downloadCsvLink && CSVDownloadRef.current.click();
   }, [downloadCsvLink]);
+
 
   async function exportCSVFile() {
     try {
@@ -150,198 +167,23 @@ export default function UserDetails() {
       />
     );
   }
-  useEffect(() => {
+
+  const convertBase64 = function (file) {
     /* eslint-disable no-undef*/
-    let hasMap = new Set();
-    if (!csvUploadInitiated) {
-      setLoading(false);
-      return;
-    }
-    toast.dismiss();
-    let scount = 0;
-    let ecount = 0;
-    let failedRowIndexes = [];
-
-    const subscription = gen.subscribe(csvUploadInitiated, ({ data }) => {
-      if (!hasMap.has(data.token)) {
-        hasMap.add(data.token);
-        setLoading(true);
-        let dataReceived = JSON.parse(data);
-        toast.dismiss();
-
-        if (dataReceived?.rowsInserted) {
-          dataReceived.rowsInserted =
-            (dataReceived?.rowsInserted &&
-              JSON.parse(dataReceived?.rowsInserted)) ||
-            0;
-          scount = scount + dataReceived?.rowsInserted;
-        }
-        if (dataReceived?.rowsFailed) {
-          dataReceived.rowsFailed =
-            dataReceived?.rowsFailed && JSON.parse(dataReceived?.rowsFailed);
-          ecount = ecount + dataReceived?.rowsFailed;
-        }
-
-        // get failed index
-        failedRowIndexes = [...failedRowIndexes, ...dataReceived.failures];
-
-        if (dataReceived?.currentChunk == dataReceived?.totalChunks) {
-          setTimeout(async () => {
-            setImportModal(() => !importModal);
-            subscription.unsubscribe();
-            if (ecount == 0 && scount > 0) {
-              toast("正常にインポートされました。", successToastSettings);
-              Admin ? fetchOrg() : withDeviceDetails([]);
-            }
-
-            if (ecount > 0) {
-              toast(
-                `${ecount} 行のデータインポートに失敗しました`,
-                errorToastSettings
-              );
-              try {
-                let csvLink = await api.post(currentAPI, {
-                  failures: failedRowIndexes,
-                });
-                setDownloadCsvLink(csvLink.data.data.failureFile);
-              } finally {
-                Admin ? fetchOrg() : withDeviceDetails([]);
-              }
-            }
-          }, 1500);
-          setLoading(false);
-          setCsvUploadInitiated(() => null);
-          setCurrentAPI(() => null);
-        }
-      }
-    });
-    setSubscriptionTrack(subscription);
-    return () => subscription.unsubscribe();
-  }, [csvUploadInitiated]);
-  const handelImport = async (file) => {
-    let files;
-
-    // Helper function to convert and upload the file
-    const convertAndUpload = async (uploadFunction) => {
-      const res = await convertBase64(file);
-      files = res.split(",")[1];
-      let ids = selectedRows.map((el) => el.id);
-      const payload = { file: files, operation: "dynamic" };
-
-      if (activeButton === "employee") {
-        payload.operation = "dynamic";
-      }
-
-      if (activeButton === "bulk") {
-        payload.ids = ids;
-      }
-
-      if (activeButton === "bulk" && option === "settings") {
-        delete payload.operation;
-      }
-
-      uploadFunction(payload);
-    };
-
-    if (activeButton == "employee") {
-      // If activeButton is "employee", upload using uploadCsvFile
-      await convertAndUpload(uploadCsvFile);
-    } else if (activeButton == "bulk") {
-      if (selectedRows.length <= 0) {
-        // Display an error toast if no rows are selected
-        toast("ユーザーを選択してください。", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          theme: "colored",
-          type: "error",
-        });
-        setImportModal(false);
-        return;
-      }
-      const uploadFunctions = {
-        settings: uploadSettingCsvFile,
-        contacts: uploadContactCsvFile,
-        groups: uploadGroupCsvFile,
+    return new Promise((resolve) => {
+      var reader = new FileReader();
+      // Read file content on file loaded event
+      reader.onload = function (event) {
+        resolve(event.target.result);
       };
-      const selectedUploadFunction = uploadFunctions[option];
-      if (selectedUploadFunction) {
-        // If option is valid, upload using the corresponding function
-        await convertAndUpload(selectedUploadFunction);
-      }
-    }
-  };
-  useEffect(() => {
-    /* eslint-disable no-undef*/
-    let hasMap = new Set();
-    if (!csvUploadInitiated) {
-      setLoading(false);
-      return;
-    }
-    let scount = 0;
-    let ecount = 0;
-    let failedRowIndexes = [];
-    const subscription = gen.subscribe(csvUploadInitiated, async ({ data }) => {
-      if (!hasMap.has(data.token)) {
-        hasMap.add(data.token);
-        setLoading(true);
-        let dataReceived = JSON.parse(data);
-        toast.dismiss();
-        if (dataReceived?.rowsInserted) {
-          dataReceived.rowsInserted =
-            dataReceived?.rowsInserted &&
-            JSON.parse(dataReceived?.rowsInserted);
-          scount = scount + dataReceived?.rowsInserted;
-        }
-
-        if (dataReceived?.rowsFailed) {
-          dataReceived.rowsFailed =
-            dataReceived?.rowsFailed && JSON.parse(dataReceived?.rowsFailed);
-          ecount = ecount + dataReceived?.rowsFailed;
-        }
-
-        // get failed index
-        failedRowIndexes = [...failedRowIndexes, ...dataReceived.failures];
-        // finished loop
-        if (dataReceived?.currentChunk == dataReceived?.totalChunks) {
-          setFileName("");
-          setFile(null);
-
-          if (ecount == 0 && scount > 0) {
-            toast("正常にインポートされました。", successToastSettings);
-            subscription.unsubscribe();
-            setImportModal(() => !importModal);
-            fetchData();
-          }
-          if (ecount > 0) {
-            try {
-              setLoading(true);
-              let csvLink = await api.post("organizations/import", {
-                failures: failedRowIndexes,
-              });
-              setDownloadCsvLink(csvLink.data.data.failureFile);
-            } finally {
-              toast(
-                `${ecount} 行のデータインポートに失敗しました`,
-                errorToastSettings
-              );
-              subscription.unsubscribe();
-              setImportModal(() => !importModal);
-              fetchData();
-              setLoading(false);
-            }
-          }
-          setLoading(false);
-          setCsvUploadInitiated(() => null);
-        }
-      }
+      // Convert data to base64
+      reader.readAsDataURL(file);
     });
-    setSubscriptionTrack(subscription);
-    return () => subscription.unsubscribe();
-  }, [csvUploadInitiated]);
+  };
+
+
+
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     if (name == "password") {
@@ -357,17 +199,6 @@ export default function UserDetails() {
     validateHandler(schema, formValues, setErrors);
   }, [password, confirmPassword]);
 
-  const auth = localStorage.getItem("accessToken");
-  const isAuthenticated = auth ? true : false;
-  const UserData = useAppSelector((state) => state.userReducer.user);
-  let Admin = false;
-  let orgName;
-  if (isAuthenticated && Object.keys(UserData).length > 0) {
-    const User = UserData ? JSON.parse(UserData) : "";
-    const roles = User?.role ? JSON.parse(User.role) : [];
-    Admin = roles ? roles.some((role) => role.toLowerCase() == "admin") : false;
-    orgName = User.name;
-  }
 
   const fetchData = async (projectionList) => {
     setLoading(true);
@@ -555,6 +386,106 @@ export default function UserDetails() {
     Admin ? fetchOrg() : fetchData([]);
     fetchDevices();
   }, []);
+  useEffect(() => {
+    /* eslint-disable no-undef*/
+    let hasMap = new Set();
+    if (!csvUploadInitiated) {
+      setLoading(false);
+      return;
+    }
+    toast.dismiss();
+    let scount = 0;
+    let ecount = 0;
+    let failedRowIndexes = [];
+
+    const subscription = gen.subscribe(csvUploadInitiated, ({ data }) => {
+      if (!hasMap.has(data.token)) {
+        hasMap.add(data.token);
+        setLoading(true);
+        let dataReceived = JSON.parse(data);
+        toast.dismiss();
+
+        if (dataReceived?.rowsInserted) {
+          dataReceived.rowsInserted =
+            (dataReceived?.rowsInserted &&
+              JSON.parse(dataReceived?.rowsInserted)) ||
+            0;
+          scount = scount + dataReceived?.rowsInserted;
+        }
+        if (dataReceived?.rowsFailed) {
+          dataReceived.rowsFailed =
+            dataReceived?.rowsFailed && JSON.parse(dataReceived?.rowsFailed);
+          ecount = ecount + dataReceived?.rowsFailed;
+        }
+
+        // get failed index
+        failedRowIndexes = [...failedRowIndexes, ...dataReceived.failures];
+
+        if (dataReceived?.currentChunk == dataReceived?.totalChunks) {
+          setTimeout(async () => {
+            setImportModal(() => !importModal);
+            subscription.unsubscribe();
+            if (ecount == 0 && scount > 0) {
+              toast("正常にインポートされました。", successToastSettings);
+              Admin ? fetchOrg() : withDeviceDetails([]);
+            }
+
+            if (ecount > 0) {
+              toast(
+                `${ecount} 行のデータインポートに失敗しました`,
+                errorToastSettings
+              );
+              try {
+                let csvLink = await api.post(currentAPI, {
+                  failures: failedRowIndexes,
+                });
+                setDownloadCsvLink(csvLink.data.data.failureFile);
+              } finally {
+                Admin ? fetchOrg() : withDeviceDetails([]);
+              }
+            }
+          }, 1500);
+          setLoading(false);
+          setCsvUploadInitiated(() => null);
+          setCurrentAPI(() => null);
+        }
+      }
+    });
+    setSubscriptionTrack(subscription);
+    return () => subscription.unsubscribe();
+  }, [csvUploadInitiated]);
+
+  const handelImport = async (file) => {
+    let files;
+
+    // Helper function to convert and upload the file
+    const convertAndUpload = async (uploadFunction) => {
+      const res = await convertBase64(file);
+      files = res.split(",")[1];
+      let ids = selectedRows.map((el) => el.id);
+      const payload = { file: files, operation: "dynamic" };
+
+      uploadFunction(payload);
+    };
+
+      // If activeButton is "employee", upload using uploadCsvFile
+      await convertAndUpload(uploadCsvFile);
+  };
+
+  async function uploadCsvFile(payload) {
+    try {
+      setLoading(true);
+      payload.channel =
+        new Date().getTime() + "id" + organizationIdForChannel + "csvUpload";
+      setCsvUploadInitiated(() => payload.channel);
+      setCurrentAPI("employees/import");
+      let result = await api.post("employees/import", payload);
+    } catch (err) {
+      setLoading(false);
+      subscriptionTrack.unsubscribe();
+      toast("インポートに失敗しました", errorToastSettings);
+    }
+  }
   function importIcon() {
     return (
       <svg
@@ -634,8 +565,10 @@ export default function UserDetails() {
   }
 
   function deviceName(myId) {
-    const matchingOption = deviceList.find(dropDownOption => dropDownOption.value === myId);
-    return matchingOption? matchingOption.label : '';
+    const matchingOption = deviceList.find(
+      (dropDownOption) => dropDownOption.value === myId
+    );
+    return matchingOption ? matchingOption.label : "";
   }
   return (
     <>
@@ -723,7 +656,7 @@ export default function UserDetails() {
           </div>
         </div>
 
-        <div className="flex flex-col w-full space-y-2 p-[16px] pl-0 mt-[2vw] mb-[2vw]">
+        <div className="flex flex-col w-full space-y-2 p-[16px] pt-0 md:pt-[16px]  md:mt-[2vw] mb-[2vw]">
           <div className="text-sm font-normal">電話番号</div>
           <div className="text-sm font-semibold">
             {userDetails?.phone || "-"}
@@ -786,17 +719,12 @@ export default function UserDetails() {
       )}
       {importModal && (
         <ImportUserModal
-          modelToggle={importModal}
-          onCloseHandler={setImportModal}
-          file={file}
-          setFile={setFile}
-          fileName={fileName}
-          setFileName={setFileName}
-          fileValidationError={fileValidationError}
-          setFileValidationError={setFileValidationError}
-          operation="dynamic"
-          uploadCsvFile={(payload) => uploadCsvFile(payload)}
-          sampleLink={sampleLinks().companyImport}
+        modelToggle={modelToggle}
+        option={option}
+        onCloseHandler={() => {
+          setImportModal(false);
+        }}
+        onClickImport={handelImport}
         />
       )}
       {exportModal && (
@@ -879,7 +807,7 @@ export default function UserDetails() {
           </div>
         </Modal>
       )}
-          <a
+      <a
         id={"linkCsv"}
         ref={CSVDownloadRef}
         href={downloadCsvLink}

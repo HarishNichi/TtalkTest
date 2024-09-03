@@ -89,7 +89,7 @@ export default function Other() {
     }
 
     try {
-      setLoading(true)
+      setLoading(true);
       const response = await updateEmployee({
         id: Employee.id,
         type: "resetPassword",
@@ -120,216 +120,213 @@ export default function Other() {
 
   return (
     <>
-     {passwordModal && (
-          <Modal
-            height="500px"
-            fontSize="text-xl"
-            fontWeight="font-semibold"
-            textColor="#19388B"
-            text={intl.user_details_password_reset_btn}
-            onCloseHandler={() => {
-              setPassword(null);
-              setConfirmPassword(null);
-              setPasswordModal(false);
-              setErrors(null);
-              setTouched({});
-            }}
-            contentPaddingTop="pt-1"
-            contentPadding="px-0"
-            modalFooter={() => (
-              <div className="flex gap-x-3">
-                <div>
-                  <IconLeftBtn
-                    text="キャンセル"
-                    textColor={
-                      "text-white font-semibold text-sm w-full rounded-lg"
-                    }
-                    py={"py-2"}
-                    px={"px-[10.5px] md:px-[17.5px]"}
-                    bgColor={""}
-                    textBold={true}
-                    icon={() => {
-                      return null;
-                    }}
-                    onClick={() => {
-                      setPassword(null);
-                      setConfirmPassword(null);
-                      setPasswordModal(false);
-                      setErrors(null);
-                      setTouched({});
-                    }}
-                  />
-                </div>
-                <div>
-                  <IconLeftBtn
-                    text={intl.reset_submit_btn}
-                    textColor={
-                      "text-white font-semibold text-sm w-full rounded-lg"
-                    }
-                    py={"py-2"}
-                    px={"px-[10.5px] md:px-[17.5px]"}
-                    bgColor={""}
-                    textBold={true}
-                    icon={() => {
-                      return null;
-                    }}
-                    onClick={() => {
-                      passwordReset();
-                    }}
-                  />
-                </div>
+      {passwordModal && (
+        <Modal
+          height="500px"
+          fontSize="text-xl"
+          fontWeight="font-semibold"
+          textColor="#19388B"
+          text={intl.user_details_password_reset_btn}
+          onCloseHandler={() => {
+            setPassword(null);
+            setConfirmPassword(null);
+            setPasswordModal(false);
+            setErrors(null);
+            setTouched({});
+          }}
+          contentPaddingTop="pt-1"
+          contentPadding="px-0"
+          modalFooter={() => (
+            <div className="flex gap-x-3">
+              <div>
+                <IconLeftBtn
+                  text="キャンセル"
+                  textColor={
+                    "text-white font-semibold text-sm w-full rounded-lg"
+                  }
+                  py={"py-2"}
+                  px={"px-[10.5px] md:px-[17.5px]"}
+                  bgColor={""}
+                  textBold={true}
+                  icon={() => {
+                    return null;
+                  }}
+                  onClick={() => {
+                    setPassword(null);
+                    setConfirmPassword(null);
+                    setPasswordModal(false);
+                    setErrors(null);
+                    setTouched({});
+                  }}
+                />
               </div>
-            )}
-          >
-            <div className="flex flex-col">
-              <div className="flex-grow py-[27px]">
-                <form className="grid grid-cols-1 gap-y-3">
-                  <div className="flex flex-col">
-                    <div
-                      className={`flex items-center ${
-                        errors?.password && touched?.password ? "" : "mb-8"
-                      }`}
-                    >
-                      <input
-                        type={type1}
-                        id="password"
-                        value={password}
-                        name="password"
-                        className={`rounded-xl
-                        py-3
-                        focus:outline-none focus:ring-2 focus:ring-customBlue
-                        border border-gray-400
-                        block w-full pl-5 text-sm pr-[30px] font-medium text-black`}
-                        placeholder={intl.reset_new_password_label}
-                        onChange={(event) => {
-                          handleChange(event);
-                        }}
-                      />
-                      {type1 == "password" ? (
-                        <IoEyeOffOutline
-                          className="text-2xl text-[#A3A3A3] -ml-12"
-                          onClick={() => {
-                            setType1("text");
-                          }}
-                        />
-                      ) : (
-                        <IoEyeOutline
-                          className="text-2xl text-[#A3A3A3] -ml-12"
-                          onClick={() => {
-                            setType1("password");
-                          }}
-                        />
-                      )}
-                    </div>
-                    {errors?.password && touched?.password && (
-                      <div
-                        className="mb-8 pl-1 validation-font text-left"
-                        style={{ color: "red" }}
-                      >
-                        {errors?.password}
-                      </div>
-                    )}
-                    <div
-                      className={`flex items-center ${
-                        errors?.confirmPassword && touched?.confirmPassword
-                          ? ""
-                          : ""
-                      }`}
-                    >
-                      <input
-                        type={type2}
-                        id="passwordConfirm"
-                        name="confirmPassword"
-                        value={confirmPassword}
-                        className={`rounded-xl
-                        py-3
-                        focus:outline-none focus:ring-2 focus:ring-customBlue
-                        border border-gray-400
-                        block w-full pl-5 text-sm pr-[30px] font-medium text-black`}
-                        placeholder={
-                          intl.forgot_autenticate_password_placeholder
-                        }
-                        onChange={(event) => {
-                          handleChange(event);
-                        }}
-                      />
-                      {type2 == "password" ? (
-                        <IoEyeOffOutline
-                          className="text-2xl text-[#A3A3A3] -ml-12"
-                          onClick={() => {
-                            setType2("text");
-                          }}
-                        />
-                      ) : (
-                        <IoEyeOutline
-                          className="text-2xl text-[#A3A3A3] -ml-12"
-                          onClick={() => {
-                            setType2("password");
-                          }}
-                        />
-                      )}
-                    </div>
-                    {errors?.confirmPassword && touched?.confirmPassword && (
-                      <div
-                        className="mb-4 text-left pl-1 validation-font text-left"
-                        style={{ color: "red" }}
-                      >
-                        {errors?.confirmPassword}
-                      </div>
-                    )}
-                  </div>
-                </form>
+              <div>
+                <IconLeftBtn
+                  text={intl.reset_submit_btn}
+                  textColor={
+                    "text-white font-semibold text-sm w-full rounded-lg"
+                  }
+                  py={"py-2"}
+                  px={"px-[10.5px] md:px-[17.5px]"}
+                  bgColor={""}
+                  textBold={true}
+                  icon={() => {
+                    return null;
+                  }}
+                  onClick={() => {
+                    passwordReset();
+                  }}
+                />
               </div>
             </div>
-          </Modal>
-        )}
-    <div className="bg-white p-[32px]">
-      <div className="ml-[16px] font-normal text-sm mb-1">
-        {intl.login_password_placeholder}
-      </div>
-      <div>
-        <div className="flex ml-[16px] mb-[16px]">
+          )}
+        >
+          <div className="flex flex-col">
+            <div className="flex-grow py-[27px]">
+              <form className="grid grid-cols-1 gap-y-3">
+                <div className="flex flex-col">
+                  <div
+                    className={`flex items-center ${
+                      errors?.password && touched?.password ? "" : "mb-8"
+                    }`}
+                  >
+                    <input
+                      type={type1}
+                      id="password"
+                      value={password}
+                      name="password"
+                      className={`rounded-xl
+                        py-3
+                        focus:outline-none focus:ring-2 focus:ring-customBlue
+                        border border-gray-400
+                        block w-full pl-5 text-sm pr-[30px] font-medium text-black`}
+                      placeholder={intl.reset_new_password_label}
+                      onChange={(event) => {
+                        handleChange(event);
+                      }}
+                    />
+                    {type1 == "password" ? (
+                      <IoEyeOffOutline
+                        className="text-2xl text-[#A3A3A3] -ml-12"
+                        onClick={() => {
+                          setType1("text");
+                        }}
+                      />
+                    ) : (
+                      <IoEyeOutline
+                        className="text-2xl text-[#A3A3A3] -ml-12"
+                        onClick={() => {
+                          setType1("password");
+                        }}
+                      />
+                    )}
+                  </div>
+                  {errors?.password && touched?.password && (
+                    <div
+                      className="mb-8 pl-1 validation-font text-left"
+                      style={{ color: "red" }}
+                    >
+                      {errors?.password}
+                    </div>
+                  )}
+                  <div
+                    className={`flex items-center ${
+                      errors?.confirmPassword && touched?.confirmPassword
+                        ? ""
+                        : ""
+                    }`}
+                  >
+                    <input
+                      type={type2}
+                      id="passwordConfirm"
+                      name="confirmPassword"
+                      value={confirmPassword}
+                      className={`rounded-xl
+                        py-3
+                        focus:outline-none focus:ring-2 focus:ring-customBlue
+                        border border-gray-400
+                        block w-full pl-5 text-sm pr-[30px] font-medium text-black`}
+                      placeholder={intl.forgot_autenticate_password_placeholder}
+                      onChange={(event) => {
+                        handleChange(event);
+                      }}
+                    />
+                    {type2 == "password" ? (
+                      <IoEyeOffOutline
+                        className="text-2xl text-[#A3A3A3] -ml-12"
+                        onClick={() => {
+                          setType2("text");
+                        }}
+                      />
+                    ) : (
+                      <IoEyeOutline
+                        className="text-2xl text-[#A3A3A3] -ml-12"
+                        onClick={() => {
+                          setType2("password");
+                        }}
+                      />
+                    )}
+                  </div>
+                  {errors?.confirmPassword && touched?.confirmPassword && (
+                    <div
+                      className="mb-4 text-left pl-1 validation-font text-left"
+                      style={{ color: "red" }}
+                    >
+                      {errors?.confirmPassword}
+                    </div>
+                  )}
+                </div>
+              </form>
+            </div>
+          </div>
+        </Modal>
+      )}
+      <div className="bg-white p-[32px]">
+        <div className="ml-[16px] font-normal text-sm mb-1">
+          {intl.login_password_placeholder}
+        </div>
+        <div>
+          <div className="flex ml-[16px] mb-[16px]">
+            <Button
+              type="default"
+              style={{
+                color: "#BA1818", // Red text color
+                borderColor: "#BA1818",
+                fontWeight: 600, // Font weight 600
+                fontSize: "16px",
+
+                height: "40px",
+                borderRadius: "4px",
+              }}
+              onClick={() => {
+                setErrors(null);
+                setPasswordModal(true);
+              }}
+            >
+              {intl.user_details_password_reset_btn}
+            </Button>
+          </div>
+        </div>
+        <div className="ml-[16px] font-normal text-sm mb-1">
+          {intl.user_terminal_settings}
+        </div>
+        <div className="ml-[16px]">
           <Button
             type="default"
             style={{
-              color: "#BA1818", // Red text color
-              borderColor: "#BA1818",
+              color: "#19388B", // Custom blue text color
+              borderColor: "#19388B",
               fontWeight: 600, // Font weight 600
               fontSize: "16px",
-              padding: "10px 22.5px",
               height: "40px",
               borderRadius: "4px",
             }}
-            onClick={()=>{
-              setErrors(null);
-              setPasswordModal(true);
-            }}
           >
-            {intl.user_details_password_reset_btn}
+            {intl.user_restore_default_settings}
           </Button>
         </div>
       </div>
-      <div className="ml-[16px] font-normal text-sm mb-1">
-        {intl.user_terminal_settings}
-      </div>
-      <div className="ml-[16px]">
-        <Button
-          type="default"
-          style={{
-            color: "#19388B", // Custom blue text color
-            borderColor: "#19388B",
-            fontWeight: 600, // Font weight 600
-            fontSize: "16px",
-            padding: "10px 22.5px",
-            height: "40px",
-            borderRadius: "4px",
-          }}
-        >
-          {intl.user_restore_default_settings}
-        </Button>
-      </div>
-    </div>
-    {loading && <LoaderOverlay />}
+      {loading && <LoaderOverlay />}
       <ToastContainer />
     </>
   );

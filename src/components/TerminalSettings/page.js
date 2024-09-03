@@ -213,13 +213,11 @@ export default function TerminalSettings() {
   const [csvUploadInitiated, setCsvUploadInitiated] = useState(null);
   const CSVDownloadRef = useRef("");
 
-  
   useEffect(() => {
     downloadCsvLink && CSVDownloadRef.current.click();
   }, [downloadCsvLink]);
 
   useEffect(() => {
-
     /* eslint-disable no-undef*/
     let hasMap = new Set();
 
@@ -234,7 +232,7 @@ export default function TerminalSettings() {
     const subscription = gen.subscribe(csvUploadInitiated, async ({ data }) => {
       let dataReceived = JSON.parse(data);
       if (!hasMap.has(dataReceived.token)) {
-        hasMap.add(dataReceived.token)
+        hasMap.add(dataReceived.token);
         setLoading(true);
 
         if (dataReceived?.rowsInserted) {
@@ -253,7 +251,6 @@ export default function TerminalSettings() {
 
         // get failed index
         failedRowIndexes = [...failedRowIndexes, ...dataReceived.failures];
-
 
         if (dataReceived?.currentChunk == dataReceived?.totalChunks) {
           setFile(null);
@@ -1569,7 +1566,7 @@ export default function TerminalSettings() {
           <div className="w-full md:w-1/2 flex flex-col ">
             <div className="">
               <div className="2xl:mb-[19px]">
-                <div className="bg-white mb-[13px] md:mb-[45px] md:mt-[-8px]  pl-4 rounded-lg">
+                <div className="bg-white mb-[13px] md:mb-[45px] md:mt-[-8px]  pl-4 sm:pl-0 rounded-lg">
                   <ToggleBoxMedium
                     toggle={userDetailsInfo.isRecordingSettings}
                     setToggle={(isRecordingSettings) => {
@@ -2506,7 +2503,7 @@ export default function TerminalSettings() {
                 }}
                 onClick={() => {
                   exportCSVFile();
-                  setExportModal(false)
+                  setExportModal(false);
                 }}
               />
             );
@@ -2568,7 +2565,7 @@ export default function TerminalSettings() {
           />
         </>
       )}
-       <a
+      <a
         id={"linkCsv"}
         ref={CSVDownloadRef}
         href={downloadCsvLink}
