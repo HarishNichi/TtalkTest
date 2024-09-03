@@ -1,8 +1,15 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Breadcrumb from "@/components/Layout/breadcrumb";
-import { userSubSectionLinks, maxLimit, code } from "@/utils/constant";
+import {
+  userSubSectionLinks,
+  maxLimit,
+  code,
+  csvFileNameRegex,
+  fileName,
+  sampleLinks,
+} from "@/utils/constant";
 import { Button, Tabs } from "antd";
 import Group from "@/components/Groups/page";
 import employee from "@/redux/features/employee";
@@ -30,12 +37,15 @@ import DynamicLabel from "../Label/dynamicLabel";
 import Progress from "../Input/progress";
 import DropdownMedium from "../Input/dropdownMedium";
 import Modal from "@/components/Modal/modal";
+import ImportModal from "@/components/ImportModal/importModal";
 
 import { validateHandler } from "@/validation/helperFunction";
 import TextPlain from "../Input/textPlain";
 import Medium from "../Input/medium";
 import api from "@/utils/api";
 import { HiSearch } from "react-icons/hi";
+import { exportPopup, importPopup } from "@/redux/features/pttBarSlice";
+import IconLeftBtn from "../Button/iconLeftBtn";
 
 export default function TerminalSettings() {
   const [loading, setLoading] = useState(false);
@@ -187,6 +197,146 @@ export default function TerminalSettings() {
   const [selectedRejection, setSelectedRejection] = useState(userInfo);
   const [touched, setTouched] = useState({});
   const [errors, setErrors] = useState(null);
+  const [exportModal, setExportModal] = useState(false);
+  const [importModal, setImportModal] = useState(false);
+  const [exportModalContact, setExportModalContact] = useState(false);
+  const exportIsOn = useAppSelector((state) => state.pttBarReducer.exportIsOn);
+  const [csvFileName, setCsvFileName] = useState("");
+  const [fileNameError, setFileNameError] = useState(null);
+  const [downloadCsvLink, setDownloadCsvLink] = useState(null);
+  const importIsOn = useAppSelector((state) => state.pttBarReducer.importIsOn);
+  const [fileValidationError, setFileValidationError] = useState(null);
+  const [csvUploadInitiated, setCsvUploadInitiated] = useState(null);
+  const CSVDownloadRef = useRef("");
+
+  
+  useEffect(() => {
+    downloadCsvLink && CSVDownloadRef.current.click();
+  }, [downloadCsvLink]);
+
+  useEffect(() => {
+
+    /* eslint-disable no-undef*/
+    let hasMap = new Set();
+
+    if (!csvUploadInitiated) {
+      setLoading(false);
+      return;
+    }
+    toast.dismiss();
+    let scount = 0;
+    let ecount = 0;
+    let failedRowIndexes = [];
+    const subscription = gen.subscribe(csvUploadInitiated, async ({ data }) => {
+      let dataReceived = JSON.parse(data);
+      if (!hasMap.has(dataReceived.token)) {
+        hasMap.add(dataReceived.token)
+        setLoading(true);
+
+        if (dataReceived?.rowsInserted) {
+          dataReceived.rowsInserted =
+            (dataReceived?.rowsInserted &&
+              JSON.parse(dataReceived?.rowsInserted)) ||
+            0;
+          scount = scount + dataReceived?.rowsInserted;
+        }
+
+        if (dataReceived?.rowsFailed) {
+          dataReceived.rowsFailed =
+            dataReceived?.rowsFailed && JSON.parse(dataReceived?.rowsFailed);
+          ecount = ecount + dataReceived?.rowsFailed;
+        }
+
+        // get failed index
+        failedRowIndexes = [...failedRowIndexes, ...dataReceived.failures];
+
+
+        if (dataReceived?.currentChunk == dataReceived?.totalChunks) {
+          setFile(null);
+          setFileName("");
+          dispatch(importPopup(false));
+          let result = await fetchEmpData(Employee.id);
+          result && dispatch(getEmployee(result));
+
+          setModelToggle(false);
+          if (ecount > 0) {
+            try {
+              setLoading(true);
+              let csvLink = api.post("employees/import-settings", {
+                failures: failedRowIndexes,
+              });
+              setDownloadCsvLink(csvLink.data.data.failureFile);
+            } catch (err) {
+              setLoading(false);
+            } finally {
+              toast(
+                `${ecount} 行のデータインポートに失敗しました`,
+                errorToastSettings
+              );
+              setLoading(false);
+            }
+          }
+          if (ecount == 0 && scount > 0) {
+            toast("正常にインポートされました。", successToastSettings);
+          }
+          subscription.unsubscribe();
+          setLoading(false);
+          setCsvUploadInitiated(() => null);
+        }
+      }
+    });
+    setSubscriptionTrack(subscription);
+    return () => subscription.unsubscribe();
+  }, [csvUploadInitiated]);
+
+  async function uploadSettingCsvFile(payload) {
+    try {
+      setLoading(true);
+      let channel = new Date().getTime() + "settingsCsvEmp";
+      setCsvUploadInitiated(() => channel);
+      let result = await api.post("employees/import-settings", {
+        file: payload.file,
+        ids: [Employee.id],
+        channel,
+      });
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      toast("インポートに失敗しました", errorToastSettings);
+    }
+  }
+
+  async function exportCSVFile() {
+    let data;
+    toast.dismiss();
+    if (!csvFileName) {
+      setFileNameError("ファイル名が必要です。");
+      return;
+    }
+    if (!csvFileNameRegex.test(csvFileName)) {
+      setFileNameError("ファイル名を確認してください。");
+      return;
+    }
+    setFileNameError("");
+    data = {
+      filename: csvFileName + ".csv",
+      ids: [Employee.id],
+    };
+
+    try {
+      setLoading(true);
+      let result = await api.post("/employees/export-settings", data);
+      setDownloadCsvLink(result.data.data.data.path);
+      dispatch(exportPopup(false));
+      setCsvFileName("");
+      toast("エクスポートが成功しました", successToastSettings);
+
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      toast("エクスポートに失敗しました", errorToastSettings);
+    }
+  }
   const fetchOtherData = async () => {
     setLoading(true);
     try {
@@ -460,7 +610,9 @@ export default function TerminalSettings() {
   const [history, setHistory] = useState("");
   const [organizationsData, setOrganizationsData] = useState(null);
   const auth = localStorage.getItem("accessToken");
+  const [file, setFile] = useState(null);
   const isAuthenticated = auth || false;
+  const [fileName, setFileName] = useState(null);
   let Admin = false;
   let orgId;
   const UserData = useAppSelector((state) => state.userReducer.user);
@@ -797,10 +949,9 @@ export default function TerminalSettings() {
           py={"xl:py-2.5 md:py-1.5 py-1.5  "}
           px={"xl:px-[32px] md:px-[33.5px] px-[33.5px]"}
           icon={() => exportIcon()}
-          // onClick={async () => {
-          //   setImportModal(false);
-          //   await importHandler();
-          // }}
+          onClick={async () => {
+            setExportModal(true);
+          }}
         />
         <IconOutlineBtn
           text={intl.company_list_company_import}
@@ -810,6 +961,9 @@ export default function TerminalSettings() {
           px={"xl:px-[20px] md:px-[22.5px] px-[22.5px] "}
           borderColor={"border-customBlue bg-white"}
           icon={() => importIcon()}
+          onClick={async () => {
+            setImportModal(() => true);
+          }}
         />
         <IconOutlineBtn
           text={intl.user_change_history}
@@ -2099,7 +2253,7 @@ export default function TerminalSettings() {
           <div className="w-full md:w-1/2 md:mb-12">
             <div className="mb-4 2xl:mb-6">
               <div className="bg-white mb-4 pl-4 rounded-lg">
-                <ToggleBoxMedium
+                {/* <ToggleBoxMedium
                   toggle={
                     organizationsData?.isTranscribe
                       ? userDetailsInfo.isTranscribe
@@ -2133,7 +2287,32 @@ export default function TerminalSettings() {
                     !organizationsData?.isTranscribe ||
                     !userInfo.isRecordingSettings
                   }
-                />
+                /> */}
+                <ToggleBoxMediumRevamp
+                  isDisabled={
+                    !organizationsData?.isTranscribe ||
+                    !userInfo.isRecordingSettings
+                  }
+                  checked={
+                    organizationsData?.isTranscribe
+                      ? userDetailsInfo.isTranscribe
+                      : false
+                  }
+                  setToggle={(isTranscribe) => {
+                    setUserDetailsInfo({
+                      ...userDetailsInfo,
+                      isTranscribe: isTranscribe,
+                    });
+                  }}
+                  toggle={
+                    organizationsData?.isTranscribe
+                      ? userDetailsInfo.isTranscribe
+                      : false
+                  }
+                  id={"Id"}
+                >
+                  <div className="text-[#7B7B7B]">{"文字おこし"}</div>
+                </ToggleBoxMediumRevamp>
               </div>
             </div>
 
@@ -2188,7 +2367,7 @@ export default function TerminalSettings() {
           <div className="w-full md:w-1/2 flex flex-col ">
             <div className="">
               <div className="bg-white  mb-4 pl-4 rounded-lg">
-                <ToggleBoxMedium
+                {/* <ToggleBoxMedium
                   toggle={
                     organizationsData?.isTranslate
                       ? userDetailsInfo.simultaneousInterpretation
@@ -2222,7 +2401,32 @@ export default function TerminalSettings() {
                     !organizationsData?.isTranslate ||
                     !userInfo.isRecordingSettings
                   }
-                />
+                /> */}
+                <ToggleBoxMediumRevamp
+                  isDisabled={
+                    !organizationsData?.isTranslate ||
+                    !userInfo.isRecordingSettings
+                  }
+                  checked={
+                    organizationsData?.isTranslate
+                      ? userDetailsInfo.simultaneousInterpretation
+                      : false
+                  }
+                  setToggle={(simultaneousInterpretation) => {
+                    setUserDetailsInfo({
+                      ...userDetailsInfo,
+                      simultaneousInterpretation: simultaneousInterpretation,
+                    });
+                  }}
+                  toggle={
+                    organizationsData?.isTranslate
+                      ? userDetailsInfo.simultaneousInterpretation
+                      : false
+                  }
+                  id={"Id"}
+                >
+                  <div className="text-[#7B7B7B]">{"同時通訳"}</div>
+                </ToggleBoxMediumRevamp>
               </div>
             </div>
 
@@ -2270,6 +2474,103 @@ export default function TerminalSettings() {
           </div>
         </div>
       </div>
+      {exportModal && (
+        <Modal
+          height="500px"
+          fontSize="text-xl"
+          fontWeight="font-semibold"
+          textColor="#19388B"
+          text={intl.company_list_company_export_title}
+          onCloseHandler={() => {
+            dispatch(exportPopup(false));
+            setCsvFileName("");
+            setFileNameError("");
+            setExportModal(false);
+          }}
+          contentPaddingTop="pt-1"
+          modalFooter={() => {
+            return (
+              <IconLeftBtn
+                text={"エクスポート"}
+                textColor={"text-white font-semibold text-[16px] w-full"}
+                py={"py-[11px]"}
+                px={"w-[84%]"}
+                bgColor={"bg-customBlue"}
+                textBold={true}
+                icon={() => {
+                  return null;
+                }}
+                onClick={() => {
+                  exportCSVFile();
+                  setExportModal(false)
+                }}
+              />
+            );
+          }}
+        >
+          <div className="flex flex-col">
+            <div className="flex-grow py-[20px] mb-4">
+              <form className="grid grid-cols-1 gap-y-3">
+                <div className="flex flex-col">
+                  <TextPlain
+                    type="text"
+                    for={"id"}
+                    placeholder={"ファイル名"}
+                    borderRound="rounded-xl"
+                    padding="p-[10px]"
+                    focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
+                    border="border border-gray-300"
+                    bg="bg-white"
+                    additionalClass="block w-full pl-5 text-base pr-[30px]"
+                    label={"ファイル名"}
+                    labelColor="#7B7B7B"
+                    id={"id"}
+                    isRequired={true}
+                    labelClass={"float-left"}
+                    value={csvFileName}
+                    onChange={(event) => {
+                      setCsvFileName(event.target.value);
+                    }}
+                  />
+
+                  {fileNameError && (
+                    <div className="validation-font text-sm text-[red] text-left">
+                      {fileNameError}
+                    </div>
+                  )}
+                </div>
+              </form>
+            </div>
+          </div>
+        </Modal>
+      )}
+      {importModal && (
+        <>
+          <ImportModal
+            modelToggle={importIsOn}
+            file={file}
+            setFile={setFile}
+            fileName={fileName}
+            setFileName={setFileName}
+            operation="update"
+            fileValidationError={fileValidationError}
+            setFileValidationError={setFileValidationError}
+            uploadCsvFile={(payload) => uploadSettingCsvFile(payload)}
+            onCloseHandler={() => {
+              dispatch(importPopup(false));
+              setImportModal(false);
+            }}
+            sampleLink={sampleLinks().settingsImport}
+          />
+        </>
+      )}
+       <a
+        id={"linkCsv"}
+        ref={CSVDownloadRef}
+        href={downloadCsvLink}
+        download
+        key={downloadCsvLink}
+      ></a>
     </>
   );
 }

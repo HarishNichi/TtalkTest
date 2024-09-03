@@ -119,7 +119,7 @@ export default function HistorySettingsList() {
     <>
       {loading && <LoaderOverlay />}
       <ToastContainer />
-      <div className="mb-1">
+      <div className="mb-[16px]">
         <Breadcrumb links={userDetailsLinks} />
       </div>
       <div className="flex  mb-4 ">
