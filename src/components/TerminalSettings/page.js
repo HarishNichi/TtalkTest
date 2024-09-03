@@ -964,7 +964,6 @@ export default function TerminalSettings() {
   return (
     <>
       {loading && <LoaderOverlay />}
-      <ToastContainer />
       <div className="flex justify-end mb-4  space-x-4">
         <IconOutlineBtn
           text={intl.company_list_company_export_title}

@@ -1158,7 +1158,6 @@ export default function Contact({ children, tab }) {
           </Modal>
         )}
       </div>
-      <ToastContainer />
       <a
         id={"linkCsv"}
         ref={CSVDownloadRefContact}

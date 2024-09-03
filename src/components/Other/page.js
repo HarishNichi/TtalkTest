@@ -327,7 +327,6 @@ export default function Other() {
         </div>
       </div>
       {loading && <LoaderOverlay />}
-      <ToastContainer />
     </>
   );
 }
