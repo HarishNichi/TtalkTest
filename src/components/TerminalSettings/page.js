@@ -46,9 +46,13 @@ import api from "@/utils/api";
 import { HiSearch } from "react-icons/hi";
 import { exportPopup, importPopup } from "@/redux/features/pttBarSlice";
 import IconLeftBtn from "../Button/iconLeftBtn";
+import Amplify from "@aws-amplify/core";
+import * as gen from "@/generated";
+Amplify.configure(gen.config);
 
 export default function TerminalSettings() {
   const [loading, setLoading] = useState(false);
+  const [subscriptionTrack, setSubscriptionTrack] = useState(null);
   const schema = Yup.object().shape({
     recordedFileStorageLocation: Yup.string().matches(
       /^(\/[0-9a-zA-Z]+)*\/?$/,
