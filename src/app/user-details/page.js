@@ -12,6 +12,7 @@ import { useAppSelector } from "@/redux/hooks";
 import ViewLog from "@/components/Logs/page";
 import Other from "@/components/Other/page";
 import TerminalSettings from "@/components/TerminalSettings/page";
+import { toast } from "react-toastify";
 
 export default function UserDetail() {
   const [tabKey, setTabKey] = useState("1");
@@ -19,6 +20,7 @@ export default function UserDetail() {
   const { TabPane } = Tabs;
 
   const onTabChange = (key) => {
+    toast.dismiss();
     // eslint-disable-next-line no-console
     console.log(`onTabChange: ${key}`);
     setTabKey(key);
