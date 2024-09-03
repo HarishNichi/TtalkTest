@@ -391,15 +391,8 @@ body {
   align-self: flex-start !important;
 }
 
-#userPage .Toastify__toast-body {
-  /* margin: auto 0; */
-  flex: 1 1 auto !important;
-  padding: 4px !important;
-  display: flex !important;
-  align-items: flex-start !important;
-}
 
-#userPage .Toastify__close-button > svg {
+ .Toastify__close-button > svg {
   fill: currentColor;
   height: 18px !important;
   width: 18px !important;
@@ -543,7 +536,6 @@ input[type="checkbox"]:checked::after {
   overflow: visible;
   cursor: pointer;
 }
-
 .Toastify__toast-body {
   padding-left: 40px !important;
   padding-right: 40px !important;
