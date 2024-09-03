@@ -140,7 +140,9 @@ export default function UserDetails() {
       setIsPdf(shouldOpenInNewTab);
       setExportModal(() => false);
       setCsvFileName("");
+      if (result?.data?.status?.code == 200) {
       toast("エクスポートが成功しました", successToastSettings);
+      }
       setLoading(false);
     } catch (err) {
       setLoading(false);
