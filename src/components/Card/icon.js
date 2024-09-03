@@ -17,7 +17,7 @@ export default function CardIcon({
             <div className="mb-2 text-[12px] tracking-tight text-gray-900">
               {title}
             </div>
-            <p className=" font-[600] text-[20px]">
+            <p className=" font-[600] text-[20px] dark:text-black">
               {value}
             </p>
           </div>
