@@ -879,6 +879,14 @@ export default function UserDetails() {
           </div>
         </Modal>
       )}
+          <a
+        id={"linkCsv"}
+        ref={CSVDownloadRef}
+        href={downloadCsvLink}
+        {...(shouldOpenInNewTab && { target: "_blank" })}
+        download
+        key={downloadCsvLink}
+      ></a>
     </>
   );
 }
