@@ -1680,11 +1680,11 @@ export default function TerminalSettings() {
               <div
                 className={`${
                   selectedButton && selectedType
-                    ? "col-span-4"
+                    ? "md:col-span-4"
                     : selectedButton
-                    ? "col-span-6"
-                    : "col-span-12"
-                } rounded-lg bg-[#f6f6f6]`}
+                    ? "md:col-span-6"
+                    : ""
+                } col-span-12 rounded-lg bg-[#f6f6f6]`}
               >
                 <div className="flex flex-col gap-y-2 rounded-lg p-4 w-full ">
                   {/* first section */}
@@ -1719,11 +1719,11 @@ export default function TerminalSettings() {
                 <div
                   className={`${
                     selectedButton && selectedType
-                      ? "col-span-4"
+                      ? "md:col-span-4"
                       : selectedButton
-                      ? "col-span-6"
+                      ? "md:col-span-6"
                       : ""
-                  } rounded-lg bg-[#f6f6f6]`}
+                  } col-span-12 rounded-lg bg-[#f6f6f6]`}
                 >
                   <div className="flex flex-col gap-y-2 rounded-lg p-4 w-full ">
                     {/* ptt */}
@@ -1823,7 +1823,7 @@ export default function TerminalSettings() {
 
               {selectedType && (
                 <div
-                  className="col-span-4 rounded-lg bg-[#f6f6f6]"
+                  className="md:col-span-4 col-span-12 rounded-lg bg-[#f6f6f6]"
                   key={reRender}
                 >
                   {selectedType == "ptt" ? (
