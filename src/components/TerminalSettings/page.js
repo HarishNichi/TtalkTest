@@ -262,7 +262,7 @@ export default function TerminalSettings() {
           let result = await fetchEmpData(Employee.id);
           result && dispatch(getEmployee(result));
 
-          setModelToggle(false);
+          setExportModal(false);
           if (ecount > 0) {
             try {
               setLoading(true);
