@@ -222,7 +222,7 @@ export default function TerminalSettings() {
     userInfo.notificationVolume
   );
   const [userDetailsInfo, setUserDetailsInfo] = useState(userInfo);
-  const [selectedRejection, setSelectedRejection] = useState(userInfo);
+  // const [selectedRejection, setSelectedRejection] = useState(userInfo);
   const [touched, setTouched] = useState({});
   const [errors, setErrors] = useState(null);
   const [exportModal, setExportModal] = useState(false);
@@ -241,7 +241,13 @@ export default function TerminalSettings() {
     downloadCsvLink && CSVDownloadRef.current.click();
   }, [downloadCsvLink]);
 
+  useEffect(()=>{
+    setUserDetailsInfo(userInfo);
+  },[])
+
   async function updateEmployeeSettings () {
+    // eslint-disable-next-line no-console
+    console.log(userDetailsInfo,userInfo)
     let payload = {
       id: Employee.id,
       type: "",
@@ -254,7 +260,7 @@ export default function TerminalSettings() {
         paths: userDetailsInfo.recordedFileStorageLocation,
         storages: userDetailsInfo.mobileStorage,
   durations: userDetailsInfo.boosterDuration,
-  //  callRejection: selectedRejection,
+   callRejection: userDetailsInfo.callRejection,
     failureIndication: userDetailsInfo.networkFailure,
     pttNotificationVolume:
         String(progressBarPtt) || userDetailsInfo.pttNotificationVolume,
@@ -696,7 +702,7 @@ export default function TerminalSettings() {
   const UserData = useAppSelector((state) => state.userReducer.user);
   useEffect(() => {
     fetchOtherData();
-    setUserDetailsInfo({});
+    // setUserDetailsInfo({});
   }, []);
   if (isAuthenticated && Object.keys(UserData).length > 0) {
     const User = UserData ? JSON.parse(UserData) : "";
