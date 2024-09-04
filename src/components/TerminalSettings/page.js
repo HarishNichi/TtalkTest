@@ -2615,7 +2615,7 @@ export default function TerminalSettings({ isModal }) {
         <div className="flex justify-end mr-[16px] mb-[16px]">
           <Button
             type="secondary"
-            className="border-[#214BB9] h-[40px] border-solid text-[#214BB9]"
+            className="border-[#214BB9] h-[40px] border-solid text-[#214BB9] font-semibold"
             onClick={() => {
               updateBulkSettings();
             }}
