@@ -50,7 +50,7 @@ import Amplify from "@aws-amplify/core";
 import * as gen from "@/generated";
 Amplify.configure(gen.config);
 
-export default function TerminalSettings() {
+export default function TerminalSettings({ isModal }) {
   const [loading, setLoading] = useState(false);
   const [subscriptionTrack, setSubscriptionTrack] = useState(null);
   const schema = Yup.object().shape({
@@ -241,63 +241,115 @@ export default function TerminalSettings() {
     downloadCsvLink && CSVDownloadRef.current.click();
   }, [downloadCsvLink]);
 
-  useEffect(()=>{
+  useEffect(() => {
     setUserDetailsInfo(userInfo);
-  },[])
+  }, []);
 
-  async function updateEmployeeSettings () {
+  async function updateEmployeeSettings() {
     // eslint-disable-next-line no-console
-    console.log(userDetailsInfo,userInfo)
+    console.log(userDetailsInfo, userInfo);
     let payload = {
       id: Employee.id,
       type: "",
       data: {
-      quality: userDetailsInfo.quality,
-      isRecordingSettings: userDetailsInfo.isRecordingSettings,
+        quality: userDetailsInfo.quality,
+        isRecordingSettings: userDetailsInfo.isRecordingSettings,
         totalStorageSizeLimit: userDetailsInfo.recordedFileSize
           ? String(userDetailsInfo.recordedFileSize)
           : "0",
         paths: userDetailsInfo.recordedFileStorageLocation,
         storages: userDetailsInfo.mobileStorage,
-  durations: userDetailsInfo.boosterDuration,
-   callRejection: userDetailsInfo.callRejection,
-    failureIndication: userDetailsInfo.networkFailure,
-    pttNotificationVolume:
-        String(progressBarPtt) || userDetailsInfo.pttNotificationVolume,
-      notificationVolume:
-        String(progressBarNotification) || userDetailsInfo.notificationVolume,
-      pttNotificationSound: userDetailsInfo.notificationSound,
-      replyTone: userDetailsInfo.replyTone,
-      repeatSetting: userDetailsInfo.toneRepeatSettings,
-      vibrateReplyRequestReceived: userDetailsInfo.vibrateOnRequestReceived,
-      vibrationReceivingPtt: userDetailsInfo.vibrationOnPtt,
-    userState: userDetailsInfo.userState,
+        durations: userDetailsInfo.boosterDuration,
+        callRejection: userDetailsInfo.callRejection,
+        failureIndication: userDetailsInfo.networkFailure,
+        pttNotificationVolume:
+          String(progressBarPtt) || userDetailsInfo.pttNotificationVolume,
+        notificationVolume:
+          String(progressBarNotification) || userDetailsInfo.notificationVolume,
+        pttNotificationSound: userDetailsInfo.notificationSound,
+        replyTone: userDetailsInfo.replyTone,
+        repeatSetting: userDetailsInfo.toneRepeatSettings,
+        vibrateReplyRequestReceived: userDetailsInfo.vibrateOnRequestReceived,
+        vibrationReceivingPtt: userDetailsInfo.vibrationOnPtt,
+        userState: userDetailsInfo.userState,
         goOffline: userDetailsInfo.goOffline,
         backgroundStart: userDetailsInfo.backgroundStart,
-   deviceSettings: deviceSettings,
+        deviceSettings: deviceSettings,
         isTranscribe: userDetailsInfo.isTranscribe,
-        simultaneousInterpretation:
-          userDetailsInfo.simultaneousInterpretation,
+        simultaneousInterpretation: userDetailsInfo.simultaneousInterpretation,
         isSOS: userDetailsInfo.isSOS,
         locationInformation: userDetailsInfo.locationInformation,
         sosScheduledTime: userDetailsInfo.sosScheduledTime,
       },
     };
 
-      try {
-        setLoading(true);
-        const settingsUpdated = await updateEmployee(payload);
-        if (settingsUpdated) {
-          let id = Employee.id;
-          let result = await fetchEmpData(id);
-          result && dispatch(getEmployee(result));
-          toast(intl.settings_update_success, successToastSettings);
-        }
-      } catch (err) {
-        toast(intl.settings_update_failed, errorToastSettings);
-      } finally {
-        setLoading(false);
+    try {
+      setLoading(true);
+      const settingsUpdated = await updateEmployee(payload);
+      if (settingsUpdated) {
+        let id = Employee.id;
+        let result = await fetchEmpData(id);
+        result && dispatch(getEmployee(result));
+        toast(intl.settings_update_success, successToastSettings);
       }
+    } catch (err) {
+      toast(intl.settings_update_failed, errorToastSettings);
+    } finally {
+      setLoading(false);
+    }
+  }
+  async function updateBulkSettings() {
+    // eslint-disable-next-line no-console
+    console.log(userDetailsInfo, userInfo);
+    let payload = {
+      id: Employee.id,
+      type: "",
+      data: {
+        quality: userDetailsInfo.quality,
+        isRecordingSettings: userDetailsInfo.isRecordingSettings,
+        totalStorageSizeLimit: userDetailsInfo.recordedFileSize
+          ? String(userDetailsInfo.recordedFileSize)
+          : "0",
+        paths: userDetailsInfo.recordedFileStorageLocation,
+        storages: userDetailsInfo.mobileStorage,
+        durations: userDetailsInfo.boosterDuration,
+        callRejection: userDetailsInfo.callRejection,
+        failureIndication: userDetailsInfo.networkFailure,
+        pttNotificationVolume:
+          String(progressBarPtt) || userDetailsInfo.pttNotificationVolume,
+        notificationVolume:
+          String(progressBarNotification) || userDetailsInfo.notificationVolume,
+        pttNotificationSound: userDetailsInfo.notificationSound,
+        replyTone: userDetailsInfo.replyTone,
+        repeatSetting: userDetailsInfo.toneRepeatSettings,
+        vibrateReplyRequestReceived: userDetailsInfo.vibrateOnRequestReceived,
+        vibrationReceivingPtt: userDetailsInfo.vibrationOnPtt,
+        userState: userDetailsInfo.userState,
+        goOffline: userDetailsInfo.goOffline,
+        backgroundStart: userDetailsInfo.backgroundStart,
+        deviceSettings: deviceSettings,
+        isTranscribe: userDetailsInfo.isTranscribe,
+        simultaneousInterpretation: userDetailsInfo.simultaneousInterpretation,
+        isSOS: userDetailsInfo.isSOS,
+        locationInformation: userDetailsInfo.locationInformation,
+        sosScheduledTime: userDetailsInfo.sosScheduledTime,
+      },
+    };
+
+    try {
+      setLoading(true);
+      const settingsUpdated = await updateEmployee(payload);
+      if (settingsUpdated) {
+        let id = Employee.id;
+        let result = await fetchEmpData(id);
+        result && dispatch(getEmployee(result));
+        toast(intl.settings_update_success, successToastSettings);
+      }
+    } catch (err) {
+      toast(intl.settings_update_failed, errorToastSettings);
+    } finally {
+      setLoading(false);
+    }
   }
 
   useEffect(() => {
@@ -1023,69 +1075,68 @@ export default function TerminalSettings() {
   return (
     <>
       {loading && <LoaderOverlay />}
-      <div className="flex justify-end mb-4  space-x-4">
-        <IconOutlineBtn
-          text={intl.company_list_company_export_title}
-          textColor={"text-customBlue "}
-          borderColor={"border-customBlue bg-white"}
-          textBold={true}
-          py={"xl:py-2.5 md:py-1.5 py-1.5  "}
-          px={"xl:px-[32px] md:px-[33.5px] px-[33.5px]"}
-          icon={() => exportIcon()}
-          onClick={async () => {
-            setExportModal(true);
-          }}
-        />
-        <IconOutlineBtn
-          text={intl.company_list_company_import}
-          textColor={"text-customBlue"}
-          textBold={true}
-          py={"xl:py-2.5 md:py-1.5 py-1.5"}
-          px={"xl:px-[20px] md:px-[22.5px] px-[22.5px] "}
-          borderColor={"border-customBlue bg-white"}
-          icon={() => importIcon()}
-          onClick={async () => {
-            setImportModal(() => true);
-          }}
-        />
-        <IconOutlineBtn
-          text={intl.user_change_history}
-          textColor={"text-customBlue"}
-          textBold={true}
-          py={"xl:py-2.5 md:py-1.5 py-1.5"}
-          px={"xl:px-[20px] md:px-[22.5px] px-[22.5px] "}
-          borderColor={"border-customBlue bg-white"}
-          icon={() => <GearIcon />}
-          onClick={() => {
-            router.push("./historySettings");
-          }}
-        />
-        <IconOutlineBtn
-          text={intl.help_settings_addition_modal_edit}
-          textColor={"text-customBlue"}
-          textBold={true}
-          py={"xl:py-2.5 md:py-1.5 py-1.5"}
-          px={"xl:px-[20px] md:px-[22.5px] px-[22.5px] "}
-          borderColor={"border-customBlue bg-white"}
-          icon={() => editIcon()}
-          onClick={() => {
-            updateEmployeeSettings();
-          }}
-        />
-      </div>
+      {!isModal && (
+        <div className="flex justify-end mb-4  space-x-4">
+          <IconOutlineBtn
+            text={intl.company_list_company_export_title}
+            textColor={"text-customBlue "}
+            borderColor={"border-customBlue bg-white"}
+            textBold={true}
+            py={"xl:py-2.5 md:py-1.5 py-1.5  "}
+            px={"xl:px-[32px] md:px-[33.5px] px-[33.5px]"}
+            icon={() => exportIcon()}
+            onClick={async () => {
+              setExportModal(true);
+            }}
+          />
+          <IconOutlineBtn
+            text={intl.company_list_company_import}
+            textColor={"text-customBlue"}
+            textBold={true}
+            py={"xl:py-2.5 md:py-1.5 py-1.5"}
+            px={"xl:px-[20px] md:px-[22.5px] px-[22.5px] "}
+            borderColor={"border-customBlue bg-white"}
+            icon={() => importIcon()}
+            onClick={async () => {
+              setImportModal(() => true);
+            }}
+          />
+          <IconOutlineBtn
+            text={intl.user_change_history}
+            textColor={"text-customBlue"}
+            textBold={true}
+            py={"xl:py-2.5 md:py-1.5 py-1.5"}
+            px={"xl:px-[20px] md:px-[22.5px] px-[22.5px] "}
+            borderColor={"border-customBlue bg-white"}
+            icon={() => <GearIcon />}
+            onClick={() => {
+              router.push("./historySettings");
+            }}
+          />
+          <IconOutlineBtn
+            text={intl.help_settings_addition_modal_edit}
+            textColor={"text-customBlue"}
+            textBold={true}
+            py={"xl:py-2.5 md:py-1.5 py-1.5"}
+            px={"xl:px-[20px] md:px-[22.5px] px-[22.5px] "}
+            borderColor={"border-customBlue bg-white"}
+            icon={() => editIcon()}
+            onClick={() => {
+              updateEmployeeSettings();
+            }}
+          />
+        </div>
+      )}
+      {isModal && (
+        <div className="flex mt-[16px] ml-[16px] mb-[16px] ">
+          <TitleUserCard title="一括設定変更" />
+        </div>
+      )}
       <div className=" p-[16px] bg-white">
         <div className="flex flex-col md:flex-row  justify-between items-center space-y-4 md:space-y-0"></div>
         <div className="flex flex-col space-y-4 ">
           <TitleUserCard title={intl.user_ptalk_service_screen_label} />
         </div>
-        {/* <div className="flex justify-end mb-4 md:pr-4">
-        <button
-          className=" text-customBlue font-bold hover:text-link"
-          onClick={() => reset()}
-        >
-          {intl.user_band_settings_reset_btn_label}
-        </button>
-      </div> */}
 
         <div className="flex flex-col md:flex-row" id="ptalk-service">
           <div className="flex flex-col w-full space-y-2    ">
@@ -2560,6 +2611,19 @@ export default function TerminalSettings() {
           </div>
         </div>
       </div>
+      {isModal && (
+        <div className="flex justify-end mr-[16px] mb-[16px]">
+          <Button
+            type="secondary"
+            className="border-[#214BB9] h-[40px] border-solid text-[#214BB9]"
+            onClick={() => {
+              updateBulkSettings();
+            }}
+          >
+            設定を保存
+          </Button>
+        </div>
+      )}
       {exportModal && (
         <Modal
           height="500px"

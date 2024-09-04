@@ -53,6 +53,7 @@ import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import AddUser from "@/components/UserAdd/page";
 import CopyButton from "@/components/Icons/copyButton";
+import TerminalSettings from "@/components/TerminalSettings/page";
 dayjs.extend(customParseFormat);
 dayjs.extend(isSameOrBefore);
 dayjs.extend(isSameOrAfter);
@@ -66,10 +67,16 @@ export default function UserList() {
   const fileStyle = { fontWeight: "400", color: "#7B7B7B", fontSize: "12px" };
   const changeLink = { fontWeight: "700", fontSize: "12px" };
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [comCreated, setComCreated] = useState(false);
+  const [settingscomCreated, setSettingsComCreated] = useState(false);
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+  const handleSettingsCloseModal = () => {
+    setIsSettingsModalOpen(false);
+  };
+
   const auth = localStorage.getItem("accessToken");
   const isAuthenticated = auth ? true : false;
   const UserData = useAppSelector((state) => state.userReducer.user);
@@ -2088,6 +2095,10 @@ export default function UserList() {
                 px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
                 icon={() => settingsIcon()}
                 borderColor={"border-customBlue"}
+                onClick={() => {
+                  setIsSettingsModalOpen(true);
+                  //router.push("/company/add");
+                }}
               />
               <IconOutlineBtn
                 text={intl.company_list_company_export_title}
@@ -2312,6 +2323,18 @@ export default function UserList() {
                 setCount={setCount}
                 count={count}
               />
+            </div>
+          </AntModal>
+        )}
+        {isSettingsModalOpen && (
+          <AntModal
+            open={isSettingsModalOpen}
+            footer={null}
+            onCancel={handleSettingsCloseModal}
+            width={620}
+          >
+            <div className="flex flex-col">
+              <TerminalSettings isModal={true} />
             </div>
           </AntModal>
         )}

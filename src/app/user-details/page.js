@@ -27,7 +27,7 @@ export default function UserDetail() {
   };
   return (
     <div className="mb-[16px]">
-        <ToastContainer />
+      <ToastContainer />
       <Breadcrumb links={userSubSectionLinks} />
       <div className="text-[20px] font-semibold text-[#0D0E11]">
         {Employee.name}
@@ -55,7 +55,7 @@ export default function UserDetail() {
             </div>
           </TabPane>
           <TabPane tab="端末設定" key="4">
-            <TerminalSettings />
+            <TerminalSettings isModal={false} />
           </TabPane>
           <TabPane tab="操作ログ" key="5">
             <ViewLog tab={tabKey} />

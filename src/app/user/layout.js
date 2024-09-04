@@ -105,7 +105,6 @@ export default function UserLayout({ children }) {
   }, [downloadCsvLink]);
 
   useEffect(() => {
-
     /* eslint-disable no-undef*/
     let hasMap = new Set();
 
@@ -120,7 +119,7 @@ export default function UserLayout({ children }) {
     const subscription = gen.subscribe(csvUploadInitiated, async ({ data }) => {
       let dataReceived = JSON.parse(data);
       if (!hasMap.has(dataReceived.token)) {
-        hasMap.add(dataReceived.token)
+        hasMap.add(dataReceived.token);
         setLoading(true);
 
         if (dataReceived?.rowsInserted) {
@@ -139,7 +138,6 @@ export default function UserLayout({ children }) {
 
         // get failed index
         failedRowIndexes = [...failedRowIndexes, ...dataReceived.failures];
-
 
         if (dataReceived?.currentChunk == dataReceived?.totalChunks) {
           setFile(null);
@@ -179,7 +177,6 @@ export default function UserLayout({ children }) {
     return () => subscription.unsubscribe();
   }, [csvUploadInitiated]);
 
-
   function clickHere(v) {
     setIsSidebarVisible(v);
     setAddNewModalData(false);
@@ -187,7 +184,7 @@ export default function UserLayout({ children }) {
 
   const fetchData = async () => {
     setLoading(true);
-    if (Admin && !EmployeeDetails?.organizationId || !Admin && orgId) {
+    if ((Admin && !EmployeeDetails?.organizationId) || (!Admin && orgId)) {
       return;
     }
     try {
@@ -210,8 +207,6 @@ export default function UserLayout({ children }) {
     }
   };
 
-
-
   async function handlePttNotification() {
     toast.dismiss();
     setLoading(true);
@@ -226,7 +221,7 @@ export default function UserLayout({ children }) {
     try {
       await api.post("push/notify", payload);
       setLoading(false);
-      toast(intl.notify_success, successToastSettings)
+      toast(intl.notify_success, successToastSettings);
     } catch (error) {
       setLoading(false);
       toast(error.response?.data?.status.message || error.message, {
