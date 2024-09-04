@@ -241,7 +241,7 @@ export default function TerminalSettings() {
     downloadCsvLink && CSVDownloadRef.current.click();
   }, [downloadCsvLink]);
 
-  async function updateEmployee () {
+  async function updateEmployeeSettings () {
     let payload = {
       id: Employee.id,
       type: "",
@@ -1063,7 +1063,7 @@ export default function TerminalSettings() {
           borderColor={"border-customBlue bg-white"}
           icon={() => editIcon()}
           onClick={() => {
-            updateEmployee();
+            updateEmployeeSettings();
           }}
         />
       </div>
