@@ -261,5 +261,6 @@
   "device_terminal": "端末",
   "device_add_device": "端末追加",
   "device_delete_device": "選択した端末を削除しますか",
-  "sidebar_corporate_management": "企業管理"
+  "sidebar_corporate_management": "企業管理",
+  "password_placeholder": "パスワード"
 }

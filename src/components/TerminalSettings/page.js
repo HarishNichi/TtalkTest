@@ -241,6 +241,59 @@ export default function TerminalSettings() {
     downloadCsvLink && CSVDownloadRef.current.click();
   }, [downloadCsvLink]);
 
+  async function updateEmployee () {
+    let payload = {
+      id: Employee.id,
+      type: "",
+      data: {
+      quality: userDetailsInfo.quality,
+   isRecordingSettings: userDetailsInfo.isRecordingSettings,
+        totalStorageSizeLimit: userDetailsInfo.recordedFileSize
+          ? String(userDetailsInfo.recordedFileSize)
+          : "0",
+        paths: userDetailsInfo.recordedFileStorageLocation,
+        storages: userDetailsInfo.mobileStorage,
+  durations: userDetailsInfo.boosterDuration,
+   callRejection: selectedRejection,
+    failureIndication: userDetailsInfo.networkFailure,
+    pttNotificationVolume:
+        String(progressBarPtt) || userDetailsInfo.pttNotificationVolume,
+      notificationVolume:
+        String(progressBarNotification) || userDetailsInfo.notificationVolume,
+      pttNotificationSound: userDetailsInfo.notificationSound,
+      replyTone: userDetailsInfo.replyTone,
+      repeatSetting: userDetailsInfo.toneRepeatSettings,
+      vibrateReplyRequestReceived: userDetailsInfo.vibrateOnRequestReceived,
+      vibrationReceivingPtt: userDetailsInfo.vibrationOnPtt,
+    userState: userDetailsInfo.userState,
+        goOffline: userDetailsInfo.goOffline,
+        backgroundStart: userDetailsInfo.backgroundStart,
+   deviceSettings: deviceSettings,
+        isTranscribe: userDetailsInfo.isTranscribe,
+        simultaneousInterpretation:
+          userDetailsInfo.simultaneousInterpretation,
+        isSOS: userDetailsInfo.isSOS,
+        locationInformation: userDetailsInfo.locationInformation,
+        sosScheduledTime: userDetailsInfo.sosScheduledTime,
+      },
+    };
+
+      try {
+        setLoading(true);
+        const settingsUpdated = await updateEmployee(payload);
+        if (settingsUpdated) {
+          let id = Employee.id;
+          let result = await fetchEmpData(id);
+          result && dispatch(getEmployee(result));
+          toast(intl.settings_update_success, successToastSettings);
+        }
+      } catch (err) {
+        toast(intl.settings_update_failed, errorToastSettings);
+      } finally {
+        setLoading(false);
+      }
+  }
+
   useEffect(() => {
     /* eslint-disable no-undef*/
     let hasMap = new Set();
@@ -1009,6 +1062,9 @@ export default function TerminalSettings() {
           px={"xl:px-[20px] md:px-[22.5px] px-[22.5px] "}
           borderColor={"border-customBlue bg-white"}
           icon={() => editIcon()}
+          onClick={() => {
+            updateEmployee();
+          }}
         />
       </div>
       <div className=" p-[16px] bg-white">

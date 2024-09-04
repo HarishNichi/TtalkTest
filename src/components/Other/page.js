@@ -283,7 +283,7 @@ export default function Other() {
       )}
       <div className="bg-white p-[32px]">
         <div className="ml-[16px] font-normal text-sm mb-1">
-          {intl.login_password_placeholder}
+          {intl.password_placeholder}
         </div>
         <div>
           <div className="flex ml-[16px] mb-[16px]">
