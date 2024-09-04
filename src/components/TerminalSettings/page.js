@@ -247,14 +247,14 @@ export default function TerminalSettings() {
       type: "",
       data: {
       quality: userDetailsInfo.quality,
-   isRecordingSettings: userDetailsInfo.isRecordingSettings,
+      isRecordingSettings: userDetailsInfo.isRecordingSettings,
         totalStorageSizeLimit: userDetailsInfo.recordedFileSize
           ? String(userDetailsInfo.recordedFileSize)
           : "0",
         paths: userDetailsInfo.recordedFileStorageLocation,
         storages: userDetailsInfo.mobileStorage,
   durations: userDetailsInfo.boosterDuration,
-   callRejection: selectedRejection,
+  //  callRejection: selectedRejection,
     failureIndication: userDetailsInfo.networkFailure,
     pttNotificationVolume:
         String(progressBarPtt) || userDetailsInfo.pttNotificationVolume,
