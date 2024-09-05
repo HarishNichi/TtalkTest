@@ -2331,7 +2331,7 @@ export default function UserList() {
             open={isSettingsModalOpen}
             footer={null}
             onCancel={handleSettingsCloseModal}
-            width={620}
+            width={720}
           >
             <div className="flex flex-col">
               <TerminalSettings isModal={true} />

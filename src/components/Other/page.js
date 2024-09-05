@@ -13,6 +13,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { errorToastSettings, successToastSettings } from "@/utils/constant";
 import { useAppSelector } from "@/redux/hooks";
 import LoaderOverlay from "../Loader/loadOverLay";
+import api from "@/utils/api";
 // Yup schema to validate the form
 const schema = Yup.object().shape({
   password: Yup.string()
@@ -115,6 +116,39 @@ export default function Other() {
       setPasswordModal(false);
       setErrors(null);
       setTouched({});
+    }
+  }
+
+  const [deleteModal, setDeleteModal] = useState(false);
+
+  async function handleRemoteWipeNotification() {
+    setLoading(true);
+    const payload = {
+      pttNos: [Employee.radioNumber],
+      data: {
+        type: "wipe",
+        title: "remote wipe",
+        body: {},
+      },
+    };
+    try {
+      await api.post("push/notify", payload);
+      setLoading(false);
+      toast(intl.notify_success, successToastSettings)
+      setDeleteModal(() => false);
+    } catch (error) {
+      setLoading(false);
+      setDeleteModal(() => true);
+      toast(error.response?.data?.status.message || error.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored",
+        type: "error",
+      });
     }
   }
 
@@ -277,6 +311,60 @@ export default function Other() {
                   )}
                 </div>
               </form>
+            </div>
+          </div>
+        </Modal>
+      )}
+       {deleteModal && (
+        <Modal
+          height="412px"
+          fontSize="text-xl"
+          fontWeight="font-semibold"
+          textColor="#19388B"
+          text={intl.user_remote_wipe_screen_label}
+          onCloseHandler={setDeleteModal}
+          modalFooter={() => {
+            return (
+              <div className=" flex justify-between">
+                <div>
+                  <IconLeftBtn
+                    text={intl.user_remote_wipe_no_btn}
+                    textColor={"text-white font-semibold text-sm w-full"}
+                    py={"py-[11px]"}
+                    px={"px-[26.5px] md:px-[35.5px]"}
+                    bgColor={"bg-customBlue"}
+                    textBold={true}
+                    icon={() => {
+                      return null;
+                    }}
+                    onClick={() => {
+                      setDeleteModal(() => false);
+                    }}
+                  />
+                </div>
+                <div>
+                  <IconLeftBtn
+                    text={intl.user_remote_wipe_yes_btn}
+                    textColor={"text-white font-semibold text-sm w-full ml-2"}
+                    py={"py-[11px]"}
+                    px={"px-[30.5px] md:px-[38.5px]"}
+                    bgColor={"bg-customBlue"}
+                    textBold={true}
+                    icon={() => {
+                      return null;
+                    }}
+                    onClick={() => {
+                      handleRemoteWipeNotification();
+                    }}
+                  />
+                </div>
+              </div>
+            );
+          }}
+        >
+          <div className="flex flex-col">
+            <div className="flex-grow py-[90px] pt-[60px] dark:text-black">
+              {intl.remote_wipe_confirm}
             </div>
           </div>
         </Modal>
