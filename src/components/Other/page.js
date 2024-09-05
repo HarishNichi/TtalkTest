@@ -409,6 +409,10 @@ export default function Other() {
               height: "40px",
               borderRadius: "4px",
             }}
+            onClick={() => {
+              setErrors(null);
+              setDeleteModal(true);
+            }}
           >
             {intl.user_restore_default_settings}
           </Button>
