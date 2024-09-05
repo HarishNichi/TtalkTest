@@ -163,14 +163,14 @@ export default function CompanyInformation() {
           </div>
           <div className="">
             <div className="flex justify-between items-center mb-[16px]">
-              <h2 className="text-lg font-semibold">
+              <div className="font-semibold text-[20px]">
                 {organizationsData?.name || ""}
-              </h2>
+              </div>
               <div className="flex space-x-2">
                 <Button
                   type="danger"
                   onClick={handleDeleteClick}
-                  className="text-[#BA1818] flex "
+                  className="text-[#BA1818] flex text-[16px] font-semibold "
                 >
                   <svg
                     width="24"
@@ -190,7 +190,7 @@ export default function CompanyInformation() {
                 <Button
                   type="danger"
                   onClick={handleEditClick}
-                  className="text-customBlue flex"
+                  className="text-customBlue flex text-[16px] font-semibold "
                 >
                   <svg
                     width="24"
@@ -226,9 +226,9 @@ export default function CompanyInformation() {
               boxShadow: "0px 0px 15px rgba(0, 0, 0, 0.1)",
               borderRadius: "9px",
             }}
-            className="pt-2 p-3 pb-[30px] md:px-[60px] xl:px-[80px] xl:pt-2 xl:pb-[40px] flex flex-col flex-1 h-full"
+            className="p-[24px]  flex flex-col flex-1 h-full"
           >
-            <div className="">
+            <div className="pb-[24px]">
               {organizationsData && (
                 <Upload imgSrc={organizationsData.logo} disabled={true} />
               )}
@@ -236,36 +236,38 @@ export default function CompanyInformation() {
 
             {organizationsData && (
               <div className="flex flex-col md:flex-row">
-                <div className="flex flex-col w-full space-y-2 mt-[2vw]">
-                  <div className="text-sm font-normal">
+                <div className="flex flex-col w-full space-y-2 ">
+                  <div className="text-sm font-normal text-[#595959]">
                     {intl.form_component_company_name_label}
                   </div>
                   <div className="text-sm font-semibold">
                     {organizationsData.name}
                   </div>
-                  <div className="text-sm font-normal">{intl.furigana}</div>
+                  <div className="text-sm font-normal text-[#595959]">
+                    {intl.furigana}
+                  </div>
                   <div className="text-sm font-semibold">
                     {organizationsData.name}
                   </div>
-                  <div className="text-sm font-normal">
+                  <div className="text-sm font-normal text-[#595959]">
                     {intl.form_component_company_id}
                   </div>
                   <div className="text-sm font-semibold">
                     {organizationsData.id}
                   </div>
-                  <div className="text-sm font-normal">
+                  <div className="text-sm font-normal text-[#595959]">
                     {intl.form_component_mailid_label}
                   </div>
                   <div className="text-sm font-semibold">
                     {organizationsData.email}
                   </div>
-                  <div className="text-sm font-normal">
+                  <div className="text-sm font-normal text-[#595959]">
                     {intl.form_component_usercount_label}
                   </div>
                   <div className="text-sm font-semibold">
                     {organizationsData.numberOfUsers}
                   </div>
-                  <div className="text-sm font-normal">
+                  <div className="text-sm font-normal text-[#595959]">
                     {intl.form_component_fleet_number}
                   </div>
                   <div className="text-sm font-semibold">
@@ -273,34 +275,34 @@ export default function CompanyInformation() {
                   </div>
                 </div>
 
-                <div className="flex flex-col w-full space-y-2 mt-[2vw]">
-                  <div className="text-sm font-normal">
+                <div className="flex flex-col w-full space-y-2">
+                  <div className="text-sm font-normal text-[#595959]">
                     {intl.form_component_sales_channel}
                   </div>
                   <div className="text-sm font-semibold">
                     {organizationsData.salesChannel}
                   </div>
-                  <div className="text-sm font-normal">
+                  <div className="text-sm font-normal text-[#595959]">
                     {intl.form_component_simulataneous_intepretation}
                   </div>
                   <div className="text-sm font-semibold">
                     {organizationsData.isTranslate ? "ON" : "OFF"}
                   </div>
-                  <div className="text-sm font-normal">
+                  <div className="text-sm font-normal text-[#595959] text-[#595959]">
                     {intl.form_component_transcription}
                   </div>
                   <div className="text-sm font-semibold">
                     {organizationsData.isTranscribe ? "ON" : "OFF"}
                   </div>
 
-                  <div className="text-sm font-normal">
+                  <div className="text-sm font-normal text-[#595959]">
                     {intl.company_list_sos_location}
                   </div>
                   <div className="text-sm font-semibold">
                     {organizationsData.sosLocation ? "ON" : "OFF"}
                   </div>
 
-                  <div className="text-sm font-normal">
+                  <div className="text-sm font-normal text-[#595959]">
                     {intl.company_list_company_status}
                   </div>
                   <div className="text-sm font-semibold">
@@ -363,20 +365,23 @@ export default function CompanyInformation() {
           footer={[null]}
           style={{ padding: "40px" }}
         >
-          <p style={{ textAlign: "center" }} className="px-[40px]">
+          <div
+            style={{ textAlign: "center" }}
+            className="px-[40px] text-[16px] font-normal"
+          >
             {intl.company_list_delete}
-          </p>
+          </div>
           <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]">
             <Button
               key="cancel"
-              className="flex-1 text-blue-500 border-blue-500 "
+              className="flex-1 text-[#214BB9] border-[#214BB9] h-[40px] "
               onClick={handleDeleteCancel}
             >
               {intl.help_settings_addition_modal_cancel}
             </Button>
             <Button
               key="delete"
-              className="flex-1 bg-[#BA1818] border-[#BA1818] text-white hover:bg-red-500 no-hover"
+              className="flex-1 bg-[#BA1818] border-[#BA1818] text-white hover:bg-red-500 no-hover h-[40px]"
               onClick={handleDeleteConfirm}
             >
               {intl.help_settings_addition_delete_button}

@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import intl from "@/utils/locales/jp/jp.json";
 import Modal from "@/components/Modal/modal";
-import DynamicLabel from "../../../components/Label/dynamicLabel";
+
 import IconOutlineBtn from "../../../components/Button/iconOutlineBtn";
 import AddIcon from "../../../components/Icons/addIcon";
 import GetIconQRCode from "../../../components/Icons/qrCode";
@@ -718,10 +718,8 @@ export default function CompanyList() {
       </AntModal>
 
       <div>
-        <div className="flex justify-between items-center  mb-[16px]">
-          <h1 className="text-lg font-bold">
-            {intl.components_card_searchlist_companylist}
-          </h1>
+        <div className="flex justify-between items-center text-xl font-semibold mb-[16px]">
+          {intl.components_card_searchlist_companylist}
           <div className="flex space-x-2.5">
             <span>
               <IconOutlineBtn
@@ -767,7 +765,7 @@ export default function CompanyList() {
               name="company_search"
               className={`w-full border flex  py-2.5 text-xs  pl-2  rounded-lg focus:outline-none placeholder-[#AEA8A8] 
         placeholder:text-center md:placeholder:text-left md:placeholder:pl-0
-        dark:text-black`}
+        dark:text-black h-[40px]`}
               placeholder={intl.company_list_company_name}
               onInput={(e) => setCompName(e.target.value)}
               value={compName}
@@ -806,7 +804,7 @@ export default function CompanyList() {
           <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
             <select
               className="w-full md:min-w-[100px] lg:min-w-[100px] border flex flex-auto md:flex-1  py-2.5 text-xs  pl-2 bg-[white] rounded-lg focus:outline-none placeholder-[#AEA8A8] 
-                placeholder:text-center md:placeholder:text-left md:placeholder:pl-0 dark:text-black"
+                placeholder:text-center  h-[40px] md:placeholder:text-left md:placeholder:pl-0 dark:text-black"
               value={selectedValue}
               onChange={handleSelectChange}
             >
@@ -820,7 +818,7 @@ export default function CompanyList() {
             <IconLeftBtn
               text={intl.dashboard_layout_search_btn}
               textColor={
-                "w-full text-white font-medium text-sm w-full px-6 rounded-lg"
+                "w-full  h-[40px] text-white font-medium text-sm w-full px-6 rounded-lg"
               }
               py={"py-2"}
               px={""}
@@ -838,7 +836,7 @@ export default function CompanyList() {
             <IconLeftBtn
               text={intl.dashboard_layout_search_btn}
               textColor={
-                "w-full text-white font-medium text-sm w-full px-6 rounded-lg"
+                "w-full text-white font-semibold text-base w-full px-6 rounded-lg h-[40px]"
               }
               py={"py-2"}
               px={""}
@@ -911,7 +909,7 @@ export default function CompanyList() {
           </form>
         )}
 
-        <div className="flex  justify-between mb-[20px] xl:mb-2 ">
+        <div className="flex  justify-between  xl:mb-2 ">
           {/* <div className="flex items-center">
             <DynamicLabel
               text={intl.company_details_company_management}
@@ -1124,7 +1122,7 @@ export default function CompanyList() {
           />
         </div>
         {selectedRows.length > 0 && (
-          <div className="mt-[20px] flex justify-between items-center  bg-white py-3 px-[4vw] shadow-lg">
+          <div className="mt-[16px] flex justify-between items-center  bg-white py-3 px-[4vw] shadow-lg">
             {/* Left side: Buttons */}
             <div className="text-base font-semibold">
               {selectedRows.length}

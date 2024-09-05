@@ -66,6 +66,9 @@ body {
   color: #19388b;
   font-size: 13px;
 }
+.ant-table-wrapper .ant-table {
+  font-size: 12px;
+}
 
 .ant-table-thead > tr > th {
   background: #e7e7e9 !important;
@@ -237,7 +240,7 @@ body {
   margin-right: 8px !important;
 }
 
-.ql-editor  {
+.ql-editor {
   overflow: auto !important;
   max-height: 250px !important;
 }
@@ -391,8 +394,7 @@ body {
   align-self: flex-start !important;
 }
 
-
- .Toastify__close-button > svg {
+.Toastify__close-button > svg {
   fill: currentColor;
   height: 18px !important;
   width: 18px !important;
@@ -480,23 +482,23 @@ input::-webkit-calendar-picker-indicator {
 }
 
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-  color: #19388B !important;
+  color: #19388b !important;
 }
 
 .ant-tabs .ant-tabs-tab:hover {
-  color: #19388B !important;
+  color: #19388b !important;
 }
 .ant-tabs .ant-tabs-ink-bar {
-  background: #19388B !important;
+  background: #19388b !important;
 }
 
 .ant-checkbox:hover {
-  border-color: #19388B !important;
+  border-color: #19388b !important;
 }
 
 .ant-checkbox-checked .ant-checkbox-inner {
-  background-color: #19388B !important;
-  border-color: #19388B !important;
+  background-color: #19388b !important;
+  border-color: #19388b !important;
 }
 
 /* Hide the default checkbox appearance */
@@ -506,19 +508,19 @@ input[type="checkbox"] {
   height: 20px;
   appearance: none; /* Removes default styles */
   background-color: #f0f0f0; /* Default background color */
-  border: 1px solid #19388B; /* Border color */
+  border: 1px solid #19388b; /* Border color */
   border-radius: 4px; /* Optional: Rounded corners */
   cursor: pointer;
   transition: background-color 0.3s ease; /* Smooth transition */
 }
 
 input[type="checkbox"]:checked {
-  background-color: #19388B !important; /* Custom background color when checked */
-  border-color: #19388B !important;
+  background-color: #19388b !important; /* Custom background color when checked */
+  border-color: #19388b !important;
 }
 
 input[type="checkbox"]:checked::after {
-  content: '✔';
+  content: "✔";
   color: white;
   font-size: 14px;
   position: absolute;
@@ -532,7 +534,7 @@ input[type="checkbox"]:checked::after {
   width: 18px;
   height: 18px;
   border-radius: 10px;
-  background-color: #19388B !important;
+  background-color: #19388b !important;
   overflow: visible;
   cursor: pointer;
 }

@@ -134,7 +134,7 @@ export default function Other() {
     try {
       await api.post("push/notify", payload);
       setLoading(false);
-      toast(intl.notify_success, successToastSettings)
+      toast(intl.notify_success, successToastSettings);
       setDeleteModal(() => false);
     } catch (error) {
       setLoading(false);
@@ -315,7 +315,7 @@ export default function Other() {
           </div>
         </Modal>
       )}
-       {deleteModal && (
+      {deleteModal && (
         <Modal
           height="412px"
           fontSize="text-xl"

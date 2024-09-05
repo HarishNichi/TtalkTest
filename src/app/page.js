@@ -294,7 +294,7 @@ export default function Login() {
                     <input
                       type="id"
                       name="id"
-                      className="mt-1 p-2 w-full border rounded-md focus:ring-blue-500 focus:border-blue-500"
+                      className="mt-1 p-2 w-full border rounded-md focus:ring-blue-500 focus:border-blue-500 h-[40px]"
                       placeholder={intl.login_email_placeholder}
                       value={id}
                       onChange={handleChange}
@@ -319,7 +319,7 @@ export default function Login() {
                         id="password"
                         name="password"
                         type={type}
-                        className="mt-1 p-2 w-full border rounded-md focus:ring-blue-500 focus:border-blue-500 flex items-center"
+                        className="mt-1 p-2 w-full border rounded-md focus:ring-blue-500 focus:border-blue-500 flex items-center h-[40px]"
                         placeholder={intl.login_password_placeholder}
                         value={password}
                         onChange={handleChange}
@@ -356,7 +356,7 @@ export default function Login() {
                   <div className="text-right mb-[35px] font-normal text-base">
                     <a
                       href="#"
-                      className="text-sm text-blue-600 hover:underline"
+                      className="text-base text-blue-600 hover:underline"
                       onClick={handleForgotPasswordClick}
                     >
                       {intl.forgot_screen_label}
@@ -364,7 +364,7 @@ export default function Login() {
                   </div>
                   <button
                     type="submit"
-                    className="w-full bg-customBlue hover:bg-[#5283B3] text-white font-semibold text-base py-2  rounded-md"
+                    className="w-full bg-customBlue hover:bg-[#5283B3] text-white font-semibold text-base py-2  rounded-md h-[40px]"
                   >
                     {intl.login_btn_label}
                   </button>
@@ -400,7 +400,7 @@ export default function Login() {
           onCloseHandler={handleCloseModal}
           modalFooter={() => (
             <button
-              className="bg-customBlue text-base font-semibold text-white py-2 px-4 rounded-md w-full"
+              className="bg-customBlue text-base font-semibold text-white py-2 px-4 rounded-md w-full h-[40px]"
               onClick={handleModalSubmit}
             >
               {intl.send_password}
@@ -412,7 +412,7 @@ export default function Login() {
             type="email"
             name="email"
             placeholder={intl.login_email_placeholder}
-            className="mt-4 p-2 w-full border rounded-md focus:ring-blue-500 focus:border-blue-500"
+            className="mt-4 p-2 w-full border rounded-md focus:ring-blue-500 focus:border-blue-500 h-[40px]"
             value={modalEmail}
             onChange={handleModalChange}
             autoComplete="off"
