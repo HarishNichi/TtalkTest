@@ -50,7 +50,7 @@ import Amplify from "@aws-amplify/core";
 import * as gen from "@/generated";
 Amplify.configure(gen.config);
 
-export default function TerminalSettings({ isModal }) {
+export default function TerminalSettings({ isModal, selectedRows }) {
   const [loading, setLoading] = useState(false);
   const [subscriptionTrack, setSubscriptionTrack] = useState(null);
   const schema = Yup.object().shape({
@@ -227,6 +227,7 @@ export default function TerminalSettings({ isModal }) {
   const [errors, setErrors] = useState(null);
   const [exportModal, setExportModal] = useState(false);
   const [importModal, setImportModal] = useState(false);
+  const [confirmModal, setConfirmModal] = useState(false);
   const [exportModalContact, setExportModalContact] = useState(false);
   const exportIsOn = useAppSelector((state) => state.pttBarReducer.exportIsOn);
   const [csvFileName, setCsvFileName] = useState("");
@@ -2617,13 +2618,83 @@ export default function TerminalSettings({ isModal }) {
             type="secondary"
             className="border-[#214BB9] h-[40px] border-solid text-[#214BB9] font-semibold"
             onClick={() => {
-              updateBulkSettings();
+              setConfirmModal(true);
             }}
           >
             設定を保存
           </Button>
         </div>
       )}
+      {confirmModal && (
+        <Modal
+          height="412px"
+          fontSize="text-xl"
+          fontWeight="font-semibold"
+          textColor="#19388B"
+          text="設定を保存しますか？"
+          onCloseHandler={setConfirmModal}
+          modalFooter={() => {
+            return (
+              // <div className=" flex justify-between">
+              //   <div>
+              //     <IconLeftBtn
+              //       text={intl.help_settings_addition_modal_cancel}
+              //       textColor={"text-white font-semibold text-sm w-full"}
+              //       py={"py-[11px]"}
+              //       px={"px-[10.5px] md:px-[17.5px]"}
+              //       bgColor={"bg-customBlue"}
+              //       textBold={true}
+              //       icon={() => {
+              //         return null;
+              //       }}
+              //       onClick={() => {
+              //         setDeleteModal(() => false);
+              //       }}
+              //     />
+              //   </div>
+              //   <div>
+              //     <IconLeftBtn
+              //       text={intl.help_settings_addition_delete}
+              //       textColor={
+              //         "text-white font-semibold text-sm w-full ml-2"
+              //       }
+              //       py={"py-[11px]"}
+              //       px={"px-[30.5px] md:px-[38.5px]"}
+              //       bgColor={"bg-customBlue"}
+              //       textBold={true}
+              //       icon={() => {
+              //         return null;
+              //       }}
+              //       onClick={deleteDevices}
+              //     />
+              //   </div>
+              // </div>
+              <div className="flex flex-col sm:flex-row justify-center gap-4 w-full">
+                <Button className="flex-1 h-[40px] text-[#19388B] border border-[#19388B] hover:bg-[#e0e7ff] focus:outline-none focus:ring-2 focus:ring-[#19388B] focus:ring-opacity-50">
+                  {intl.help_settings_addition_modal_cancel}
+                </Button>
+                {/* <Button className="flex-1 bg-customBlue h-[40px] text-white hover:bg-[#5283B3] focus:outline-none ">
+                  保存する
+                </Button> */}
+                <IconLeftBtn
+                  text="保存する"
+                  textColor={
+                    "text-white font-semibold text-sm w-full md:w-[180px] ml-0 md:ml-2"
+                  }
+                  bgColor={"bg-customBlue"}
+                  textBold={true}
+                  icon={() => {
+                    return null;
+                  }}
+                />
+              </div>
+            );
+          }}
+        >
+          選択した{selectedRows.length}の端末に変更が反映されます
+        </Modal>
+      )}
+
       {exportModal && (
         <Modal
           height="500px"

@@ -138,7 +138,7 @@ export default function Other() {
       setDeleteModal(() => false);
     } catch (error) {
       setLoading(false);
-      setDeleteModal(() => true);
+      setDeleteModal(() => false);
       toast(error.response?.data?.status.message || error.message, {
         position: "top-right",
         autoClose: 5000,

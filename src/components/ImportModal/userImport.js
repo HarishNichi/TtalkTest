@@ -19,9 +19,9 @@ export default function ImportUserModal(props) {
    * Resets the file name and performs any necessary actions.
    */
   const handleBarClick = () => {
-      setEmpFile(null);
-      setEmpFileName(null);
-      setProgressLine(0);
+    setEmpFile(null);
+    setEmpFileName(null);
+    setProgressLine(0);
   };
 
   /**
@@ -42,9 +42,9 @@ export default function ImportUserModal(props) {
     } else {
       setError(null);
 
-        setEmpFile(file);
-        setEmpFileName(file.name);
-        setProgressLine(100);
+      setEmpFile(file);
+      setEmpFileName(file.name);
+      setProgressLine(100);
     }
   };
 
@@ -64,8 +64,7 @@ export default function ImportUserModal(props) {
           if (empFile != null || bulkFile != null) {
             let { modelToggle, onCloseHandler, onClickImport } = props;
             onCloseHandler(() => !modelToggle);
-            onClickImport( empFile
-            );
+            onClickImport(empFile);
           } else {
             handleFileUpload();
           }
@@ -73,7 +72,6 @@ export default function ImportUserModal(props) {
       />
     );
   };
-
 
   return (
     <>
@@ -86,8 +84,7 @@ export default function ImportUserModal(props) {
           modalFooter={modelFooter}
         >
           <div className="flex flex-col">
-
-          <div data-testid="file-upload" className="md:px-[32px]">
+            <div data-testid="file-upload" className="md:px-[32px]">
               <FileUpload
                 onFileUpload={handleFileUpload}
                 key={bulkFileName + empFileName}
@@ -105,20 +102,19 @@ export default function ImportUserModal(props) {
             {/* Progress bar component */}
 
             <div data-testid="progress-bar" className="mt-6 mb-3 md:px-[32px]">
-                <div>
-                  <a
-                    download
-                    href={sampleLinks().userImport}
-                    className="text-xs hover:text-blue-800"
-                  >
-                    サンプル.csv
-                  </a>
-                </div>
+              <div>
+                <a
+                  download
+                  href={sampleLinks().userImport}
+                  className="text-xs hover:text-blue-800"
+                >
+                  サンプル.csv
+                </a>
+              </div>
 
               {(bulkFileName || empFileName) && progressLine > 0 && (
                 <ProgressBar
-                  fileName={empFileName
-                  }
+                  fileName={empFileName}
                   percentage={progressLine}
                   onClick={() => {
                     handleBarClick();

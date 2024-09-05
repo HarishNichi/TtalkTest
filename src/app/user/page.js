@@ -70,6 +70,7 @@ export default function UserList() {
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [comCreated, setComCreated] = useState(false);
   const [settingscomCreated, setSettingsComCreated] = useState(false);
+
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
@@ -2333,8 +2334,8 @@ export default function UserList() {
             onCancel={handleSettingsCloseModal}
             width={720}
           >
-            <div className="flex flex-col">
-              <TerminalSettings isModal={true} />
+            <div className="flex flex-col p-[24px]">
+              <TerminalSettings isModal={true} selectedRows={selectedRows} />
             </div>
           </AntModal>
         )}
