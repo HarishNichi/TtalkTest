@@ -97,6 +97,9 @@ body {
 .ant-table-tbody > tr:not(.history-settings-tables) > td {
   padding: 2px 16px !important;
 }
+.ant-table-tbody {
+  font-size: 16px;
+}
 .ant-upload {
   width: 100%;
 }
