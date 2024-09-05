@@ -36,7 +36,7 @@ export default function UserDetail() {
         <Tabs
           defaultActiveKey={"1"}
           activeKey={tabKey}
-          className="mt-2"
+          className="mt-4 mb-4"
           onChange={onTabChange}
         >
           <TabPane tab="ユーザー詳細" key="1">

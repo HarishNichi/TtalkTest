@@ -141,7 +141,7 @@ export default function UserDetails() {
       setExportModal(() => false);
       setCsvFileName("");
       if (result?.data?.status?.code == 200) {
-      toast("エクスポートが成功しました", successToastSettings);
+        toast("エクスポートが成功しました", successToastSettings);
       }
       setLoading(false);
     } catch (err) {
@@ -613,8 +613,8 @@ export default function UserDetails() {
           }}
         />
       </div>
-      <div className="bg-white shadow-lg flex flex-col md:flex-row">
-        <div className="flex flex-col p-[16px] pr-0  w-full space-y-2 mt-[2vw]">
+      <div className="bg-white shadow-lg flex flex-col md:flex-row p-[24px]">
+        <div className="flex flex-col  pr-0  w-full space-y-2 ">
           <div className="text-sm font-normal">端末名</div>
           <div className="text-sm font-semibold">
             {deviceName(userDetails?.device?.id) || "-"}
@@ -656,7 +656,7 @@ export default function UserDetails() {
           </div>
         </div>
 
-        <div className="flex flex-col w-full space-y-2 p-[16px] pt-0 md:pt-[16px]  md:mt-[2vw] mb-[2vw]">
+        <div className="flex flex-col w-full space-y-2  ">
           <div className="text-sm font-normal">電話番号</div>
           <div className="text-sm font-semibold">
             {userDetails?.phone || "-"}
