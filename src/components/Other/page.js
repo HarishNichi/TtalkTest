@@ -171,20 +171,16 @@ export default function Other() {
           contentPaddingTop="pt-1"
           contentPadding="px-0"
           modalFooter={() => (
-            <div className="flex gap-x-3">
-              <div>
+            <div className="flex flex-col gap-y-3 gap-x-3 md:flex-row md:gap-y-0 w-full">
+              <div className="flex-1">
                 <IconLeftBtn
                   text="キャンセル"
-                  textColor={
-                    "text-white font-semibold text-sm w-full rounded-lg"
-                  }
+                  textColor={"text-white font-semibold text-sm w-full rounded"}
                   py={"py-2"}
-                  px={"px-[10.5px] md:px-[17.5px]"}
+                  px={"h-[40px] px-[10.5px] md:px-[17.5px]"}
                   bgColor={""}
                   textBold={true}
-                  icon={() => {
-                    return null;
-                  }}
+                  icon={() => null}
                   onClick={() => {
                     setPassword(null);
                     setConfirmPassword(null);
@@ -194,22 +190,16 @@ export default function Other() {
                   }}
                 />
               </div>
-              <div>
+              <div className="flex-1">
                 <IconLeftBtn
                   text={intl.reset_submit_btn}
-                  textColor={
-                    "text-white font-semibold text-sm w-full rounded-lg"
-                  }
+                  textColor={"text-white font-semibold text-sm w-full rounded"}
                   py={"py-2"}
-                  px={"px-[10.5px] md:px-[17.5px]"}
+                  px={"h-[40px] px-[10.5px] md:px-[17.5px]"}
                   bgColor={""}
                   textBold={true}
-                  icon={() => {
-                    return null;
-                  }}
-                  onClick={() => {
-                    passwordReset();
-                  }}
+                  icon={() => null}
+                  onClick={() => passwordReset()}
                 />
               </div>
             </div>
@@ -229,8 +219,8 @@ export default function Other() {
                       id="password"
                       value={password}
                       name="password"
-                      className={`rounded-xl
-                        py-3
+                      className={`rounded
+                        py-3 h-[40px]
                         focus:outline-none focus:ring-2 focus:ring-customBlue
                         border border-gray-400
                         block w-full pl-5 text-sm pr-[30px] font-medium text-black`}
@@ -275,7 +265,7 @@ export default function Other() {
                       id="passwordConfirm"
                       name="confirmPassword"
                       value={confirmPassword}
-                      className={`rounded-xl
+                      className={`h-[40px] rounded
                         py-3
                         focus:outline-none focus:ring-2 focus:ring-customBlue
                         border border-gray-400
@@ -303,7 +293,7 @@ export default function Other() {
                   </div>
                   {errors?.confirmPassword && touched?.confirmPassword && (
                     <div
-                      className="mb-4 text-left pl-1 validation-font text-left"
+                      className=" text-left pl-1 validation-font text-left"
                       style={{ color: "red" }}
                     >
                       {errors?.confirmPassword}
@@ -321,38 +311,38 @@ export default function Other() {
           fontSize="text-xl"
           fontWeight="font-semibold"
           textColor="#19388B"
-          text={intl.user_remote_wipe_screen_label}
+          text="デフォルトに戻す"
           onCloseHandler={setDeleteModal}
           modalFooter={() => {
             return (
-              <div className=" flex justify-between">
-                <div>
+              <div className=" flex flex-col gap-y-3 gap-x-3 md:flex-row md:gap-y-0 w-full">
+                <div className="flex-1">
                   <IconLeftBtn
                     text={intl.user_remote_wipe_no_btn}
-                    textColor={"text-white font-semibold text-sm w-full"}
-                    py={"py-[11px]"}
-                    px={"px-[26.5px] md:px-[35.5px]"}
-                    bgColor={"bg-customBlue"}
+                    textColor={
+                      "text-white font-semibold text-sm w-full rounded"
+                    }
+                    py={"py-2"}
+                    px={"h-[40px] px-[10.5px] md:px-[17.5px]"}
+                    bgColor={""}
                     textBold={true}
-                    icon={() => {
-                      return null;
-                    }}
+                    icon={() => null}
                     onClick={() => {
                       setDeleteModal(() => false);
                     }}
                   />
                 </div>
-                <div>
+                <div className="flex-1">
                   <IconLeftBtn
                     text={intl.user_remote_wipe_yes_btn}
-                    textColor={"text-white font-semibold text-sm w-full ml-2"}
-                    py={"py-[11px]"}
-                    px={"px-[30.5px] md:px-[38.5px]"}
-                    bgColor={"bg-customBlue"}
+                    textColor={
+                      "text-white font-semibold text-sm w-full rounded"
+                    }
+                    py={"py-2"}
+                    px={"h-[40px] px-[10.5px] md:px-[17.5px]"}
+                    bgColor={""}
                     textBold={true}
-                    icon={() => {
-                      return null;
-                    }}
+                    icon={() => null}
                     onClick={() => {
                       handleRemoteWipeNotification();
                     }}
@@ -363,7 +353,7 @@ export default function Other() {
           }}
         >
           <div className="flex flex-col">
-            <div className="flex-grow py-[90px] pt-[60px] dark:text-black">
+            <div className="flex-grow  dark:text-black">
               {intl.remote_wipe_confirm}
             </div>
           </div>

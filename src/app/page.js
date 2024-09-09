@@ -393,6 +393,7 @@ export default function Login() {
 
       {isModalOpen && (
         <Modal
+          height={308}
           text={intl.login_forget_password_text}
           fontSize="20"
           textColor="customBlue"

@@ -377,7 +377,7 @@ export default function Header({
           }}
         >
           <div className="flex flex-col">
-            <div className="flex-grow py-[90px] pt-[60px] dark:text-black">
+            <div className="flex-grow dark:text-black">
               {intl.logout_confirm}
             </div>
           </div>
