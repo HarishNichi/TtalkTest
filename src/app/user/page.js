@@ -2098,8 +2098,12 @@ export default function UserList() {
                 borderColor={"border-customBlue"}
                 onClick={() => {
                   setIsSettingsModalOpen(true);
+                  let rowData = employeeData.find(
+                    (item) => item.id == selectedRows[0])
+                   dispatch(addEmployee(rowData));
                   //router.push("/company/add");
                 }}
+             
               />
               <IconOutlineBtn
                 text={intl.company_list_company_export_title}
