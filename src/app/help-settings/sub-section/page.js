@@ -526,11 +526,11 @@ export default function Subsection() {
   return (
     <ProtectedRoute allowedRoles={["admin"]}>
       {loading && <LoaderOverlay />}
-      <div className="p-2">
-        <div className="flex pt-[16px]">
+      <div className="">
+        <div className="flex mb-[16px]">
           <Breadcrumb links={helperSubSectionLinks} />
         </div>
-        <h1 className="text-xl font-semibold">{Help.section}</h1>
+        <h1 className="text-xl font-semibold mb-[16px]">{Help.section}</h1>
       </div>
       <div className="flex flex-col md:flex-row">
         {/* Left Column */}

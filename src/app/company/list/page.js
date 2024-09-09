@@ -77,7 +77,7 @@ export default function CompanyList() {
       title: intl.company_list_company_contact_mail,
       dataIndex: "email",
       render: (text) => <a>{text}</a>,
-      width: 140,
+      width: 160,
       align: "left",
     },
     {
