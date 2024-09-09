@@ -2097,11 +2097,12 @@ export default function UserList() {
                 icon={() => settingsIcon()}
                 borderColor={"border-customBlue"}
                 onClick={() => {
+                  dispatch(addEmployee(selectedRows[0]));
                   setIsSettingsModalOpen(true);
                   // let rowData = employeeData.find(
                   //   (item) => item.id == selectedRows[0])
-                  //   console.log(employeeData,selectedRows[0],JSON.stringify(rowData))
-                   dispatch(addEmployee(selectedRows[0]));
+                    console.log(selectedRows[0])
+             
                   //router.push("/company/add");
                 }}
              
