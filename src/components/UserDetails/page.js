@@ -98,12 +98,16 @@ export default function UserDetails() {
   const UserData = useAppSelector((state) => state.userReducer.user);
   let Admin = false;
   let organizationIdForChannel;
+  let orgName;
   if (isAuthenticated && Object.keys(UserData).length > 0) {
     const User = UserData ? JSON.parse(UserData) : "";
     organizationIdForChannel = User.id;
     const roles = User?.role ? JSON.parse(User.role) : [];
     Admin = roles ? roles.some((role) => role.toLowerCase() == "admin") : false;
+    orgName = User.name;
   }
+
+  const [limit, setLimit] = useState(EmployeeSearchLimit);
   const [received, setReceived] = useState("");
 
   function importHandler() {
