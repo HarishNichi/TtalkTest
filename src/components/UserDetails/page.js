@@ -245,6 +245,8 @@ export default function UserDetails() {
       setUserDetails(response);
       await dispatch(getEmployee(emp));
     } catch (error) {
+       // eslint-disable-next-line no-console
+       console.log(error);
       setLoading(false);
     }
   };
