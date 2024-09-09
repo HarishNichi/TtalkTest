@@ -32,7 +32,7 @@ import GetIconQRCode from "@/components/Icons/qrCode";
 import { useRouter } from "next/navigation";
 
 import api from "@/utils/api";
-import { addEmployee } from "@/redux/features/employee";
+import { addEmployee,getEmployee } from "@/redux/features/employee";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import LoaderOverlay from "@/components/Loader/loadOverLay";
 import { ToastContainer, toast } from "react-toastify";
