@@ -2096,12 +2096,18 @@ export default function UserList() {
                 px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
                 icon={() => settingsIcon()}
                 borderColor={"border-customBlue"}
-                onClick={() => {
-                  dispatch(addEmployee(selectedRows[0]));
+                onClick={ async() => {
+                  const params = {
+                    params: {
+                      id: selectedRows[0].id,
+                    },
+                  };
+                  let { data } = await api.get("employees/get", params);
+                  let emp = data.data.Item;
+                  dispatch(getEmployee(emp));
                   setIsSettingsModalOpen(true);
                   // let rowData = employeeData.find(
                   //   (item) => item.id == selectedRows[0])
-                    console.log(selectedRows[0])
              
                   //router.push("/company/add");
                 }}
