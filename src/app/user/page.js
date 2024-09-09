@@ -2100,7 +2100,8 @@ export default function UserList() {
                   setIsSettingsModalOpen(true);
                   let rowData = employeeData.find(
                     (item) => item.id == selectedRows[0])
-                   dispatch(addEmployee(rowData));
+                    console.log(JSON.stringify(rowData))
+                   dispatch(addEmployee(JSON.stringify(rowData)));
                   //router.push("/company/add");
                 }}
              
