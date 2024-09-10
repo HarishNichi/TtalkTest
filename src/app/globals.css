@@ -573,6 +573,8 @@ select {
   -moz-appearance: none;
   appearance: none;       /* Remove default arrow */
   background-image: url(../../public/Vector.png);   /* Add custom arrow */
+  background-repeat: no-repeat;
+  background-position: right 10px center;
 }
 
 /* select {
