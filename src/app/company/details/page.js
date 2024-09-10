@@ -243,12 +243,12 @@ export default function CompanyInformation() {
                   <div className="text-sm font-semibold">
                     {organizationsData.name}
                   </div>
-                  <div className="text-sm font-normal text-[#595959]">
+                  {/* <div className="text-sm font-normal text-[#595959]">
                     {intl.furigana}
                   </div>
                   <div className="text-sm font-semibold">
                     {organizationsData.name}
-                  </div>
+                  </div> */}
                   <div className="text-sm font-normal text-[#595959]">
                     {intl.form_component_company_id}
                   </div>
@@ -267,6 +267,13 @@ export default function CompanyInformation() {
                   <div className="text-sm font-semibold">
                     {organizationsData.numberOfUsers}
                   </div>
+
+                  <div className="text-sm font-normal text-[#595959]">
+                    {intl.form_component_sales_channel}
+                  </div>
+                  <div className="text-sm font-semibold">
+                    {organizationsData.salesChannel}
+                  </div>
                   <div className="text-sm font-normal text-[#595959]">
                     {intl.form_component_fleet_number}
                   </div>
@@ -276,12 +283,12 @@ export default function CompanyInformation() {
                 </div>
 
                 <div className="flex flex-col w-full space-y-2">
-                  <div className="text-sm font-normal text-[#595959]">
+                  {/* <div className="text-sm font-normal text-[#595959]">
                     {intl.form_component_sales_channel}
                   </div>
                   <div className="text-sm font-semibold">
                     {organizationsData.salesChannel}
-                  </div>
+                  </div> */}
                   <div className="text-sm font-normal text-[#595959]">
                     {intl.form_component_simulataneous_intepretation}
                   </div>
@@ -307,6 +314,10 @@ export default function CompanyInformation() {
                   </div>
                   <div className="text-sm font-semibold">
                     {organizationsData.isStatus ? "ON" : "OFF"}
+                  </div>
+                  <div className="text-sm font-normal text-[#595959]">説明</div>
+                  <div className="text-sm font-semibold">
+                    {organizationsData.description || "-"}
                   </div>
                 </div>
               </div>

@@ -207,7 +207,7 @@ export default function Header({
             <Image
               src={Logo}
               alt="Ptalk"
-              style={{ marginLeft: "55px", width: "110px" }}
+              style={{ marginLeft: "10px", width: "110px" }}
             />
           </span>
           <div>

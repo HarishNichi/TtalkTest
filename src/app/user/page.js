@@ -284,10 +284,10 @@ export default function UserList() {
                 }
               }}
             > */}
-            <div className="flex hover:text-[#69b1ff] text-customBlue">
+            <div className="flex hover:text-[#69b1ff] text-customBlue cursor-pointer">
               ******
               <CopyButton
-                className="ml-2 text-[#69b1ff] cursor-pointer"
+                className="ml-2 text-[#69b1ff] "
                 onClick={async (event) => {
                   event.stopPropagation();
                   toast.dismiss();
@@ -1692,7 +1692,7 @@ export default function UserList() {
               icon={() => editIcon()}
               bg="bg-transparent border-none"
               onClick={() => {
-                router.push("/user/add");
+                setIsModalOpen(true);
               }}
             />
           </span>
@@ -1839,7 +1839,7 @@ export default function UserList() {
                   list="company_search"
                   name="company_search"
                   className={`w-full border flex  py-2.5 text-xs  pl-2  rounded-lg focus:outline-none placeholder-[#AEA8A8] 
-        placeholder:text-center md:placeholder:text-left md:placeholder:pl-0
+        placeholder:text-left md:placeholder:text-left md:placeholder:pl-0
         dark:text-black`}
                   placeholder={intl.company_list_company_name}
                   id="organization"
@@ -2294,7 +2294,7 @@ export default function UserList() {
                   <div className="flex flex-col">
                     <DropdownMedium
                       borderRound={"rounded"}
-                      padding={"pt-[12px] pb-[12px] pr-[120px]"}
+                      padding={" pr-[120px]"}
                       options={[
                         { id: 1, value: "1", label: "CSV" },
                         { id: 2, value: "2", label: "QR code" },

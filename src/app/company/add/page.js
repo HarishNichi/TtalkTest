@@ -68,7 +68,11 @@ export default function AddUser() {
         <div className="mb-1">
           <Breadcrumb links={companyAddLinks} />
         </div>
-        <div className="flex flex-col flex-1 h-full">
+        <div
+          className="flex flex-col flex-1 h-full
+        
+        "
+        >
           <div className="flex  justify-between mb-2 xl:mb-2">
             <div className="flex">
               <DynamicLabel

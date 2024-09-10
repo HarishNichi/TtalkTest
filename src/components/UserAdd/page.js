@@ -578,22 +578,22 @@ export default function AddUser({
             </div>
           </div>
         </div>
-        <div className="md:mt-6 pb-[40px]">
-          <div className="flex justify-end">
-            <IconLeftBtn
-              type="submit"
-              text={intl.help_settings_addition_keep}
-              py="py-[8px] px-[55px] w-full"
-              textColor="text-white font-normal text-[16px]"
-              bgColor="bg-customBlue"
-              textBold={true}
-              rounded="rounded-lg"
-              icon={() => {
-                return null;
-              }}
-              onClick={() => handleSubmit()}
-            />
-          </div>
+      </div>
+      <div className="md:mt-6 p-[40px]">
+        <div className="flex justify-end">
+          <IconLeftBtn
+            type="submit"
+            text={intl.help_settings_addition_keep}
+            py="py-[8px] px-[55px] w-full"
+            textColor="text-white font-normal text-[16px]"
+            bgColor="bg-customBlue"
+            textBold={true}
+            rounded="rounded-lg"
+            icon={() => {
+              return null;
+            }}
+            onClick={() => handleSubmit()}
+          />
         </div>
       </div>
     </ProtectedRoute>
