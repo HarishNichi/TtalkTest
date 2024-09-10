@@ -152,6 +152,36 @@ export default function Other() {
     }
   }
 
+  async function handlePttNotification() {
+    toast.dismiss();
+    setLoading(true);
+    const payload = {
+      pttNos: [Employee.radioNumber],
+      data: {
+        type: "config-emp",
+        title: "config employee",
+        body: {},
+      },
+    };
+    try {
+      await api.post("push/notify", payload);
+      setLoading(false);
+      toast(intl.notify_success, successToastSettings);
+    } catch (error) {
+      setLoading(false);
+      toast(error.response?.data?.status.message || error.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored",
+        type: "error",
+      });
+    }
+  }
+
   return (
     <>
       {passwordModal && (
@@ -405,6 +435,27 @@ export default function Other() {
             }}
           >
             {intl.user_restore_default_settings}
+          </Button>
+        </div>
+        <div className="ml-[16px] font-normal text-sm mb-1">
+         PTT
+        </div>
+        <div className="ml-[16px]">
+          <Button
+            type="default"
+            style={{
+              color: "#19388B", // Custom blue text color
+              borderColor: "#19388B",
+              fontWeight: 600, // Font weight 600
+              fontSize: "16px",
+              height: "40px",
+              borderRadius: "4px",
+            }}
+            onClick={() => {
+               handlePttNotification();
+            }}
+          >
+            {intl.layout_pttBar_push_settings_to_terminal_ppt}
           </Button>
         </div>
       </div>
