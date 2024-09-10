@@ -291,7 +291,7 @@ export default function CompanyList() {
       <IconLeftBtnCSV
         type="submit"
         text={"エクスポート"}
-        textColor={"text-white font-semibold text-[16px] w-full"}
+        textColor={"text-white font-semibold text-[16px] h-[40px] w-full"}
         py={"py-[11px]"}
         px={"w-[84%]"}
         bgColor={"bg-customBlue"}
@@ -702,14 +702,14 @@ export default function CompanyList() {
         <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]  ">
           <Button
             key="cancel"
-            className="sm:flex-1 w-full sm:w-auto text-[#214BB9] border-[#214BB9] font-semibold text-base"
+            className="sm:flex-1 w-full sm:w-auto text-[#214BB9] border-[#214BB9] font-semibold h-[40px] text-base"
             onClick={() => setDeleteModal(false)}
           >
             {intl.help_settings_addition_modal_cancel}
           </Button>
           <Button
             key="delete"
-            className="sm:flex-1 w-full sm:w-auto bg-[#BA1818] text-white no-hover"
+            className="sm:flex-1 w-full sm:w-auto bg-[#BA1818] h-[40px] text-white no-hover"
             onClick={() => deleteOrganization(selectedRows)}
           >
             {intl.help_settings_addition_delete_button}({selectedRows.length})
@@ -1230,9 +1230,9 @@ export default function CompanyList() {
                       type="text"
                       for={"id"}
                       placeholder={"ファイル名"}
-                      borderRound="rounded-xl"
+                      borderRound="rounded"
                       padding="p-[10px]"
-                      focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
+                      focus="focus:outline-none focus:ring-2 h-[40px] focus:ring-customBlue"
                       border="border border-gray-300"
                       bg="bg-white"
                       additionalClass="block w-full pl-5 text-base pr-[30px]"

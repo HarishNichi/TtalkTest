@@ -245,7 +245,7 @@ export default function Header({
               >
                 <span className="sr-only">Open main menu</span>
                 <span
-                  className="text-white text-2xl font-bold"
+                  className="text-white text-2xl font-bold hover:cursor-pointer"
                   onClick={() => {
                     toggle(!on);
                     toggler(!on);

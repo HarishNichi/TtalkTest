@@ -580,9 +580,9 @@ export default function HelpSettingsList() {
                       type="text"
                       for={"id"}
                       placeholder={"ファイル名"}
-                      borderRound="rounded-xl"
+                      borderRound="rounded"
                       padding="p-[10px]"
-                      focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
+                      focus="focus:outline-none focus:ring-2 h-[40px] focus:ring-customBlue"
                       border="border border-gray-300"
                       bg="bg-white"
                       additionalClass="block w-full pl-5 text-base pr-[30px]"

@@ -32,7 +32,7 @@ import GetIconQRCode from "@/components/Icons/qrCode";
 import { useRouter } from "next/navigation";
 
 import api from "@/utils/api";
-import { addEmployee,getEmployee } from "@/redux/features/employee";
+import { addEmployee, getEmployee } from "@/redux/features/employee";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import LoaderOverlay from "@/components/Loader/loadOverLay";
 import { ToastContainer, toast } from "react-toastify";
@@ -45,7 +45,7 @@ import Amplify from "@aws-amplify/core";
 import * as gen from "@/generated";
 import { formatDate } from "@/validation/helperFunction";
 import dayjs from "dayjs";
-import locale from "antd/es/date-picker/locale/en_US";
+import locale from "antd/es/date-picker/locale/ja_JP";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import "dayjs/locale/ja.js";
 import { FaRegCopy } from "react-icons/fa";
@@ -743,7 +743,7 @@ export default function UserList() {
     return (
       <IconLeftBtn
         text={"エクスポート"}
-        textColor={"text-white font-semibold text-[16px] w-full"}
+        textColor={"text-white h-[40px] font-semibold text-[16px] w-full"}
         py={"py-[11px]"}
         px={"w-[84%]"}
         bgColor={"bg-customBlue"}
@@ -2096,7 +2096,7 @@ export default function UserList() {
                 px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
                 icon={() => settingsIcon()}
                 borderColor={"border-customBlue"}
-                onClick={ async() => {
+                onClick={async () => {
                   const params = {
                     params: {
                       id: selectedRows[0].id,
@@ -2109,10 +2109,9 @@ export default function UserList() {
                   data && setIsSettingsModalOpen(true);
                   // let rowData = employeeData.find(
                   //   (item) => item.id == selectedRows[0])
-             
+
                   //router.push("/company/add");
                 }}
-             
               />
               <IconOutlineBtn
                 text={intl.company_list_company_export_title}
@@ -2267,12 +2266,12 @@ export default function UserList() {
                       type="text"
                       for={"id"}
                       placeholder={"ファイル名"}
-                      borderRound="rounded-xl"
+                      borderRound="rounded "
                       padding="p-[10px]"
                       focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
                       border="border border-gray-300"
                       bg="bg-white"
-                      additionalClass="block w-full pl-5 text-base pr-[30px] "
+                      additionalClass="block w-full pl-5 text-base pr-[30px] h-[40px] "
                       label={"ファイル名"}
                       labelColor="#7B7B7B"
                       id={"id"}
@@ -2290,8 +2289,8 @@ export default function UserList() {
                   </div>
                   <div className="flex flex-col">
                     <DropdownMedium
-                      borderRound={"rounded-xl"}
-                      padding={"pt-[12px] pb-[12px] pr-[120px]"}
+                      borderRound={"rounded"}
+                      padding={" pr-[120px]"}
                       options={[
                         { id: 1, value: "1", label: "CSV" },
                         { id: 2, value: "2", label: "QR code" },
@@ -2301,7 +2300,7 @@ export default function UserList() {
                       border={"border border-gray-300"}
                       value={exportType}
                       focus={
-                        "focus:outline-none focus:ring-2 focus:ring-customBlue"
+                        "focus:outline-none focus:ring-2 focus:ring-customBlue h-[40px]"
                       }
                       bg={"bg-white"}
                       text={"text-sm"}

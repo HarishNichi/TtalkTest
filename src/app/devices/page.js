@@ -30,7 +30,7 @@ import ProtectedRoute from "@/utils/auth";
 import { ToastContainer, toast } from "react-toastify";
 import ImportModal from "@/components/ImportModal/importModal";
 import { Button, DatePicker, Switch } from "antd";
-import locale from "antd/es/date-picker/locale/en_US";
+import locale from "antd/es/date-picker/locale/ja_JP";
 const { RangePicker } = DatePicker;
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
