@@ -473,7 +473,7 @@ export default function UserList() {
         if (record.status == "online") {
           roundStatus = (
             <div className="w-full flex justify-center h-full">
-              <div className={`bg-[#1AB517] h-2 w-2 p-2 rounded-full `}></div>
+              <div className={`bg-customGreen h-2 w-2 p-2 rounded-full `}></div>
             </div>
           );
         }
@@ -488,24 +488,26 @@ export default function UserList() {
         if (record.status == "offline") {
           roundStatus = (
             <div className="w-full flex justify-center h-full">
-              <div className={`bg-[#ED2E2E] h-2 w-2 p-2 rounded-full`}></div>
+              <div className={`bg-customGray h-2 w-2 p-2 rounded-full`}></div>
             </div>
           );
         }
         if (record.status == "unknown") {
           roundStatus = (
             <div className="w-full flex justify-center h-full">
-              <div className={`bg-[#D9D9D9] h-2 w-2 p-2 rounded-full`}></div>
+              <div
+                className={`bg-white border border-customGray h-2 w-2 p-2 rounded-full`}
+              ></div>
             </div>
           );
         }
 
         return (
-          <div className="flex justify-around items-center">
+          <div className="flex  items-center">
             <div>{roundStatus}</div>
             <div style={{ width: "105px" }}>
               <div
-                className={`rounded-[5px] cursor-pointer  pt-[5px] pb-[5px] pl-[5px] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-customBlue text-sm text-white block w-full ${bg} text-center
+                className={`rounded-[5px] cursor-pointer  pt-[5px] pb-[5px] pl-[5px]  focus:outline-none focus:ring-2 focus:ring-customBlue text-sm text-black block w-full  text-center
             `}
               >
                 {text ? "オンライン" : "オフライン"}
@@ -743,7 +745,7 @@ export default function UserList() {
     return (
       <IconLeftBtn
         text={"エクスポート"}
-        textColor={"text-white h-[40px] font-semibold text-[16px] w-full"}
+        textColor={"text-white font-semibold text-[16px] w-full"}
         py={"py-[11px]"}
         px={"w-[84%]"}
         bgColor={"bg-customBlue"}
@@ -2035,10 +2037,13 @@ export default function UserList() {
           </label>
           <div className="w-full md:w-auto flex gap-x-3">
             {[
-              { text: "利用可能", style: " bg-[#1AB517]" },
-              { text: "利用不在", style: " bg-[#FFA500]" },
-              { text: "利用停止", style: " bg-[#ED2E2E]" },
-              { style: "bg-[#C6C3C3]", text: "利用不可" },
+              { text: "オンライン", style: " bg-[#1AB517]" },
+              { text: "離席中", style: " bg-[#FFA500]" },
+              { text: "オフライン", style: " bg-customGray" },
+              {
+                style: "bg-white border border-customGray",
+                text: "ステータス不明",
+              },
             ].map((el, index) => {
               return (
                 <div className="flex gap-x-2 items-center" key={index}>
@@ -2105,8 +2110,7 @@ export default function UserList() {
                   let { data } = await api.get("employees/get", params);
                   let emp = data.data.Item;
                   dispatch(getEmployee(emp));
-                  dispatch(addEmployee(selectedRows[0]));
-                  data && setIsSettingsModalOpen(true);
+                  setIsSettingsModalOpen(true);
                   // let rowData = employeeData.find(
                   //   (item) => item.id == selectedRows[0])
 
@@ -2290,7 +2294,7 @@ export default function UserList() {
                   <div className="flex flex-col">
                     <DropdownMedium
                       borderRound={"rounded"}
-                      padding={" pr-[120px]"}
+                      padding={"pt-[12px] pb-[12px] pr-[120px]"}
                       options={[
                         { id: 1, value: "1", label: "CSV" },
                         { id: 2, value: "2", label: "QR code" },
