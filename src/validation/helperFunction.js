@@ -75,6 +75,10 @@ export const updateEmployee = async (employeeData) => {
   return api.patch("employees/patch", employeeData);
 };
 
+export const updateBulkEmployee = async (employeeData) => {
+  return api.patch("employees/bulk/update", employeeData);
+};
+
 export const fetchEmpData = async (Id) => {
   toast.dismiss();
   const params = {

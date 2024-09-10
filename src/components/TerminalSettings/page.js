@@ -25,7 +25,7 @@ import { GearIcon } from "../Icons/gearIcon";
 import EditIcon from "../Icons/editIcon";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { ToastContainer, toast } from "react-toastify";
-import { updateEmployee, fetchEmpData } from "@/validation/helperFunction";
+import { updateEmployee, fetchEmpData, updateBulkEmployee } from "@/validation/helperFunction";
 import { errorToastSettings, successToastSettings } from "@/utils/constant";
 import { getEmployee } from "@/redux/features/employee";
 import LoaderOverlay from "../Loader/loadOverLay";
@@ -339,15 +339,17 @@ export default function TerminalSettings({ isModal, selectedRows }) {
 
     try {
       setLoading(true);
-      const settingsUpdated = await updateEmployee(payload);
+      const settingsUpdated = await updateBulkEmployee(payload);
       if (settingsUpdated) {
-        let id = Employee.id;
-        let result = await fetchEmpData(id);
-        result && dispatch(getEmployee(result));
+        // let id = Employee.id;
+        // let result = await fetchEmpData(id);
+        // result && dispatch(getEmployee(result));
         toast(intl.settings_update_success, successToastSettings);
+        setConfirmModal(false)
       }
     } catch (err) {
       toast(intl.settings_update_failed, errorToastSettings);
+      setConfirmModal(false)
     } finally {
       setLoading(false);
     }
@@ -2683,6 +2685,9 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                   }
                   bgColor={"bg-customBlue"}
                   textBold={true}
+                  onClick= {()=>{
+                    updateBulkSettings()
+                  }}
                   icon={() => {
                     return null;
                   }}

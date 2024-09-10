@@ -2105,7 +2105,7 @@ export default function UserList() {
                   let { data } = await api.get("employees/get", params);
                   let emp = data.data.Item;
                   dispatch(getEmployee(emp));
-                  setIsSettingsModalOpen(true);
+                  data && setIsSettingsModalOpen(true);
                   // let rowData = employeeData.find(
                   //   (item) => item.id == selectedRows[0])
              
