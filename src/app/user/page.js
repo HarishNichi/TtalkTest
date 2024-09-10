@@ -1994,7 +1994,7 @@ export default function UserList() {
               <select
                 id={"isActive"}
                 className={`w-full md:min-w-[100px] lg:min-w-[100px] border flex flex-auto md:flex-1  py-[8.5px] text-xs  pl-2 bg-[white] rounded-lg focus:outline-none placeholder-[#AEA8A8] 
-                placeholder:text-center md:placeholder:text-left md:placeholder:pl-0 dark:text-black h-[38px] ${!searchPayload.isActive? 'text-[#85868B]' :"text-black"}`}
+                placeholder:text-center md:placeholder:text-left md:placeholder:pl-0 dark:text-black h-[38px] ${searchPayload.isActive==""? 'text-[#85868B]' :"text-black"}`}
                 value={searchPayload.isActive}
                 onChange={(e) => updateSearchPayload(e)}
               >

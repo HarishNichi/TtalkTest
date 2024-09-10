@@ -37,7 +37,7 @@ export default function DropdownMedium(props) {
           id={props.id}
           className={`${props.additionalClass} ${props.padding} ${props.text}
             ${props.border} ${props.borderRound} ${props.additionalClass}
-            ${props.focus} ${props.bg} truncate dark:text-black ${!selectedOptionValue? 'text-[#85868B]' :"text-black"}`}
+            ${props.focus} ${props.bg} truncate dark:text-black ${selectedOptionValue==""? 'text-[#85868B]' :"text-black"}`}
           ref={selectRef}
           onChange={handleChange}
           onBlur={handleChange}
