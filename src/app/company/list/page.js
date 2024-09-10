@@ -808,7 +808,7 @@ export default function CompanyList() {
               value={selectedValue}
               onChange={handleSelectChange}
             >
-              <option value="">ステータス</option>
+              <option className="text-[##85868B] font-[14px]" value="">ステータス</option>
               <option value={true}>有効</option>
               <option value={false}>無効</option>
             </select>

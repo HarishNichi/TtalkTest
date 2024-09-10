@@ -50,7 +50,7 @@ export default function DropdownMedium(props) {
               value={""}
               style={{ fontSize: "14px", width: "200px",}}
               key={"default"}
-              className="text-[#85868B]"
+              className="text-[##85868B]"
               
             >
               {props?.placeholder||"--選択する--"}
