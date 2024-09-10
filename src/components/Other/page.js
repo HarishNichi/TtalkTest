@@ -418,7 +418,7 @@ export default function Other() {
         <div className="ml-[16px] font-normal text-sm mb-1">
           {intl.user_terminal_settings}
         </div>
-        <div className="ml-[16px]">
+        <div className="ml-[16px] mb-[16px]">
           <Button
             type="default"
             style={{
