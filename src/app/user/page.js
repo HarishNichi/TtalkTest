@@ -1998,7 +1998,7 @@ export default function UserList() {
                 value={searchPayload.isActive}
                 onChange={(e) => updateSearchPayload(e)}
               >
-                <option className="text-[##85868B] font-[14px]" value="">ステータス</option>
+                <option className="text-[#85868B] font-[14px]" value="">ステータス</option>
                 <option value={true}>オンライン</option>
                 <option value={false}>オフライン</option>
               </select>
