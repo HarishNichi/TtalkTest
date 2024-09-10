@@ -476,7 +476,7 @@ export default function HelpSettingsList() {
             defaultValue={1}
             onRowClick={(row, rowIndex) => {
               dispatch(addEmployee(row));
-              router.push("/user/details");
+              router.push("/user-details");
             }}
             selectAll={selectAll}
             setSelectAll={setSelectAll}
