@@ -803,8 +803,8 @@ export default function CompanyList() {
 
           <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
             <select
-              className="w-full md:min-w-[100px] lg:min-w-[100px] border flex flex-auto md:flex-1  py-2.5 text-xs  pl-2 bg-[white] rounded-lg focus:outline-none placeholder-[#AEA8A8] 
-                placeholder:text-center  h-[40px] md:placeholder:text-left md:placeholder:pl-0 dark:text-black"
+              className={`w-full md:min-w-[100px] lg:min-w-[100px] border flex flex-auto md:flex-1  py-2.5 text-xs  pl-2 bg-[white] rounded-lg focus:outline-none placeholder-[#AEA8A8] 
+                placeholder:text-center  h-[40px] md:placeholder:text-left md:placeholder:pl-0 dark:text-black ${!selectedValue? 'text-[#85868B]' :""}`}
               value={selectedValue}
               onChange={handleSelectChange}
             >

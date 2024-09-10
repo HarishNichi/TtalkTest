@@ -3,6 +3,7 @@ import DropDownIcon from "../Icons/dropdownIcon";
 import intl from "../../utils/locales/jp/jp.json";
 export default function DropdownMedium(props) {
   const selectRef = useRef(null);
+  let selectedOptionValue=""
   const handleChange = (event) => {
     event.stopPropagation();
     const selectedIndex = event.target.selectedIndex;
@@ -10,6 +11,7 @@ export default function DropdownMedium(props) {
     const selectedValue = selectedOption.value;
     if (props.onChange) {
       props.onChange(selectedValue, event);
+      selectedOptionValue = selectedValue
     }
   };
   const handleIconClick = (event) => {
@@ -35,7 +37,7 @@ export default function DropdownMedium(props) {
           id={props.id}
           className={`${props.additionalClass} ${props.padding} ${props.text}
             ${props.border} ${props.borderRound} ${props.additionalClass}
-            ${props.focus} ${props.bg} truncate dark:text-black`}
+            ${props.focus} ${props.bg} truncate dark:text-black ${!selectedOptionValue? 'text-[#85868B]' :""}`}
           ref={selectRef}
           onChange={handleChange}
           onBlur={handleChange}
