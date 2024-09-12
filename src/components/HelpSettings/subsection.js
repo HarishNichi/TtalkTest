@@ -4,7 +4,7 @@ import SectionDeleteIcon from "../Icons/sectionDelete";
 
 const SubSection = ({ selected, tabs, handleTabClick, handleDeleteClick }) => {
   return (
-    <div className="w-full   max-h-[350px] overflow-auto">
+    <div className="w-full   max-h-[350px] overflow-auto border border-[#E7E7E9] rounded">
       <ul className=" border-t">
         {tabs.map((tab, index) => (
          
