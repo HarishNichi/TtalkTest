@@ -1,29 +1,29 @@
 "use client";
 
 import "./globals.css";
-import TelnetLogo from "../../public/telnetLogo.svg";
-import PtalkLogo from "../../public/Ttalk-logo.png";
 import Image from "next/image";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import { Noto_Sans_JP } from "next/font/google";
 import { useState, useEffect } from "react";
 import * as Yup from "yup";
+import { useRouter } from "next/navigation";
+import api from "@/utils/api";
+import { addUser } from "@/redux/features/user";
+import { useAppDispatch } from "@/redux/hooks";
+import { ToastContainer, toast } from "react-toastify";
+
+import TelnetLogo from "../../public/telnetLogo.svg";
+import PtalkLogo from "../../public/Ttalk-logo.png";
 import intl from "@/utils/locales/jp/jp.json";
 import { code } from "@/utils/constant";
-
 import {
   PASSWORD_LENGTH_PATTERN,
   EMAIL_PATTERN,
   MAX_50_LENGTH_PATTERN,
 } from "@/validation/validationPattern";
 import { validateHandler } from "@/validation/helperFunction";
-import { useRouter } from "next/navigation";
-import api from "@/utils/api";
-import { addUser } from "@/redux/features/user";
-import { useAppDispatch } from "@/redux/hooks";
 import LoaderOverlay from "@/components/Loader/loadOverLay";
 import Modal from "@/components/Modal/modal"; // Import the Modal component
-import { ToastContainer, toast } from "react-toastify";
 
 // Google Font Import
 const natoSans = Noto_Sans_JP({ subsets: ["latin"] });
@@ -45,7 +45,9 @@ const modalSchema = Yup.object().shape({
 
 export default function Login() {
   const routerPath = useRouter();
+  const dispatch = useAppDispatch();
   // const [email, setEmail] = useState("");
+
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
@@ -56,14 +58,16 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalEmail, setModalEmail] = useState("");
-  const dispatch = useAppDispatch();
   const [isToastActive, setIsToastActive] = useState(false);
+  // Handle password visibility toggle
+  let [type, setType] = useState("password");
 
   // Validate form values
   useEffect(() => {
     const formValues = { id, password };
     validateHandler(schema, formValues, setErrors);
   }, [id, password]);
+
   useEffect(() => {
     const modalValues = { modalEmail };
     validateHandler(modalSchema, modalValues, setModalErrors);
@@ -219,9 +223,6 @@ export default function Login() {
     setIsModalOpen(true);
   };
 
-  // Handle password visibility toggle
-  let [type, setType] = useState("password");
-
   // Handle forgot password submission
   const handleForgotPasswordSubmit = async (event) => {
     event.preventDefault();
@@ -276,11 +277,13 @@ export default function Login() {
                 alt="ptalk logo"
               />
             </div>
+
             <div className=" xl:px-[80px] lg:px-[60px] md:px-[40px] py-[24px] p-[20px]  w-full">
               <div className="w-full md:px-[60px] md:py-[40px] px-[40px] py-[20px] bg-white rounded-xl shadow-md text-black">
                 <div className="text-xl font-semibold mb-[32px] text-left">
                   {intl.login_btn_label}
                 </div>
+
                 {loginError && (
                   <div
                     className="mb-4 pl-1 validation-font"
@@ -289,12 +292,13 @@ export default function Login() {
                     {loginError}
                   </div>
                 )}
+
                 <form onSubmit={handleSubmit}>
                   <div className="mb-[32px]">
                     <input
                       type="id"
                       name="id"
-                      className="mt-1 p-2 w-full border rounded-md focus:ring-blue-500 focus:border-blue-500 h-[40px]"
+                      className="mt-1 p-2 w-full border rounded focus:ring-blue-500 focus:border-blue-500 h-[40px]"
                       placeholder={intl.login_email_placeholder}
                       value={id}
                       onChange={handleChange}
@@ -309,17 +313,19 @@ export default function Login() {
                       </div>
                     )}
                   </div>
+
                   <div className="mb-4 ">
                     <div className="flex">
                       <label
                         htmlFor="password"
                         className="block text-sm font-medium"
                       ></label>
+
                       <input
                         id="password"
                         name="password"
                         type={type}
-                        className="mt-1 p-2 w-full border rounded-md focus:ring-blue-500 focus:border-blue-500 flex items-center h-[40px]"
+                        className="mt-1 p-2 w-full border rounded focus:ring-blue-500 focus:border-blue-500 flex items-center h-[40px]"
                         placeholder={intl.login_password_placeholder}
                         value={password}
                         onChange={handleChange}
@@ -344,6 +350,7 @@ export default function Login() {
                         )}
                       </button>
                     </div>
+
                     {errors?.password && touched?.password && (
                       <div
                         className="mb-8 pl-1 validation-font"
@@ -353,6 +360,7 @@ export default function Login() {
                       </div>
                     )}
                   </div>
+
                   <div className="text-right mb-[35px] font-normal text-base">
                     <a
                       href="#"
@@ -362,9 +370,10 @@ export default function Login() {
                       {intl.forgot_screen_label}
                     </a>
                   </div>
+
                   <button
                     type="submit"
-                    className="w-full bg-customBlue hover:bg-[#5283B3] text-white font-semibold text-base py-2  rounded-md h-[40px]"
+                    className="w-full bg-customBlue hover:bg-[#5283B3] text-white font-semibold text-base py-2  rounded h-[40px]"
                   >
                     {intl.login_btn_label}
                   </button>
@@ -384,6 +393,7 @@ export default function Login() {
                 {intl.login_privacy_policy}
               </a>
             </div>
+
             <div className="text-center font-normal text-base text-white mb-[24px]">
               TELENet Inc. All Rights Reserved
             </div>
@@ -401,7 +411,7 @@ export default function Login() {
           onCloseHandler={handleCloseModal}
           modalFooter={() => (
             <button
-              className="bg-customBlue text-base font-semibold text-white py-2 px-4 rounded-md w-full h-[40px]"
+              className="bg-customBlue text-base font-semibold text-white py-2 px-4 rounded w-full h-[40px]"
               onClick={handleModalSubmit}
             >
               {intl.send_password}
@@ -413,7 +423,7 @@ export default function Login() {
             type="email"
             name="email"
             placeholder={intl.login_email_placeholder}
-            className="mt-4 p-2 w-full border rounded-md focus:ring-blue-500 focus:border-blue-500 h-[40px]"
+            className="mt-4 p-2 w-full border rounded focus:ring-blue-500 focus:border-blue-500 h-[40px]"
             value={modalEmail}
             onChange={handleModalChange}
             autoComplete="off"
@@ -433,6 +443,7 @@ export default function Login() {
           )}
         </Modal>
       )}
+
       <ToastContainer />
     </>
   );

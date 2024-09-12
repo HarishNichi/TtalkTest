@@ -434,6 +434,34 @@ export default function UserList() {
       },
       width: 180,
       align: "left",
+      // render: (text) => {
+      //   if (!text) {
+      //     return ""; // Return empty if there's no date
+      //   }
+
+      //   // Assuming the date is in a format that can be parsed
+      //   const date = new Date(text);
+
+      //   // Check if the date is valid
+      //   if (isNaN(date)) {
+      //     return ""; // Return empty if the date is invalid
+      //   }
+
+      //   // Format the date to Japanese format: YYYY年MM月DD日
+      //   const formattedDate = `${date.getFullYear()}年${String(
+      //     date.getMonth() + 1
+      //   ).padStart(2, "0")}月${String(date.getDate()).padStart(2, "0")}日`;
+
+      //   const content = <div className="text-white">{formattedDate}</div>;
+
+      //   return (
+      //     <Popover content={content} color="#19388B">
+      //       <a className="text-ellipsis">{formattedDate}</a>
+      //     </Popover>
+      //   );
+      // },
+      // width: 180,
+      // align: "left",
     },
     {
       title: "利用停止日",
@@ -449,6 +477,39 @@ export default function UserList() {
       width: 180,
       align: "left",
     },
+    // {
+    //   title: "利用停止日",
+    //   dataIndex: "appLogoutDateTime",
+    //   render: (text) => {
+    //     if (!text) {
+    //       return ""; // Return empty if there's no date
+    //     }
+
+    //     // Assuming the date is in a format that can be parsed
+    //     const date = new Date(text);
+
+    //     // Check if the date is valid
+    //     if (isNaN(date)) {
+    //       return ""; // Return empty if the date is invalid
+    //     }
+
+    //     // Format the date to Japanese format: YYYY年MM月DD日
+    //     const formattedDate = `${date.getFullYear()}年${String(
+    //       date.getMonth() + 1
+    //     ).padStart(2, "0")}月${String(date.getDate()).padStart(2, "0")}日`;
+
+    //     const content = <div className="text-white">{formattedDate}</div>;
+
+    //     return (
+    //       <Popover content={content} color="#19388B">
+    //         <a className="text-ellipsis">{formattedDate}</a>
+    //       </Popover>
+    //     );
+    //   },
+    //   width: 180,
+    //   align: "left",
+    // },
+
     {
       title: "バージョン",
       dataIndex: "appVersion",
@@ -1994,13 +2055,21 @@ export default function UserList() {
               <select
                 id={"isActive"}
                 className={`w-full md:min-w-[100px] lg:min-w-[100px] border flex flex-auto md:flex-1  py-[8.5px] text-xs  pl-2 bg-[white] rounded-lg focus:outline-none placeholder-[#AEA8A8] 
-                placeholder:text-center md:placeholder:text-left md:placeholder:pl-0 dark:text-black h-[38px] ${searchPayload.isActive==""? 'text-[#85868B]' :"text-black"}`}
+                placeholder:text-center md:placeholder:text-left md:placeholder:pl-0 dark:text-black h-[38px] ${
+                  searchPayload.isActive == "" ? "text-[#85868B]" : "text-black"
+                }`}
                 value={searchPayload.isActive}
                 onChange={(e) => updateSearchPayload(e)}
               >
-                <option className="text-[#85868B]" value="">ステータス</option>
-                <option className="text-black" value={true}>オンライン</option>
-                <option className="text-black" value={false}>オフライン</option>
+                <option className="text-[#85868B]" value="">
+                  ステータス
+                </option>
+                <option className="text-black" value={true}>
+                  オンライン
+                </option>
+                <option className="text-black" value={false}>
+                  オフライン
+                </option>
               </select>
             </div>
             {!Admin && (

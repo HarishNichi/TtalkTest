@@ -5,9 +5,8 @@ import { useRouter } from "next/navigation";
 import { useAppSelector } from "@/redux/hooks";
 import ProtectedRoute from "@/utils/auth";
 import { ToastContainer, toast } from "react-toastify";
-import { AiFillEdit, AiFillDelete } from "react-icons/ai";
-import { Modal as AntModal, Button, Menu } from "antd";
 
+import { Modal as AntModal, Button, Menu } from "antd";
 import Upload from "../../../components/Input/upload";
 import CompanyForm from "../../../components/CompanyInfo/formComponent";
 import Breadcrumb from "@/components/Layout/breadcrumb";
@@ -15,12 +14,8 @@ import intl from "@/utils/locales/jp/jp.json";
 import { companyDetailLinks } from "../../../utils/constant";
 import api from "@/utils/api";
 import LoaderOverlay from "@/components/Loader/loadOverLay";
-import organization from "@/redux/features/organization";
 
 export default function CompanyInformation() {
-  const Organization = useAppSelector(
-    (state) => state.organizationReducer.organization
-  );
   const [status, setStatus] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
@@ -30,6 +25,11 @@ export default function CompanyInformation() {
   const [imageSource, setImageURL] = useState(null);
   const [imgError, setImgError] = useState("");
   const router = useRouter();
+
+  const Organization = useAppSelector(
+    (state) => state.organizationReducer.organization
+  );
+
   const menu = (
     <Menu>
       <Menu.Item key="1">Option 1</Menu.Item>
@@ -161,6 +161,7 @@ export default function CompanyInformation() {
           <div className="mb-[16px]">
             <Breadcrumb links={companyDetailLinks} />
           </div>
+
           <div className="">
             <div className="flex justify-between items-center mb-[16px]">
               <div className="font-semibold text-[20px]">
@@ -218,6 +219,7 @@ export default function CompanyInformation() {
             </div>
           </div>
         </div>
+
         <div className="flex flex-col flex-1 h-full relative">
           <div
             id="cardId"
@@ -240,9 +242,11 @@ export default function CompanyInformation() {
                   <div className="text-sm font-normal text-[#595959]">
                     {intl.form_component_company_name_label}
                   </div>
+
                   <div className="text-sm font-semibold">
                     {organizationsData.name}
                   </div>
+
                   {/* <div className="text-sm font-normal text-[#595959]">
                     {intl.furigana}
                   </div>
@@ -252,18 +256,23 @@ export default function CompanyInformation() {
                   <div className="text-sm font-normal text-[#595959]">
                     {intl.form_component_company_id}
                   </div>
+
                   <div className="text-sm font-semibold">
                     {organizationsData.id}
                   </div>
+
                   <div className="text-sm font-normal text-[#595959]">
                     {intl.form_component_mailid_label}
                   </div>
+
                   <div className="text-sm font-semibold">
                     {organizationsData.email}
                   </div>
+
                   <div className="text-sm font-normal text-[#595959]">
                     {intl.form_component_usercount_label}
                   </div>
+
                   <div className="text-sm font-semibold">
                     {organizationsData.numberOfUsers}
                   </div>
@@ -271,12 +280,15 @@ export default function CompanyInformation() {
                   <div className="text-sm font-normal text-[#595959]">
                     {intl.form_component_sales_channel}
                   </div>
+
                   <div className="text-sm font-semibold">
                     {organizationsData.salesChannel}
                   </div>
+
                   <div className="text-sm font-normal text-[#595959]">
                     {intl.form_component_fleet_number}
                   </div>
+
                   <div className="text-sm font-semibold">
                     {organizationsData.fleetNumber}
                   </div>
@@ -292,12 +304,15 @@ export default function CompanyInformation() {
                   <div className="text-sm font-normal text-[#595959]">
                     {intl.form_component_simulataneous_intepretation}
                   </div>
+
                   <div className="text-sm font-semibold">
                     {organizationsData.isTranslate ? "ON" : "OFF"}
                   </div>
+
                   <div className="text-sm font-normal text-[#595959] text-[#595959]">
                     {intl.form_component_transcription}
                   </div>
+
                   <div className="text-sm font-semibold">
                     {organizationsData.isTranscribe ? "ON" : "OFF"}
                   </div>
@@ -305,6 +320,7 @@ export default function CompanyInformation() {
                   <div className="text-sm font-normal text-[#595959]">
                     {intl.company_list_sos_location}
                   </div>
+
                   <div className="text-sm font-semibold">
                     {organizationsData.sosLocation ? "ON" : "OFF"}
                   </div>
@@ -312,10 +328,13 @@ export default function CompanyInformation() {
                   <div className="text-sm font-normal text-[#595959]">
                     {intl.company_list_company_status}
                   </div>
+
                   <div className="text-sm font-semibold">
                     {organizationsData.isStatus ? "ON" : "OFF"}
                   </div>
+
                   <div className="text-sm font-normal text-[#595959]">説明</div>
+
                   <div className="text-sm font-semibold">
                     {organizationsData.description || "-"}
                   </div>
@@ -324,6 +343,7 @@ export default function CompanyInformation() {
             )}
           </div>
         </div>
+
         <AntModal
           title={
             <div className="px-[40px] pt-[40px] mb-[2vw] text-customBlue text-center">
@@ -374,7 +394,7 @@ export default function CompanyInformation() {
           open={isDeleteModalVisible}
           onCancel={handleDeleteCancel}
           footer={[null]}
-          style={{ padding: "40px" }}
+          style={{ padding: "40px", height: "236px" }}
         >
           <div
             style={{ textAlign: "center" }}

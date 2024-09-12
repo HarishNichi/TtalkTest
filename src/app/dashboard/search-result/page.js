@@ -108,42 +108,42 @@ export default function HelpSettingsList() {
       sorter: (a, b) => a.machine.localeCompare(b.machine),
       sortDirections: ["ascend", "descend", "ascend"],
     },
-    {
-      title: "",
-      dataIndex: "status",
-      render: (status) => {
-        if (status == "online") {
-          return (
-            <div className="w-full flex justify-center h-full">
-              <div className={`bg-[#1AB517] h-2 w-2 p-2 rounded-full `}></div>
-            </div>
-          );
-        }
-        if (status == "away") {
-          return (
-            <div className="w-full flex justify-center h-full">
-              <div className={`bg-[#FFA500] h-2 w-2 p-2 rounded-full `}></div>
-            </div>
-          );
-        }
-        if (status == "offline") {
-          return (
-            <div className="w-full flex justify-center h-full">
-              <div className={`bg-[#ED2E2E] h-2 w-2 p-2 rounded-full`}></div>
-            </div>
-          );
-        }
-        if (status == "unknown") {
-          return (
-            <div className="w-full flex justify-center h-full">
-              <div className={`bg-[#D9D9D9] h-2 w-2 p-2 rounded-full`}></div>
-            </div>
-          );
-        }
-      },
-      width: "30px",
-      align: "center",
-    },
+    // {
+    //   title: "",
+    //   dataIndex: "status",
+    //   render: (status) => {
+    //     if (status == "online") {
+    //       return (
+    //         <div className="w-full flex justify-center h-full">
+    //           <div className={`bg-[#1AB517] h-2 w-2 p-2 rounded-full `}></div>
+    //         </div>
+    //       );
+    //     }
+    //     if (status == "away") {
+    //       return (
+    //         <div className="w-full flex justify-center h-full">
+    //           <div className={`bg-[#FFA500] h-2 w-2 p-2 rounded-full `}></div>
+    //         </div>
+    //       );
+    //     }
+    //     if (status == "offline") {
+    //       return (
+    //         <div className="w-full flex justify-center h-full">
+    //           <div className={`bg-[#ED2E2E] h-2 w-2 p-2 rounded-full`}></div>
+    //         </div>
+    //       );
+    //     }
+    //     if (status == "unknown") {
+    //       return (
+    //         <div className="w-full flex justify-center h-full">
+    //           <div className={`bg-[#D9D9D9] h-2 w-2 p-2 rounded-full`}></div>
+    //         </div>
+    //       );
+    //     }
+    //   },
+    //   width: "30px",
+    //   align: "center",
+    // },
     {
       title: intl.company_list_company_status,
       dataIndex: "onlineStatus",

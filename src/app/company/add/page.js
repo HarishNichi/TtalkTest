@@ -1,16 +1,16 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { ToastContainer, toast } from "react-toastify";
+import ProtectedRoute from "@/utils/auth";
 import DynamicLabel from "@/components/Label/dynamicLabel";
 import CompanyForm from "@/components/CompanyInfo/formComponent";
 import Upload from "@/components/Input/upload";
 import Breadcrumb from "@/components/Layout/breadcrumb";
+import LoaderOverlay from "@/components/Loader/loadOverLay";
+import api from "@/utils/api";
 import intl from "@/utils/locales/jp/jp.json";
 import { companyAddLinks } from "@/utils/constant";
-import { useRouter } from "next/navigation";
-import api from "@/utils/api";
-import { ToastContainer, toast } from "react-toastify";
-import ProtectedRoute from "@/utils/auth";
-import LoaderOverlay from "@/components/Loader/loadOverLay";
 
 export default function AddUser() {
   const router = useRouter();
@@ -20,12 +20,14 @@ export default function AddUser() {
   const [loading, setLoading] = useState(false);
   const [imageSource, setImageURL] = useState(null);
   const [imgError, setImgError] = useState("");
+  const [isToastActive, setIsToastActive] = useState(false);
+
   const cardStyle = {
     background: "#FFFFFF",
     boxShadow: "0px 0px 15px rgba(0, 0, 0, 0.1)",
     borderRadius: "9px",
   };
-  const [isToastActive, setIsToastActive] = useState(false);
+
   const createOrg = async (record, name) => {
     toast.dismiss();
     try {
@@ -68,6 +70,7 @@ export default function AddUser() {
         <div className="mb-1">
           <Breadcrumb links={companyAddLinks} />
         </div>
+
         <div
           className="flex flex-col flex-1 h-full
         
@@ -85,6 +88,7 @@ export default function AddUser() {
               />
             </div>
           </div>
+
           <div
             // style={cardStyle}
             className="pt-2 p-3 md:px-[60px]  xl:px-[80px] xl:pt-2 pb-[40px] flex flex-1 flex-col h-full"
@@ -97,9 +101,11 @@ export default function AddUser() {
                 setImgError={setImgError}
               />
             </div>
+
             <div className="mt-2 mb-3 2xl:mb-8">
               <hr />
             </div>
+
             <CompanyForm
               isCreatePage
               isForm={true}

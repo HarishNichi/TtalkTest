@@ -534,7 +534,7 @@ export default function Subsection() {
       </div>
       <div className="flex flex-col md:flex-row">
         {/* Left Column */}
-        <div className="w-full md:w-1/2 p-2">
+        <div className="w-full md:w-1/2 p-2 mb-[2vw]">
           <SubSection
             selected={selectedTab}
             tabs={tabs}
@@ -542,7 +542,7 @@ export default function Subsection() {
             handleEditClick={handleEditClick}
             handleDeleteClick={handleDeleteClick}
           />
-          <div className="mt-[2vw] w-full">
+          <div className="w-full">
             <HelpAddButton
               text={intl.help_settings_subsection_added_help}
               textColor={"text-[#214BB9]"}

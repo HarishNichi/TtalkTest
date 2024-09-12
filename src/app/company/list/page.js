@@ -763,7 +763,7 @@ export default function CompanyList() {
             <input
               list="company_search"
               name="company_search"
-              className={`w-full border flex  py-2.5 text-xs  pl-2  rounded-lg focus:outline-none placeholder-[#AEA8A8] 
+              className={`w-full border flex  py-2.5 text-xs  pl-2  rounded focus:outline-none placeholder-[#AEA8A8] 
         placeholder:text-center md:placeholder:text-left md:placeholder:pl-0
         dark:text-black h-[40px]`}
               placeholder={intl.company_list_company_name}
@@ -803,14 +803,22 @@ export default function CompanyList() {
 
           <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
             <select
-              className={`w-full md:min-w-[100px] lg:min-w-[100px] border flex flex-auto md:flex-1  py-2.5 text-xs  pl-2 bg-[white] rounded-lg focus:outline-none placeholder-[#AEA8A8] 
-                placeholder:text-center  h-[40px] md:placeholder:text-left md:placeholder:pl-0 dark:text-black ${selectedValue==""? 'text-[#85868B]' :"text-black"}`}
+              className={`w-full md:min-w-[100px] lg:min-w-[100px] border flex flex-auto md:flex-1  py-2.5 text-xs  pl-2 bg-[white] rounded focus:outline-none placeholder-[#AEA8A8] 
+                placeholder:text-center  h-[40px] md:placeholder:text-left md:placeholder:pl-0 dark:text-black ${
+                  selectedValue == "" ? "text-[#85868B]" : "text-black"
+                }`}
               value={selectedValue}
               onChange={handleSelectChange}
             >
-              <option className="text-[#85868B] font-[14px]" value="">ステータス</option>
-              <option className="text-black" value={true}>有効</option>
-              <option className="text-black" value={false}>無効</option>
+              <option className="text-[#85868B] font-[14px]" value="">
+                {intl.form_component_status}
+              </option>
+              <option className="text-black" value={true}>
+                {intl.form_status_valid}
+              </option>
+              <option className="text-black" value={false}>
+                {intl.form_status_invalid}
+              </option>
             </select>
           </div>
 
@@ -818,7 +826,7 @@ export default function CompanyList() {
             <IconLeftBtn
               text={intl.dashboard_layout_search_btn}
               textColor={
-                "w-full  h-[40px] text-white font-medium text-sm w-full px-6 rounded-lg"
+                "w-full  h-[40px] text-white font-medium text-sm w-full px-6 rounded"
               }
               py={"py-2"}
               px={""}
@@ -836,7 +844,7 @@ export default function CompanyList() {
             <IconLeftBtn
               text={intl.dashboard_layout_search_btn}
               textColor={
-                "w-full text-white font-semibold text-base w-full px-6 rounded-lg h-[40px]"
+                "w-full text-white font-semibold text-base w-full px-6 rounded h-[40px]"
               }
               py={"py-2"}
               px={""}
@@ -893,7 +901,7 @@ export default function CompanyList() {
               <IconLeftBtn
                 text={intl.dashboard_layout_search_btn}
                 textColor={
-                  "w-full text-white font-medium text-sm w-full px-6 rounded-lg"
+                  "w-full text-white font-medium text-sm w-full px-6 rounded h-[40px]"
                 }
                 py={"py-2"}
                 px={""}
@@ -1136,7 +1144,7 @@ export default function CompanyList() {
                 py={"xl:py-2.5 md:py-1.5 py-1.5"}
                 px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
                 icon={() => exportIcon()}
-                borderColor={"border-customBlue"}
+                borderColor={"border-customBlue border border-rounded h-[32px]"}
                 onClick={() => {
                   // check selected row
                   toast.dismiss();
@@ -1161,7 +1169,7 @@ export default function CompanyList() {
               <IconOutlineBtn
                 text={intl.help_settings_addition_delete}
                 textColor="text-[#BA1818]" // Red text color
-                borderColor="border-[#BA1818]"
+                borderColor="border-[#BA1818] border border-rounded h-[32px]"
                 textBold={true}
                 py={"xl:py-2.5 md:py-1.5 py-1.5"}
                 px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}

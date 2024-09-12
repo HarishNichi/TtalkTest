@@ -162,7 +162,7 @@ export default function SearchCard({
           <div className="hidden lg:block mt-2">
             <ActionButton
               title={intl.dashboard_action_btn_search}
-              onClick={() => router.push("/company/add")}
+              onClick={() => router.push("/company/list")}
               margin={"mb-0"}
               icon={editIcon()}
             />
