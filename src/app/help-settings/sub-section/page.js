@@ -534,7 +534,7 @@ export default function Subsection() {
       </div>
       <div className="flex flex-col md:flex-row">
         {/* Left Column */}
-        <div className="w-full md:w-1/2 p-2 md:border-r border-gray-300">
+        <div className="w-full md:w-1/2  md:pr-[24px] md:border-r border-gray-300">
   <div className="mb-[2vw]">
     <SubSection
       selected={selectedTab}
@@ -558,7 +558,7 @@ export default function Subsection() {
   </div>
 </div>
 
-<div className="w-full md:w-1/2 p-4 pt-0 pr-0 md:pl-4 border-gray-300">
+<div className="w-full md:w-1/2 pt-0 pr-0 md:pl-[24px] border-gray-300">
   {showDetails && (
     <>
       <TextPlain
@@ -665,7 +665,6 @@ export default function Subsection() {
     </>
   )}
 </div>
-
 
         <AntModal
           title={
