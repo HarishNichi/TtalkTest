@@ -227,22 +227,18 @@ export default function HelpSettingsList() {
       let url = "employees/delete-all";
       let userIds;
 
-      if (selectAll) {
-        userIds = selectedRows.map((record) => ({
-          id: record.id, // Assuming record has an 'id' property
-        }));
-      } else if (selectedRows.length > 0) {
+      if (selectedRows.length > 0) {
         userIds = selectedRows.map((record) => ({
           id: record.id, // Assuming record has an 'id' property
         }));
       } else {
-        toast("ユーザーを選択してください。", errorToastSettings);
+        toast(intl.user_please_select_user, errorToastSettings);
         return;
       }
 
       setLoading(true);
       let result = await api.post(url, userIds);
-      toast("削除が完了しました", successToastSettings);
+      toast(intl.user_deletion_completed, successToastSettings);
       setSelectedRows([]);
       setDeleteModal(false);
       setLoading(false);
@@ -251,7 +247,7 @@ export default function HelpSettingsList() {
     } catch (err) {
       setDeleteModal(false);
       setLoading(false);
-      toast("削除に失敗しました", errorToastSettings);
+      toast(intl.search_results_deletion_failed, errorToastSettings);
     }
   }
 
@@ -319,7 +315,7 @@ export default function HelpSettingsList() {
               className={`rounded-[5px] cursor-pointer  pt-[5px] pb-[5px] pl-[5px] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-customBlue text-sm ${textClass} block w-full ${bg} text-center
             `}
             >
-              {text == "online" ? "オンライン" : "オフライン"}
+              {text == "online" ? intl.user_online : intl.user_offline}
             </div>
           </div>
         );
@@ -422,7 +418,7 @@ export default function HelpSettingsList() {
   function handelExport() {
     toast.dismiss();
     if (selectedRows.length <= 0) {
-      toast("ユーザーを選択してください。", errorToastSettings);
+      toast(intl.user_please_select_user, errorToastSettings);
       setExportModal(false);
       return;
     }
@@ -432,7 +428,7 @@ export default function HelpSettingsList() {
   function getExportModalFooter() {
     return (
       <IconLeftBtn
-        text={"エクスポート"}
+        text={intl.company_list_company_export_title}
         textColor={"text-white font-semibold text-[16px] w-full"}
         py={"py-[11px]"}
         px={"w-[84%]"}
@@ -453,7 +449,7 @@ export default function HelpSettingsList() {
       <div className="flex gap-x-3">
         <div>
           <IconLeftBtn
-            text="キャンセル"
+            text={intl.help_settings_addition_modal_cancel}
             textColor={"text-white font-semibold text-[16px] w-full rounded-lg"}
             py={"py-2"}
             px={"px-[10.5px] md:px-[17.5px]"}
@@ -469,7 +465,7 @@ export default function HelpSettingsList() {
         </div>
         <div>
           <IconLeftBtn
-            text="ダウンロード"
+            text={intl.user_download}
             textColor={"text-white font-semibold text-[16px] w-full rounded-lg"}
             py={"py-2"}
             px={"px-[10.5px] md:px-[17.5px]"}
@@ -490,7 +486,7 @@ export default function HelpSettingsList() {
   async function exportCSVFile() {
     toast.dismiss();
     if (selectedRows.length <= 0) {
-      toast("ユーザーを選択してください。", errorToastSettings);
+      toast(intl.user_please_select_user, errorToastSettings);
       setExportModal(false);
       return;
     }
@@ -498,11 +494,11 @@ export default function HelpSettingsList() {
       let data;
       let url = "employees/export-custom";
       if (!csvFileName) {
-        setFileNameError("ファイル名は必須です。");
+        setFileNameError(intl.user_file_name_required);
         return;
       }
       if (!csvFileNameRegex.test(csvFileName)) {
-        setFileNameError("ファイル名を確認してください。");
+        setFileNameError(intl.user_check_file_name);
         return;
       }
       setFileNameError("");
@@ -519,7 +515,7 @@ export default function HelpSettingsList() {
           filename: csvFileName + ".csv",
         };
       } else {
-        toast("ユーザーを選択してください。", errorToastSettings);
+        toast(intl.user_please_select_user, errorToastSettings);
         return;
       }
       setLoading(true);
@@ -530,7 +526,7 @@ export default function HelpSettingsList() {
       setLoading(false);
     } catch (err) {
       setLoading(false);
-      toast("ファイルのエクスポートに失敗しました", errorToastSettings);
+      toast(intl.user_file_export_failed, errorToastSettings);
     }
   }
 
@@ -581,7 +577,7 @@ export default function HelpSettingsList() {
                 setSelectAll(evt.target.checked);
               }}
             />
-            <span className="ml-1"> {"すべて選択"}</span>
+            <span className="ml-1"> {intl.user_selectAll}</span>
           </label>
         </div>
         <div className=" relative" style={{ width: "100%" }}>
@@ -614,7 +610,8 @@ export default function HelpSettingsList() {
           <div className="flex justify-between items-center mt-4 bg-white py-3 px-[4vw] shadow-lg">
             {/* Left side: Buttons */}
             <div className="text-base font-semibold">
-              {selectedRows.length}件選択中
+              {selectedRows.length}
+              {intl.user_item_selected}
             </div>
             <div className="flex space-x-4">
               <IconOutlineBtn
@@ -641,7 +638,7 @@ export default function HelpSettingsList() {
                 onClick={() => {
                   toast.dismiss();
                   if (selectedRows.length <= 0) {
-                    toast("ユーザーを選択してください。", {
+                    toast(intl.user_please_select_user, {
                       position: "top-right",
                       autoClose: 5000,
                       hideProgressBar: true,
@@ -680,7 +677,7 @@ export default function HelpSettingsList() {
         {deleteModal && (
           <AntModal
             title={
-              <div className="px-[40px] pt-[40px] mb-[2vw] text-customBlue text-center">
+              <div className="px-[40px] pt-[17px] mb-[2vw] text-customBlue text-center">
                 {intl.user_delete_modal}
               </div>
             }
@@ -737,14 +734,14 @@ export default function HelpSettingsList() {
                     <TextPlain
                       type="text"
                       for={"id"}
-                      placeholder={"ファイル名"}
+                      placeholder={intl.user_history_settings_file_name}
                       borderRound="rounded"
                       padding="p-[10px]"
                       focus="focus:outline-none focus:ring-2 h-[40px] focus:ring-customBlue"
                       border="border border-gray-300"
                       bg="bg-white"
                       additionalClass="block w-full pl-5 text-base pr-[30px]"
-                      label={"ファイル名"}
+                      label={intl.user_history_settings_file_name}
                       labelColor="#7B7B7B"
                       id={"id"}
                       isRequired={true}

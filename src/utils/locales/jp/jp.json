@@ -240,6 +240,7 @@
   "user_file_export_failed": "ファイルのエクスポートに失敗しました",
   "contacts_export_failed": "エクスポートに失敗しました",
   "user_deletion_completed": "削除が完了しました",
+  "search_results_deletion_failed": "削除に失敗しました",
   "user_file_name_required": "ファイル名は必須です。",
   "user_check_file_name": "ファイル名を確認してください。",
   "contacts_selcet_record": "レコードを選択してください",

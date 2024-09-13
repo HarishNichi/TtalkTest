@@ -971,7 +971,7 @@ export default function Devices() {
           {deleteModal && (
             <AntModal
               title={
-                <div className="px-[40px] pt-[40px] mb-[2vw] text-customBlue text-center">
+                <div className="px-[40px] pt-[17px] mb-[2vw] text-customBlue text-center">
                   {intl.device_delete_device}
                 </div>
               }

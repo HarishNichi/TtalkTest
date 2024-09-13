@@ -2106,7 +2106,7 @@ export default function UserList() {
         {deleteModal && (
           <AntModal
             title={
-              <div className="px-[40px] pt-[40px] mb-[2vw] text-customBlue text-center">
+              <div className="px-[40px] pt-[17px] mb-[2vw] text-customBlue text-center">
                 {intl.user_delete_modal}
               </div>
             }

@@ -11,7 +11,6 @@ import Upload from "../../../components/Input/upload";
 import CompanyForm from "../../../components/CompanyInfo/formComponent";
 import Breadcrumb from "@/components/Layout/breadcrumb";
 import intl from "@/utils/locales/jp/jp.json";
-import { companyDetailLinks } from "../../../utils/constant";
 import api from "@/utils/api";
 import LoaderOverlay from "@/components/Loader/loadOverLay";
 
@@ -151,6 +150,11 @@ export default function CompanyInformation() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const companyDetailLinks = [
+    { title: intl.components_card_searchlist_companylist, link: "/company/list" },
+    { title: organizationsData?.name, link: "/company/details" },
+  ];
 
   return (
     <>
@@ -333,7 +337,9 @@ export default function CompanyInformation() {
                     {organizationsData.isStatus ? "ON" : "OFF"}
                   </div>
 
-                  <div className="text-sm font-normal text-[#595959]">説明</div>
+                  <div className="text-sm font-normal text-[#595959]">
+                    {intl.help_settings_addition_service_manual}
+                  </div>
 
                   <div className="text-sm dark:text-black font-semibold">
                     {organizationsData.description || "-"}
@@ -346,7 +352,7 @@ export default function CompanyInformation() {
 
         <AntModal
           title={
-            <div className="px-[40px] pt-[40px] mb-[2vw] text-customBlue text-center">
+            <div className="px-[40px] pt-[17px] mb-[2vw] text-customBlue text-center">
               {intl.edit_screen_label}
             </div>
           }
@@ -387,7 +393,7 @@ export default function CompanyInformation() {
 
         <AntModal
           title={
-            <div className="px-[40px] pt-[40px] mb-[2vw] text-customBlue text-center">
+            <div className="px-[40px] pt-[17px] mb-[2vw] text-customBlue text-center">
               {intl.delete_company}
             </div>
           }

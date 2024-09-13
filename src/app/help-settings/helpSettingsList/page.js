@@ -605,7 +605,7 @@ export default function HelpSettingsList() {
           {deleteModal && (
             <AntModal
               title={
-                <div className="px-[40px] pt-[40px] mb-[2vw] text-customBlue text-center">
+                <div className="px-[40px] pt-[17px] mb-[2vw] text-customBlue text-center">
                   {intl.help_settings_delete_help_category}
                 </div>
               }
