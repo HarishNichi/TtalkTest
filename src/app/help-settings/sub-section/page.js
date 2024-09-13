@@ -710,7 +710,7 @@ export default function Subsection() {
                 deleteSubSection(childData);
               }}
             >
-              {intl.help_settings_addition_delete}
+              {intl.help_settings_addition_delete_button}
             </Button>
           </div>
         </AntModal>
