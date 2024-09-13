@@ -584,3 +584,6 @@ select {
   background-repeat: no-repeat;
 } */
 
+.ant-modal-close-icon {
+  color: #0d0e11 !important;
+}

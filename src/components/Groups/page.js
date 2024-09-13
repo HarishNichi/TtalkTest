@@ -1205,7 +1205,7 @@ export default function Group({ children, tab }) {
       {deleteModal && (
         <AntModal
           title={
-            <div className="px-[40px] pt-[17px] mb-[2vw] text-customBlue text-center">
+            <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
               {intl.help_settings_addition_delete}
             </div>
           }

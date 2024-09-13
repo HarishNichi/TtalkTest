@@ -352,7 +352,7 @@ export default function CompanyInformation() {
 
         <AntModal
           title={
-            <div className="px-[40px] pt-[17px] mb-[2vw] text-customBlue text-center">
+            <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
               {intl.edit_screen_label}
             </div>
           }
@@ -393,7 +393,7 @@ export default function CompanyInformation() {
 
         <AntModal
           title={
-            <div className="px-[40px] pt-[17px] mb-[2vw] text-customBlue text-center">
+            <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
               {intl.delete_company}
             </div>
           }

@@ -676,7 +676,7 @@ export default function Subsection() {
 
         <AntModal
           title={
-            <div className="px-[40px] pt-[17px] mb-[2vw] text-customBlue text-center">
+            <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
               {intl.help_settings_delete_help_item}
             </div>
           }
