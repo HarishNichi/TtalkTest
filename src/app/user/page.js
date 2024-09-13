@@ -581,6 +581,7 @@ export default function UserList() {
       setSelectAll(false);
       setSelectedRows([]);
       setDeleted(true);
+      toast("削除が完了しました", successToastSettings);
       Admin ? fetchOrg() : withDeviceDetails([]);
     } catch (error) {
       setLoading(false);
