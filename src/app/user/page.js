@@ -2315,7 +2315,6 @@ export default function UserList() {
             setDeleteModal(false);
           }}
           footer={null}
-          style={{ padding: "40px" }}
         >
           <p style={{ textAlign: "center" }} className="px-[40px]">
             {intl.user_modal_content}
