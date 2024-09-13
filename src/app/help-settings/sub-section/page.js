@@ -530,12 +530,14 @@ export default function Subsection() {
         <div className="flex mb-[16px]">
           <Breadcrumb links={helperSubSectionLinks} />
         </div>
-        <h1 className="text-xl font-semibold mb-[16px]">{Help.section}</h1>
+        <h1 className="text-xl font-semibold dark:text-black mb-[16px]">
+          {Help.section}
+        </h1>
       </div>
       <div className="flex flex-col md:flex-row">
         {/* Left Column */}
         <div className="w-full md:w-1/2  md:pr-[24px] md:border-r border-gray-300">
-          <div className={tabs?.length>0?'mb-[2vw]':""}>
+          <div className={tabs?.length > 0 ? "mb-[2vw]" : ""}>
             <SubSection
               selected={selectedTab}
               tabs={tabs}
