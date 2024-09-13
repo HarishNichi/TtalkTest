@@ -295,7 +295,7 @@ export default function HelpSettingsList() {
       setDeleteModal(false);
       setLoading(false);
 
-      Admin ? fetchOrg() : withDeviceDetails([]);
+     router.refresh();
     } catch (err) {
       setDeleteModal(false);
       setLoading(false);
