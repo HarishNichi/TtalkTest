@@ -2426,7 +2426,7 @@ export default function UserList() {
         )}
         {deleteModal && (
           <Modal
-            width="45vw"
+            width={window.innerWidth <= 768?'42vw':'500px'}
             height="412px"
             fontSize="text-xl"
             fontWeight="font-semibold"
