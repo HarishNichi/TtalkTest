@@ -437,9 +437,7 @@ export default function Other() {
             {intl.user_restore_default_settings}
           </Button>
         </div>
-        <div className="ml-[16px] font-normal text-sm mb-1">
-         PTT
-        </div>
+        <div className="ml-[16px] font-normal text-sm mb-1">PTT</div>
         <div className="ml-[16px]">
           <Button
             type="default"
@@ -452,7 +450,7 @@ export default function Other() {
               borderRadius: "4px",
             }}
             onClick={() => {
-               handlePttNotification();
+              handlePttNotification();
             }}
           >
             {intl.layout_pttBar_push_settings_to_terminal_ppt}

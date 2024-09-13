@@ -673,12 +673,12 @@ export default function CompanyList() {
             {intl.delete_company}
           </div>
         }
+        width={500}
         open={deleteModal}
         onCancel={() => {
           setDeleteModal(false);
         }}
         footer={null}
-        style={{ padding: "40px" }}
       >
         <p style={{ textAlign: "center" }} className="px-[40px]">
           {intl.company_list_delete}

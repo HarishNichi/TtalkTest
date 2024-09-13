@@ -391,10 +391,10 @@ export default function CompanyInformation() {
               {intl.delete_company}
             </div>
           }
+          width={500}
           open={isDeleteModalVisible}
           onCancel={handleDeleteCancel}
           footer={[null]}
-          style={{ padding: "40px", height: "236px" }}
         >
           <div
             style={{ textAlign: "center" }}
@@ -405,7 +405,7 @@ export default function CompanyInformation() {
           <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]">
             <Button
               key="cancel"
-              className="flex-1 text-[#214BB9] border-[#214BB9] h-[40px] "
+              className="flex-1 text-[#214BB9] border-[#214BB9] font-semibold h-[40px] text-base "
               onClick={handleDeleteCancel}
             >
               {intl.help_settings_addition_modal_cancel}
