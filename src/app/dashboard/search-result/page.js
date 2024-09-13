@@ -39,11 +39,13 @@ import LoaderOverlay from "@/components/Loader/loadOverLay";
 import { Button } from "antd";
 import dayjs from "dayjs";
 Amplify.configure(gen.config);
+import { useLayoutContext } from "../layout";
 
 export default function HelpSettingsList() {
   const router = useRouter();
   const fileStyle = { fontWeight: "400", color: "#7B7B7B", fontSize: "12px" };
   const changeLink = { fontWeight: "700", fontSize: "12px" };
+  const { searchDashboard } = useLayoutContext();
   const auth = localStorage.getItem("accessToken");
   const isAuthenticated = auth ? true : false;
   const [received, setReceived] = React.useState("");
@@ -295,7 +297,7 @@ export default function HelpSettingsList() {
       setDeleteModal(false);
       setLoading(false);
 
-      window.location.reload();
+      searchDashboard();
     } catch (err) {
       setDeleteModal(false);
       setLoading(false);

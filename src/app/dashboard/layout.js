@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,createContext, useContext } from "react";
 import IconLeftBtn from "@/components/Button/iconLeftBtn";
 import { usePathname, useRouter } from "next/navigation";
 import SearchInput from "@/components/Layout/search";
@@ -23,6 +23,10 @@ import DynamicLabel from "@/components/Label/dynamicLabel";
 import Breadcrumb from "@/components/Layout/breadcrumb";
 dayjs.extend(isSameOrBefore);
 dayjs.extend(isSameOrAfter);
+
+const LayoutContext = createContext();
+
+export const useLayoutContext = () => useContext(LayoutContext);
 
 export default function DashboardLayout({ children }) {
   const router = usePathname();
@@ -216,6 +220,7 @@ export default function DashboardLayout({ children }) {
   }, []);
   return (
     <>
+     <LayoutContext.Provider value={{ searchDashboard }}>
       {loading && <LoaderOverlay />}
       {showResult && (
         <>
@@ -492,6 +497,7 @@ export default function DashboardLayout({ children }) {
         </span>
       </div>
       <div className="m-w-[1400] flex flex-col flex-1 h-full ">{children}</div>
+      </LayoutContext.Provider>
     </>
   );
 }
