@@ -544,7 +544,7 @@ export default function Subsection() {
               handleDeleteClick={handleDeleteClick}
             />
           </div>
-          <div className="w-full">
+          <div className="w-full mb-4">
             <HelpAddButton
               text={intl.help_settings_subsection_added_help}
               textColor={"text-[#214BB9]"}

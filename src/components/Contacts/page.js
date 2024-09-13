@@ -1038,9 +1038,9 @@ export default function Contact({ children, tab }) {
                       type="text"
                       for={"contactName"}
                       placeholder={"連絡先名"}
-                      borderRound="rounded-xl"
+                      borderRound="rounded"
                       padding="p-[10px]"
-                      focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
+                      focus="focus:outline-none focus:ring-2 h-[40px] focus:ring-customBlue"
                       border="border border-gray-300"
                       bg="bg-white"
                       additionalClass="block w-full pl-5 text-base pr-[30px]"
@@ -1079,9 +1079,9 @@ export default function Contact({ children, tab }) {
                       type="text"
                       for={"contactNameFurigana"}
                       placeholder={"ふりがな"}
-                      borderRound="rounded-xl"
+                      borderRound="rounded"
                       padding="p-[10px]"
-                      focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
+                      focus="focus:outline-none focus:ring-2 h-[40px] focus:ring-customBlue"
                       border="border border-gray-300"
                       bg="bg-white"
                       additionalClass="block w-full pl-5 text-base pr-[30px]"
@@ -1120,9 +1120,9 @@ export default function Contact({ children, tab }) {
                       type="text"
                       for={"radioNo"}
                       placeholder={"無線番号"}
-                      borderRound="rounded-xl"
+                      borderRound="rounded"
                       padding="p-[10px]"
-                      focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
+                      focus="focus:outline-none focus:ring-2 h-[40px] focus:ring-customBlue"
                       border="border border-gray-300"
                       bg="bg-white"
                       additionalClass="block w-full pl-5 text-base pr-[30px]"
@@ -1137,7 +1137,7 @@ export default function Contact({ children, tab }) {
                     />
                     {editModal && errors?.radioNo && touched?.radioNo && (
                       <div
-                        className="pl-1 validation-font flex"
+                        className="text-left pl-1 validation-font flex"
                         style={{ color: "red" }}
                       >
                         {errors?.radioNo}

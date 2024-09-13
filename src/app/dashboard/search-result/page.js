@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import intl from "@/utils/locales/jp/jp.json";
@@ -5,12 +6,18 @@ import DynamicLabel from "@/components/Label/dynamicLabel";
 import IconOutlineBtn from "@/components/Button/iconOutlineBtn";
 import AddIcon from "@/components/Icons/addIcon";
 import DataTable from "@/components/DataTable/DataTable";
+import DeleteIcon from "@/components/Icons/deleteIcon";
+import { formatDate } from "@/validation/helperFunction";
 import {
   adminChannel,
   csvFileNameRegex,
   errorToastSettings,
   fileName,
   tableDefaultPageSizeOption,
+  maxLimit,
+  code,
+  EmployeeSearchLimit,
+  successToastSettings,
 } from "@/utils/constant";
 import Modal from "@/components/Modal/modal";
 import TextPlain from "@/components/Input/textPlain";
@@ -28,6 +35,8 @@ import Amplify from "@aws-amplify/core";
 import * as gen from "@/generated";
 import api from "@/utils/api";
 import LoaderOverlay from "@/components/Loader/loadOverLay";
+import { Button } from "antd";
+import dayjs from "dayjs";
 Amplify.configure(gen.config);
 
 export default function HelpSettingsList() {
@@ -46,7 +55,9 @@ export default function HelpSettingsList() {
   let employeeDataCopy = JSON.parse(JSON.stringify(employeeData));
   const [employeeDataList, setEmployeeDataList] =
     React.useState(employeeDataCopy);
+
   const [loading, setLoading] = useState(false);
+  const [employeeeData, setEmployeeeData] = useState([]);
   const [downloadCsvLink, setDownloadCsvLink] = useState(null);
   const CSVDownloadRef = useRef("");
   const [csvFileName, setCsvFileName] = useState("");
@@ -56,7 +67,299 @@ export default function HelpSettingsList() {
   const [fileNameError, setFileNameError] = useState(null);
   const [page, setPage] = useState(50);
   const [current, setCurrent] = useState(1);
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [deleted, setDeleted] = useState(false);
+  const [deviceList, setDeviceList] = useState([]);
+  const [companyListDropdown, setCompanyListDropdown] = useState([]);
+  function deleteIcon(flag) {
+    return <DeleteIcon isMobile={flag} />;
+  }
+  const fetchDevice = async () => {
+    toast.dismiss();
+    let deviceListMap = [];
+    setLoading(true);
+    try {
+      const params = {
+        params: {
+          limit: maxLimit,
+          offset: "null",
+        },
+      };
+      const response = await api.get("devices/list", params);
+      setLoading(false);
+      if (response && response.data.status.code == code.OK) {
+        const data = response.data.data;
+        let today = data?.todayDatetodayDate || dayjs().format("YYYY-MM-DD");
+        data.Items.map((item) => {
+          if (item.startDate && item.endDate) {
+            let futureDate = dayjs(today).isBefore(item.startDate);
+            if (!futureDate) {
+              let isValid =
+                dayjs(today).isSameOrBefore(item.endDate) &&
+                dayjs(today).isSameOrAfter(item.startDate);
+              if (!isValid) {
+                item.name = item.name + " - 期限切れ";
+                deviceListMap.push(item.id);
+                setDeviceList((prv) => [...prv, item.id]);
+              }
+            }
+          }
+        });
+        return deviceListMap;
+      }
+    } catch (error) {
+      setLoading(false);
+      return [];
+    }
+  };
+  let offset = "null";
+  let all = [];
+  function findName(orgId, projectionList) {
+    let orgName = projectionList.find((el) => el.id == orgId);
+    if (orgName?.name) {
+      return orgName.name;
+    }
+    return "";
+  }
 
+  const fetchData = async (projectionList, expDeviceList) => {
+    setLoading(true);
+    try {
+      const params = {
+        params: {
+          limit: EmployeeSearchLimit,
+          offset: offset,
+        },
+      };
+      let { data: response } = await api.get("employees/list", params);
+      if (response.data.offset !== "end" && response.data.Items.length > 0) {
+        offset = response.data.offset;
+        all = [...all, ...response.data.Items];
+        fetchData(projectionList, expDeviceList);
+      }
+      if (response.data.offset == "end") {
+        all = [...all, ...response.data.Items];
+        response = all.map((emp, index) => {
+          let orgName = Admin
+            ? findName(emp.organizationId, projectionList) || "-"
+            : "";
+          return {
+            key: index,
+            id: emp.id,
+            password: emp.hint,
+            radioNumber: emp.pttNo,
+            userId: emp.id,
+            email: emp.accountDetail.employee.email || "-",
+            organization: orgName,
+            name: emp.name || "-",
+            numberOfRadioNumber: emp.licenseCount || "-",
+            status: emp?.accountDetail?.employee?.status || "unknown",
+            isActive: emp.isActive,
+            onlineStatus:
+              emp?.accountDetail?.employee?.onlineStatus || "offline",
+            machine:
+              emp.accountDetail.employee?.machine.id &&
+              expDeviceList.includes(emp.accountDetail.employee?.machine.id)
+                ? emp.accountDetail.employee?.machine.name + " - 期限切れ"
+                : emp.accountDetail.employee?.machine.name || "-",
+
+            fleetNumber: emp.fleetNumber,
+            isTranscribe: emp.isTranscribe,
+            deviceCategory: emp.deviceCategory,
+            groupName: emp.accountDetail.employee.groups || [],
+            createdAtDate:
+              emp.createdAtDate &&
+              dayjs(emp.createdAtDate).format("YYYY/MM/DD"),
+            appLastSeenDateTime:
+              emp.appLastSeenDateTime && formatDate(emp.appLastSeenDateTime),
+            appLoginDateTime:
+              emp.appLoginDateTime && formatDate(emp.appLoginDateTime, true),
+            appLogoutDateTime:
+              emp.appLogoutDateTime && formatDate(emp.appLogoutDateTime, true),
+            appVersion: emp.appVersion,
+            timestamp: new Date().getTime(),
+          };
+        });
+        setEmployeeeData(() => response);
+        setLoading(false);
+        return;
+      }
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+  async function withDeviceDetails(projectionList) {
+    try {
+      let expiredDeviceIds = await fetchDevice();
+      await fetchData(projectionList, expiredDeviceIds);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  const fetchOrg = async () => {
+    try {
+      setLoading(true);
+      let { data: projectionList } = await api.post(
+        "organizations/projection",
+        {}
+      );
+      setCompanyListDropdown(() => projectionList.data.Items);
+      await withDeviceDetails(projectionList.data.Items);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+  // const deleteEmployee = async (selectedRows) => {
+  //   toast.dismiss();
+  //   if (selectedRows.length <= 0) {
+  //     toast("ユーザーを選択してください。", {
+  //       position: "top-right",
+  //       autoClose: 5000,
+  //       hideProgressBar: true,
+  //       closeOnClick: true,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       theme: "colored",
+  //       type: "error",
+  //     });
+  //     setDeleteModal(false);
+  //     return;
+  //   }
+  //   const userIds = selectedRows.map((record) => ({
+  //     id: record.id,
+  //     // console.log(id) // Assuming record has an 'id' property
+  //   }));
+
+  //   setLoading(true);
+  //   try {
+  //     const response = await api.post(`employees/delete-all`, userIds);
+  //     setLoading(false);
+  //     setDeleteModal(false);
+  //     setSelectAll(false);
+  //     setSelectedRows([]);
+  //     setDeleted(true);
+  //     Admin ? fetchOrg() : withDeviceDetails([]);
+  //   } catch (error) {
+  //     setLoading(false);
+  //     setDeleteModal(false);
+  //     toast(
+  //       error.response?.data?.status?.message
+  //         ? error.response?.data?.status?.message
+  //         : error.response.data.message,
+  //       {
+  //         position: "top-right",
+  //         autoClose: 5000,
+  //         hideProgressBar: true,
+  //         closeOnClick: true,
+  //         pauseOnHover: true,
+  //         draggable: true,
+  //         theme: "colored",
+  //         type: "error",
+  //       }
+  //     );
+  //   }
+  // };
+
+  async function deleteEmployee() {
+    toast.dismiss();
+
+    if (selectedRows.length <= 0) {
+      toast("ユーザーを選択してください。", errorToastSettings);
+      setDeleteModal(false);
+      return;
+    }
+
+    try {
+      let data;
+      let url = "employees/delete-all";
+      let userIds;
+
+      if (selectAll) {
+        userIds = selectedRows.map((record) => ({
+          id: record.id, // Assuming record has an 'id' property
+        }));
+      } else if (selectedRows.length > 0) {
+        userIds = selectedRows.map((record) => ({
+          id: record.id, // Assuming record has an 'id' property
+        }));
+      } else {
+        toast("ユーザーを選択してください。", errorToastSettings);
+        return;
+      }
+
+      setLoading(true);
+      let result = await api.post(url, userIds);
+      toast("削除が完了しました", successToastSettings);
+      setSelectedRows([]);
+      setDeleteModal(false);
+      setLoading(false);
+
+      Admin ? fetchOrg() : withDeviceDetails([]);
+    } catch (err) {
+      setDeleteModal(false);
+      setLoading(false);
+      toast("削除に失敗しました", errorToastSettings);
+    }
+  }
+
+  function getDeleteModalFooter() {
+    return (
+      // <div className="grid grid-cols-2 gap-2 place-content-center">
+      //   <div>
+      //     <IconLeftBtn
+      //       text={intl.help_settings_addition_modal_cancel}
+      //       textColor={"text-white font-semibold text-sm w-full"}
+      //       py={"py-[11px]"}
+      //       px={"px-6"}
+      //       bgColor={"bg-customBlue"}
+      //       textBold={true}
+      //       icon={() => {
+      //         return null;
+      //       }}
+      //       onClick={() => {
+      //         setDeleteModal(() => false);
+      //       }}
+      //     />
+      //   </div>
+      //   <div>
+      //     <IconLeftBtn
+      //       text={intl.help_settings_addition_delete}
+      //       textColor={"text-white font-semibold text-sm w-full"}
+      //       py={"py-[11px]"}
+      //       px={"px-6"}
+      //       bgColor={"bg-customBlue"}
+      //       textBold={true}
+      //       icon={() => {
+      //         return null;
+      //       }}
+      //       onClick={() => {
+      //         deleteEmployee(selectedRows);
+      //       }}
+      //     />
+      //   </div>
+      // </div>
+      <div className="flex flex-col sm:flex-row justify-center gap-4 w-full">
+        <Button
+          key="cancel"
+          className="flex-1 h-[40px] text-[#19388B] border border-[#19388B] hover:bg-[#e0e7ff] focus:outline-none focus:ring-2 focus:ring-[#19388B] focus:ring-opacity-50"
+          onClick={() => {
+            setDeleteModal(() => false);
+          }}
+        >
+          {intl.help_settings_addition_modal_cancel}
+        </Button>
+        <Button
+          key="delete"
+          className="flex-1 bg-[#BA1818] h-[40px] text-white no-hover focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50"
+          onClick={() => {
+            deleteEmployee(selectedRows);
+          }}
+        >
+          {intl.help_settings_addition_delete}({selectedRows.length})
+        </Button>
+      </div>
+    );
+  }
   useEffect(() => {
     let data = localStorage.getItem("searchEmployee");
     let parsedData = (data.length > 0 && JSON.parse(data)) || [];
@@ -508,6 +811,33 @@ export default function HelpSettingsList() {
                   await handelExport();
                 }}
               />
+              <IconOutlineBtn
+                text={intl.help_settings_addition_delete}
+                textColor="text-[#BA1818]"
+                textBold={true}
+                borderColor="border-[#BA1818]"
+                py={"xl:py-2.5 md:py-1.5 py-1.5"}
+                px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
+                icon={() => deleteIcon()}
+                onClick={() => {
+                  toast.dismiss();
+                  if (selectedRows.length <= 0) {
+                    toast("ユーザーを選択してください。", {
+                      position: "top-right",
+                      autoClose: 5000,
+                      hideProgressBar: true,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      theme: "colored",
+                      type: "error",
+                    });
+                    setDeleteModal(false);
+                    return;
+                  }
+                  setDeleteModal(() => true);
+                }}
+              />
 
               {/* <IconOutlineBtn
                 text={intl.help_settings_addition_delete}
@@ -552,6 +882,24 @@ export default function HelpSettingsList() {
             <div className="flex flex-col">
               <div className="flex-grow my-[40px]">
                 <center>{GetIconQRCode()}</center>
+              </div>
+            </div>
+          </Modal>
+        )}
+        {deleteModal && (
+          <Modal
+            width="45vw"
+            height="412px"
+            fontSize="text-xl"
+            fontWeight="font-semibold"
+            textColor="#19388B"
+            text={intl.user_delete_modal}
+            onCloseHandler={setDeleteModal}
+            modalFooter={getDeleteModalFooter}
+          >
+            <div className="flex flex-col">
+              <div className="flex-grow dark:text-black text-base font-normal">
+                {intl.user_modal_content}
               </div>
             </div>
           </Modal>

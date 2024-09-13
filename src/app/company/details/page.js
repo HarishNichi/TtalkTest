@@ -164,7 +164,7 @@ export default function CompanyInformation() {
 
           <div className="">
             <div className="flex justify-between items-center mb-[16px]">
-              <div className="font-semibold text-[20px]">
+              <div className="font-semibold text-[20px] dark:text-black">
                 {organizationsData?.name || ""}
               </div>
               <div className="flex space-x-2">
@@ -243,7 +243,7 @@ export default function CompanyInformation() {
                     {intl.form_component_company_name_label}
                   </div>
 
-                  <div className="text-sm font-semibold">
+                  <div className="text-sm dark:text-black font-semibold">
                     {organizationsData.name}
                   </div>
 
@@ -257,7 +257,7 @@ export default function CompanyInformation() {
                     {intl.form_component_company_id}
                   </div>
 
-                  <div className="text-sm font-semibold">
+                  <div className="text-sm dark:text-black font-semibold">
                     {organizationsData.id}
                   </div>
 
@@ -265,7 +265,7 @@ export default function CompanyInformation() {
                     {intl.form_component_mailid_label}
                   </div>
 
-                  <div className="text-sm font-semibold">
+                  <div className="text-sm dark:text-black font-semibold">
                     {organizationsData.email}
                   </div>
 
@@ -273,7 +273,7 @@ export default function CompanyInformation() {
                     {intl.form_component_usercount_label}
                   </div>
 
-                  <div className="text-sm font-semibold">
+                  <div className="text-sm dark:text-black font-semibold">
                     {organizationsData.numberOfUsers}
                   </div>
 
@@ -281,7 +281,7 @@ export default function CompanyInformation() {
                     {intl.form_component_sales_channel}
                   </div>
 
-                  <div className="text-sm font-semibold">
+                  <div className="text-sm dark:text-black font-semibold">
                     {organizationsData.salesChannel}
                   </div>
 
@@ -289,7 +289,7 @@ export default function CompanyInformation() {
                     {intl.form_component_fleet_number}
                   </div>
 
-                  <div className="text-sm font-semibold">
+                  <div className="text-sm dark:text-black font-semibold">
                     {organizationsData.fleetNumber}
                   </div>
                 </div>
@@ -305,7 +305,7 @@ export default function CompanyInformation() {
                     {intl.form_component_simulataneous_intepretation}
                   </div>
 
-                  <div className="text-sm font-semibold">
+                  <div className="text-sm dark:text-black font-semibold">
                     {organizationsData.isTranslate ? "ON" : "OFF"}
                   </div>
 
@@ -313,7 +313,7 @@ export default function CompanyInformation() {
                     {intl.form_component_transcription}
                   </div>
 
-                  <div className="text-sm font-semibold">
+                  <div className="text-sm dark:text-black font-semibold">
                     {organizationsData.isTranscribe ? "ON" : "OFF"}
                   </div>
 
@@ -321,7 +321,7 @@ export default function CompanyInformation() {
                     {intl.company_list_sos_location}
                   </div>
 
-                  <div className="text-sm font-semibold">
+                  <div className="text-sm dark:text-black font-semibold">
                     {organizationsData.sosLocation ? "ON" : "OFF"}
                   </div>
 
@@ -329,13 +329,13 @@ export default function CompanyInformation() {
                     {intl.company_list_company_status}
                   </div>
 
-                  <div className="text-sm font-semibold">
+                  <div className="text-sm dark:text-black font-semibold">
                     {organizationsData.isStatus ? "ON" : "OFF"}
                   </div>
 
                   <div className="text-sm font-normal text-[#595959]">説明</div>
 
-                  <div className="text-sm font-semibold">
+                  <div className="text-sm dark:text-black font-semibold">
                     {organizationsData.description || "-"}
                   </div>
                 </div>

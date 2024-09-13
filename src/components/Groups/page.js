@@ -1389,9 +1389,9 @@ export default function Group({ children, tab }) {
                     type="text"
                     for={"groupNameCreate"}
                     placeholder={"グループ名"}
-                    borderRound="rounded-xl"
+                    borderRound="rounded"
                     padding="p-[10px]"
-                    focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
+                    focus="focus:outline-none focus:ring-2 h-[40px] focus:ring-customBlue"
                     border="border border-gray-300"
                     bg="bg-white"
                     additionalClass="block w-full pl-5 text-base pr-[30px]"
@@ -1421,9 +1421,9 @@ export default function Group({ children, tab }) {
                     type="text"
                     for={"groupNameFurigana"}
                     placeholder={"ふりがな"}
-                    borderRound="rounded-xl"
+                    borderRound="rounded"
                     padding="p-[10px]"
-                    focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
+                    focus="focus:outline-none focus:ring-2 h-[40px] focus:ring-customBlue"
                     border="border border-gray-300"
                     bg="bg-white"
                     additionalClass="block w-full pl-5 text-base pr-[30px]"
@@ -1453,8 +1453,8 @@ export default function Group({ children, tab }) {
                     <div className="basis-4/5">
                       <DropdownMedium
                         defaultSelectNoOption={false}
-                        borderRound={"rounded-xl"}
-                        padding={"pt-[12px] pb-[12px]"}
+                        borderRound={"rounded"}
+                        padding={"pt-[12px] pb-[12px] h-[40px]"}
                         options={contactDataDropdownList}
                         keys={"value"} // From options array
                         optionLabel={"label"} // From options array
@@ -1486,7 +1486,7 @@ export default function Group({ children, tab }) {
                         textBold={true}
                         icon={() => editIcon()}
                         additionalClass={
-                          "py-[10.5px] px-[8.5px] mt-[26px] ml-3"
+                          "py-[10.5px] px-[8.5px] mt-[26px] h-[40px] ml-3"
                         }
                         bg="bg-transparent"
                         onClick={() => {
@@ -1619,9 +1619,9 @@ export default function Group({ children, tab }) {
                     for={"name"}
                     name={"name"}
                     placeholder={"グループ名"}
-                    borderRound="rounded-xl"
+                    borderRound="rounded"
                     padding="p-[10px]"
-                    focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
+                    focus="focus:outline-none h-[40px] focus:ring-2 focus:ring-customBlue"
                     border="border border-gray-300"
                     bg="bg-white border"
                     additionalClass="block w-full pl-5 text-base pr-[30px]"
@@ -1649,9 +1649,9 @@ export default function Group({ children, tab }) {
                     for={"furigana"}
                     name={"furigana"}
                     placeholder={"ふりがな"}
-                    borderRound="rounded-xl"
+                    borderRound="rounded"
                     padding="p-[10px]"
-                    focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
+                    focus="focus:outline-none h-[40px] focus:ring-2 focus:ring-customBlue"
                     border="border border-gray-300"
                     bg="bg-white border"
                     additionalClass="block w-full pl-5 text-base pr-[30px]"
@@ -1679,9 +1679,9 @@ export default function Group({ children, tab }) {
                     for={"groupId"}
                     name={"groupId"}
                     placeholder={intl.group_id}
-                    borderRound="rounded-xl"
+                    borderRound="rounded"
                     padding="p-[10px]"
-                    focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
+                    focus="focus:outline-none h-[40px] focus:ring-2 focus:ring-customBlue"
                     border="border border-gray-300"
                     bg="bg-white border"
                     additionalClass="block w-full pl-5 text-base pr-[30px]"
@@ -1703,8 +1703,8 @@ export default function Group({ children, tab }) {
                         <div className={detailsModal ? "w-full" : "basis-4/5"}>
                           <DropdownMedium
                             defaultSelectNoOption={false}
-                            borderRound={"rounded-xl"}
-                            padding={"pt-[12px] pb-[12px]"}
+                            borderRound={"rounded"}
+                            padding={"pt-[12px] pb-[12px] h-[40px]"}
                             options={contactDataDropdownList}
                             keys={"value"} // From options array
                             optionLabel={"label"} // From options array

@@ -2303,22 +2303,72 @@ export default function UserList() {
           </AntModal>
         )}
         {deleteModal && (
-          <Modal
-            width="45vw"
-            height="412px"
-            fontSize="text-xl"
-            fontWeight="font-semibold"
-            textColor="#19388B"
-            text={intl.user_delete_modal}
-            onCloseHandler={setDeleteModal}
-            modalFooter={getDeleteModalFooter}
-          >
-            <div className="flex flex-col">
-              <div className="flex-grow dark:text-black text-base font-normal">
-                {intl.user_modal_content}
-              </div>
+          <AntModal
+          title={
+            <div className="px-[40px] pt-[40px] mb-[2vw] text-customBlue text-center">
+              {intl.user_delete_modal}
             </div>
-          </Modal>
+          }
+          width={500}
+          open={deleteModal}
+          onCancel={() => {
+            setDeleteModal(false);
+          }}
+          footer={null}
+          style={{ padding: "40px" }}
+        >
+          <p style={{ textAlign: "center" }} className="px-[40px]">
+            {intl.user_modal_content}
+          </p>
+          {/* <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]">
+            <Button
+              key="cancel"
+              className="flex-1 text-[#214BB9] border-[#214BB9] font-semibold text-base"
+              onClick={() => setDeleteModal(false)}
+            >
+              {intl.help_settings_addition_modal_cancel}
+            </Button>
+            <Button
+              key="delete"
+              className="flex-1 bg-[#BA1818] text-white no-hover"
+              onClick={() => deleteOrganization(selectedRows)}
+            >
+              {intl.help_settings_addition_delete}
+            </Button>
+          </div> */}
+          <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]  ">
+            <Button
+              key="cancel"
+              className="sm:flex-1 w-full sm:w-auto text-[#214BB9] border-[#214BB9] font-semibold h-[40px] text-base"
+              onClick={() => setDeleteModal(false)}
+            >
+              {intl.help_settings_addition_modal_cancel}
+            </Button>
+            <Button
+              key="delete"
+              className="sm:flex-1 w-full sm:w-auto bg-[#BA1818] h-[40px] text-white no-hover"
+              onClick={() => deleteEmployee(selectedRows)}
+            >
+              {intl.help_settings_addition_delete_button}({selectedRows.length})
+            </Button>
+          </div>
+        </AntModal>
+          // <Modal
+          //   width="45vw"
+          //   height="412px"
+          //   fontSize="text-xl"
+          //   fontWeight="font-semibold"
+          //   textColor="#19388B"
+          //   text={intl.user_delete_modal}
+          //   onCloseHandler={setDeleteModal}
+          //   modalFooter={getDeleteModalFooter}
+          // >
+          //   <div className="flex flex-col">
+          //     <div className="flex-grow dark:text-black text-base font-normal">
+          //       {intl.user_modal_content}
+          //     </div>
+          //   </div>
+          // </Modal>
         )}
       </div>
       <a

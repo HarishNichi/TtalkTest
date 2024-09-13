@@ -435,10 +435,10 @@ export default function HelpSettingsList() {
         {loading && <LoaderOverlay />}
         <div>
           <div className="flex  justify-between mb-4 xl:mb-2 ">
-            <div className="flex items-center">
+            <div className="flex items-center dark:text-black">
               <DynamicLabel
                 text={intl.helper_sub_section_terminal_help_list}
-                alignment="text-center"
+                alignment="text-center dark:text-black"
                 fontSize="text-xl"
                 fontWeight="font-semibold"
                 textColor="#000000"
@@ -557,12 +557,12 @@ export default function HelpSettingsList() {
               fontSize="text-xl"
               fontWeight="font-semibold"
               textColor="#19388B"
-              text={intl.help_settings_help_category}
+              text={addModal ? "カテゴリ追加" : "カテゴリ編集"}
               onCloseHandler={onClose}
               modalFooter={() => {
                 return (
                   <IconLeftBtn
-                    text={intl.help_settings_addition_btn}
+                    text={addModal ? "カテゴリ追加" : "カテゴリ編集"}
                     textColor={"text-white font-semibold text-[16px]"}
                     py="py-[8px] px-[55px] w-full"
                     bgColor={"bg-customBlue"}
