@@ -138,7 +138,7 @@ export default function UserList() {
       align: "left",
     },
     {
-      title: intl.login_password_placeholder,
+      title: intl.login_password,
       dataIndex: "password",
       render: (text, record) => {
         const Msg = ({ closeToast, toastProps, password, userId }) => (

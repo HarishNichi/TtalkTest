@@ -1450,7 +1450,7 @@ export default function Group({ children, tab }) {
                       <DropdownMedium
                         defaultSelectNoOption={false}
                         borderRound={"rounded"}
-                        padding={"pt-[12px] pb-[12px] h-[40px]"}
+                        padding={" h-[40px]"}
                         options={contactDataDropdownList}
                         keys={"value"} // From options array
                         optionLabel={"label"} // From options array
@@ -1621,7 +1621,7 @@ export default function Group({ children, tab }) {
                     border="border border-gray-300"
                     bg="bg-white border"
                     additionalClass="block w-full pl-5 text-base pr-[30px]"
-                    label={"intl.user_group_mongst_list_grp_name"}
+                    label={intl.user_group_mongst_list_grp_name}
                     labelColor="#7B7B7B"
                     id={"name"}
                     isRequired={!detailsModal}
@@ -1700,7 +1700,7 @@ export default function Group({ children, tab }) {
                           <DropdownMedium
                             defaultSelectNoOption={false}
                             borderRound={"rounded"}
-                            padding={"pt-[12px] pb-[12px] h-[40px]"}
+                            padding={" h-[40px]"}
                             options={contactDataDropdownList}
                             keys={"value"} // From options array
                             optionLabel={"label"} // From options array

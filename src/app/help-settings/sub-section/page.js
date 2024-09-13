@@ -696,7 +696,7 @@ export default function Subsection() {
           <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]">
             <Button
               key="cancel"
-              className="flex-1 text-blue-500 border-blue-500 "
+              className="flex-1 text-[#214BB9] border-[#214BB9] font-semibold h-[40px] text-base "
               onClick={() => {
                 setDeleteModal(false);
               }}

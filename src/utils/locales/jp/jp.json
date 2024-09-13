@@ -72,6 +72,7 @@
   "validation_check_phone": "電話番号の形式で入力してください",
   "mobile_format_message": "電話番号はこの +XX XXXXXXXXX 形式で入力してください",
   "login_password_placeholder": "パスワード*",
+  "login_password": "パスワード",
   "password_copy": "パスワードがクリップボードにコピーされました。",
   "login_email_placeholder": "ユーザーID*",
   "login_forget_password_text": "パスワードを忘れた場合",
