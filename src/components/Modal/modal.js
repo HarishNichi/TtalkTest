@@ -144,13 +144,23 @@ const Modal = ({
                   <div className="flex justify-center items-center pt-4 px-4 pb-0 rounded-t">
                     {" "}
                     {/* Modify this line */}
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white flex-grow">
+                      <DynamicLabel
+                        text={text}
+                        alignment="text-center"
+                        fontSize={fontSize}
+                        fontWeight={fontWeight}
+                        textColor={textColor}
+                        disabled={false}
+                      />
+                    </h3>
                     {displayEditIcon && (
                       <IconBtn
                         textColor={"text-white"}
                         textBold={true}
                         icon={() => editIcon()}
                         onClick={() => handelEdit("company/edit")}
-                        bg={"bg-[#19388B] ml-[20px] text-right"}
+                        bg={"bg-[#346595] ml-[20px] text-right"}
                         className="ml-auto"
                       />
                     )}
@@ -176,16 +186,6 @@ const Modal = ({
                     </button>{" "}
                     {/* Modify this line */}
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white flex-grow">
-                    <DynamicLabel
-                      text={text}
-                      alignment="text-center text-customBlue "
-                      fontSize={fontSize}
-                      fontWeight={fontWeight}
-                      textColor={textColor}
-                      disabled={false}
-                    />
-                  </h3>
                   {/* <!-- Modal body --> */}
                   <div className="p-[32px] space-y-6">{children}</div>
                   {/* <!-- Modal footer --> */}
