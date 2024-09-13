@@ -480,11 +480,11 @@ export default function Contact({ children, tab }) {
     let data;
     toast.dismiss();
     if (!csvFileName) {
-      setFileNameError("ファイル名が必要です。");
+      setFileNameError(intl.contacts_file_name_required);
       return;
     }
     if (!csvFileNameRegex.test(csvFileName)) {
-      setFileNameError("ファイル名を確認してください。");
+      setFileNameError(intl.user_check_file_name);
       return;
     }
     setFileNameError("");
@@ -498,7 +498,7 @@ export default function Contact({ children, tab }) {
       };
     } else {
       if (selectedRows.length == 0) {
-        toast("レコードを選択してください", errorToastSettings);
+        toast(intl.contacts_selcet_record, errorToastSettings);
         return;
       }
       if (selectedRows.length > 0) {
@@ -612,18 +612,6 @@ export default function Contact({ children, tab }) {
     <>
       {loading && <LoaderOverlay />}
       <div>
-        {/* <div className="flex justify-between mb-2 xl:mb-2 ">
-          <div className="flex items-center">
-            <DynamicLabel
-              text={intl.user_contact_info_title}
-              alignment="text-center"
-              fontSize="text-[22px]"
-              fontWeight="font-medium"
-              textColor="#000000"
-              disabled={false}
-            />
-          </div>
-        </div> */}
         <div className="flex justify-end">
           <IconOutlineBtn
             text={intl.company_list_company_import}
@@ -906,85 +894,6 @@ export default function Contact({ children, tab }) {
             operation="dynamic"
           />
         )}
-        {/* {deleteModal && (
-          <Modal
-            height="412px"
-            fontSize="text-xl"
-            fontWeight="font-semibold"
-            textColor="#19388B"
-            text={intl.help_settings_addition_delete}
-            onCloseHandler={() => {
-              setDeleteModal(false);
-              setDeleteModalData(false);
-            }}
-            modalFooter={() => {
-              return (
-                // <div className="grid grid-cols-2 gap-2 place-content-center">
-                //   <div>
-                //     <IconLeftBtn
-                //       text={intl.help_settings_addition_modal_cancel}
-                //       textColor={"text-white font-semibold text-sm w-full"}
-                //       py={"py-[11px]"}
-                //       px={"px-6"}
-                //       bgColor={"bg-customBlue"}
-                //       textBold={true}
-                //       icon={() => {
-                //         return null;
-                //       }}
-                //       onClick={() => {
-                //         setDeleteModal(() => false);
-                //         setDeleteModalData(false);
-                //       }}
-                //     />
-                //   </div>
-                //   <div>
-                //     <IconLeftBtn
-                //       text={intl.help_settings_addition_delete}
-                //       textColor={"text-white font-semibold text-sm w-full"}
-                //       py={"py-[11px]"}
-                //       px={"px-6"}
-                //       bgColor={"bg-customBlue"}
-                //       textBold={true}
-                //       icon={() => {
-                //         return null;
-                //       }}
-                //       onClick={() => {
-                //         deleteContact(selectedRows);
-                //       }}
-                //     />
-                //   </div>
-                // </div>
-                <div className="flex flex-col sm:flex-row justify-center gap-4 w-full">
-                  <Button
-                    key="cancel"
-                    className="flex-1 h-[40px] text-[#19388B] border border-[#19388B] hover:bg-[#e0e7ff] focus:outline-none focus:ring-2 focus:ring-[#19388B] focus:ring-opacity-50"
-                    onClick={() => {
-                      setDeleteModal(() => false);
-                      setDeleteModalData(false);
-                    }}
-                  >
-                    {intl.help_settings_addition_modal_cancel}
-                  </Button>
-                  <Button
-                    key="delete"
-                    className="flex-1 bg-[#BA1818] h-[40px] text-white no-hover focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50"
-                    onClick={() => {
-                      deleteContact(selectedRows);
-                    }}
-                  >
-                    {intl.help_settings_addition_delete}({selectedRows.length})
-                  </Button>
-                </div>
-              );
-            }}
-          >
-            <div className="flex flex-col ">
-              <div className="flex-grow dark:text-black">
-                {"連絡先を削除します。よろしいですか？"}
-              </div>
-            </div>
-          </Modal>
-        )} */}
 
         {deleteModal && (
           <AntModal
@@ -1003,22 +912,7 @@ export default function Contact({ children, tab }) {
             <p style={{ textAlign: "center" }} className="px-[40px]">
               連絡先を削除します。よろしいですか？
             </p>
-            {/* <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]">
-            <Button
-              key="cancel"
-              className="flex-1 text-[#214BB9] border-[#214BB9] font-semibold text-base"
-              onClick={() => setDeleteModal(false)}
-            >
-              {intl.help_settings_addition_modal_cancel}
-            </Button>
-            <Button
-              key="delete"
-              className="flex-1 bg-[#BA1818] text-white no-hover"
-              onClick={() => deleteOrganization(selectedRows)}
-            >
-              {intl.help_settings_addition_delete}
-            </Button>
-          </div> */}
+
             <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]  ">
               <Button
                 key="cancel"
@@ -1039,22 +933,6 @@ export default function Contact({ children, tab }) {
               </Button>
             </div>
           </AntModal>
-          // <Modal
-          //   width="45vw"
-          //   height="412px"
-          //   fontSize="text-xl"
-          //   fontWeight="font-semibold"
-          //   textColor="#19388B"
-          //   text={intl.user_delete_modal}
-          //   onCloseHandler={setDeleteModal}
-          //   modalFooter={getDeleteModalFooter}
-          // >
-          //   <div className="flex flex-col">
-          //     <div className="flex-grow dark:text-black text-base font-normal">
-          //       {intl.user_modal_content}
-          //     </div>
-          //   </div>
-          // </Modal>
         )}
         {(addNewModal || detailsModal || editModal) && (
           <Modal

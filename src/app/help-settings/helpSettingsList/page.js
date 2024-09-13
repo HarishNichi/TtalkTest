@@ -76,15 +76,6 @@ export default function HelpSettingsList() {
             >
               <SectionEditIcon />
             </span>
-            {/* <span
-              className="ml-[50px] cursor-pointer rounded-full px-3 py-2  bg-[#EDF2F5] hover:bg-[#DCE7F0]"
-              onClick={(event) => {
-                event.stopPropagation();
-                handelDelete(record);
-              }}
-            >
-              <SectionDeleteIcon />
-            </span> */}
           </p>
         </div>
       ),
@@ -473,14 +464,6 @@ export default function HelpSettingsList() {
                 }}
               />
 
-              {/* <IconOutlineBtn
-                text={intl.company_list_company_import}
-                textColor={"text-customBlue"}
-                textBold={true}
-                py={"xl:py-2.5 md:py-1.5 py-1.5"}
-                px={"xl:px-[32px] md:px-[33.5px] px-[33.5px]"}
-                icon={() => importIcon()}
-              /> */}
               <IconOutlineBtn
                 text={intl.help_settings_help_category}
                 textColor={"text-customBlue"}
@@ -496,20 +479,6 @@ export default function HelpSettingsList() {
                 }}
               />
             </div>
-            {/* <div className="flex md:hidden">
-              <IconBtn
-                text={intl.help_settings_addition_btn}
-                textColor={"text-customBlue"}
-                textBold={true}
-                icon={() => editIcon(false)}
-                borderColor={"border-customBlue"}
-                onClick={async () => {
-                  await setEditModal(() => false);
-                  await setAddModal(() => false);
-                  await addHandler();
-                }}
-              />
-            </div> */}
           </div>
           <div className="mb-[16px] flex items-center">
             <label
@@ -557,12 +526,20 @@ export default function HelpSettingsList() {
               fontSize="text-xl"
               fontWeight="font-semibold"
               textColor="#19388B"
-              text={addModal ? "カテゴリ追加" : "カテゴリ編集"}
+              text={
+                addModal
+                  ? intl.help_settings_help_category
+                  : intl.help_settings_help_category_edit
+              }
               onCloseHandler={onClose}
               modalFooter={() => {
                 return (
                   <IconLeftBtn
-                    text={addModal ? "カテゴリ追加" : "カテゴリ編集"}
+                    text={
+                      addModal
+                        ? intl.add_machine
+                        : intl.help_settings_addition_modal_edit
+                    }
                     textColor={"text-white font-semibold text-[16px]"}
                     py="py-[8px] px-[55px] w-full"
                     bgColor={"bg-customBlue"}
@@ -624,47 +601,6 @@ export default function HelpSettingsList() {
               </div>
             </Modal>
           )}
-          {/* {deleteModal && (
-            <Modal
-              height="412px"
-              fontSize="text-xl"
-              fontWeight="font-semibold"
-              textColor="#19388B"
-              text={intl.help_settings_delete_help_category}
-              onCloseHandler={setDeleteModal}
-              modalFooter={() => {
-                return (
-                  <div className="flex flex-col sm:flex-row justify-center gap-4 w-full">
-                    <Button
-                      key="cancel"
-                      className="flex-1 h-[40px] text-[#19388B] border border-[#19388B] hover:bg-[#e0e7ff] focus:outline-none focus:ring-2 focus:ring-[#19388B] focus:ring-opacity-50"
-                      onClick={() => {
-                        setDeleteModal(false);
-                      }}
-                    >
-                      {intl.help_settings_addition_modal_cancel}
-                    </Button>
-                    <Button
-                      key="delete"
-                      className="flex-1 bg-[#BA1818] h-[40px] text-white no-hover focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50"
-                      onClick={() => {
-                        deleteSection(editRecord);
-                      }}
-                    >
-                      {intl.help_settings_addition_delete}({selectedRows.length}
-                      )
-                    </Button>
-                  </div>
-                );
-              }}
-            >
-              <div className="flex flex-col">
-                <div className="flex-grow dark:text-black text-base font-normal">
-                  {intl.help_settings_help_items_deleted}
-                </div>
-              </div>
-            </Modal>
-          )} */}
 
           {deleteModal && (
             <AntModal
@@ -683,22 +619,7 @@ export default function HelpSettingsList() {
               <p style={{ textAlign: "center" }} className="px-[40px]">
                 {intl.help_settings_help_items_deleted}
               </p>
-              {/* <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]">
-            <Button
-              key="cancel"
-              className="flex-1 text-[#214BB9] border-[#214BB9] font-semibold text-base"
-              onClick={() => setDeleteModal(false)}
-            >
-              {intl.help_settings_addition_modal_cancel}
-            </Button>
-            <Button
-              key="delete"
-              className="flex-1 bg-[#BA1818] text-white no-hover"
-              onClick={() => deleteOrganization(selectedRows)}
-            >
-              {intl.help_settings_addition_delete}
-            </Button>
-          </div> */}
+
               <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]  ">
                 <Button
                   key="cancel"
@@ -719,22 +640,6 @@ export default function HelpSettingsList() {
                 </Button>
               </div>
             </AntModal>
-            // <Modal
-            //   width="45vw"
-            //   height="412px"
-            //   fontSize="text-xl"
-            //   fontWeight="font-semibold"
-            //   textColor="#19388B"
-            //   text={intl.user_delete_modal}
-            //   onCloseHandler={setDeleteModal}
-            //   modalFooter={getDeleteModalFooter}
-            // >
-            //   <div className="flex flex-col">
-            //     <div className="flex-grow dark:text-black text-base font-normal">
-            //       {intl.user_modal_content}
-            //     </div>
-            //   </div>
-            // </Modal>
           )}
         </div>
         <ToastContainer />

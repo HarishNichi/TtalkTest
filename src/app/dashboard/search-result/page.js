@@ -212,56 +212,6 @@ export default function HelpSettingsList() {
       setLoading(false);
     }
   };
-  // const deleteEmployee = async (selectedRows) => {
-  //   toast.dismiss();
-  //   if (selectedRows.length <= 0) {
-  //     toast("ユーザーを選択してください。", {
-  //       position: "top-right",
-  //       autoClose: 5000,
-  //       hideProgressBar: true,
-  //       closeOnClick: true,
-  //       pauseOnHover: true,
-  //       draggable: true,
-  //       theme: "colored",
-  //       type: "error",
-  //     });
-  //     setDeleteModal(false);
-  //     return;
-  //   }
-  //   const userIds = selectedRows.map((record) => ({
-  //     id: record.id,
-  //     // console.log(id) // Assuming record has an 'id' property
-  //   }));
-
-  //   setLoading(true);
-  //   try {
-  //     const response = await api.post(`employees/delete-all`, userIds);
-  //     setLoading(false);
-  //     setDeleteModal(false);
-  //     setSelectAll(false);
-  //     setSelectedRows([]);
-  //     setDeleted(true);
-  //     Admin ? fetchOrg() : withDeviceDetails([]);
-  //   } catch (error) {
-  //     setLoading(false);
-  //     setDeleteModal(false);
-  //     toast(
-  //       error.response?.data?.status?.message
-  //         ? error.response?.data?.status?.message
-  //         : error.response.data.message,
-  //       {
-  //         position: "top-right",
-  //         autoClose: 5000,
-  //         hideProgressBar: true,
-  //         closeOnClick: true,
-  //         pauseOnHover: true,
-  //         draggable: true,
-  //         theme: "colored",
-  //         type: "error",
-  //       }
-  //     );
-  //   }
-  // };
 
   async function deleteEmployee() {
     toast.dismiss();
@@ -305,64 +255,6 @@ export default function HelpSettingsList() {
     }
   }
 
-  function getDeleteModalFooter() {
-    return (
-      // <div className="grid grid-cols-2 gap-2 place-content-center">
-      //   <div>
-      //     <IconLeftBtn
-      //       text={intl.help_settings_addition_modal_cancel}
-      //       textColor={"text-white font-semibold text-sm w-full"}
-      //       py={"py-[11px]"}
-      //       px={"px-6"}
-      //       bgColor={"bg-customBlue"}
-      //       textBold={true}
-      //       icon={() => {
-      //         return null;
-      //       }}
-      //       onClick={() => {
-      //         setDeleteModal(() => false);
-      //       }}
-      //     />
-      //   </div>
-      //   <div>
-      //     <IconLeftBtn
-      //       text={intl.help_settings_addition_delete}
-      //       textColor={"text-white font-semibold text-sm w-full"}
-      //       py={"py-[11px]"}
-      //       px={"px-6"}
-      //       bgColor={"bg-customBlue"}
-      //       textBold={true}
-      //       icon={() => {
-      //         return null;
-      //       }}
-      //       onClick={() => {
-      //         deleteEmployee(selectedRows);
-      //       }}
-      //     />
-      //   </div>
-      // </div>
-      <div className="flex flex-col sm:flex-row justify-center gap-4 w-full">
-        <Button
-          key="cancel"
-          className="flex-1 h-[40px] text-[#19388B] border border-[#19388B] hover:bg-[#e0e7ff] focus:outline-none focus:ring-2 focus:ring-[#19388B] focus:ring-opacity-50"
-          onClick={() => {
-            setDeleteModal(() => false);
-          }}
-        >
-          {intl.help_settings_addition_modal_cancel}
-        </Button>
-        <Button
-          key="delete"
-          className="flex-1 bg-[#BA1818] h-[40px] text-white no-hover focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50"
-          onClick={() => {
-            deleteEmployee(selectedRows);
-          }}
-        >
-          {intl.help_settings_addition_delete}({selectedRows.length})
-        </Button>
-      </div>
-    );
-  }
   useEffect(() => {
     let data = localStorage.getItem("searchEmployee");
     let parsedData = (data.length > 0 && JSON.parse(data)) || [];
@@ -414,42 +306,7 @@ export default function HelpSettingsList() {
       sorter: (a, b) => a.machine.localeCompare(b.machine),
       sortDirections: ["ascend", "descend", "ascend"],
     },
-    // {
-    //   title: "",
-    //   dataIndex: "status",
-    //   render: (status) => {
-    //     if (status == "online") {
-    //       return (
-    //         <div className="w-full flex justify-center h-full">
-    //           <div className={`bg-[#1AB517] h-2 w-2 p-2 rounded-full `}></div>
-    //         </div>
-    //       );
-    //     }
-    //     if (status == "away") {
-    //       return (
-    //         <div className="w-full flex justify-center h-full">
-    //           <div className={`bg-[#FFA500] h-2 w-2 p-2 rounded-full `}></div>
-    //         </div>
-    //       );
-    //     }
-    //     if (status == "offline") {
-    //       return (
-    //         <div className="w-full flex justify-center h-full">
-    //           <div className={`bg-[#ED2E2E] h-2 w-2 p-2 rounded-full`}></div>
-    //         </div>
-    //       );
-    //     }
-    //     if (status == "unknown") {
-    //       return (
-    //         <div className="w-full flex justify-center h-full">
-    //           <div className={`bg-[#D9D9D9] h-2 w-2 p-2 rounded-full`}></div>
-    //         </div>
-    //       );
-    //     }
-    //   },
-    //   width: "30px",
-    //   align: "center",
-    // },
+
     {
       title: intl.company_list_company_status,
       dataIndex: "onlineStatus",
@@ -709,47 +566,6 @@ export default function HelpSettingsList() {
       {loading && <LoaderOverlay />}
       <ToastContainer />
       <div>
-        {/* <div className="flex  justify-between mb-2">
-          <div className="flex items-center ">
-            <DynamicLabel
-              text={intl.search_results}
-              alignment="text-center"
-              fontSize="text-[22px]"
-              fontWeight="font-medium"
-              textColor="#000000"
-              disabled={false}
-            />
-          </div>
-          <div className="hidden lg:flex gap-x-2">
-            <IconOutlineBtn
-              text={intl.company_list_company_export_title}
-              textColor={"text-customBlue"}
-              textBold={true}
-              py={"xl:py-2 md:py-1.5 py-1.5"}
-              px={"px-4"}
-              icon={() => <ExportIcon />}
-              borderColor={"border-customBlue"}
-              onClick={async () => {
-                await setExportModal(() => false);
-                await handelExport();
-              }}
-            />
-          </div>
-
-          <div className="flex lg:hidden">
-            <span className="mr-2.5">
-              <IconBtn
-                textColor={"text-white"}
-                textBold={true}
-                icon={() => <ExportIcon />}
-                bg="bg-transparent"
-                onClick={() => {
-                  setExportModal(() => true);
-                }}
-              />
-            </span>
-          </div>
-        </div> */}
         <div className="mb-[16px] flex items-center">
           <label
             key={"selectAll"}
@@ -841,35 +657,6 @@ export default function HelpSettingsList() {
                   setDeleteModal(() => true);
                 }}
               />
-
-              {/* <IconOutlineBtn
-                text={intl.help_settings_addition_delete}
-                textColor="text-[#BA1818]" // Red text color
-                borderColor="border-[#BA1818]"
-                textBold={true}
-                py={"xl:py-2.5 md:py-1.5 py-1.5"}
-                px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
-                icon={() => deleteIcon()}
-                onClick={() => {
-                  // check selected row
-                  toast.dismiss();
-                  if (selectedRows.length <= 0) {
-                    toast("会社を選択してください。", {
-                      position: "top-right",
-                      autoClose: 5000,
-                      hideProgressBar: true,
-                      closeOnClick: true,
-                      pauseOnHover: true,
-                      draggable: true,
-                      theme: "colored",
-                      type: "error",
-                    });
-                    setDeleteModal(() => false);
-                    return;
-                  }
-                  setDeleteModal(() => true);
-                }}
-              /> */}
             </div>
           </div>
         )}
@@ -889,24 +676,6 @@ export default function HelpSettingsList() {
             </div>
           </Modal>
         )}
-        {/* {deleteModal && (
-          <Modal
-            width="45vw"
-            height="412px"
-            fontSize="text-xl"
-            fontWeight="font-semibold"
-            textColor="#19388B"
-            text={intl.user_delete_modal}
-            onCloseHandler={setDeleteModal}
-            modalFooter={getDeleteModalFooter}
-          >
-            <div className="flex flex-col">
-              <div className="flex-grow dark:text-black text-base font-normal">
-                {intl.user_modal_content}
-              </div>
-            </div>
-          </Modal>
-        )} */}
 
         {deleteModal && (
           <AntModal
@@ -925,22 +694,7 @@ export default function HelpSettingsList() {
             <p style={{ textAlign: "center" }} className="px-[40px]">
               {intl.user_modal_content}
             </p>
-            {/* <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]">
-            <Button
-              key="cancel"
-              className="flex-1 text-[#214BB9] border-[#214BB9] font-semibold text-base"
-              onClick={() => setDeleteModal(false)}
-            >
-              {intl.help_settings_addition_modal_cancel}
-            </Button>
-            <Button
-              key="delete"
-              className="flex-1 bg-[#BA1818] text-white no-hover"
-              onClick={() => deleteOrganization(selectedRows)}
-            >
-              {intl.help_settings_addition_delete}
-            </Button>
-          </div> */}
+
             <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]  ">
               <Button
                 key="cancel"
@@ -959,22 +713,6 @@ export default function HelpSettingsList() {
               </Button>
             </div>
           </AntModal>
-          // <Modal
-          //   width="45vw"
-          //   height="412px"
-          //   fontSize="text-xl"
-          //   fontWeight="font-semibold"
-          //   textColor="#19388B"
-          //   text={intl.user_delete_modal}
-          //   onCloseHandler={setDeleteModal}
-          //   modalFooter={getDeleteModalFooter}
-          // >
-          //   <div className="flex flex-col">
-          //     <div className="flex-grow dark:text-black text-base font-normal">
-          //       {intl.user_modal_content}
-          //     </div>
-          //   </div>
-          // </Modal>
         )}
         {exportModal && (
           <Modal

@@ -138,7 +138,7 @@ export default function UserList() {
       align: "left",
     },
     {
-      title: "パスワード",
+      title: intl.login_password_placeholder,
       dataIndex: "password",
       render: (text, record) => {
         const Msg = ({ closeToast, toastProps, password, userId }) => (
@@ -147,23 +147,20 @@ export default function UserList() {
               {intl.user_userId_label} : {userId}
             </div>
             <div className="flex gap-x-[15px]">
-              パスワード : {password}{" "}
+              {intl.login_password_placeholder} : {password}{" "}
               <button
                 onClick={() => {
                   navigator.clipboard.writeText(password);
                   toast.dismiss();
-                  toast.success(
-                    "パスワードがクリップボードにコピーされました。",
-                    {
-                      position: "top-right",
-                      autoClose: 3000,
-                      hideProgressBar: true,
-                      closeOnClick: true,
-                      pauseOnHover: true,
-                      draggable: true,
-                      theme: "colored",
-                    }
-                  );
+                  toast.success(intl.password_copy, {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    theme: "colored",
+                  });
                 }}
               >
                 <FaRegCopy />
@@ -190,7 +187,7 @@ export default function UserList() {
                   copy(password);
                   setLoading(false);
                   toast.dismiss();
-                  toast.success("パスワードをコピーしました", {
+                  toast.success(intl.user_password_copy, {
                     position: "top-right",
                     autoClose: 3000,
                     hideProgressBar: true,
@@ -272,7 +269,7 @@ export default function UserList() {
                 className={`rounded-[5px] cursor-pointer  pt-[5px] pb-[5px] pl-[5px]  focus:outline-none focus:ring-2 focus:ring-customBlue text-sm text-black block w-full  text-center
             `}
               >
-                {text ? "オンライン" : "オフライン"}
+                {text ? intl.user_online : intl.user_offline}
               </div>
             </div>
           </div>
@@ -282,7 +279,7 @@ export default function UserList() {
       align: "left",
     },
     {
-      title: "グループ",
+      title: intl.tab_group_label,
       dataIndex: "groupName",
       align: "left",
       render: (text, evt) => {
@@ -322,9 +319,8 @@ export default function UserList() {
       width: 150,
     },
 
-
     {
-      title: "登録日時",
+      title: intl.user_registration_date_time,
       dataIndex: "createdAtDate",
       render: (text) => {
         const content = <div className="text-white">{text}</div>;
@@ -340,7 +336,7 @@ export default function UserList() {
       sortDirections: ["ascend", "descend", "ascend"],
     },
     {
-      title: "最終オンライン日時",
+      title: intl.user_last_online_date_time,
       dataIndex: "appLastSeenDateTime",
       render: (text) => {
         const content = <div className="text-white">{text}</div>;
@@ -354,7 +350,7 @@ export default function UserList() {
       align: "left",
     },
     {
-      title: "利用開始日",
+      title: intl.usage_start_date,
       dataIndex: "appLoginDateTime",
       render: (text) => {
         const content = <div className="text-white">{text}</div>;
@@ -366,37 +362,9 @@ export default function UserList() {
       },
       width: 180,
       align: "left",
-      // render: (text) => {
-      //   if (!text) {
-      //     return ""; // Return empty if there's no date
-      //   }
-
-      //   // Assuming the date is in a format that can be parsed
-      //   const date = new Date(text);
-
-      //   // Check if the date is valid
-      //   if (isNaN(date)) {
-      //     return ""; // Return empty if the date is invalid
-      //   }
-
-      //   // Format the date to Japanese format: YYYY年MM月DD日
-      //   const formattedDate = `${date.getFullYear()}年${String(
-      //     date.getMonth() + 1
-      //   ).padStart(2, "0")}月${String(date.getDate()).padStart(2, "0")}日`;
-
-      //   const content = <div className="text-white">{formattedDate}</div>;
-
-      //   return (
-      //     <Popover content={content} color="#19388B">
-      //       <a className="text-ellipsis">{formattedDate}</a>
-      //     </Popover>
-      //   );
-      // },
-      // width: 180,
-      // align: "left",
     },
     {
-      title: "利用停止日",
+      title: intl.usage_suspension_date,
       dataIndex: "appLogoutDateTime",
       render: (text) => {
         const content = <div className="text-white">{text}</div>;
@@ -409,41 +377,9 @@ export default function UserList() {
       width: 180,
       align: "left",
     },
-    // {
-    //   title: "利用停止日",
-    //   dataIndex: "appLogoutDateTime",
-    //   render: (text) => {
-    //     if (!text) {
-    //       return ""; // Return empty if there's no date
-    //     }
-
-    //     // Assuming the date is in a format that can be parsed
-    //     const date = new Date(text);
-
-    //     // Check if the date is valid
-    //     if (isNaN(date)) {
-    //       return ""; // Return empty if the date is invalid
-    //     }
-
-    //     // Format the date to Japanese format: YYYY年MM月DD日
-    //     const formattedDate = `${date.getFullYear()}年${String(
-    //       date.getMonth() + 1
-    //     ).padStart(2, "0")}月${String(date.getDate()).padStart(2, "0")}日`;
-
-    //     const content = <div className="text-white">{formattedDate}</div>;
-
-    //     return (
-    //       <Popover content={content} color="#19388B">
-    //         <a className="text-ellipsis">{formattedDate}</a>
-    //       </Popover>
-    //     );
-    //   },
-    //   width: 180,
-    //   align: "left",
-    // },
 
     {
-      title: "バージョン",
+      title: intl.user_version,
       dataIndex: "appVersion",
       render: (text) => {
         const content = <div className="text-white">{text}</div>;
@@ -456,8 +392,6 @@ export default function UserList() {
       width: 120,
       align: "left",
     },
-
-   
   ];
 
   if (Admin) {
@@ -556,7 +490,7 @@ export default function UserList() {
   const deleteEmployee = async (selectedRows) => {
     toast.dismiss();
     if (selectedRows.length <= 0) {
-      toast("ユーザーを選択してください。", {
+      toast(intl.user_please_select_user, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: true,
@@ -581,7 +515,7 @@ export default function UserList() {
       setSelectAll(false);
       setSelectedRows([]);
       setDeleted(true);
-      toast("削除が完了しました", successToastSettings);
+      toast(intl.user_deletion_completed, successToastSettings);
       Admin ? fetchOrg() : withDeviceDetails([]);
     } catch (error) {
       setLoading(false);
@@ -645,11 +579,11 @@ export default function UserList() {
       let url = exportType == 1 ? "employees/export" : "employees/qr-code";
       toast.dismiss();
       if (!csvFileName) {
-        setFileNameError("ファイル名は必須です。");
+        setFileNameError(intl.user_file_name_required);
         return;
       }
       if (!csvFileNameRegex.test(csvFileName)) {
-        setFileNameError("ファイル名を確認してください。");
+        setFileNameError(intl.user_check_file_name);
         return;
       }
       setFileNameError("");
@@ -664,7 +598,7 @@ export default function UserList() {
           filename: csvFileName + downloadFileName,
         };
       } else {
-        toast("ユーザーを選択してください。", errorToastSettings);
+        toast(intl.user_please_select_user, errorToastSettings);
         setLoading(false);
         return;
       }
@@ -677,14 +611,14 @@ export default function UserList() {
       setLoading(false);
     } catch (err) {
       setLoading(false);
-      toast("ファイルのエクスポートに失敗しました", errorToastSettings);
+      toast(intl.user_file_export_failed, errorToastSettings);
     }
   }
 
   function getExportModalFooter() {
     return (
       <IconLeftBtn
-        text={"エクスポート"}
+        text={intl.company_list_company_export_title}
         textColor={"text-white font-semibold text-[16px] w-full"}
         py={"py-[11px]"}
         px={"w-[84%]"}
@@ -704,7 +638,7 @@ export default function UserList() {
       <div className="flex gap-x-3">
         <div>
           <IconLeftBtn
-            text="キャンセル"
+            text={intl.help_settings_addition_modal_cancel}
             textColor={"text-white font-semibold text-[16px] w-full rounded-lg"}
             py={"py-2"}
             px={"px-[10.5px] md:px-[17.5px]"}
@@ -720,7 +654,7 @@ export default function UserList() {
         </div>
         <div>
           <IconLeftBtn
-            text="ダウンロード"
+            text={intl.user_download}
             textColor={"text-white font-semibold text-[16px] w-full rounded-lg"}
             py={"py-2"}
             px={"px-[10.5px] md:px-[17.5px]"}
@@ -743,7 +677,7 @@ export default function UserList() {
       <div className="flex gap-x-3">
         <div>
           <IconLeftBtn
-            text="いいえ"
+            text={intl.user_remote_wipe_no_btn}
             textColor={"text-white font-semibold text-[16px] w-full rounded-lg"}
             py={"py-2"}
             px={"px-[10.5px] md:px-[17.5px]"}
@@ -759,7 +693,7 @@ export default function UserList() {
         </div>
         <div>
           <IconLeftBtn
-            text="はい"
+            text={intl.user_remote_wipe_yes_btn}
             textColor={"text-white font-semibold text-[16px] w-full rounded-lg"}
             py={"py-2"}
             px={"px-[10.5px] md:px-[17.5px]"}
@@ -781,40 +715,6 @@ export default function UserList() {
 
   function getDeleteModalFooter() {
     return (
-      // <div className="grid grid-cols-2 gap-2 place-content-center">
-      //   <div>
-      //     <IconLeftBtn
-      //       text={intl.help_settings_addition_modal_cancel}
-      //       textColor={"text-white font-semibold text-sm w-full"}
-      //       py={"py-[11px]"}
-      //       px={"px-6"}
-      //       bgColor={"bg-customBlue"}
-      //       textBold={true}
-      //       icon={() => {
-      //         return null;
-      //       }}
-      //       onClick={() => {
-      //         setDeleteModal(() => false);
-      //       }}
-      //     />
-      //   </div>
-      //   <div>
-      //     <IconLeftBtn
-      //       text={intl.help_settings_addition_delete}
-      //       textColor={"text-white font-semibold text-sm w-full"}
-      //       py={"py-[11px]"}
-      //       px={"px-6"}
-      //       bgColor={"bg-customBlue"}
-      //       textBold={true}
-      //       icon={() => {
-      //         return null;
-      //       }}
-      //       onClick={() => {
-      //         deleteEmployee(selectedRows);
-      //       }}
-      //     />
-      //   </div>
-      // </div>
       <div className="flex flex-col sm:flex-row justify-center gap-4 w-full">
         <Button
           key="cancel"
@@ -956,7 +856,7 @@ export default function UserList() {
                 dayjs(today).isSameOrBefore(item.endDate) &&
                 dayjs(today).isSameOrAfter(item.startDate);
               if (!isValid) {
-                item.name = item.name + " - 期限切れ";
+                item.name = item.name + intl.user_expired;
                 deviceListMap.push(item.id);
                 setDeviceList((prv) => [...prv, item.id]);
               }
@@ -1062,15 +962,12 @@ export default function UserList() {
             setImportModal(() => !importModal);
             subscription.unsubscribe();
             if (ecount == 0 && scount > 0) {
-              toast("正常にインポートされました。", successToastSettings);
+              toast(intl.user_imported_successfully, successToastSettings);
               Admin ? fetchOrg() : withDeviceDetails([]);
             }
 
             if (ecount > 0) {
-              toast(
-                `${ecount} 行のデータインポートに失敗しました`,
-                errorToastSettings
-              );
+              toast(`${ecount} intl.user_failed_to_import`, errorToastSettings);
               try {
                 let csvLink = await api.post(currentAPI, {
                   failures: failedRowIndexes,
@@ -1132,15 +1029,12 @@ export default function UserList() {
             setImportModal(() => !importModal);
             subscription.unsubscribe();
             if (ecount == 0 && scount > 0) {
-              toast("正常にインポートされました。", successToastSettings);
+              toast(intl.user_imported_successfully, successToastSettings);
               Admin ? fetchOrg() : withDeviceDetails([]);
             }
 
             if (ecount > 0) {
-              toast(
-                `${ecount} 行のデータインポートに失敗しました`,
-                errorToastSettings
-              );
+              toast(`${ecount} intl.user_failed_to_import`, errorToastSettings);
               try {
                 let csvLink = api.post(currentAPI, {
                   failures: failedRowIndexes,
@@ -1232,7 +1126,7 @@ export default function UserList() {
             machine:
               emp.accountDetail.employee?.machine.id &&
               expDeviceList.includes(emp.accountDetail.employee?.machine.id)
-                ? emp.accountDetail.employee?.machine.name + " - 期限切れ"
+                ? emp.accountDetail.employee?.machine.name + intl.user_expired
                 : emp.accountDetail.employee?.machine.name || "-",
 
             fleetNumber: emp.fleetNumber,
@@ -1352,7 +1246,7 @@ export default function UserList() {
             machine:
               emp.accountDetail.employee?.machine.id &&
               deviceList.includes(emp.accountDetail.employee?.machine.id)
-                ? emp.accountDetail.employee?.machine.name + "- 期限切れ"
+                ? emp.accountDetail.employee?.machine.name + intl.user_expired
                 : emp.accountDetail.employee?.machine.name || "-",
 
             fleetNumber: emp.fleetNumber,
@@ -1421,7 +1315,7 @@ export default function UserList() {
     } else if (activeButton == "bulk") {
       if (selectedRows.length <= 0) {
         // Display an error toast if no rows are selected
-        toast("ユーザーを選択してください。", {
+        toast(intl.user_please_select_user, {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: true,
@@ -1458,7 +1352,7 @@ export default function UserList() {
     } catch (err) {
       setLoading(false);
       subscriptionTrack.unsubscribe();
-      toast("インポートに失敗しました", errorToastSettings);
+      toast(intl.user_import_failed, errorToastSettings);
     }
   }
 
@@ -1472,7 +1366,7 @@ export default function UserList() {
       let result = await api.post("employees/import-settings", payload);
     } catch (err) {
       setLoading(false);
-      toast("インポートに失敗しました", errorToastSettings);
+      toast(intl.user_import_failed, errorToastSettings);
     }
   }
 
@@ -1486,7 +1380,7 @@ export default function UserList() {
       let result = await api.post("groups/import", payload);
     } catch (err) {
       setLoading(false);
-      toast("インポートに失敗しました", errorToastSettings);
+      toast(intl, errorToastSettings);
     }
   }
 
@@ -1500,7 +1394,7 @@ export default function UserList() {
       let result = await api.post("contacts/import", payload);
     } catch (err) {
       setLoading(false);
-      toast("インポートに失敗しました", errorToastSettings);
+      toast(intl.user_import_failed, errorToastSettings);
     }
   }
 
@@ -1555,36 +1449,9 @@ export default function UserList() {
               icon={() => editIcon(false)}
               onClick={() => {
                 setIsModalOpen(true);
-                //router.push("/company/add");
               }}
             />
           )}
-
-          {/* <IconBtn
-            bg={"bg"}
-            textColor={"text-white"}
-            textBold={true}
-            icon={() => deleteIcon(false)}
-            onClick={() => {
-              toast.dismiss();
-              if (selectedRows.length <= 0) {
-                toast("ユーザーを選択してください。", {
-                  position: "top-right",
-                  autoClose: 5000,
-                  hideProgressBar: true,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  theme: "colored",
-                  type: "error",
-                });
-                setDeleteModal(false);
-                return;
-              }
-              setDeleteModal(() => true);
-            }}
-            additionalClass="px-2 py-2 rounded-lg"
-          /> */}
         </div>
         <div className="flex lg:hidden">
           <span className="mr-2.5">
@@ -1599,32 +1466,7 @@ export default function UserList() {
               bg="bg-transparent border-none"
             />
           </span>
-          {/* <span className="mr-2.5">
-            <IconBtn
-              textColor={"text-white"}
-              textBold={true}
-              icon={() => exportIcon()}
-              bg="bg-transparent"
-              onClick={() => {
-                toast.dismiss();
-                if (selectedRows.length <= 0) {
-                  toast("ユーザーを選択してください。", {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    theme: "colored",
-                    type: "error",
-                  });
-                  setExportModal(false);
-                  return;
-                }
-                setExportModal(() => true);
-              }}
-            />
-          </span> */}
+
           <span className="mr-2.5">
             <IconBtn
               textColor={"text-white"}
@@ -1636,35 +1478,7 @@ export default function UserList() {
               }}
             />
           </span>
-          <span>
-            {/* <span>
-              <IconBtn
-                bg={"bg"}
-                textColor={"text-white"}
-                textBold={true}
-                icon={() => deleteIcon(false)}
-                additionalClass={"py-[7px] px-[8.5px]"}
-                onClick={() => {
-                  toast.dismiss();
-                  if (selectedRows.length <= 0) {
-                    toast("ユーザーを選択してください。", {
-                      position: "top-right",
-                      autoClose: 5000,
-                      hideProgressBar: true,
-                      closeOnClick: true,
-                      pauseOnHover: true,
-                      draggable: true,
-                      theme: "colored",
-                      type: "error",
-                    });
-                    setDeleteModal(false);
-                    return;
-                  }
-                  setDeleteModal(() => true);
-                }}
-              />
-            </span> */}
-          </span>
+          <span></span>
         </div>
       </div>
       <div>
@@ -1689,7 +1503,7 @@ export default function UserList() {
             height="auto"
             fontSize="text-xl"
             textColor="#19388B"
-            text={"エクスポート"}
+            text={intl.company_list_company_export_title}
             onCloseHandler={() => {
               setExceededLimitOfExport(false);
             }}
@@ -1697,14 +1511,10 @@ export default function UserList() {
           >
             <div className="flex flex-col">
               <div className="flex-grow text-sm">
-                <div> 3000 人のユーザーを選択しました。</div>
-                <div className="mb-6">
-                  一度にエクスポートできるユーザーは 2500 人だけです。
-                </div>
-                <div className="mb-6">
-                  最初の 2500 ユーザーがエクスポートされます。
-                </div>
-                <div>エクスポートしますか?</div>
+                <div> {users_selected}</div>
+                <div className="mb-6">{intl.export_message}</div>
+                <div className="mb-6">{intl.first_exported}</div>
+                <div>{intl.user_want_to_export}</div>
               </div>
             </div>
           </Modal>
@@ -1714,7 +1524,7 @@ export default function UserList() {
             height="auto"
             fontSize="text-xl"
             textColor="#19388B"
-            text={"エクスポート"}
+            text={intl.company_list_company_export_title}
             onCloseHandler={() => {
               setConfirmationExport(false);
             }}
@@ -1736,7 +1546,7 @@ export default function UserList() {
           >
             <div className="flex flex-col mb-14">
               <div className="flex-grow text-sm">
-                <div>最初の 2500 ユーザーがエクスポートされます。</div>
+                <div>{intl.first_exported}</div>
               </div>
             </div>
           </Modal>
@@ -1753,13 +1563,13 @@ export default function UserList() {
                 value={searchPayload.pttNo}
                 onInput={(e) => updateSearchPayload(e)}
                 onSubmit={(e) => searchEmployee(e)}
-                placeholder={"無線番号"}
+                placeholder={intl.company_list_company_radioNumber}
               />
             </div>
             <div className="col-span-12 md:col-span-6 xl:col-span-2 md:mt-2 lg:mt-0">
               <SearchInput
                 value={searchPayload.employeeId}
-                placeholder={"ユーザーID"}
+                placeholder={intl.login_email_placeholder}
                 id="employeeId"
                 onSubmit={(e) => searchEmployee(e)}
                 onInput={(e) => updateSearchPayload(e)}
@@ -1767,14 +1577,6 @@ export default function UserList() {
             </div>
             {Admin && (
               <div className="col-span-12 md:col-span-6 xl:col-span-2">
-                {/* <SearchInput
-                  value={searchPayload.organization}
-                  placeholder={"会社名"}
-                  id="organization"
-                  onSubmit={(e) => searchEmployee(e)}
-                  onInput={(e) => updateSearchPayload(e)}
-                /> */}
-
                 <input
                   list="company_search"
                   name="company_search"
@@ -1799,7 +1601,7 @@ export default function UserList() {
             <div className="col-span-12 md:col-span-6 xl:col-span-2">
               <SearchInput
                 value={searchPayload.device}
-                placeholder={"端末名"}
+                placeholder={intl.machineName}
                 id="device"
                 onInput={(e) => updateSearchPayload(e)}
                 onSubmit={(e) => searchEmployee(e)}
@@ -1808,7 +1610,7 @@ export default function UserList() {
             <div className="col-span-12 md:col-span-6 xl:col-span-2">
               <SearchInput
                 value={searchPayload.groups}
-                placeholder={"グループ"}
+                placeholder={intl.tab_group_label}
                 id="groups"
                 onInput={(e) => updateSearchPayload(e)}
                 onSubmit={(e) => searchEmployee(e)}
@@ -1816,7 +1618,7 @@ export default function UserList() {
             </div>
             <div className="col-span-12 md:col-span-6 xl:col-span-2 custom-date-picker">
               <DatePicker
-                placeholder="登録日(YYYY/MM/DD)"
+                placeholder={intl.user_registration_date}
                 className="w-full py-[0.44rem] rounded-lg h-[38px] "
                 id="createdAt"
                 style={{
@@ -1842,7 +1644,7 @@ export default function UserList() {
             </div>
             <div className="col-span-12 md:col-span-6 xl:col-span-2 custom-date-picker">
               <DatePicker
-                placeholder="最終オンライン日(YYYY/MM/DD)"
+                placeholder={intl.user_last_online_date}
                 className="w-full py-[0.44rem] rounded-lg h-[38px]"
                 id="appLastSeenDateTime"
                 style={{
@@ -1868,7 +1670,7 @@ export default function UserList() {
             </div>
             <div className="col-span-12 md:col-span-6 xl:col-span-2 custom-date-picker">
               <DatePicker
-                placeholder="利用開始日(YYYY/MM/DD)"
+                placeholder={intl.user_usage_start_date}
                 className="w-full py-[0.44rem] h-[38px] rounded-lg"
                 id="appLoginDateTime"
                 style={{
@@ -1896,7 +1698,7 @@ export default function UserList() {
             {/* <!-- Row 2 --> */}
             <div className="col-span-12 md:col-span-6 xl:col-span-2 custom-date-picker">
               <DatePicker
-                placeholder="利用停止日(YYYY/MM/DD)"
+                placeholder={intl.user_usage_suspension_date}
                 className="w-full py-[0.44rem] h-[38px] rounded-lg"
                 id="appLogoutDateTime"
                 style={{
@@ -1925,7 +1727,7 @@ export default function UserList() {
               <SearchInput
                 id={"appVersion"}
                 value={searchPayload.appVersion}
-                placeholder={"バージョン"}
+                placeholder={intl.user_version}
                 onInput={(e) => updateSearchPayload(e)}
                 onSubmit={(e) => searchEmployee(e)}
               />
@@ -1941,13 +1743,13 @@ export default function UserList() {
                 onChange={(e) => updateSearchPayload(e)}
               >
                 <option className="text-[#85868B]" value="">
-                  ステータス
+                  {intl.form_component_status}
                 </option>
                 <option className="text-black" value={true}>
-                  オンライン
+                  {intl.user_online}
                 </option>
                 <option className="text-black" value={false}>
-                  オフライン
+                  {intl.user_offline}
                 </option>
               </select>
             </div>
@@ -1960,7 +1762,8 @@ export default function UserList() {
                 className="bg-customBlue hover:bg-[#5283B3] w-full text-white font-medium text-sm w-full px-6 rounded-lg  py-[9px] px-4  rounded inline-flex items-center justify-center"
                 onClick={searchEmployee}
               >
-                {getIconWithClass()} <span className="ml-2">検索</span>
+                {getIconWithClass()}{" "}
+                <span className="ml-2">{intl.dashboard_layout_search_btn}</span>
               </button>
             </div>
           </div>
@@ -1981,16 +1784,16 @@ export default function UserList() {
                 setSelectAll(evt.target.checked);
               }}
             />
-            <span className="ml-1"> {"すべて選択"}</span>
+            <span className="ml-1"> {intl.user_selectAll}</span>
           </label>
           <div className="w-full md:w-auto flex gap-x-3">
             {[
-              { text: "オンライン", style: " bg-[#1AB517]" },
-              { text: "離席中", style: " bg-[#FFA500]" },
-              { text: "オフライン", style: " bg-customGray" },
+              { text: intl.user_online, style: " bg-[#1AB517]" },
+              { text: intl.user_away, style: " bg-[#FFA500]" },
+              { text: intl.user_offline, style: " bg-customGray" },
               {
                 style: "bg-white border border-customGray",
-                text: "ステータス不明",
+                text: intl.user_status_unkown,
               },
             ].map((el, index) => {
               return (
@@ -2058,11 +1861,8 @@ export default function UserList() {
                   let { data } = await api.get("employees/get", params);
                   let emp = data.data.Item;
                   dispatch(getEmployee(emp));
+                  dispatch(addEmployee(selectedRows[0]));
                   setIsSettingsModalOpen(true);
-                  // let rowData = employeeData.find(
-                  //   (item) => item.id == selectedRows[0])
-
-                  //router.push("/company/add");
                 }}
               />
               <IconOutlineBtn
@@ -2076,7 +1876,7 @@ export default function UserList() {
                 onClick={() => {
                   toast.dismiss();
                   if (selectedRows.length <= 0) {
-                    toast("ユーザーを選択してください。", {
+                    toast(intl.user_please_select_user, {
                       position: "top-right",
                       autoClose: 5000,
                       hideProgressBar: true,
@@ -2107,7 +1907,7 @@ export default function UserList() {
                 onClick={() => {
                   toast.dismiss();
                   if (selectedRows.length <= 0) {
-                    toast("ユーザーを選択してください。", {
+                    toast(intl.user_please_select_user, {
                       position: "top-right",
                       autoClose: 5000,
                       hideProgressBar: true,
@@ -2217,14 +2017,14 @@ export default function UserList() {
                     <TextPlain
                       type="text"
                       for={"id"}
-                      placeholder={"ファイル名"}
+                      placeholder={intl.user_history_settings_file_name}
                       borderRound="rounded "
                       padding="p-[10px]"
                       focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
                       border="border border-gray-300"
                       bg="bg-white"
                       additionalClass="block w-full pl-5 text-base pr-[30px] h-[40px] "
-                      label={"ファイル名"}
+                      label={intl.user_history_settings_file_name}
                       labelColor="#7B7B7B"
                       id={"id"}
                       isRequired={true}
@@ -2259,7 +2059,7 @@ export default function UserList() {
                       additionalClass={"block w-full pl-5"}
                       id={"Id"}
                       labelColor={"#7B7B7B"}
-                      label={"ファイルタイプ"}
+                      label={intl.user_file_type}
                       disabled={false}
                       isRequired={true}
                       defaultSelectNoOption
@@ -2305,70 +2105,40 @@ export default function UserList() {
         )}
         {deleteModal && (
           <AntModal
-          title={
-            <div className="px-[40px] pt-[40px] mb-[2vw] text-customBlue text-center">
-              {intl.user_delete_modal}
+            title={
+              <div className="px-[40px] pt-[40px] mb-[2vw] text-customBlue text-center">
+                {intl.user_delete_modal}
+              </div>
+            }
+            width={500}
+            open={deleteModal}
+            onCancel={() => {
+              setDeleteModal(false);
+            }}
+            footer={null}
+          >
+            <p style={{ textAlign: "center" }} className="px-[40px]">
+              {intl.user_modal_content}
+            </p>
+
+            <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]  ">
+              <Button
+                key="cancel"
+                className="sm:flex-1 w-full sm:w-auto text-[#214BB9] border-[#214BB9] font-semibold h-[40px] text-base"
+                onClick={() => setDeleteModal(false)}
+              >
+                {intl.help_settings_addition_modal_cancel}
+              </Button>
+              <Button
+                key="delete"
+                className="sm:flex-1 w-full sm:w-auto bg-[#BA1818] h-[40px] text-white no-hover"
+                onClick={() => deleteEmployee(selectedRows)}
+              >
+                {intl.help_settings_addition_delete_button}(
+                {selectedRows.length})
+              </Button>
             </div>
-          }
-          width={500}
-          open={deleteModal}
-          onCancel={() => {
-            setDeleteModal(false);
-          }}
-          footer={null}
-        >
-          <p style={{ textAlign: "center" }} className="px-[40px]">
-            {intl.user_modal_content}
-          </p>
-          {/* <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]">
-            <Button
-              key="cancel"
-              className="flex-1 text-[#214BB9] border-[#214BB9] font-semibold text-base"
-              onClick={() => setDeleteModal(false)}
-            >
-              {intl.help_settings_addition_modal_cancel}
-            </Button>
-            <Button
-              key="delete"
-              className="flex-1 bg-[#BA1818] text-white no-hover"
-              onClick={() => deleteOrganization(selectedRows)}
-            >
-              {intl.help_settings_addition_delete}
-            </Button>
-          </div> */}
-          <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]  ">
-            <Button
-              key="cancel"
-              className="sm:flex-1 w-full sm:w-auto text-[#214BB9] border-[#214BB9] font-semibold h-[40px] text-base"
-              onClick={() => setDeleteModal(false)}
-            >
-              {intl.help_settings_addition_modal_cancel}
-            </Button>
-            <Button
-              key="delete"
-              className="sm:flex-1 w-full sm:w-auto bg-[#BA1818] h-[40px] text-white no-hover"
-              onClick={() => deleteEmployee(selectedRows)}
-            >
-              {intl.help_settings_addition_delete_button}({selectedRows.length})
-            </Button>
-          </div>
-        </AntModal>
-          // <Modal
-          //   width="45vw"
-          //   height="412px"
-          //   fontSize="text-xl"
-          //   fontWeight="font-semibold"
-          //   textColor="#19388B"
-          //   text={intl.user_delete_modal}
-          //   onCloseHandler={setDeleteModal}
-          //   modalFooter={getDeleteModalFooter}
-          // >
-          //   <div className="flex flex-col">
-          //     <div className="flex-grow dark:text-black text-base font-normal">
-          //       {intl.user_modal_content}
-          //     </div>
-          //   </div>
-          // </Modal>
+          </AntModal>
         )}
       </div>
       <a

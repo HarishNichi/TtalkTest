@@ -586,14 +586,20 @@ export default function Subsection() {
                 </div>
               )}
               <div className="mt-4">
-                <label className="block text-gray-700">説明</label>
+                <label className="block text-gray-700">
+                  {intl.help_settings_addition_service_manual}
+                </label>
                 <Tabs
                   defaultActiveKey={"1"}
                   activeKey={tabKey}
                   className="mt-2"
                   onChange={onTabChange}
                 >
-                  <TabPane tab="テキスト" key="1" className="max-h-[500px]">
+                  <TabPane
+                    tab={intl.helpSettings_buttonCard_text_label}
+                    key="1"
+                    className="max-h-[500px]"
+                  >
                     <EditorComponent
                       ContentValue={editorValue}
                       onChange={handleEditorChange}
@@ -607,7 +613,7 @@ export default function Subsection() {
                       </div>
                     )}
                   </TabPane>
-                  <TabPane tab="ファイル" key="2">
+                  <TabPane tab={intl.layout_pttBar_file_label} key="2">
                     <FileUploadCard
                       ref={fileUploadCardRef}
                       isAdd={isAdd}

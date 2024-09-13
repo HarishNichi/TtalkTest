@@ -87,67 +87,7 @@ export default function Devices() {
   useEffect(() => {
     CSVDownloadRef.current.click();
   }, [downloadCsvLink]);
-  // const helpSettingsColumns = [
-  //   {
-  //     title: intl.machine_name,
-  //     dataIndex: "machineName",
-  //     render: (text) => <a className="truncate">{text}</a>,
-  //     width: "70%",
-  //     align: "left",
-  //   },
 
-  //   {
-  //     title: "",
-  //     dataIndex: "machineEdit",
-  //     render: (text, record) => (
-  //       <div style={{ marginLeft: "20%" }}>
-  //         <p className="flex">
-  //           <span
-  //             data-testid={`delete`}
-  //             className="ml-[25px] cursor-pointer rounded-full px-3 py-2 bg-[#EDF2F5] hover:bg-[#DCE7F0]"
-  //             onClick={() => {
-  //               setError("");
-  //               handelEdit(record);
-  //             }}
-  //             style={{
-  //               pointerEvents: record.deleted ? "none" : "auto",
-  //             }}
-  //             disabled={record.deleted}
-  //           >
-  //             <SectionEditIcon />
-  //           </span>
-  //         </p>
-  //       </div>
-  //     ),
-  //     width: "140px",
-  //     align: "left",
-  //   },
-
-  //   {
-  //     title: "",
-  //     dataIndex: "machineDelete",
-  //     render: (text, record) => (
-  //       <div style={{ marginLeft: "20%" }}>
-  //         <p className="flex">
-  //           {/* <span
-  //             data-testid={`delete`}
-  //             className="ml-[25px] cursor-pointer rounded-full px-3 py-2 bg-[#EDF2F5] hover:bg-[#DCE7F0]"
-  //             onClick={() => {
-  //               setError("");
-  //               handelDelete(record);
-  //             }}
-  //             style={{
-  //               pointerEvents: record.deleted ? "none" : "auto",
-  //             }}
-  //           >
-  //             <SectionDeleteIcon />
-  //           </span> */}
-  //         </p>
-  //       </div>
-  //     ),
-  //     width: "140px",
-  //   },
-  // ];
   const helpSettingsColumns = [
     {
       title: intl.machine_name,
@@ -261,8 +201,7 @@ export default function Devices() {
   const [file, setFile] = React.useState(null);
   const [fileName, setFileName] = React.useState(null);
   const [fileValidationError, setFileValidationError] = React.useState(null);
-  // const [fileNameError, setFileNameError] =  React.useState(null);
-  // const [selectedRows, setSelectedRows] =  React.useState([]);
+
   const [csvUploadInitiated, setCsvUploadInitiated] = React.useState(null);
   const [subscriptionTrack, setSubscriptionTrack] = React.useState(null);
   function disabledDeleteIcon(flag) {
@@ -537,52 +476,6 @@ export default function Devices() {
     }
   };
 
-  // const deleteDevice = async (record) => {
-  //   toast.dismiss();
-  //   setLoading(true);
-  //   try {
-  //     const config = {
-  //       data: {
-  //         id: record.id,
-  //       },
-  //     };
-  //     if (record.deviceAttachedCount > 0) {
-  //       setLoading(false);
-  //       setDeleteModal(false);
-  //       toast(intl.device_user_attach, {
-  //         position: "top-right",
-  //         autoClose: 5000,
-  //         hideProgressBar: true,
-  //         closeOnClick: true,
-  //         pauseOnHover: true,
-  //         draggable: true,
-  //         progress: undefined,
-  //         theme: "colored",
-  //         type: "error",
-  //       });
-  //     } else {
-  //       const response = await api.delete(`devices/delete`, config);
-  //       if (response.data.status.code == code.OK) {
-  //         setLoading(false);
-  //         setDeleteModal(false);
-  //         fetchData();
-  //       }
-  //     }
-  //   } catch (error) {
-  //     setLoading(false);
-  //     setDeleteModal(true);
-  //     toast(error.response?.data?.status.message, {
-  //       position: "top-right",
-  //       autoClose: 5000,
-  //       hideProgressBar: true,
-  //       closeOnClick: true,
-  //       pauseOnHover: true,
-  //       draggable: true,
-  //       theme: "colored",
-  //       type: "error",
-  //     });
-  //   }
-  // };
   const deleteDevices = async () => {
     // Check if there are selected rows
     if (selectedRows.length === 0) {
@@ -1074,73 +967,6 @@ export default function Devices() {
               </div>
             </Modal>
           )}
-          {/* {deleteModal && (
-            <Modal
-              height="412px"
-              fontSize="text-xl"
-              fontWeight="font-semibold"
-              textColor="#19388B"
-              text={intl.device_delete_device}
-              onCloseHandler={setDeleteModal}
-              modalFooter={() => {
-                return (
-                  // <div className=" flex justify-between">
-                  //   <div>
-                  //     <IconLeftBtn
-                  //       text={intl.help_settings_addition_modal_cancel}
-                  //       textColor={"text-white font-semibold text-sm w-full"}
-                  //       py={"py-[11px]"}
-                  //       px={"px-[10.5px] md:px-[17.5px]"}
-                  //       bgColor={"bg-customBlue"}
-                  //       textBold={true}
-                  //       icon={() => {
-                  //         return null;
-                  //       }}
-                  //       onClick={() => {
-                  //         setDeleteModal(() => false);
-                  //       }}
-                  //     />
-                  //   </div>
-                  //   <div>
-                  //     <IconLeftBtn
-                  //       text={intl.help_settings_addition_delete}
-                  //       textColor={
-                  //         "text-white font-semibold text-sm w-full ml-2"
-                  //       }
-                  //       py={"py-[11px]"}
-                  //       px={"px-[30.5px] md:px-[38.5px]"}
-                  //       bgColor={"bg-customBlue"}
-                  //       textBold={true}
-                  //       icon={() => {
-                  //         return null;
-                  //       }}
-                  //       onClick={deleteDevices}
-                  //     />
-                  //   </div>
-                  // </div>
-                  <div className="flex flex-col sm:flex-row justify-center gap-4 w-full">
-                    <Button
-                      key="cancel"
-                      className="flex-1 h-[40px] text-[#19388B] border border-[#19388B] hover:bg-[#e0e7ff] focus:outline-none focus:ring-2 focus:ring-[#19388B] focus:ring-opacity-50"
-                      onClick={() => {
-                        setDeleteModal(false);
-                      }}
-                    >
-                      {intl.help_settings_addition_modal_cancel}
-                    </Button>
-                    <Button
-                      key="delete"
-                      className="flex-1 bg-[#BA1818] h-[40px] text-white no-hover focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50"
-                      onClick={deleteDevices}
-                    >
-                      {intl.help_settings_addition_delete}({selectedRows.length}
-                      )
-                    </Button>
-                  </div>
-                );
-              }}
-            ></Modal>
-          )} */}
 
           {deleteModal && (
             <AntModal
@@ -1156,22 +982,6 @@ export default function Devices() {
               }}
               footer={null}
             >
-              {/* <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]">
-            <Button
-              key="cancel"
-              className="flex-1 text-[#214BB9] border-[#214BB9] font-semibold text-base"
-              onClick={() => setDeleteModal(false)}
-            >
-              {intl.help_settings_addition_modal_cancel}
-            </Button>
-            <Button
-              key="delete"
-              className="flex-1 bg-[#BA1818] text-white no-hover"
-              onClick={() => deleteOrganization(selectedRows)}
-            >
-              {intl.help_settings_addition_delete}
-            </Button>
-          </div> */}
               <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]  ">
                 <Button
                   key="cancel"
@@ -1190,22 +1000,6 @@ export default function Devices() {
                 </Button>
               </div>
             </AntModal>
-            // <Modal
-            //   width="45vw"
-            //   height="412px"
-            //   fontSize="text-xl"
-            //   fontWeight="font-semibold"
-            //   textColor="#19388B"
-            //   text={intl.user_delete_modal}
-            //   onCloseHandler={setDeleteModal}
-            //   modalFooter={getDeleteModalFooter}
-            // >
-            //   <div className="flex flex-col">
-            //     <div className="flex-grow dark:text-black text-base font-normal">
-            //       {intl.user_modal_content}
-            //     </div>
-            //   </div>
-            // </Modal>
           )}
         </div>
         <a
