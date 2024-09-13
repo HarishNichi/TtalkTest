@@ -123,85 +123,20 @@ export default function UserList() {
       sorter: (a, b) => a.userId - b.userId,
       sortDirections: ["ascend", "descend", "ascend"],
     },
-    // {
-    //   title: "パスワード",
-    //   dataIndex: "password",
-    //   render: (text, record) => {
-
-    //     const Msg = ({ closeToast, toastProps, password, userId }) => (
-    //       <div>
-    //         <div>
-    //           {intl.user_userId_label}　:　{userId}
-    //         </div>
-    //         <div className="flex gap-x-[15px]">
-    //           パスワード　:　{password}{" "}
-    //           <button onClick={() => copy(password)}>
-    //             <FaRegCopy />
-    //           </button>
-    //         </div>
-    //       </div>
-    //     );
-    //     return (
-    //       <div className="text-left">
-    //         <button
-    //           type="button"
-    //           style={{ width: "105px" }}
-    //           className="text-left"
-    //           onClick={async (event) => {
-    //             event.stopPropagation();
-    //             toast.dismiss();
-    //             try {
-    //               setLoading(true);
-    //               let response = await api.post(
-    //                 `employees/hint?id=${record.id}`
-    //               );
-    //               let password = response.data.data;
-    //               password = decrypt(password);
-    //               setLoading(false);
-    //               toast(<Msg password={password} userId={record.userId} />, {
-    //                 position: "top-right",
-    //                 autoClose: false,
-    //                 hideProgressBar: true,
-    //                 closeOnClick: false,
-    //                 pauseOnHover: true,
-    //                 draggable: true,
-    //                 theme: "colored",
-    //                 type: "success",
-    //               });
-    //             } catch (error) {
-    //               setLoading(false);
-    //               toast(
-    //                 error.response?.data?.status?.message
-    //                   ? error.response?.data?.status?.message
-    //                   : error?.response?.data?.message,
-    //                 {
-    //                   position: "top-right",
-    //                   autoClose: 5000,
-    //                   hideProgressBar: true,
-    //                   closeOnClick: true,
-    //                   pauseOnHover: true,
-    //                   draggable: true,
-    //                   theme: "colored",
-    //                   type: "error",
-    //                 }
-    //               );
-    //             }
-    //           }}
-    //         >
-    //           <div className=" flex hover:text-[#69b1ff]">
-    //             ******
-    //             <FaRegCopy
-    //               className="ml-2 text-[#69b1ff] cursor-pointer"
-
-    //             />
-    //           </div>
-    //         </button>
-    //       </div>
-    //     );
-    //   },
-    //   width: 105,
-    //   align: "left",
-    // },
+    {
+      title: intl.user_name,
+      dataIndex: "name",
+      render: (text) => {
+        const content = <div className="text-white">{text}</div>;
+        return (
+          <Popover content={content} color="#19388B">
+            <a className="text-ellipsis">{text}</a>
+          </Popover>
+        );
+      },
+      width: 150,
+      align: "left",
+    },
     {
       title: "パスワード",
       dataIndex: "password",
@@ -239,51 +174,6 @@ export default function UserList() {
 
         return (
           <div className="text-left">
-            {/* <button
-              type="button"
-              style={{ width: "105px" }}
-              className="text-left"
-              onClick={async (event) => {
-                event.stopPropagation();
-                toast.dismiss();
-                try {
-                  setLoading(true);
-                  let response = await api.post(
-                    `employees/hint?id=${record.id}`
-                  );
-                  let password = response.data.data;
-                  password = decrypt(password);
-                  setLoading(false);
-                  toast(<Msg password={password} userId={record.userId} />, {
-                    position: "top-right",
-                    autoClose: false,
-                    hideProgressBar: true,
-                    closeOnClick: false,
-                    pauseOnHover: true,
-                    draggable: true,
-                    theme: "colored",
-                    type: "success",
-                  });
-                } catch (error) {
-                  setLoading(false);
-                  toast(
-                    error.response?.data?.status?.message
-                      ? error.response?.data?.status?.message
-                      : error?.response?.data?.message,
-                    {
-                      position: "top-right",
-                      autoClose: 5000,
-                      hideProgressBar: true,
-                      closeOnClick: true,
-                      pauseOnHover: true,
-                      draggable: true,
-                      theme: "colored",
-                      type: "error",
-                    }
-                  );
-                }
-              }}
-            > */}
             <div className="flex hover:text-[#69b1ff] text-customBlue cursor-pointer">
               ******
               <CopyButton
@@ -337,6 +227,61 @@ export default function UserList() {
       sortDirections: ["ascend", "descend", "ascend"],
     },
     {
+      title: intl.company_list_company_status,
+      dataIndex: "isActive",
+      render: (text, record) => {
+        let bg = text ? "bg-customGreen" : "bg-customGray";
+        let roundStatus;
+        if (record.status == "online") {
+          roundStatus = (
+            <div className="w-full flex justify-center h-full">
+              <div className={`bg-customGreen h-2 w-2 p-2 rounded-full `}></div>
+            </div>
+          );
+        }
+
+        if (record.status == "away") {
+          roundStatus = (
+            <div className="w-full flex justify-center h-full">
+              <div className={`bg-[#FFA500] h-2 w-2 p-2 rounded-full `}></div>
+            </div>
+          );
+        }
+        if (record.status == "offline") {
+          roundStatus = (
+            <div className="w-full flex justify-center h-full">
+              <div className={`bg-customGray h-2 w-2 p-2 rounded-full`}></div>
+            </div>
+          );
+        }
+        if (record.status == "unknown") {
+          roundStatus = (
+            <div className="w-full flex justify-center h-full">
+              <div
+                className={`bg-white border border-customGray h-2 w-2 p-2 rounded-full`}
+              ></div>
+            </div>
+          );
+        }
+
+        return (
+          <div className="flex  items-center">
+            <div>{roundStatus}</div>
+            <div style={{ width: "105px" }}>
+              <div
+                className={`rounded-[5px] cursor-pointer  pt-[5px] pb-[5px] pl-[5px]  focus:outline-none focus:ring-2 focus:ring-customBlue text-sm text-black block w-full  text-center
+            `}
+              >
+                {text ? "オンライン" : "オフライン"}
+              </div>
+            </div>
+          </div>
+        );
+      },
+      width: 200,
+      align: "left",
+    },
+    {
       title: "グループ",
       dataIndex: "groupName",
       align: "left",
@@ -376,20 +321,7 @@ export default function UserList() {
       },
       width: 150,
     },
-    {
-      title: intl.user_name,
-      dataIndex: "name",
-      render: (text) => {
-        const content = <div className="text-white">{text}</div>;
-        return (
-          <Popover content={content} color="#19388B">
-            <a className="text-ellipsis">{text}</a>
-          </Popover>
-        );
-      },
-      width: 150,
-      align: "left",
-    },
+
 
     {
       title: "登録日時",
@@ -525,61 +457,7 @@ export default function UserList() {
       align: "left",
     },
 
-    {
-      title: intl.company_list_company_status,
-      dataIndex: "isActive",
-      render: (text, record) => {
-        let bg = text ? "bg-customGreen" : "bg-customGray";
-        let roundStatus;
-        if (record.status == "online") {
-          roundStatus = (
-            <div className="w-full flex justify-center h-full">
-              <div className={`bg-customGreen h-2 w-2 p-2 rounded-full `}></div>
-            </div>
-          );
-        }
-
-        if (record.status == "away") {
-          roundStatus = (
-            <div className="w-full flex justify-center h-full">
-              <div className={`bg-[#FFA500] h-2 w-2 p-2 rounded-full `}></div>
-            </div>
-          );
-        }
-        if (record.status == "offline") {
-          roundStatus = (
-            <div className="w-full flex justify-center h-full">
-              <div className={`bg-customGray h-2 w-2 p-2 rounded-full`}></div>
-            </div>
-          );
-        }
-        if (record.status == "unknown") {
-          roundStatus = (
-            <div className="w-full flex justify-center h-full">
-              <div
-                className={`bg-white border border-customGray h-2 w-2 p-2 rounded-full`}
-              ></div>
-            </div>
-          );
-        }
-
-        return (
-          <div className="flex  items-center">
-            <div>{roundStatus}</div>
-            <div style={{ width: "105px" }}>
-              <div
-                className={`rounded-[5px] cursor-pointer  pt-[5px] pb-[5px] pl-[5px]  focus:outline-none focus:ring-2 focus:ring-customBlue text-sm text-black block w-full  text-center
-            `}
-              >
-                {text ? "オンライン" : "オフライン"}
-              </div>
-            </div>
-          </div>
-        );
-      },
-      width: 200,
-      align: "left",
-    },
+   
   ];
 
   if (Admin) {
@@ -600,7 +478,7 @@ export default function UserList() {
       sorter: (a, b) => a.organization.localeCompare(b.organization),
       sortDirections: ["ascend", "descend", "ascend"],
     };
-    companyColumns.splice(3, 0, org);
+    companyColumns.splice(4, 0, org);
   }
   const [csvFileName, setCsvFileName] = useState("");
   const [exportType, setExportType] = useState(1);
@@ -2426,7 +2304,7 @@ export default function UserList() {
         )}
         {deleteModal && (
           <Modal
-            width={window.innerWidth <= 768?'42vw':'500px'}
+            width="45vw"
             height="412px"
             fontSize="text-xl"
             fontWeight="font-semibold"
