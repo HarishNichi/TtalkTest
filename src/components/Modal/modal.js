@@ -160,14 +160,14 @@ const Modal = ({
                         textBold={true}
                         icon={() => editIcon()}
                         onClick={() => handelEdit("company/edit")}
-                        bg={"bg-[#346595] ml-[20px] text-right"}
+                        bg={"bg-[#346595] ml-[20px]  mb-[10px] text-right"}
                         className="ml-auto"
                       />
                     )}
                     <>&nbsp;&nbsp;</>
                     <button
                       onClick={closeModal}
-                      className="ml-auto text-gray-400 hover:text-gray-600 focus:outline-none"
+                      className="ml-auto text-gray-400 hover:text-gray-600 focus:outline-none mb-[10px]"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
