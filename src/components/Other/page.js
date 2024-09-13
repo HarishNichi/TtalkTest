@@ -21,7 +21,7 @@ const schema = Yup.object().shape({
     .matches(PASSWORD_PATTERN.regex, PASSWORD_PATTERN.message),
 
   confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password"), null], "パスワードが一致しません")
+    .oneOf([Yup.ref("password"), null], intl.password_not_matched)
     .required(intl.validation_required),
 });
 
@@ -68,7 +68,7 @@ export default function Other() {
       setLoading(false);
       setErrors((prevErrors) => ({
         ...prevErrors,
-        confirmPassword: "パスワードが一致しません",
+        confirmPassword: intl.password_not_matched,
       }));
       setTouched(() => ({
         ...touched,
@@ -204,7 +204,7 @@ export default function Other() {
             <div className="flex flex-col gap-y-3 gap-x-3 md:flex-row md:gap-y-0 w-full">
               <div className="flex-1">
                 <IconLeftBtn
-                  text="キャンセル"
+                  text={intl.help_settings_addition_modal_cancel}
                   textColor={"text-white font-semibold text-sm w-full rounded"}
                   py={"py-2"}
                   px={"h-[40px] px-[10.5px] md:px-[17.5px]"}
@@ -341,7 +341,7 @@ export default function Other() {
           fontSize="text-xl"
           fontWeight="font-semibold"
           textColor="#19388B"
-          text="デフォルトに戻す"
+          text={intl.user_restore_default_settings}
           onCloseHandler={setDeleteModal}
           modalFooter={() => {
             return (

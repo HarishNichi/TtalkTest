@@ -99,7 +99,7 @@ export default function Group({ children, tab }) {
       align: "left",
     },
     {
-      title: "同時待受けグループ", // Add a title for the checkbox column
+      title: intl.groups_simultaneous_standby, // Add a title for the checkbox column
       dataIndex: "standByGroup", // Provide a unique dataIndex (it can be any string)
       render: (text, record) => (
         <div
@@ -239,11 +239,11 @@ export default function Group({ children, tab }) {
     let data;
     toast.dismiss();
     if (!csvFileName) {
-      setFileNameError("ファイル名が必要です。");
+      setFileNameError(intl.contacts_file_name_required);
       return;
     }
     if (!csvFileNameRegex.test(csvFileName)) {
-      setFileNameError("ファイル名を確認してください。");
+      setFileNameError(intl.user_check_file_name);
       return;
     }
     setFileNameError("");
@@ -256,7 +256,7 @@ export default function Group({ children, tab }) {
       };
     } else {
       if (selectedRows.length == 0) {
-        toast("レコードを選択してください", errorToastSettings);
+        toast(intl.contacts_selcet_record, errorToastSettings);
         return;
       }
       if (selectedRows.length > 0) {
@@ -273,9 +273,9 @@ export default function Group({ children, tab }) {
       setDownloadCsvLink(result.data.data.path);
       setExportModal(() => false);
       setCsvFileName("");
-      toast("エクスポートが成功しました", successToastSettings);
+      toast(intl.groups_export_success, successToastSettings);
     } catch (err) {
-      toast("エクスポートに失敗しました", errorToastSettings);
+      toast(intl.contacts_export_failed, errorToastSettings);
     }
   }
 
@@ -291,7 +291,7 @@ export default function Group({ children, tab }) {
     } catch (err) {
       setSubscriptionTrack.unsubscribe();
       setLoading(false);
-      toast("インポートに失敗しました", errorToastSettings);
+      toast(intl.user_import_failed, errorToastSettings);
     }
   }
   /**ICON Imports */
@@ -482,7 +482,7 @@ export default function Group({ children, tab }) {
   const deleteGroup = async (selectedRows) => {
     toast.dismiss();
     if (selectedRows.length <= 0) {
-      toast("グループを選択してください。", errorToastSettings);
+      toast(intl.group_select, errorToastSettings);
       setDeleteModal(false);
       setDeleteModalData(false);
       return;
@@ -812,7 +812,7 @@ export default function Group({ children, tab }) {
                 dayjs(today).isSameOrBefore(item.endDate) &&
                 dayjs(today).isSameOrAfter(item.startDate);
               if (!isValid) {
-                item.name = item.name + " - 期限切れ";
+                item.name = item.name + intl.user_expired;
                 item.disabled = true;
               }
             }
@@ -872,7 +872,7 @@ export default function Group({ children, tab }) {
       <div className="flex gap-x-3">
         <div>
           <IconLeftBtn
-            text="キャンセル"
+            text={intl.help_settings_addition_modal_cancel}
             textColor={"text-white font-semibold text-[16px] w-full rounded-lg"}
             py={"py-2"}
             px={"px-[10.5px] md:px-[17.5px]"}
@@ -888,7 +888,7 @@ export default function Group({ children, tab }) {
         </div>
         <div>
           <IconLeftBtn
-            text="ダウンロード"
+            text={intl.user_download}
             textColor={"text-white font-semibold text-[16px] w-full rounded-lg"}
             py={"py-2"}
             px={"px-[10.5px] md:px-[17.5px]"}
@@ -999,7 +999,7 @@ export default function Group({ children, tab }) {
             }
 
             if (ecount == 0 && scount > 0) {
-              toast("正常にインポートされました。", successToastSettings);
+              toast(intl.user_imported_successfully, successToastSettings);
               subscription.unsubscribe();
               fetchData();
             }
@@ -1035,7 +1035,7 @@ export default function Group({ children, tab }) {
               additionalClass={"block w-full min-w-[250px] pl-2"}
               id={"Id"}
               labelColor={"#7B7B7B"}
-              placeholder={"最終発呼・同時待受グループ"}
+              placeholder={intl.groups_last_call}
               //   label={"自端末最終発呼および同時待受グループ"}
               disabled={false}
               labelClass={"float-left"}
@@ -1102,7 +1102,7 @@ export default function Group({ children, tab }) {
                 setSelectAll(evt.target.checked);
               }}
             />
-            <span className="ml-1"> {"すべて選択"}</span>
+            <span className="ml-1"> {intl.user_selectAll}</span>
           </label>
         </div>
         <div className="mb-[20px] relative" style={{ width: "100%" }}>
@@ -1152,7 +1152,7 @@ export default function Group({ children, tab }) {
                   // check selected row
                   toast.dismiss();
                   if (selectedRows.length <= 0) {
-                    toast("グループを選択してください", {
+                    toast(intl.group_select, {
                       position: "top-right",
                       autoClose: 5000,
                       hideProgressBar: true,
@@ -1181,7 +1181,7 @@ export default function Group({ children, tab }) {
                   // check selected row
                   toast.dismiss();
                   if (selectedRows.length <= 0) {
-                    toast("グループを選択してください", {
+                    toast(intl.group_select, {
                       position: "top-right",
                       autoClose: 5000,
                       hideProgressBar: true,
@@ -1201,50 +1201,6 @@ export default function Group({ children, tab }) {
           </div>
         )}
       </div>
-      {/* {deleteModal && (
-        <Modal
-          height="412px"
-          fontSize="text-xl"
-          fontWeight="font-semibold"
-          textColor="#19388B"
-          text={intl.help_settings_addition_delete}
-          onCloseHandler={() => {
-            setDeleteModalData(false);
-            setDeleteModal(false);
-          }}
-          modalFooter={() => {
-            return (
-              <div className="flex flex-col sm:flex-row justify-center gap-4 w-full">
-                <Button
-                  key="cancel"
-                  className="flex-1 h-[40px] text-[#19388B] border border-[#19388B] hover:bg-[#e0e7ff] focus:outline-none focus:ring-2 focus:ring-[#19388B] focus:ring-opacity-50"
-                  onClick={() => {
-                    setDeleteModal(() => false);
-                    setDeleteModalData(false);
-                  }}
-                >
-                  {intl.help_settings_addition_modal_cancel}
-                </Button>
-                <Button
-                  key="delete"
-                  className="flex-1 bg-[#BA1818] h-[40px] text-white no-hover focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50"
-                  onClick={() => {
-                    deleteGroup(selectedRows);
-                  }}
-                >
-                  {intl.help_settings_addition_delete}({selectedRows.length})
-                </Button>
-              </div>
-            );
-          }}
-        >
-          <div className="flex flex-col">
-            <div className="flex-grow  dark:text-black">
-              {intl.user_group_delete}
-            </div>
-          </div>
-        </Modal>
-      )} */}
 
       {deleteModal && (
         <AntModal
@@ -1263,22 +1219,7 @@ export default function Group({ children, tab }) {
           <p style={{ textAlign: "center" }} className="px-[40px]">
             {intl.user_group_delete}
           </p>
-          {/* <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]">
-            <Button
-              key="cancel"
-              className="flex-1 text-[#214BB9] border-[#214BB9] font-semibold text-base"
-              onClick={() => setDeleteModal(false)}
-            >
-              {intl.help_settings_addition_modal_cancel}
-            </Button>
-            <Button
-              key="delete"
-              className="flex-1 bg-[#BA1818] text-white no-hover"
-              onClick={() => deleteOrganization(selectedRows)}
-            >
-              {intl.help_settings_addition_delete}
-            </Button>
-          </div> */}
+
           <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]  ">
             <Button
               key="cancel"
@@ -1298,22 +1239,6 @@ export default function Group({ children, tab }) {
             </Button>
           </div>
         </AntModal>
-        // <Modal
-        //   width="45vw"
-        //   height="412px"
-        //   fontSize="text-xl"
-        //   fontWeight="font-semibold"
-        //   textColor="#19388B"
-        //   text={intl.user_delete_modal}
-        //   onCloseHandler={setDeleteModal}
-        //   modalFooter={getDeleteModalFooter}
-        // >
-        //   <div className="flex flex-col">
-        //     <div className="flex-grow dark:text-black text-base font-normal">
-        //       {intl.user_modal_content}
-        //     </div>
-        //   </div>
-        // </Modal>
       )}
       {exportModal && (
         <Modal
@@ -1331,7 +1256,7 @@ export default function Group({ children, tab }) {
           modalFooter={() => {
             return (
               <IconLeftBtn
-                text={"エクスポート"}
+                text={intl.company_list_company_export_title}
                 textColor={"text-white font-semibold text-[16px] w-full"}
                 py={"py-[11px]"}
                 px={"w-[84%]"}
@@ -1354,14 +1279,14 @@ export default function Group({ children, tab }) {
                   <TextPlain
                     type="text"
                     for={"id"}
-                    placeholder={"ファイル名"}
+                    placeholder={intl.user_history_settings_file_name}
                     borderRound="rounded-xl"
                     padding="p-[10px]"
                     focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
                     border="border border-gray-300"
                     bg="bg-white"
                     additionalClass="block w-full pl-5 text-base pr-[30px]"
-                    label={"ファイル名"}
+                    label={intl.user_history_settings_file_name}
                     labelColor="#7B7B7B"
                     id={"id"}
                     isRequired={true}
@@ -1459,14 +1384,14 @@ export default function Group({ children, tab }) {
                   <TextPlain
                     type="text"
                     for={"groupNameCreate"}
-                    placeholder={"グループ名"}
+                    placeholder={intl.user_group_mongst_list_grp_name}
                     borderRound="rounded"
                     padding="p-[10px]"
                     focus="focus:outline-none focus:ring-2 h-[40px] focus:ring-customBlue"
                     border="border border-gray-300"
                     bg="bg-white"
                     additionalClass="block w-full pl-5 text-base pr-[30px]"
-                    label={"グループ名"}
+                    label={intl.user_group_mongst_list_grp_name}
                     labelColor="#7B7B7B"
                     id={"groupNameCreate"}
                     name={"groupNameCreate"}
@@ -1491,14 +1416,14 @@ export default function Group({ children, tab }) {
                   <TextPlain
                     type="text"
                     for={"groupNameFurigana"}
-                    placeholder={"ふりがな"}
+                    placeholder={intl.furigana}
                     borderRound="rounded"
                     padding="p-[10px]"
                     focus="focus:outline-none focus:ring-2 h-[40px] focus:ring-customBlue"
                     border="border border-gray-300"
                     bg="bg-white"
                     additionalClass="block w-full pl-5 text-base pr-[30px]"
-                    label={"ふりがな"}
+                    label={intl.furigana}
                     labelColor="#7B7B7B"
                     id={"groupNameFurigana"}
                     name={"groupNameFurigana"}
@@ -1539,7 +1464,7 @@ export default function Group({ children, tab }) {
                         additionalClass={"block w-full pl-5"}
                         id={"Id"}
                         labelColor={"#7B7B7B"}
-                        label={"グループメンバー"}
+                        label={intl.group_member}
                         disabled={false}
                         isRequired={true}
                         labelClass="float-left"
@@ -1580,7 +1505,7 @@ export default function Group({ children, tab }) {
                             setContactHolderDropDown("");
                           } else {
                             setSelectedOption(contactHolderDropDown);
-                            setSameOptionError("連絡先はすでに存在します");
+                            setSameOptionError(intl.contact_already_exist);
                           }
                           return;
                         }}
@@ -1644,7 +1569,7 @@ export default function Group({ children, tab }) {
           fontSize="text-xl"
           fontWeight="font-semibold"
           textColor="#19388B"
-          text={detailsModal ? "グループの詳細" : "グループの編集"}
+          text={detailsModal ? intl.group_details : intl.edit_group}
           onCloseHandler={() => {
             setAddNewModalData(false);
             setAddNewModal(false);
@@ -1689,14 +1614,14 @@ export default function Group({ children, tab }) {
                     type="text"
                     for={"name"}
                     name={"name"}
-                    placeholder={"グループ名"}
+                    placeholder={intl.user_group_mongst_list_grp_name}
                     borderRound="rounded"
                     padding="p-[10px]"
                     focus="focus:outline-none h-[40px] focus:ring-2 focus:ring-customBlue"
                     border="border border-gray-300"
                     bg="bg-white border"
                     additionalClass="block w-full pl-5 text-base pr-[30px]"
-                    label={"グループ名"}
+                    label={"intl.user_group_mongst_list_grp_name"}
                     labelColor="#7B7B7B"
                     id={"name"}
                     isRequired={!detailsModal}
@@ -1719,14 +1644,14 @@ export default function Group({ children, tab }) {
                     type="text"
                     for={"furigana"}
                     name={"furigana"}
-                    placeholder={"ふりがな"}
+                    placeholder={intl.furigana}
                     borderRound="rounded"
                     padding="p-[10px]"
                     focus="focus:outline-none h-[40px] focus:ring-2 focus:ring-customBlue"
                     border="border border-gray-300"
                     bg="bg-white border"
                     additionalClass="block w-full pl-5 text-base pr-[30px]"
-                    label={"ふりがな"}
+                    label={intl.furigana}
                     labelColor="#7B7B7B"
                     id={"furigana"}
                     isRequired={!detailsModal}
@@ -1788,7 +1713,7 @@ export default function Group({ children, tab }) {
                             additionalClass={"block w-full pl-5"}
                             id={"Id"}
                             labelColor={"#7B7B7B"}
-                            label={"グループメンバー"}
+                            label={intl.group_member}
                             disabled={false}
                             isRequired={!detailsModal ? true : false}
                             labelClass="float-left"
@@ -1829,7 +1754,7 @@ export default function Group({ children, tab }) {
                                   } else {
                                     setSelectedOption(contactHolderDropDown);
                                     setSameOptionError(
-                                      "連絡先はすでに存在します"
+                                      intl.contact_already_exist
                                     );
                                   }
                                   return;
@@ -1858,7 +1783,7 @@ export default function Group({ children, tab }) {
                         className="flex mb-1 text-[16px] font-medium float-left"
                         style={{ color: "#7B7B7B" }}
                       >
-                        {"グループメンバー"}
+                        {intl.group_member}
                         {!detailsModal && (
                           <span style={{ color: "red" }}> *</span>
                         )}

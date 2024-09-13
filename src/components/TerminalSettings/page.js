@@ -303,8 +303,6 @@ export default function TerminalSettings({ isModal, selectedRows }) {
     // eslint-disable-next-line no-console
     console.log(userDetailsInfo, userInfo);
     let ids = selectedRows.map((el) => el.id);
-    // eslint-disable-next-line no-console
-    console.log("ids", ids);
     let payload = {
       id: ids,
       type: "",

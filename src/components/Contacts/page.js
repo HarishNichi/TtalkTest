@@ -516,7 +516,7 @@ export default function Contact({ children, tab }) {
       setExportModal(() => false);
       setCsvFileName("");
     } catch (err) {
-      toast("エクスポートに失敗しました", errorToastSettings);
+      toast(intl.contacts_export_failed, errorToastSettings);
     }
   }
 
@@ -533,7 +533,7 @@ export default function Contact({ children, tab }) {
     } catch (err) {
       subscriptionTrack.unsubscribe();
       setLoading(false);
-      toast("インポートに失敗しました", errorToastSettings);
+      toast(intl.user_import_failed, errorToastSettings);
     }
   }
 
@@ -592,7 +592,7 @@ export default function Contact({ children, tab }) {
               }
             }
             if (ecount == 0 && scount > 0) {
-              toast("正常にインポートされました。", successToastSettings);
+              toast(intl.user_imported_successfully, successToastSettings);
             }
             setImportModal(() => !importModal);
             subscription.unsubscribe();
@@ -656,7 +656,7 @@ export default function Contact({ children, tab }) {
                 setSelectAll(evt.target.checked);
               }}
             />
-            <span className="ml-1"> {"すべて選択"}</span>
+            <span className="ml-1"> {intl.user_selectAll}</span>
           </label>
         </div>
 
@@ -703,7 +703,7 @@ export default function Contact({ children, tab }) {
                   // check selected row
                   toast.dismiss();
                   if (selectedRows.length <= 0) {
-                    toast("連絡先を選択してください", {
+                    toast(intl.contacts_selcet_contact, {
                       position: "top-right",
                       autoClose: 5000,
                       hideProgressBar: true,
@@ -732,7 +732,7 @@ export default function Contact({ children, tab }) {
                   // check selected row
                   toast.dismiss();
                   if (selectedRows.length <= 0) {
-                    toast("連絡先を選択してください", {
+                    toast(intl.contacts_selcet_contact, {
                       position: "top-right",
                       autoClose: 5000,
                       hideProgressBar: true,
@@ -768,7 +768,7 @@ export default function Contact({ children, tab }) {
             modalFooter={() => {
               return (
                 <IconLeftBtn
-                  text={"エクスポート"}
+                  text={intl.company_list_company_export_title}
                   textColor={"text-white font-semibold text-[16px] w-full"}
                   py={"py-[11px]"}
                   px={"w-[84%]"}
@@ -791,14 +791,14 @@ export default function Contact({ children, tab }) {
                     <TextPlain
                       type="text"
                       for={"id"}
-                      placeholder={"ファイル名"}
+                      placeholder={intl.user_history_settings_file_name}
                       borderRound="rounded-xl"
                       padding="p-[10px]"
                       focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
                       border="border border-gray-300"
                       bg="bg-white"
                       additionalClass="block w-full pl-5 text-base pr-[30px]"
-                      label={"ファイル名"}
+                      label={intl.user_history_settings_file_name}
                       labelColor="#7B7B7B"
                       id={"id"}
                       isRequired={true}
@@ -832,7 +832,7 @@ export default function Contact({ children, tab }) {
                 <div className="flex gap-x-3">
                   <div>
                     <IconLeftBtn
-                      text="キャンセル"
+                      text={intl.help_settings_addition_modal_cancel}
                       textColor={
                         "text-white font-semibold text-[16px] w-full rounded-lg"
                       }
@@ -850,7 +850,7 @@ export default function Contact({ children, tab }) {
                   </div>
                   <div>
                     <IconLeftBtn
-                      text="ダウンロード"
+                      text={intl.user_download}
                       textColor={
                         "text-white font-semibold text-[16px] w-full rounded-lg"
                       }
@@ -910,7 +910,7 @@ export default function Contact({ children, tab }) {
             footer={null}
           >
             <p style={{ textAlign: "center" }} className="px-[40px]">
-              連絡先を削除します。よろしいですか？
+              {intl.delete_contact}
             </p>
 
             <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]  ">
@@ -942,10 +942,10 @@ export default function Contact({ children, tab }) {
             textColor="#19388B"
             text={
               detailsModal
-                ? "連絡先の詳細"
+                ? intl.contact_details
                 : editModal
-                ? "連絡先の編集"
-                : "新しい連絡先を追加"
+                ? intl.edit_contacts
+                : intl.add_new_contact
             }
             onCloseHandler={onClose}
             displayEditIcon={detailsModal}
@@ -987,14 +987,14 @@ export default function Contact({ children, tab }) {
                     <TextPlain
                       type="text"
                       for={"contactName"}
-                      placeholder={"連絡先名"}
+                      placeholder={intl.user_contact_info_contact_name}
                       borderRound="rounded"
                       padding="p-[10px]"
                       focus="focus:outline-none focus:ring-2 h-[40px] focus:ring-customBlue"
                       border="border border-gray-300"
                       bg="bg-white"
                       additionalClass="block w-full pl-5 text-base pr-[30px]"
-                      label={"連絡先名"}
+                      label={intl.user_contact_info_contact_name}
                       labelColor="#7B7B7B"
                       id={"contactName"}
                       isRequired={!detailsModal}
@@ -1028,14 +1028,14 @@ export default function Contact({ children, tab }) {
                     <TextPlain
                       type="text"
                       for={"contactNameFurigana"}
-                      placeholder={"ふりがな"}
+                      placeholder={intl.furigana}
                       borderRound="rounded"
                       padding="p-[10px]"
                       focus="focus:outline-none focus:ring-2 h-[40px] focus:ring-customBlue"
                       border="border border-gray-300"
                       bg="bg-white"
                       additionalClass="block w-full pl-5 text-base pr-[30px]"
-                      label={"ふりがな"}
+                      label={intl.furigana}
                       labelColor="#7B7B7B"
                       id={"contactNameFurigana"}
                       isRequired={!detailsModal}
@@ -1069,14 +1069,14 @@ export default function Contact({ children, tab }) {
                     <TextPlain
                       type="text"
                       for={"radioNo"}
-                      placeholder={"無線番号"}
+                      placeholder={intl.company_list_company_radioNumber}
                       borderRound="rounded"
                       padding="p-[10px]"
                       focus="focus:outline-none focus:ring-2 h-[40px] focus:ring-customBlue"
                       border="border border-gray-300"
                       bg="bg-white"
                       additionalClass="block w-full pl-5 text-base pr-[30px]"
-                      label={"無線番号"}
+                      label={intl.company_list_company_radioNumber}
                       labelColor="#7B7B7B"
                       id={"radioNo"}
                       isRequired={!detailsModal}
