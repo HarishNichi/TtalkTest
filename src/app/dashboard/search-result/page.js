@@ -295,8 +295,7 @@ export default function HelpSettingsList() {
       setDeleteModal(false);
       setLoading(false);
 
-     router.refresh();
-     router.push("/dashboard/search-result");
+      window.location.reload();
     } catch (err) {
       setDeleteModal(false);
       setLoading(false);
