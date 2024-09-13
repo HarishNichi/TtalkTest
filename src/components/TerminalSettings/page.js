@@ -302,8 +302,11 @@ export default function TerminalSettings({ isModal, selectedRows }) {
   async function updateBulkSettings() {
     // eslint-disable-next-line no-console
     console.log(userDetailsInfo, userInfo);
+    let ids = selectedRows.map((el) => el.id);
+    // eslint-disable-next-line no-console
+    console.log("ids", ids);
     let payload = {
-      id: Employee.id,
+      id: ids,
       type: "",
       data: {
         quality: userDetailsInfo.quality,
