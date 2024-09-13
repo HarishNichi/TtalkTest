@@ -705,7 +705,7 @@ export default function Subsection() {
             </Button>
             <Button
               key="delete"
-              className="flex-1 bg-[#BA1818] border-[#BA1818] text-white hover:bg-red-500 no-hover"
+              className="flex-1 bg-[#BA1818] border-[#BA1818] h-[40px] text-white hover:bg-red-500 no-hover"
               onClick={() => {
                 deleteSubSection(childData);
               }}
