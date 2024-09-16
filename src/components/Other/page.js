@@ -253,7 +253,7 @@ export default function Other() {
                         py-3 h-[40px]
                         focus:outline-none focus:ring-2 focus:ring-customBlue
                         border border-gray-400
-                        block w-full pl-5 text-sm pr-[30px] font-medium text-black`}
+                        block w-full pl-5 text-sm pr-[40px] font-medium text-black`}
                       placeholder={intl.reset_new_password_label}
                       onChange={(event) => {
                         handleChange(event);
@@ -268,7 +268,7 @@ export default function Other() {
                       />
                     ) : (
                       <IoEyeOutline
-                        className="text-2xl text-[#A3A3A3] -ml-12"
+                        className="text-2xl text-[#A3A3A3] -ml-8"
                         onClick={() => {
                           setType1("password");
                         }}
@@ -299,7 +299,7 @@ export default function Other() {
                         py-3
                         focus:outline-none focus:ring-2 focus:ring-customBlue
                         border border-gray-400
-                        block w-full pl-5 text-sm pr-[30px] font-medium text-black`}
+                        block w-full pl-5 text-sm pr-[40px] font-medium text-black`}
                       placeholder={intl.forgot_autenticate_password_placeholder}
                       onChange={(event) => {
                         handleChange(event);
@@ -314,7 +314,7 @@ export default function Other() {
                       />
                     ) : (
                       <IoEyeOutline
-                        className="text-2xl text-[#A3A3A3] -ml-12"
+                        className="text-2xl text-[#A3A3A3] -ml-8"
                         onClick={() => {
                           setType2("password");
                         }}
