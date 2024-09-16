@@ -180,7 +180,7 @@ export default function UpdatePassword(setIsResetModal) {
                 focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
                 text={"text-base text-gray-900"}
                 additionalClass={
-                  "bg-white block w-full pl-5 text-base pr-[30px]"
+                  "bg-white block w-full pl-5 text-base pr-[30px] h-[40px]"
                 }
                 value={currentPassword}
               />
@@ -204,7 +204,7 @@ export default function UpdatePassword(setIsResetModal) {
                   }
                   border={"border border-gray-300"}
                   bg={"bg-white "}
-                  additionalClass={"block w-full pl-5 text-base pr-[40px]"}
+                  additionalClass={"block w-full pl-5 text-base pr-[40px] h-[40px]"}
                   label={"新しいパスワード"}
                   labelColor={"#7B7B7B"}
                   isRequired={true}
@@ -244,7 +244,7 @@ export default function UpdatePassword(setIsResetModal) {
                   }
                   border={"border border-gray-300"}
                   bg={"bg-white "}
-                  additionalClass={"block w-full pl-5 text-base pr-[30px]"}
+                  additionalClass={"block w-full pl-5 text-base pr-[40px] h-[40px]"}
                   isRequired={true}
                   label={"パスワードを認証する"}
                   labelColor={"#7B7B7B"}
