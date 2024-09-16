@@ -325,7 +325,7 @@ export default function Login() {
                         id="password"
                         name="password"
                         type={type}
-                        className="mt-1 p-2 w-full border rounded focus:ring-blue-500 focus:border-blue-500 flex items-center h-[40px]"
+                        className="mt-1 p-2 pr-[40px] w-full border rounded focus:ring-blue-500 focus:border-blue-500 flex items-center h-[40px]"
                         placeholder={intl.login_password_placeholder}
                         value={password}
                         onChange={handleChange}
