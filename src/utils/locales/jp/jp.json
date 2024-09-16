@@ -124,6 +124,7 @@
   "helpSettingsList_Subsection_label": "サブセクション数",
   "reset_submit_btn": "パスワード変更",
   "reset_new_password_label": "新しいパスワード*",
+  "confirm_password":"パスワードを認証する",
   "user_add_current_password_label": "現在のパスワード",
   "user_add_specify_label": "指定",
   "user_add_telephone_number_label": "電話番号",
