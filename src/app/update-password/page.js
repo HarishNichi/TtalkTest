@@ -205,7 +205,7 @@ export default function UpdatePassword(setIsResetModal) {
                   border={"border border-gray-300"}
                   bg={"bg-white "}
                   additionalClass={"block w-full pl-5 text-base pr-[40px] h-[40px]"}
-                  label={"新しいパスワード"}
+                  label={intl.reset_new_password_label}
                   labelColor={"#7B7B7B"}
                   isRequired={true}
                   id={"password"}
@@ -246,7 +246,7 @@ export default function UpdatePassword(setIsResetModal) {
                   bg={"bg-white "}
                   additionalClass={"block w-full pl-5 text-base pr-[40px] h-[40px]"}
                   isRequired={true}
-                  label={"パスワードを認証する"}
+                  label={intl.confirm_password}
                   labelColor={"#7B7B7B"}
                   id={"confirmPassword"}
                   name={"confirmPassword"}
