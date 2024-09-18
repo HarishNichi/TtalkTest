@@ -108,6 +108,7 @@ export default function ImportModal({
                   {intl.company_list_company_import}
                 </div>
               }
+              className="my-[70px]"
               open={true}
               width={385}
               onCancel={()=>{
