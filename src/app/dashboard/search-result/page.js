@@ -305,7 +305,7 @@ export default function HelpSettingsList() {
 
     {
       title: intl.company_list_company_status,
-      dataIndex: "onlineStatus",
+      dataIndex: "isActive",
       render: (text, record) => {
         let bg = text == "online" ? "bg-customBlue" : "bg-white";
         let textClass = text == "online" ? "text-white" : "text-customBlue";
@@ -315,7 +315,7 @@ export default function HelpSettingsList() {
               className={`rounded-[5px] cursor-pointer  pt-[5px] pb-[5px] pl-[5px] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-customBlue text-sm ${textClass} block w-full ${bg} text-center
             `}
             >
-              {text == "online" ? intl.user_online : intl.user_offline}
+              {text ? intl.user_online : intl.user_offline}
             </div>
           </div>
         );

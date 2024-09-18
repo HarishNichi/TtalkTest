@@ -505,9 +505,14 @@ input::-webkit-calendar-picker-indicator {
 .ant-tabs .ant-tabs-ink-bar {
   background: #19388b !important;
 }
-
-.ant-checkbox:hover {
+.ant-checkbox:not(.ant-checkbox-disabled):hover .ant-checkbox-inner
+{
   border-color: #19388b !important;
+}
+
+.ant-checkbox-inner {
+  width: 18px !important;
+  height: 18px !important;
 }
 
 .ant-checkbox-checked .ant-checkbox-inner {

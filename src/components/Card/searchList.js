@@ -80,7 +80,7 @@ export default function SearchCard({
         className="py-2 block pl-4 pr-4 bg-white border border-gray-200 rounded-xl shadow relative overflow-auto"
         style={{ maxHeight: "490px", minHeight: "490px" }}
       >
-        <h1 className="text-base md:text-xl mb-2">
+        <h1 className="text-base md:text-xl mb-2 font-semibold">
           {Admin
             ? intl.components_card_searchlist_companylist
             : intl.dashboard_user_list}

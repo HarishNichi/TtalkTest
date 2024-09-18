@@ -6,6 +6,7 @@ import FileUpload from "./fileUpload";
 import ProgressBar from "./plainProgressBar";
 import IconLeftBtn from "../Button/iconLeftBtn";
 import intl from "../../utils/locales/jp/jp.json";
+import { Modal as AntModal } from "antd";
 export default function ImportModal({
   modelToggle,
   file,
@@ -102,7 +103,18 @@ export default function ImportModal({
 
   return (
     <div className="flex direction-column">
-      <Modal
+      <AntModal
+              title={
+                <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+                  {intl.company_list_company_import}
+                </div>
+              }
+              open={true}
+              width={500}
+              onCancel={onCloseHandler}
+              footer={modelFooter}
+            >
+      {/* <Modal
         fontSize="text-xl"
         fontWeight="font-semibold"
         textColor="#19388B"
@@ -110,7 +122,7 @@ export default function ImportModal({
         file={file}
         modalFooter={modelFooter}
         onCloseHandler={onCloseHandler}
-      >
+      > */}
         <div className="flex flex-col">
           {/* File upload component */}
           <div data-testid="file-upload" className="mb-6 md:px-[32px]">
@@ -138,7 +150,7 @@ export default function ImportModal({
             )}
           </div>
         </div>
-      </Modal>
+      </AntModal>
     </div>
   );
 }
