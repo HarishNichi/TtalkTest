@@ -457,6 +457,7 @@ input::-webkit-calendar-picker-indicator {
   margin-top: -4px;
   display: flex;
   align-items: center;
+  margin-right: 5px !important;
 }
 
 .ant-modal-content {

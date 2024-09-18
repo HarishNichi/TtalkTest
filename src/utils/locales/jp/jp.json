@@ -251,6 +251,8 @@
   "user_check_file_name": "ファイル名を確認してください。",
   "user_contact_selectContact": "連絡先を選択してください。",
   "file_upload_select_file": "ファイルを選択してください。",
+  "select_csv_file": "csvファイルを選択してください。",
+  "exceeds_limit":"ファイルサイズが5MBの制限を超えています。",
   "upload_file_conversion_error": "ファイルの変換エラー。もう一度やり直してください。",
   "text_editor_content_length_exceeds": "コンテンツの長さが制限を超えています。縮小してください。",
   "contacts_selcet_record": "レコードを選択してください",

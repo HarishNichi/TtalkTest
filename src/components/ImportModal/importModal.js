@@ -39,13 +39,13 @@ export default function ImportModal({
   const handleFileUpload = (file) => {
     const maxSizeInBytes = 5 * 1024 * 1024;
     if (!file) {
-      setFileValidationError("ファイルを選択してください。"); // Japanese: "Please select a file."
+      setFileValidationError(intl.file_upload_select_file); // Japanese: "Please select a file."
       return;
     } else if (!file.type.includes("csv")) {
-      setFileValidationError("csvファイルを選択してください。");
+      setFileValidationError(intl.select_csv_file);
       return;
     } else if (file.size > maxSizeInBytes) {
-      setFileValidationError("ファイルサイズが5MBの制限を超えています。");
+      setFileValidationError(intl.exceeds_limit);
       return;
     } else {
       setFileValidationError(null);
@@ -102,54 +102,52 @@ export default function ImportModal({
   };
 
   return (
-      <AntModal
-              title={
-                <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
-                  {intl.company_list_company_import}
-                </div>
-              }
-              className="my-[70px]"
-              open={true}
-              width={385}
-              onCancel={()=>{
-                onCloseHandler();
-              }}
-              centered
-              footer={(_) => (
-                <>
-                  <div className="flex justify-center">
-                    {modelFooter()}
-                    </div>
-                </>
-              )}
-            >
-        <div className="flex flex-col">
-          {/* File upload component */}
-          <div data-testid="file-upload" className="mb-6 md:px-[32px]">
-            <div className="flex justify-content-left font-normal text-base mb-2">
-              ファイルを選択
-            </div>
-            <FileUpload onFileUpload={handleFileUpload} key={fileName} />
-
-            <div className="validation-font text-sm flex justify-center mt-2 text-[red]">
-              {fileValidationError ?? fileValidationError}
-            </div>
+    <AntModal
+      title={
+        <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+          {intl.company_list_company_import}
+        </div>
+      }
+      className="my-[70px]"
+      open={true}
+      width={385}
+      onCancel={() => {
+        onCloseHandler();
+      }}
+      centered
+      footer={(_) => (
+        <>
+          <div className="flex justify-center">{modelFooter()}</div>
+        </>
+      )}
+    >
+      <div className="flex flex-col">
+        {/* File upload component */}
+        <div data-testid="file-upload" className="mb-6 md:px-[32px]">
+          <div className="flex justify-content-left font-normal text-base mb-2">
+            ファイルを選択
           </div>
+          <FileUpload onFileUpload={handleFileUpload} key={fileName} />
 
-          {/* Progress bar component */}
-          <div data-testid="progress-bar" className="mb-3 md:px-[32px]">
-            {fileName && progressLine > 0 && (
-              <ProgressBar
-                key={progressLine}
-                fileName={fileName}
-                percentage={progressLine}
-                onClick={() => {
-                  handleBarClick();
-                }}
-              />
-            )}
+          <div className="validation-font text-sm flex justify-center mt-2 text-[red]">
+            {fileValidationError ?? fileValidationError}
           </div>
         </div>
-      </AntModal>
+
+        {/* Progress bar component */}
+        <div data-testid="progress-bar" className="mb-3 md:px-[32px]">
+          {fileName && progressLine > 0 && (
+            <ProgressBar
+              key={progressLine}
+              fileName={fileName}
+              percentage={progressLine}
+              onClick={() => {
+                handleBarClick();
+              }}
+            />
+          )}
+        </div>
+      </div>
+    </AntModal>
   );
 }

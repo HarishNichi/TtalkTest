@@ -8,6 +8,7 @@ import AddIcon from "@/components/Icons/addIcon";
 import SectionDeleteIcon from "@/components/Icons/sectionDelete";
 import intl from "@/utils/locales/jp/jp.json";
 import DataTable from "@/components/DataTable/DataTable";
+import { Modal as AntModal } from "antd";
 import {
   tableDefaultPageSizeOption,
   fileName,
@@ -611,19 +612,85 @@ export default function Contact({
         </div>
 
         {exportModal && (
-          <Modal
-            height="500px"
-            fontSize="text-xl"
-            fontWeight="font-semibold"
-            textColor="#19388B"
-            text={intl.company_list_company_export_title}
-            onCloseHandler={() => {
+          // <Modal
+          //   height="500px"
+          //   fontSize="text-xl"
+          //   fontWeight="font-semibold"
+          //   textColor="#19388B"
+          //   text={intl.company_list_company_export_title}
+          //   onCloseHandler={() => {
+          //     setExportModal(false);
+          //     setCsvFileName("");
+          //     setFileNameError("");
+          //   }}
+          //   contentPaddingTop="pt-1"
+          //   modalFooter={() => {
+          //     return (
+          //       <IconLeftBtn
+          //         text={"エクスポート"}
+          //         textColor={"text-white font-semibold text-[16px] w-full"}
+          //         py={"py-[11px]"}
+          //         px={"w-[84%]"}
+          //         bgColor={"bg-customBlue"}
+          //         textBold={true}
+          //         icon={() => {
+          //           return null;
+          //         }}
+          //         onClick={() => {
+          //           exportCSVFile();
+          //         }}
+          //       />
+          //     );
+          //   }}
+          // >
+          //   <div className="flex flex-col">
+          //     <div className="flex-grow py-[20px] mb-4">
+          //       <form className="grid grid-cols-1 gap-y-3">
+          //         <div className="flex flex-col">
+          //           <TextPlain
+          //             type="text"
+          //             for={"id"}
+          //             placeholder={"ファイル名"}
+          //             borderRound="rounded-xl"
+          //             padding="p-[10px]"
+          //             focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
+          //             border="border border-gray-300"
+          //             bg="bg-white"
+          //             additionalClass="block w-full pl-5 text-base pr-[30px]"
+          //             label={"ファイル名"}
+          //             labelColor="#7B7B7B"
+          //             id={"id"}
+          //             isRequired={true}
+          //             labelClass={"float-left"}
+          //             value={csvFileName}
+          //             onChange={(event) => {
+          //               setCsvFileName(event.target.value);
+          //             }}
+          //           />
+          //           {fileNameError && (
+          //             <div className="validation-font text-sm text-[red] text-left">
+          //               {fileNameError}
+          //             </div>
+          //           )}
+          //         </div>
+          //       </form>
+          //     </div>
+          //   </div>
+          // </Modal>
+          <AntModal
+            width={385}
+            title={
+              <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+                {intl.company_list_company_export_title}
+              </div>
+            }
+            open={true}
+            onCancel={() => {
               setExportModal(false);
               setCsvFileName("");
               setFileNameError("");
             }}
-            contentPaddingTop="pt-1"
-            modalFooter={() => {
+            footer={() => {
               return (
                 <IconLeftBtn
                   text={"エクスポート"}
@@ -641,6 +708,8 @@ export default function Contact({
                 />
               );
             }}
+            centered={true}
+            className="my-[70px]"
           >
             <div className="flex flex-col">
               <div className="flex-grow py-[20px] mb-4">
@@ -675,7 +744,7 @@ export default function Contact({
                 </form>
               </div>
             </div>
-          </Modal>
+          </AntModal>
         )}
         {qrCodeModal && (
           <Modal
@@ -753,17 +822,75 @@ export default function Contact({
           />
         )}
         {deleteModal && (
-          <Modal
-            height="412px"
-            fontSize="text-xl"
-            fontWeight="font-semibold"
-            textColor="#19388B"
-            text={intl.help_settings_addition_delete}
-            onCloseHandler={() => {
+          // <Modal
+          //   height="412px"
+          //   fontSize="text-xl"
+          //   fontWeight="font-semibold"
+          //   textColor="#19388B"
+          //   text={intl.help_settings_addition_delete}
+          //   onCloseHandler={() => {
+          //     setDeleteModal(false);
+          //     setDeleteModalData(false);
+          //   }}
+          //   modalFooter={() => {
+          //     return (
+          //       <div className="grid grid-cols-2 gap-2 place-content-center">
+          //         <div>
+          //           <IconLeftBtn
+          //             text={intl.help_settings_addition_modal_cancel}
+          //             textColor={"text-white font-semibold text-sm w-full"}
+          //             py={"py-[11px]"}
+          //             px={"px-6"}
+          //             bgColor={"bg-customBlue"}
+          //             textBold={true}
+          //             icon={() => {
+          //               return null;
+          //             }}
+          //             onClick={() => {
+          //               setDeleteModal(() => false);
+          //               setDeleteModalData(false);
+          //             }}
+          //           />
+          //         </div>
+          //         <div>
+          //           <IconLeftBtn
+          //             text={intl.help_settings_addition_delete}
+          //             textColor={"text-white font-semibold text-sm w-full"}
+          //             py={"py-[11px]"}
+          //             px={"px-6"}
+          //             bgColor={"bg-customBlue"}
+          //             textBold={true}
+          //             icon={() => {
+          //               return null;
+          //             }}
+          //             onClick={() => {
+          //               deleteContact(selectedRows);
+          //             }}
+          //           />
+          //         </div>
+          //       </div>
+          //     );
+          //   }}
+          // >
+          //   <div className="flex flex-col px-[4%]">
+          //     <div className="flex-grow py-[90px] pt-[60px] dark:text-black">
+          //       {intl.delete_contact}
+          //     </div>
+          //   </div>
+          // </Modal>
+          <AntModal
+            title={
+              <div className="px-[40px] pt-[25px] font-semibold text-xl mb-[2vw] text-customBlue text-center">
+                {intl.help_settings_addition_delete}
+              </div>
+            }
+            width={500}
+            open={true}
+            onCancel={() => {
               setDeleteModal(false);
               setDeleteModalData(false);
             }}
-            modalFooter={() => {
+            footer={() => {
               return (
                 <div className="grid grid-cols-2 gap-2 place-content-center">
                   <div>
@@ -802,13 +929,15 @@ export default function Contact({
                 </div>
               );
             }}
+            centered
+            className="my-[70px]"
           >
             <div className="flex flex-col px-[4%]">
               <div className="flex-grow py-[90px] pt-[60px] dark:text-black">
                 {intl.delete_contact}
               </div>
             </div>
-          </Modal>
+          </AntModal>
         )}
         {(addNewModal || detailsModal || editModal) && (
           <Modal

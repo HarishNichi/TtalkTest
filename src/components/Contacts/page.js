@@ -136,6 +136,31 @@ export default function Contact({ children, tab }) {
     setAddNewModalData(false);
   }, []);
 
+  function editModalIcon() {
+    return (
+      <svg
+        width="19"
+        height="19"
+        viewBox="0 0 19 19"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M1.86664 12.8799L5.78657 16.7998L0 18.6665L1.86664 12.8799Z"
+          fill="white"
+        />
+        <path
+          d="M3.17798 11.5388L12.2852 2.43164L16.2448 6.39124L7.13758 15.4984L3.17798 11.5388Z"
+          fill="white"
+        />
+        <path
+          d="M18.3864 4.19991L17.5464 5.03986L13.6265 1.11992L14.4664 0.27997C14.8397 -0.0933235 15.3997 -0.0933235 15.773 0.27997L18.3863 2.89319C18.7597 3.26662 18.7597 3.82665 18.3864 4.19994L18.3864 4.19991Z"
+          fill="white"
+        />
+      </svg>
+    );
+  }
+
   const schema = Yup.object().shape({
     contactName: Yup.string()
       .required(intl.validation_required)
@@ -753,22 +778,26 @@ export default function Contact({ children, tab }) {
         )}
 
         {exportModal && (
-          <Modal
-            height="500px"
-            fontSize="text-xl"
-            fontWeight="font-semibold"
-            textColor="#19388B"
-            text={intl.company_list_company_export_title}
-            onCloseHandler={() => {
+          <AntModal
+            width={385}
+            title={
+              <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+                {intl.company_list_company_export_title}
+              </div>
+            }
+            open={true}
+            onCancel={() => {
               setExportModal(false);
               setCsvFileName("");
               setFileNameError("");
             }}
-            contentPaddingTop="pt-1"
-            modalFooter={() => {
+            footer={() => {
               return (
+                <div className="px-[40px] pb-[32x] pt-[20px]">
+                  
+                
                 <IconLeftBtn
-                  text={intl.company_list_company_export_title}
+                  text={"エクスポート"}
                   textColor={"text-white font-semibold text-[16px] w-full"}
                   py={"py-[11px]"}
                   px={"w-[84%]"}
@@ -781,24 +810,27 @@ export default function Contact({ children, tab }) {
                     exportCSVFile();
                   }}
                 />
+                </div>
               );
             }}
+            centered={true}
+            className="my-[70px]"
           >
             <div className="flex flex-col">
               <div className="flex-grow py-[20px] mb-4">
-                <form className="grid grid-cols-1 gap-y-3">
+                <form className="grid grid-cols-1 gap-y-3 px-[40px]">
                   <div className="flex flex-col">
                     <TextPlain
                       type="text"
                       for={"id"}
-                      placeholder={intl.user_history_settings_file_name}
+                      placeholder={"ファイル名"}
                       borderRound="rounded-xl"
                       padding="p-[10px]"
                       focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
                       border="border border-gray-300"
                       bg="bg-white"
                       additionalClass="block w-full pl-5 text-base pr-[30px]"
-                      label={intl.user_history_settings_file_name}
+                      label={"ファイル名"}
                       labelColor="#7B7B7B"
                       id={"id"}
                       isRequired={true}
@@ -817,7 +849,7 @@ export default function Contact({ children, tab }) {
                 </form>
               </div>
             </div>
-          </Modal>
+          </AntModal>
         )}
         {qrCodeModal && (
           <Modal
@@ -935,54 +967,74 @@ export default function Contact({ children, tab }) {
           </AntModal>
         )}
         {(addNewModal || detailsModal || editModal) && (
-          <Modal
-            height="480px"
-            fontSize="text-xl"
-            fontWeight="font-semibold"
-            textColor="#19388B"
-            text={
-              detailsModal
-                ? intl.contact_details
-                : editModal
-                ? intl.edit_contacts
-                : intl.add_new_contact
+          <AntModal
+            title={
+              <div className="flex justify-center items-center pt-4 px-4 pb-0 rounded-t">
+                {/* Modify this line */}
+                <h3 className="text-xl font-semibold text-[#19388b] dark:text-black flex-grow flex justify-center">
+                  {detailsModal
+                    ? intl.contact_details
+                    : editModal
+                    ? intl.edit_contacts
+                    : intl.add_new_contact}
+                </h3>
+                {detailsModal && (
+                  <IconBtn
+                    textColor={"text-white"}
+                    textBold={true}
+                    icon={() => editModalIcon()}
+                    onClick={async () => {
+                      await setDetailsModal(() => false);
+                      await setAddNewModal(() => false);
+                      setAddNewModalData(false);
+                      await setEditModal(() => true);
+                    }}
+                    bg={"bg-[#346595] mr-[30px] mb-[10px] mt-[-3px] text-right"}
+                    className="ml-auto"
+                  />
+                )}
+                {/* Modify this line */}
+              </div>
             }
-            onCloseHandler={onClose}
-            displayEditIcon={detailsModal}
-            handelEdit={async () => {
-              await setDetailsModal(() => false);
-              await setAddNewModal(() => false);
-              setAddNewModalData(false);
-              await setEditModal(() => true);
-            }}
-            modalFooter={() => {
+            className="my-[70px]"
+            open={true}
+            width={385}
+            onCancel={onClose}
+            centered
+            footer={() => {
               return (
                 !detailsModal && (
-                  <IconLeftBtn
-                    text={intl.help_settings_addition_keep}
-                    textColor={"text-white font-semibold text-sm w-full"}
-                    py={"py-[11px]"}
-                    px={"w-[84%]"}
-                    bgColor={"bg-customBlue"}
-                    textBold={true}
-                    icon={() => {
-                      return null;
-                    }}
-                    onClick={() => {
-                      if (addNewModal) {
-                        createContact();
-                      } else {
-                        updateContact();
-                      }
-                    }}
-                  />
+                  <div className="px-[40px] pb-[32px] pt-[20px]">
+                    <IconLeftBtn
+                      text={intl.help_settings_addition_keep}
+                      textColor={"text-white font-semibold text-sm w-full"}
+                      py={"py-[11px]"}
+                      px={"w-[84%]"}
+                      bgColor={"bg-customBlue"}
+                      textBold={true}
+                      icon={() => {
+                        return null;
+                      }}
+                      onClick={() => {
+                        if (addNewModal) {
+                          createContact();
+                        } else {
+                          updateContact();
+                        }
+                      }}
+                    />
+                  </div>
                 )
               );
             }}
           >
             <div className="flex flex-col">
               <div className="flex-grow py-[9px]">
-                <form className="grid grid-cols-1 gap-y-2">
+                <form
+                  className={`grid grid-cols-1 gap-y-2 px-[40px] ${
+                    detailsModal ? "pb-[32px]" : ""
+                  }`}
+                >
                   <div className="flex flex-col">
                     <TextPlain
                       type="text"
@@ -1105,7 +1157,7 @@ export default function Contact({ children, tab }) {
                 </form>
               </div>
             </div>
-          </Modal>
+          </AntModal>
         )}
       </div>
       <a

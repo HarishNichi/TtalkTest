@@ -3,6 +3,7 @@ import { Button } from "antd";
 import intl from "@/utils/locales/jp/jp.json";
 import DeleteIcon from "../Icons/deleteIcon";
 import { useEffect, useState } from "react";
+
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import * as Yup from "yup";
 import { PASSWORD_PATTERN } from "@/validation/validationPattern";
@@ -13,6 +14,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { errorToastSettings, successToastSettings } from "@/utils/constant";
 import { useAppSelector } from "@/redux/hooks";
 import LoaderOverlay from "../Loader/loadOverLay";
+import { Modal as AntModal } from "antd";
 import api from "@/utils/api";
 // Yup schema to validate the form
 const schema = Yup.object().shape({
@@ -185,23 +187,174 @@ export default function Other() {
   return (
     <>
       {passwordModal && (
-        <Modal
-          height="500px"
-          fontSize="text-xl"
-          fontWeight="font-semibold"
-          textColor="#19388B"
-          text={intl.user_details_password_reset_btn}
-          onCloseHandler={() => {
+        // <Modal
+        //   height="500px"
+        //   fontSize="text-xl"
+        //   fontWeight="font-semibold"
+        //   textColor="#19388B"
+        //   text={intl.user_details_password_reset_btn}
+        //   onCloseHandler={() => {
+        //     setPassword(null);
+        //     setConfirmPassword(null);
+        //     setPasswordModal(false);
+        //     setErrors(null);
+        //     setTouched({});
+        //   }}
+        //   contentPaddingTop="pt-1"
+        //   contentPadding="px-0"
+        //   modalFooter={() => (
+        //     <div className="flex flex-col gap-y-3 gap-x-3 md:flex-row md:gap-y-0 w-full">
+        //       <div className="flex-1">
+        //         <IconLeftBtn
+        //           text={intl.help_settings_addition_modal_cancel}
+        //           textColor={"text-white font-semibold text-sm w-full rounded"}
+        //           py={"py-2"}
+        //           px={"h-[40px] px-[10.5px] md:px-[17.5px]"}
+        //           bgColor={""}
+        //           textBold={true}
+        //           icon={() => null}
+        //           onClick={() => {
+        //             setPassword(null);
+        //             setConfirmPassword(null);
+        //             setPasswordModal(false);
+        //             setErrors(null);
+        //             setTouched({});
+        //           }}
+        //         />
+        //       </div>
+        //       <div className="flex-1">
+        //         <IconLeftBtn
+        //           text={intl.reset_submit_btn}
+        //           textColor={"text-white font-semibold text-sm w-full rounded"}
+        //           py={"py-2"}
+        //           px={"h-[40px] px-[10.5px] md:px-[17.5px]"}
+        //           bgColor={""}
+        //           textBold={true}
+        //           icon={() => null}
+        //           onClick={() => passwordReset()}
+        //         />
+        //       </div>
+        //     </div>
+        //   )}
+        // >
+        //   <div className="flex flex-col">
+        //     <div className="flex-grow py-[27px]">
+        //       <form className="grid grid-cols-1 gap-y-3">
+        //         <div className="flex flex-col">
+        //           <div
+        //             className={`flex items-center ${
+        //               errors?.password && touched?.password ? "" : "mb-8"
+        //             }`}
+        //           >
+        //             <input
+        //               type={type1}
+        //               id="password"
+        //               value={password}
+        //               name="password"
+        //               className={`rounded
+        //                 py-3 h-[40px]
+        //                 focus:outline-none focus:ring-2 focus:ring-customBlue
+        //                 border border-gray-400
+        //                 block w-full pl-5 text-sm pr-[40px] font-medium text-black`}
+        //               placeholder={intl.reset_new_password_label}
+        //               onChange={(event) => {
+        //                 handleChange(event);
+        //               }}
+        //             />
+        //             {type1 == "password" ? (
+        //               <IoEyeOffOutline
+        //                 className="text-2xl text-[#A3A3A3] -ml-8"
+        //                 onClick={() => {
+        //                   setType1("text");
+        //                 }}
+        //               />
+        //             ) : (
+        //               <IoEyeOutline
+        //                 className="text-2xl text-[#A3A3A3] -ml-8"
+        //                 onClick={() => {
+        //                   setType1("password");
+        //                 }}
+        //               />
+        //             )}
+        //           </div>
+        //           {errors?.password && touched?.password && (
+        //             <div
+        //               className="mb-8 pl-1 validation-font text-left"
+        //               style={{ color: "red" }}
+        //             >
+        //               {errors?.password}
+        //             </div>
+        //           )}
+        //           <div
+        //             className={`flex items-center ${
+        //               errors?.confirmPassword && touched?.confirmPassword
+        //                 ? ""
+        //                 : ""
+        //             }`}
+        //           >
+        //             <input
+        //               type={type2}
+        //               id="passwordConfirm"
+        //               name="confirmPassword"
+        //               value={confirmPassword}
+        //               className={`h-[40px] rounded
+        //                 py-3
+        //                 focus:outline-none focus:ring-2 focus:ring-customBlue
+        //                 border border-gray-400
+        //                 block w-full pl-5 text-sm pr-[40px] font-medium text-black h-[40px]`}
+        //               placeholder={intl.forgot_autenticate_password_placeholder}
+        //               onChange={(event) => {
+        //                 handleChange(event);
+        //               }}
+        //             />
+        //             {type2 == "password" ? (
+        //               <IoEyeOffOutline
+        //                 className="text-2xl text-[#A3A3A3] -ml-8"
+        //                 onClick={() => {
+        //                   setType2("text");
+        //                 }}
+        //               />
+        //             ) : (
+        //               <IoEyeOutline
+        //                 className="text-2xl text-[#A3A3A3] -ml-8"
+        //                 onClick={() => {
+        //                   setType2("password");
+        //                 }}
+        //               />
+        //             )}
+        //           </div>
+        //           {errors?.confirmPassword && touched?.confirmPassword && (
+        //             <div
+        //               className=" text-left pl-1 validation-font text-left"
+        //               style={{ color: "red" }}
+        //             >
+        //               {errors?.confirmPassword}
+        //             </div>
+        //           )}
+        //         </div>
+        //       </form>
+        //     </div>
+        //   </div>
+        // </Modal>
+        <AntModal
+          title={
+            <div className="px-[40px] pt-[25px] mb-[2vw] font-semibold text-xl text-customBlue text-center">
+              {intl.user_details_password_reset_btn}
+            </div>
+          }
+          width={500}
+          open={true}
+          onCancel={() => {
             setPassword(null);
             setConfirmPassword(null);
             setPasswordModal(false);
             setErrors(null);
             setTouched({});
           }}
-          contentPaddingTop="pt-1"
-          contentPadding="px-0"
-          modalFooter={() => (
-            <div className="flex flex-col gap-y-3 gap-x-3 md:flex-row md:gap-y-0 w-full">
+          centered
+          className="my-[70px]"
+          footer={() => (
+            <div className="flex flex-col gap-y-3 gap-x-3 md:flex-row md:gap-y-0 w-full px-[40px] pb-[32px] pt-[20px]">
               <div className="flex-1">
                 <IconLeftBtn
                   text={intl.help_settings_addition_modal_cancel}
@@ -237,7 +390,7 @@ export default function Other() {
         >
           <div className="flex flex-col">
             <div className="flex-grow py-[27px]">
-              <form className="grid grid-cols-1 gap-y-3">
+              <form className="grid grid-cols-1 gap-y-3 px-[40px]">
                 <div className="flex flex-col">
                   <div
                     className={`flex items-center ${
@@ -333,19 +486,25 @@ export default function Other() {
               </form>
             </div>
           </div>
-        </Modal>
+        </AntModal>
       )}
       {deleteModal && (
-        <Modal
-          height="412px"
-          fontSize="text-xl"
-          fontWeight="font-semibold"
-          textColor="#19388B"
-          text={intl.user_restore_default_settings}
-          onCloseHandler={setDeleteModal}
-          modalFooter={() => {
+        <AntModal
+          title={
+            <div className="px-[40px] pt-[25px] mb-[2vw] font-semibold text-xl text-customBlue text-center">
+              {intl.user_restore_default_settings}
+            </div>
+          }
+          width={500}
+          open={true}
+          onCancel={() => {
+            setDeleteModal(false);
+          }}
+          centered
+          className="my-[70px]"
+          footer={() => {
             return (
-              <div className=" flex flex-col gap-y-3 gap-x-3 md:flex-row md:gap-y-0 w-full">
+              <div className=" flex flex-col gap-y-3 gap-x-3 md:flex-row md:gap-y-0 w-full px-[40px] pb-[32px] pt-[20px]">
                 <div className="flex-1">
                   <IconLeftBtn
                     text={intl.user_remote_wipe_no_btn}
@@ -383,11 +542,11 @@ export default function Other() {
           }}
         >
           <div className="flex flex-col">
-            <div className="flex-grow  dark:text-black">
+            <div className="flex-grow  dark:text-black px-[40px]">
               {intl.remote_wipe_confirm}
             </div>
           </div>
-        </Modal>
+        </AntModal>
       )}
       <div className="bg-white p-[32px]">
         <div className="ml-[16px] font-normal text-sm mb-1">

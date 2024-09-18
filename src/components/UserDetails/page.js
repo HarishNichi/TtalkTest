@@ -663,7 +663,13 @@ export default function UserDetails() {
         </div>
       </div>
       {isModalOpen && (
-        <AntModal open={isModalOpen} footer={null} onCancel={handleCloseModal}>
+        <AntModal
+          open={isModalOpen}
+          footer={null}
+          onCancel={handleCloseModal}
+          centered
+          className="my-[70px]"
+        >
           <div className="flex flex-col">
             <UserEdit
               setIsModalOpen={setIsModalOpen}
