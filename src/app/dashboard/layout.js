@@ -129,6 +129,7 @@ export default function DashboardLayout({ children }) {
             numberOfRadioNumber: org.licenseCount || "-",
             status: org?.accountDetail?.employee?.status || "unknown",
             onlineStatus: org?.onlineStatus || "offline",
+            isActive: org?.isActive,
             timestamp: new Date().getTime(),
             machine:
               org.accountDetail.employee?.machine?.id &&
