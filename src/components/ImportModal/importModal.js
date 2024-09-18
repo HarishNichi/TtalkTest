@@ -116,7 +116,7 @@ export default function ImportModal({
               footer={(_) => (
                 <>
                   <div className="flex justify-center mb-[32px]">
-                    {modelFooter}
+                    {modelFooter()}
                     </div>
                 </>
               )}
