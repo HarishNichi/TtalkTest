@@ -110,9 +110,16 @@ export default function ImportModal({
                 </div>
               }
               open={true}
-              width={500}
+              width={385}
               onCancel={onCloseHandler}
-              footer={modelFooter}
+              
+              footer={(_) => (
+                <>
+                  <div className="flex justify-center mb-[32px]">
+                    {modelFooter}
+                    </div>
+                </>
+              )}
             >
       {/* <Modal
         fontSize="text-xl"
