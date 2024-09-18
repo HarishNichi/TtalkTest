@@ -588,7 +588,7 @@ export default function HelpSettingsList() {
             rowSelectionFlag
             columns={columns}
             dataSource={employeeDataList}
-            rowClassName={(record) => ( !record.isActive ? 'bg-gray-100 text-gray-400 pointer-events-none' : '')}
+            rowClassName={(record) => ( !record.isActive ? 'bg-gray-100 text-gray-400' : '')}
             onSelectRow={(tableData) => {
               handleSelectRow(tableData);
               return tableData;
