@@ -683,6 +683,7 @@ export default function CompanyList() {
         }}
         footer={null}
         centered={true}
+        className="my-[70px]"
       >
         <p
           style={{ textAlign: "center" }}
@@ -1039,6 +1040,7 @@ export default function CompanyList() {
             }}
             footer={getExportModalFooter}
             centered={true}
+            className="my-[70px]"
           >
             <div className="flex flex-col">
               <div className="flex-grow py-[27px]">
@@ -1095,6 +1097,8 @@ export default function CompanyList() {
             open={isModalOpen}
             footer={null}
             onCancel={handleCloseModal}
+            centered
+            className="my-[70px]"
           >
             <div className="flex flex-col">
               <AddUser

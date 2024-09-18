@@ -11,6 +11,7 @@ import api from "@/utils/api";
 import { addUser } from "@/redux/features/user";
 import { useAppDispatch } from "@/redux/hooks";
 import { ToastContainer, toast } from "react-toastify";
+import { Modal as AntModal } from "antd";
 
 import TelnetLogo from "../../public/telnetLogo.svg";
 import PtalkLogo from "../../public/Ttalk-logo.png";
@@ -402,52 +403,58 @@ export default function Login() {
       </div>
 
       {isModalOpen && (
-        <Modal
-          height={308}
-          text={
-            <div className="dark:text-black">
+        <AntModal
+          title={
+            <div className="px-[40px] pt-[25px] mb-[2vw] font-semibold text-xl text-customBlue text-center">
               {intl.login_forget_password_text}
             </div>
           }
-          fontSize="20"
-          textColor="customBlue"
-          fontWeight="600"
-          onCloseHandler={handleCloseModal}
-          modalFooter={() => (
-            <button
-              className="bg-customBlue text-base font-semibold text-white py-2 px-4 rounded w-full h-[40px]"
-              onClick={handleModalSubmit}
-            >
-              {intl.send_password}
-            </button>
-          )}
-        >
-          <p className="text-sm dark:text-black font-normal">
-            {intl.forgot_password_message}
-          </p>
-          <input
-            type="email"
-            name="email"
-            placeholder={intl.login_email_placeholder}
-            className="mt-4 p-2 w-full border rounded focus:ring-blue-500 focus:border-blue-500 h-[40px]"
-            value={modalEmail}
-            onChange={handleModalChange}
-            autoComplete="off"
-            onKeyUp={async (e) => {
-              if (e.key === "Enter") {
-                await handleForgotPasswordSubmit(e);
-              }
-            }}
-          />
-          {modalErrors?.modalEmail && modalTouched?.modalEmail && (
-            <div
-              className=" m-0 validation-font"
-              style={{ color: "red", margin: "0px", display: "flex" }}
-            >
-              {modalErrors?.modalEmail}
+          width={500}
+          open={isModalOpen}
+          onCancel={() => {
+            setIsModalOpen(false);
+          }}
+          footer={() => (
+            <div className="px-[40px] pb-[40px] pt-[20px]">
+              <button
+                className="bg-customBlue text-base font-semibold text-white py-2 px-4 rounded w-full h-[40px]"
+                onClick={handleModalSubmit}
+              >
+                {intl.send_password}
+              </button>
             </div>
           )}
-        </Modal>
+          centered={true}
+          className="my-[70px]"
+        >
+          <p className="text-sm dark:text-black font-normal px-[40px]">
+            {intl.forgot_password_message}
+          </p>
+          <div className="px-[40px]">
+            <input
+              type="email"
+              name="email"
+              placeholder={intl.login_email_placeholder}
+              className="mt-4 p-2 w-full border rounded focus:ring-blue-500 focus:border-blue-500 h-[40px]"
+              value={modalEmail}
+              onChange={handleModalChange}
+              autoComplete="off"
+              onKeyUp={async (e) => {
+                if (e.key === "Enter") {
+                  await handleForgotPasswordSubmit(e);
+                }
+              }}
+            />
+            {modalErrors?.modalEmail && modalTouched?.modalEmail && (
+              <div
+                className=" m-0 validation-font"
+                style={{ color: "red", margin: "0px", display: "flex" }}
+              >
+                {modalErrors?.modalEmail}
+              </div>
+            )}
+          </div>
+        </AntModal>
       )}
 
       <ToastContainer />

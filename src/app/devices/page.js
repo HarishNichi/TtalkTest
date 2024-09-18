@@ -799,41 +799,201 @@ export default function Devices() {
             />
           )}
           {(editModal || addModal) && (
-            <Modal
-              height="280px"
-              width="520px"
-              fontSize="text-xl"
-              fontWeight="font-semibold"
-              textColor="#19388B"
-              text={addModal ? "端末追加" : "端末編集"}
-              onCloseHandler={onClose}
-              modalFooter={() => {
+            // <Modal
+            //   height="280px"
+            //   width="520px"
+            //   fontSize="text-xl"
+            //   fontWeight="font-semibold"
+            //   textColor="#19388B"
+            //   text={addModal ? "端末追加" : "端末編集"}
+            //   onCloseHandler={onClose}
+            //   modalFooter={() => {
+            //     return (
+            //       <IconLeftBtn
+            //         text={addModal ? "追加" : "保存"}
+            //         textColor={"text-white font-semibold text-sm w-full"}
+            //         py={"py-[8px] px-[55px] w-full"}
+            //         px={""}
+            //         bgColor={"bg-customBlue"}
+            //         textBold={true}
+            //         icon={() => {
+            //           return null;
+            //         }}
+            //         onClick={() => {
+            //           setError("");
+            //           if (editModal) {
+            //             updateDevice(editRecord, editSettings);
+            //           }
+            //           if (addModal) {
+            //             createDevice(addSettings);
+            //           }
+            //         }}
+            //       />
+            //     );
+            //   }}
+            // >
+            //   <div className="flex flex-col ">
+            //     <div className="flex flex-col ">
+            //       <div className={"mb-4"}>
+            //         <TextPlain
+            //           isRequired={true}
+            //           type={"text"}
+            //           for={addModal ? "addSettings" : "editSettings"}
+            //           placeholder={"端末名"}
+            //           padding={"p-[10px] h-[40px]"}
+            //           focus={
+            //             "focus:outline-none focus:ring-2  focus:ring-customBlue "
+            //           }
+            //           border={"border border-gray-300"}
+            //           bg={"bg-white"}
+            //           additionalClass={"flex w-full pl-5 text-base pr-[30px]"}
+            //           label={intl.machine_name}
+            //           labelColor={"#7B7B7B"}
+            //           id={addModal ? "addSettings" : "editSettings"}
+            //           value={addModal ? addSettings : editSettings}
+            //           onChange={handleChange}
+            //         />
+            //         {editModal &&
+            //           errors?.editSettings &&
+            //           touched?.editSettings && (
+            //             <div
+            //               className=" pl-1 validation-font flex"
+            //               style={{ color: "red" }}
+            //             >
+            //               {errors?.editSettings}
+            //             </div>
+            //           )}
+            //         {addModal &&
+            //           errors?.addSettings &&
+            //           touched?.addSettings && (
+            //             <div
+            //               className=" pl-1 validation-font flex"
+            //               style={{ color: "red" }}
+            //             >
+            //               {errors?.addSettings}
+            //             </div>
+            //           )}
+            //       </div>
+            //       <div className="mb-4">
+            //         <label className="flex mb-1 text-[16px] font-medium  text-[#7b7b7b]">
+            //           期限指定
+            //         </label>
+            //         <div className="flex justify-start">
+            //           <Switch
+            //             handleBg="#fff"
+            //             value={deviceIsOnRent}
+            //             checked={deviceIsOnRent}
+            //             className="bg-gray-500"
+            //             onChange={async () => {
+            //               await setDeviceIsOnRent((prv) => !prv);
+            //             }}
+            //           />
+            //           {addModal &&
+            //             errors?.deviceIsOnRent &&
+            //             touched?.deviceIsOnRent && (
+            //               <div
+            //                 className="mb-8 pl-1 validation-font flex"
+            //                 style={{ color: "red" }}
+            //               >
+            //                 {errors?.deviceIsOnRent}
+            //               </div>
+            //             )}
+            //         </div>
+            //       </div>
+            //       {deviceIsOnRent && (
+            //         <RangePicker
+            //           className="w-full py-[0.44rem] rounded-lg"
+            //           id="deviceIsOnRent"
+            //           separator={<PiWaveSineLight />}
+            //           style={{
+            //             border: "1px solid #e5e7eb",
+            //           }}
+            //           onChange={(dateObj, dateString) => {
+            //             dateString[0] = dateString[0]
+            //               ? dayjs(dateString[0])
+            //               : "";
+            //             dateString[1] = dateString[1]
+            //               ? dayjs(dateString[1])
+            //               : "";
+            //             setRentDateRange(dateString);
+            //           }}
+            //           value={[rentDateRange[0], rentDateRange[1]]}
+            //           locale={locale}
+            //           allowEmpty={[true, true]}
+            //           format={"YYYY/MM/DD"}
+            //           placeholder={["開始日", "終了日"]}
+            //           disabledDate={(current) => {
+            //             let yesterday = new Date(
+            //               Date.now() - 86400000
+            //             ).getTime(); // that is: 24 * 60 * 60 * 1000
+            //             return current.valueOf() < yesterday;
+            //           }}
+            //         />
+            //       )}
+
+            //       {addModal &&
+            //         errors?.rentDateRange &&
+            //         touched?.rentDateRange && (
+            //           <div
+            //             className="mb-8 pl-1 validation-font flex"
+            //             style={{ color: "red" }}
+            //           >
+            //             {errors?.rentDateRange}
+            //           </div>
+            //         )}
+            //       {editModal &&
+            //         errors?.rentDateRange &&
+            //         touched?.rentDateRange && (
+            //           <div
+            //             className="mb-8 pl-1 validation-font flex"
+            //             style={{ color: "red" }}
+            //           >
+            //             {errors?.rentDateRange}
+            //           </div>
+            //         )}
+            //     </div>
+            //   </div>
+            // </Modal>
+            <AntModal
+              width={520}
+              title={
+                <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+                  {addModal ? "端末追加" : "端末編集"}
+                </div>
+              }
+              open={editModal || addModal}
+              onCancel={setEditModal(false) || setAddModal(false)}
+              centered
+              className="my-[70px]"
+              footer={() => {
                 return (
-                  <IconLeftBtn
-                    text={addModal ? "追加" : "保存"}
-                    textColor={"text-white font-semibold text-sm w-full"}
-                    py={"py-[8px] px-[55px] w-full"}
-                    px={""}
-                    bgColor={"bg-customBlue"}
-                    textBold={true}
-                    icon={() => {
-                      return null;
-                    }}
-                    onClick={() => {
-                      setError("");
-                      if (editModal) {
-                        updateDevice(editRecord, editSettings);
-                      }
-                      if (addModal) {
-                        createDevice(addSettings);
-                      }
-                    }}
-                  />
+                  <div className="px-[40px] pb-[40px] ">
+                    <IconLeftBtn
+                      text={addModal ? "追加" : "保存"}
+                      textColor={"text-white font-semibold text-sm w-full"}
+                      py={"py-[8px] px-[55px] w-full"}
+                      px={""}
+                      bgColor={"bg-customBlue"}
+                      textBold={true}
+                      icon={() => {
+                        return null;
+                      }}
+                      onClick={() => {
+                        setError("");
+                        if (editModal) {
+                          updateDevice(editRecord, editSettings);
+                        }
+                        if (addModal) {
+                          createDevice(addSettings);
+                        }
+                      }}
+                    />
+                  </div>
                 );
               }}
             >
               <div className="flex flex-col ">
-                <div className="flex flex-col ">
+                <div className="flex flex-col px-[40px] pb-[20px] ">
                   <div className={"mb-4"}>
                     <TextPlain
                       isRequired={true}
@@ -953,7 +1113,7 @@ export default function Devices() {
                     )}
                 </div>
               </div>
-            </Modal>
+            </AntModal>
           )}
 
           {deleteModal && (
@@ -970,6 +1130,7 @@ export default function Devices() {
               }}
               footer={null}
               centered
+              className="my-[70px]"
             >
               <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]  ">
                 <Button

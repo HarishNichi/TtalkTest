@@ -521,46 +521,129 @@ export default function HelpSettingsList() {
             />
           </div>
           {(editModal || addModal) && (
-            <Modal
-              height="412px"
-              fontSize="text-xl"
-              fontWeight="font-semibold"
-              textColor="#19388B"
-              text={
-                addModal
-                  ? intl.help_settings_help_category
-                  : intl.help_settings_help_category_edit
+            // <Modal
+            //   height="412px"
+            //   fontSize="text-xl"
+            //   fontWeight="font-semibold"
+            //   textColor="#19388B"
+            //   text={
+            //     addModal
+            //       ? intl.help_settings_help_category
+            //       : intl.help_settings_help_category_edit
+            //   }
+            //   onCloseHandler={onClose}
+            //   modalFooter={() => {
+            //     return (
+            //       <IconLeftBtn
+            //         text={
+            //           addModal
+            //             ? intl.add_machine
+            //             : intl.help_settings_addition_modal_edit
+            //         }
+            //         textColor={"text-white font-semibold text-[16px]"}
+            //         py="py-[8px] px-[55px] w-full"
+            //         bgColor={"bg-customBlue"}
+            //         textBold={true}
+            //         icon={() => {
+            //           return null;
+            //         }}
+            //         onClick={() => {
+            //           if (editModal) {
+            //             updateSection(editRecord, editSettings);
+            //           }
+            //           if (addModal) {
+            //             createSection(addSettings);
+            //           }
+            //         }}
+            //       />
+            //     );
+            //   }}
+            // >
+            //   <div className="flex flex-col ">
+            //     <div className="flex flex-col  ">
+            //       <TextPlain
+            //         isRequired={true}
+            //         type={"text"}
+            //         for={addModal ? "addSettings" : "editSettings"}
+            //         placeholder={intl.help_settings_help_name}
+            //         padding={"p-[10px] h-[40px]"}
+            //         focus={
+            //           "focus:outline-none focus:ring-2  focus:ring-customBlue "
+            //         }
+            //         border={"border border-gray-300"}
+            //         bg={"bg-white "}
+            //         additionalClass={"flex w-full pl-5 text-base pr-[30px]"}
+            //         label={intl.help_settings_help_name}
+            //         labelColor={"#7B7B7B"}
+            //         id={addModal ? "addSettings" : "editSettings"}
+            //         value={addModal ? addSettings : editSettings}
+            //         onChange={handleChange}
+            //       />
+            //       {editModal &&
+            //         errors?.editSettings &&
+            //         touched?.editSettings && (
+            //           <div
+            //             className="mb-8 pl-1 validation-font flex"
+            //             style={{ color: "red" }}
+            //           >
+            //             {errors?.editSettings}
+            //           </div>
+            //         )}
+            //       {addModal && errors?.addSettings && touched?.addSettings && (
+            //         <div
+            //           className="mb-8 pl-1 validation-font flex"
+            //           style={{ color: "red" }}
+            //         >
+            //           {errors?.addSettings}
+            //         </div>
+            //       )}
+            //     </div>
+            //   </div>
+            // </Modal>
+            <AntModal
+              width={520}
+              title={
+                <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+                  {addModal
+                    ? intl.help_settings_help_category
+                    : intl.help_settings_help_category_edit}
+                </div>
               }
-              onCloseHandler={onClose}
-              modalFooter={() => {
+              open={editModal || addModal}
+              onCancel={setEditModal(false) || setAddModal(false)}
+              footer={() => {
                 return (
-                  <IconLeftBtn
-                    text={
-                      addModal
-                        ? intl.add_machine
-                        : intl.help_settings_addition_modal_edit
-                    }
-                    textColor={"text-white font-semibold text-[16px]"}
-                    py="py-[8px] px-[55px] w-full"
-                    bgColor={"bg-customBlue"}
-                    textBold={true}
-                    icon={() => {
-                      return null;
-                    }}
-                    onClick={() => {
-                      if (editModal) {
-                        updateSection(editRecord, editSettings);
+                  <div className="px-[40px] pb-[40px] pt-[20px]">
+                    <IconLeftBtn
+                      text={
+                        addModal
+                          ? intl.add_machine
+                          : intl.help_settings_addition_modal_edit
                       }
-                      if (addModal) {
-                        createSection(addSettings);
-                      }
-                    }}
-                  />
+                      textColor={"text-white font-semibold text-[16px]"}
+                      py="py-[8px] px-[55px] w-full"
+                      bgColor={"bg-customBlue"}
+                      textBold={true}
+                      icon={() => {
+                        return null;
+                      }}
+                      onClick={() => {
+                        if (editModal) {
+                          updateSection(editRecord, editSettings);
+                        }
+                        if (addModal) {
+                          createSection(addSettings);
+                        }
+                      }}
+                    />
+                  </div>
                 );
               }}
+              centered={true}
+              className="my-[70px]"
             >
               <div className="flex flex-col ">
-                <div className="flex flex-col  ">
+                <div className="flex flex-col px-[40px]">
                   <TextPlain
                     isRequired={true}
                     type={"text"}
@@ -599,7 +682,7 @@ export default function HelpSettingsList() {
                   )}
                 </div>
               </div>
-            </Modal>
+            </AntModal>
           )}
 
           {deleteModal && (
@@ -616,6 +699,7 @@ export default function HelpSettingsList() {
               }}
               footer={null}
               centered
+              className="my-[70px]"
             >
               <p
                 style={{ textAlign: "center" }}

@@ -362,6 +362,7 @@ export default function CompanyInformation() {
           visible={isModalVisible}
           onCancel={handleModalClose}
           footer={null}
+          centered
           className="my-[70px]"
         >
           <div className="flex justify-center h-[150px]">

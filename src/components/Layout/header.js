@@ -36,7 +36,7 @@ export default function Header({
   const isDashboardRoute = pathname === "/dashboard";
   // Retrieve the user string from localStorage
   const userString = localStorage.getItem("user");
-  const [logoutModal, setLogoutModal] = useState(false);
+  const [logoutModal, setLogoutModal] = useState();
   const [isResetModal, setIsResetModal] = useState(false);
   const handleCloseModal = () => {
     setIsResetModal(false);
@@ -325,16 +325,76 @@ export default function Header({
         </div>
       </div>
       {logoutModal && (
-        <Modal
-          height="250px"
-          fontSize="text-xl"
-          fontWeight="font-semibold"
-          textColor="#19388B"
-          text={"ログアウト"}
-          onCloseHandler={setLogoutModal}
-          modalFooter={() => {
+        // <Modal
+        //   height="250px"
+        //   fontSize="text-xl"
+        //   fontWeight="font-semibold"
+        //   textColor="#19388B"
+        //   text={"ログアウト"}
+        //   onCloseHandler={setLogoutModal}
+        //   modalFooter={() => {
+        //     return (
+        //       <div className=" flex justify-between">
+        //         <div>
+        //           <IconLeftBtn
+        //             text={intl.user_remote_wipe_no_btn}
+        //             textColor={"text-white font-semibold text-sm w-full"}
+        //             py={"py-[11px]"}
+        //             px={"px-[26.5px] md:px-[35.5px]"}
+        //             bgColor={"bg-customBlue"}
+        //             textBold={true}
+        //             icon={() => {
+        //               return null;
+        //             }}
+        //             onClick={() => {
+        //               setLogoutModal(() => false);
+        //             }}
+        //           />
+        //         </div>
+        //         <div>
+        //           <IconLeftBtn
+        //             text={intl.user_remote_wipe_yes_btn}
+        //             textColor={"text-white font-semibold text-sm w-full ml-2"}
+        //             py={"py-[11px]"}
+        //             px={"px-[30.5px] md:px-[38.5px]"}
+        //             bgColor={"bg-customBlue"}
+        //             textBold={true}
+        //             icon={() => {
+        //               return null;
+        //             }}
+        //             onClick={() => {
+        //               localStorage.clear();
+        //               window.location.href = "/";
+        //               // Clear navigation history
+
+        //               window.history.replaceState(null, "", "/");
+        //               setLogoutModal(false);
+        //             }}
+        //           />
+        //         </div>
+        //       </div>
+        //     );
+        //   }}
+        // >
+        //   <div className="flex flex-col">
+        //     <div className="flex-grow dark:text-black">
+        //       {intl.logout_confirm}
+        //     </div>
+        //   </div>
+        // </Modal>
+        <AntModal
+          title={
+            <div className="px-[40px] pt-[25px] mb-[2vw] font-semibold text-xl text-customBlue text-center">
+              ログアウト
+            </div>
+          }
+          open={logoutModal}
+          onCancel={setLogoutModal(false)}
+          centered
+          className="my-[70px]"
+          footer={() => {
             return (
-              <div className=" flex justify-between">
+              <div className=" flex justify-between px-[40px] pb-[40px] ">
                 <div>
                   <IconLeftBtn
                     text={intl.user_remote_wipe_no_btn}
@@ -377,11 +437,11 @@ export default function Header({
           }}
         >
           <div className="flex flex-col">
-            <div className="flex-grow dark:text-black">
+            <div className="flex-grow dark:text-black px-[40px] pb-[20px] text-center">
               {intl.logout_confirm}
             </div>
           </div>
-        </Modal>
+        </AntModal>
       )}
 
       <AntModal

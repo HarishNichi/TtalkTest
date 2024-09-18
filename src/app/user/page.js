@@ -2099,6 +2099,8 @@ export default function UserList() {
             footer={null}
             onCancel={handleSettingsCloseModal}
             width={720}
+            centered
+            className="my-[70px]"
           >
             <div className="flex flex-col p-[24px]">
               <TerminalSettings isModal={true} selectedRows={selectedRows} />
@@ -2119,6 +2121,7 @@ export default function UserList() {
             }}
             footer={null}
             centered
+            className="my-[70px]"
           >
             <p
               style={{ textAlign: "center" }}
