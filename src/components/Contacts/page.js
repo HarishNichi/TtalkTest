@@ -429,7 +429,7 @@ export default function Contact({ children, tab }) {
   const deleteContact = async (selectedRows) => {
     toast.dismiss();
     if (selectedRows.length <= 0) {
-      toast("連絡先を選択してください。", {
+      toast(intl.user_contact_selectContact, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: true,

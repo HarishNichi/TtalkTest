@@ -25,7 +25,11 @@ import { GearIcon } from "../Icons/gearIcon";
 import EditIcon from "../Icons/editIcon";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { ToastContainer, toast } from "react-toastify";
-import { updateEmployee, fetchEmpData, updateBulkEmployee } from "@/validation/helperFunction";
+import {
+  updateEmployee,
+  fetchEmpData,
+  updateBulkEmployee,
+} from "@/validation/helperFunction";
 import { errorToastSettings, successToastSettings } from "@/utils/constant";
 import { getEmployee } from "@/redux/features/employee";
 import LoaderOverlay from "../Loader/loadOverLay";
@@ -342,15 +346,12 @@ export default function TerminalSettings({ isModal, selectedRows }) {
       setLoading(true);
       const settingsUpdated = await updateBulkEmployee(payload);
       if (settingsUpdated) {
-        // let id = Employee.id;
-        // let result = await fetchEmpData(id);
-        // result && dispatch(getEmployee(result));
         toast(intl.settings_update_success, successToastSettings);
-        setConfirmModal(false)
+        setConfirmModal(false);
       }
     } catch (err) {
       toast(intl.settings_update_failed, errorToastSettings);
-      setConfirmModal(false)
+      setConfirmModal(false);
     } finally {
       setLoading(false);
     }
@@ -1208,32 +1209,6 @@ export default function TerminalSettings({ isModal, selectedRows }) {
               <div className="text-[#434343]">{"強制オフライン"}</div>
             </ToggleBoxMediumRevamp>
           </div>
-
-          {/* <div className="flex justify-between mb-8 2xl:mb-6">
-            {[
-              { text: "利用可能", style: " bg-[#1AB517]" },
-              { text: "利用不在", style: " bg-[#FFA500]" },
-              { text: "利用停止", style: " bg-[#ED2E2E]" },
-              { style: "bg-[#C6C3C3]", text: "利用不可" },
-            ].map((el, index) => {
-              return (
-                <div className="flex gap-x-2 items-center" key={index}>
-                  <div
-                    className={`block rounded-full p-2 h-2 w-2 ${el.style}`}
-                  ></div>
-                  <div className="text-[#7B7B7B] text-sm">{el.text}</div>
-                </div>
-              );
-            })}
-          </div>
-          <div className="mb-0 flex justify-end">
-            <div className="w-[150px]">
-              <ActionButton
-                title={intl.help_settings_addition_keep}
-                onClick={pTalkUpdate}
-              />
-            </div>
-          </div> */}
         </div>
       </div>
 
@@ -1467,11 +1442,6 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                 </div>
               </div>
               <div className="mb-4 2xl:mb-6">
-                {/* <DynamicLabel
-                  text={<a className="">&nbsp;</a>}
-                  textColor="#7B7B7B"
-                  htmlFor="vibrateOnRequestReceived"
-                /> */}
                 <div className="bg-white  md:pl-4 pl-0 rounded-lg ">
                   <ToggleBoxMedium
                     toggle={userDetailsInfo.vibrateOnRequestReceived}
@@ -1503,11 +1473,6 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                 </div>
               </div>
               <div className="mb-4 2xl:mb-6">
-                {/* <DynamicLabel
-                  text={<a className="">&nbsp;</a>}
-                  textColor="#7B7B7B"
-                  htmlFor="vibrationOnPtt"
-                /> */}
                 <div>
                   <div className="bg-white  md:pl-4 pl-0 rounded-lg">
                     <ToggleBoxMedium
@@ -2394,41 +2359,6 @@ export default function TerminalSettings({ isModal, selectedRows }) {
           <div className="w-full md:w-1/2 md:mb-12">
             <div className="mb-4 2xl:mb-6">
               <div className="bg-white mb-4 pl-4 rounded-lg">
-                {/* <ToggleBoxMedium
-                  toggle={
-                    organizationsData?.isTranscribe
-                      ? userDetailsInfo.isTranscribe
-                      : false
-                  }
-                  setToggle={(isTranscribe) => {
-                    setUserDetailsInfo({
-                      ...userDetailsInfo,
-                      ...{
-                        isTranscribe: isTranscribe,
-                      },
-                    });
-                  }}
-                  label={"文字おこし"}
-                  labelColor={"#7B7B7B"}
-                  id={"Id"}
-                  onColor={"#1E1E1E"}
-                  onHandleColor={"#00ACFF"}
-                  handleDiameter={16}
-                  uncheckedIcon={false}
-                  checkedIcon={false}
-                  boxShadow={"0px 1px 5px rgba(0, 0, 0, 0.6)"}
-                  activeBoxShadow={"0px 0px 1px 10px rgba(0, 0, 0, 0.2)"}
-                  height={10}
-                  width={27}
-                  additionalClass={" "}
-                  labelClass={
-                    "text-sm font-medium text-gray-900 dark:text-gray-300"
-                  }
-                  isDisabled={
-                    !organizationsData?.isTranscribe ||
-                    !userInfo.isRecordingSettings
-                  }
-                /> */}
                 <ToggleBoxMediumRevamp
                   isDisabled={
                     !organizationsData?.isTranscribe ||
@@ -2508,41 +2438,6 @@ export default function TerminalSettings({ isModal, selectedRows }) {
           <div className="w-full md:w-1/2 flex flex-col ">
             <div className="">
               <div className="bg-white  mb-4 pl-4 rounded-lg">
-                {/* <ToggleBoxMedium
-                  toggle={
-                    organizationsData?.isTranslate
-                      ? userDetailsInfo.simultaneousInterpretation
-                      : false
-                  }
-                  setToggle={(simultaneousInterpretation) => {
-                    setUserDetailsInfo({
-                      ...userDetailsInfo,
-                      ...{
-                        simultaneousInterpretation: simultaneousInterpretation,
-                      },
-                    });
-                  }}
-                  label={"同時通訳"}
-                  labelColor={"#7B7B7B"}
-                  id={"Id"}
-                  onColor={"#1E1E1E"}
-                  onHandleColor={"#00ACFF"}
-                  handleDiameter={16}
-                  uncheckedIcon={false}
-                  checkedIcon={false}
-                  boxShadow={"0px 1px 5px rgba(0, 0, 0, 0.6)"}
-                  activeBoxShadow={"0px 0px 1px 10px rgba(0, 0, 0, 0.2)"}
-                  height={10}
-                  width={27}
-                  additionalClass={" "}
-                  labelClass={
-                    "text-sm font-medium text-gray-900 dark:text-gray-300"
-                  }
-                  isDisabled={
-                    !organizationsData?.isTranslate ||
-                    !userInfo.isRecordingSettings
-                  }
-                /> */}
                 <ToggleBoxMediumRevamp
                   isDisabled={
                     !organizationsData?.isTranslate ||
@@ -2638,64 +2533,6 @@ export default function TerminalSettings({ isModal, selectedRows }) {
           onCloseHandler={setConfirmModal}
           modalFooter={() => {
             return (
-              // <div className=" flex justify-between">
-              //   <div>
-              //     <IconLeftBtn
-              //       text={intl.help_settings_addition_modal_cancel}
-              //       textColor={"text-white font-semibold text-sm w-full"}
-              //       py={"py-[11px]"}
-              //       px={"px-[10.5px] md:px-[17.5px]"}
-              //       bgColor={"bg-customBlue"}
-              //       textBold={true}
-              //       icon={() => {
-              //         return null;
-              //       }}
-              //       onClick={() => {
-              //         setDeleteModal(() => false);
-              //       }}
-              //     />
-              //   </div>
-              //   <div>
-              //     <IconLeftBtn
-              //       text={intl.help_settings_addition_delete}
-              //       textColor={
-              //         "text-white font-semibold text-sm w-full ml-2"
-              //       }
-              //       py={"py-[11px]"}
-              //       px={"px-[30.5px] md:px-[38.5px]"}
-              //       bgColor={"bg-customBlue"}
-              //       textBold={true}
-              //       icon={() => {
-              //         return null;
-              //       }}
-              //       onClick={deleteDevices}
-              //     />
-              //   </div>
-              // </div>
-              // <div className="flex flex-col sm:flex-row justify-center gap-4 w-full">
-              //   <Button
-              //     className="flex-1 h-[40px] text-[#19388B] border border-[#19388B] hover:bg-[#e0e7ff] focus:outline-none focus:ring-2 focus:ring-[#19388B] focus:ring-opacity-50"
-              //     onClick={() => {
-              //       setConfirmModal(false);
-              //     }}
-              //   >
-              //     {intl.help_settings_addition_modal_cancel}
-              //   </Button>
-              //   {/* <Button className="flex-1 bg-customBlue h-[40px] text-white hover:bg-[#5283B3] focus:outline-none ">
-              //     保存する
-              //   </Button> */}
-              //   <IconLeftBtn
-              //     text="保存する"
-              //     textColor={
-              //       "text-white font-semibold text-sm w-full h-[]md:w-[180px] ml-0 md:ml-2"
-              //     }
-              //     bgColor={"bg-customBlue"}
-              //     textBold={true}
-              //     icon={() => {
-              //       return null;
-              //     }}
-              //   />
-              // </div>
               <div className="flex flex-col sm:flex-row justify-center gap-4 w-full">
                 <Button
                   className="flex-1 h-[40px] text-[#19388B] border border-[#19388B] hover:bg-[#e0e7ff] focus:outline-none focus:ring-2 focus:ring-[#19388B] focus:ring-opacity-50 sm:w-[180px] w-full"
@@ -2705,16 +2542,14 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                 >
                   {intl.help_settings_addition_modal_cancel}
                 </Button>
-                {/* <Button className="flex-1 bg-customBlue h-[40px] text-white hover:bg-[#5283B3] focus:outline-none ">
-    保存する
-  </Button> */}
+
                 <IconLeftBtn
                   text="保存する"
                   textColor="text-white font-semibold text-sm w-full h-[40px] sm:w-[180px]"
                   bgColor="bg-customBlue"
                   textBold={true}
-                  onClick= {()=>{
-                    updateBulkSettings()
+                  onClick={() => {
+                    updateBulkSettings();
                   }}
                   icon={() => {
                     return null;
@@ -2770,12 +2605,12 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                     type="text"
                     for={"id"}
                     placeholder={"ファイル名"}
-                    borderRound="rounded-xl"
+                    borderRound="rounded"
                     padding="p-[10px]"
                     focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
                     border="border border-gray-300"
                     bg="bg-white"
-                    additionalClass="block w-full pl-5 text-base pr-[30px]"
+                    additionalClass="block w-full pl-5 text-base h-[40px] pr-[30px]"
                     label={"ファイル名"}
                     labelColor="#7B7B7B"
                     id={"id"}

@@ -13,6 +13,7 @@ import ViewLog from "@/components/Logs/page";
 import Other from "@/components/Other/page";
 import TerminalSettings from "@/components/TerminalSettings/page";
 import { toast, ToastContainer } from "react-toastify";
+import intl from "@/utils/locales/jp/jp.json";
 
 export default function UserDetail() {
   const [tabKey, setTabKey] = useState("1");
@@ -39,29 +40,29 @@ export default function UserDetail() {
           className="mt-4 mb-4"
           onChange={onTabChange}
         >
-          <TabPane tab="ユーザー詳細" key="1">
+          <TabPane tab={intl.user_details} key="1">
             <div>
               <UserDetails />
             </div>
           </TabPane>
-          <TabPane tab="グループ" key="2">
+          <TabPane tab={intl.tab_group_label} key="2">
             <div>
               <Group tab={tabKey} />
             </div>
           </TabPane>
-          <TabPane tab="連絡先" key="3">
+          <TabPane tab={intl.tab_contact_address} key="3">
             <div>
               <Contact tab={tabKey} />
             </div>
           </TabPane>
-          <TabPane tab="端末設定" key="4">
+          <TabPane tab={intl.user_terminal_settings} key="4">
             <TerminalSettings isModal={false} />
           </TabPane>
-          <TabPane tab="操作ログ" key="5">
+          <TabPane tab={intl.user_operation_log} key="5">
             <ViewLog tab={tabKey} />
             {/* Content for See Logs */}
           </TabPane>
-          <TabPane tab="その他" key="6">
+          <TabPane tab={intl.user_others} key="6">
             <Other />
           </TabPane>
         </Tabs>

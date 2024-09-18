@@ -102,7 +102,9 @@ export default function Devices() {
       title: "期限指定",
       dataIndex: "isToggleOn",
       render: (text, record) => (
-        <div style={{ marginLeft: "20%" }}>{text ? "あり" : "なし"}</div>
+        <div style={{ marginLeft: "20%" }}>
+          {text ? intl.devices_canbe : intl.devices_none}
+        </div>
       ),
       width: "140px",
     },
@@ -162,21 +164,7 @@ export default function Devices() {
       dataIndex: "machineDelete",
       render: (text, record) => (
         <div style={{ marginLeft: "20%" }}>
-          <p className="flex">
-            {/* <span
-               data-testid={`delete`}
-               className="ml-[25px] cursor-pointer rounded-full px-3 py-2 bg-[#EDF2F5] hover:bg-[#DCE7F0]"
-               onClick={() => {
-                 setError("");
-                 handelDelete(record);
-               }}
-               style={{
-                 pointerEvents: record.deleted ? "none" : "auto",
-               }}
-             >
-               <SectionDeleteIcon />
-             </span> */}
-          </p>
+          <p className="flex"></p>
         </div>
       ),
       width: "140px",

@@ -58,7 +58,7 @@ const schema = Yup.object().shape({
     .matches(PASSWORD_PATTERN.regex, PASSWORD_PATTERN.message),
 
   confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password"), null], "パスワードが一致しません")
+    .oneOf([Yup.ref("password"), null], intl.password_not_matched)
     .required(intl.validation_required),
 });
 
@@ -126,11 +126,11 @@ export default function UserDetails() {
       let url = exportType == 1 ? "employees/export" : "employees/qr-code";
       toast.dismiss();
       if (!csvFileName) {
-        setFileNameError("ファイル名は必須です。");
+        setFileNameError(intl.user_file_name_required);
         return;
       }
       if (!csvFileNameRegex.test(csvFileName)) {
-        setFileNameError("ファイル名を確認してください。");
+        setFileNameError(intl.user_check_file_name);
         return;
       }
       setFileNameError("");
@@ -145,19 +145,19 @@ export default function UserDetails() {
       setExportModal(() => false);
       setCsvFileName("");
       if (result?.data?.status?.code == 200) {
-        toast("エクスポートが成功しました", successToastSettings);
+        toast(intl.groups_export_success, successToastSettings);
       }
       setLoading(false);
     } catch (err) {
       setLoading(false);
-      toast("ファイルのエクスポートに失敗しました", errorToastSettings);
+      toast(intl.user_file_export_failed, errorToastSettings);
     }
   }
 
   function getExportModalFooter() {
     return (
       <IconLeftBtn
-        text={"エクスポート"}
+        text={intl.company_list_company_export_title}
         textColor={"text-white font-semibold text-[16px] w-full"}
         py={"py-[11px]"}
         px={"w-[84%]"}
@@ -249,8 +249,8 @@ export default function UserDetails() {
       setUserDetails(response);
       await dispatch(getEmployee(emp));
     } catch (error) {
-       // eslint-disable-next-line no-console
-       console.log(error);
+      // eslint-disable-next-line no-console
+      console.log(error);
       setLoading(false);
     }
   };
@@ -335,7 +335,7 @@ export default function UserDetails() {
       setLoading(false);
       setErrors((prevErrors) => ({
         ...prevErrors,
-        confirmPassword: "パスワードが一致しません",
+        confirmPassword: intl.password_not_matched,
       }));
       setTouched(() => ({
         ...touched,
@@ -389,74 +389,6 @@ export default function UserDetails() {
     Admin ? fetchOrg() : fetchData([]);
     fetchDevices();
   }, []);
-  // useEffect(() => {
-  //   /* eslint-disable no-undef*/
-  //   let hasMap = new Set();
-  //   if (!csvUploadInitiated) {
-  //     setLoading(false);
-  //     return;
-  //   }
-  //   toast.dismiss();
-  //   let scount = 0;
-  //   let ecount = 0;
-  //   let failedRowIndexes = [];
-
-  //   const subscription = gen.subscribe(csvUploadInitiated, ({ data }) => {
-  //     if (!hasMap.has(data.token)) {
-  //       hasMap.add(data.token);
-  //       setLoading(true);
-  //       let dataReceived = JSON.parse(data);
-  //       toast.dismiss();
-
-  //       if (dataReceived?.rowsInserted) {
-  //         dataReceived.rowsInserted =
-  //           (dataReceived?.rowsInserted &&
-  //             JSON.parse(dataReceived?.rowsInserted)) ||
-  //           0;
-  //         scount = scount + dataReceived?.rowsInserted;
-  //       }
-  //       if (dataReceived?.rowsFailed) {
-  //         dataReceived.rowsFailed =
-  //           dataReceived?.rowsFailed && JSON.parse(dataReceived?.rowsFailed);
-  //         ecount = ecount + dataReceived?.rowsFailed;
-  //       }
-
-  //       // get failed index
-  //       failedRowIndexes = [...failedRowIndexes, ...dataReceived.failures];
-
-  //       if (dataReceived?.currentChunk == dataReceived?.totalChunks) {
-  //         setTimeout(async () => {
-  //           setImportModal(() => !importModal);
-  //           subscription.unsubscribe();
-  //           if (ecount == 0 && scount > 0) {
-  //             toast("正常にインポートされました。", successToastSettings);
-  //             Admin ? fetchOrg() : withDeviceDetails([]);
-  //           }
-
-  //           if (ecount > 0) {
-  //             toast(
-  //               `${ecount} 行のデータインポートに失敗しました`,
-  //               errorToastSettings
-  //             );
-  //             try {
-  //               let csvLink = await api.post(currentAPI, {
-  //                 failures: failedRowIndexes,
-  //               });
-  //               setDownloadCsvLink(csvLink.data.data.failureFile);
-  //             } finally {
-  //               Admin ? fetchOrg() : withDeviceDetails([]);
-  //             }
-  //           }
-  //         }, 1500);
-  //         setLoading(false);
-  //         setCsvUploadInitiated(() => null);
-  //         setCurrentAPI(() => null);
-  //       }
-  //     }
-  //   });
-  //   setSubscriptionTrack(subscription);
-  //   return () => subscription.unsubscribe();
-  // }, [csvUploadInitiated]);
 
   const handelImport = async (file) => {
     let files;
@@ -484,13 +416,13 @@ export default function UserDetails() {
       // setCurrentAPI("employees/import");
       let result = await api.post("employees/import", payload);
       if (result.data.status.code == code.OK) {
-        toast("正常にインポートされました。", successToastSettings);
+        toast(intl.user_imported_successfully, successToastSettings);
       }
       setLoading(false);
     } catch (err) {
       setLoading(false);
       // subscriptionTrack.unsubscribe();
-      toast("インポートに失敗しました", errorToastSettings);
+      toast(intl.user_import_failed, errorToastSettings);
     }
   }
   function importIcon() {
@@ -621,92 +553,107 @@ export default function UserDetails() {
       </div>
       <div className="bg-white shadow-lg flex flex-col md:flex-row p-[24px]">
         <div className="flex flex-col  pr-0  w-full space-y-2 ">
-          <div className="text-sm font-normal">端末名</div>
+          <div className="text-sm font-normal">{intl.machineName}</div>
           <div className="text-sm font-semibold">
             {deviceName(userDetails?.device?.id) || "-"}
           </div>
 
-          <div className="text-sm font-normal">ユーザーID</div>
+          <div className="text-sm font-normal">
+            {intl.login_email_placeholder}
+          </div>
           <div className="text-sm font-semibold">
             {userDetails?.userId || "-"}
           </div>
 
-          <div className="text-sm font-normal mt-4">無線番号</div>
+          <div className="text-sm font-normal mt-4">
+            {intl.company_list_company_radioNumber}
+          </div>
           <div className="text-sm font-semibold">
             {userDetails?.radioNumber || "-"}
           </div>
 
-          <div className="text-sm font-normal">ユーザー名</div>
+          <div className="text-sm font-normal">{intl.user_name}</div>
           <div className="text-sm font-semibold">
             {userDetails?.userName || "-"}
           </div>
 
-          <div className="text-sm font-normal mt-4">ふりがな</div>
+          <div className="text-sm font-normal mt-4">{intl.furigana}</div>
           <div className="text-sm font-semibold">
             {userDetails?.furigana || "-"}
           </div>
 
-          <div className="text-sm font-normal mt-4">会社名</div>
+          <div className="text-sm font-normal mt-4">
+            {intl.form_component_company_name_label}
+          </div>
           <div className="text-sm font-semibold">
             {userDetails?.companyName || "-"}
           </div>
 
-          <div className="text-sm font-normal mt-4">指定</div>
+          <div className="text-sm font-normal mt-4">
+            {intl.user_add_specify_label}
+          </div>
           <div className="text-sm font-semibold">
             {userDetails?.designation || "-"}
           </div>
 
-          <div className="text-sm font-normal mt-4">メールアドレス</div>
+          <div className="text-sm font-normal mt-4">
+            {intl.user_email_id_label}
+          </div>
           <div className="text-sm font-semibold">
             {userDetails?.email || "-"}
           </div>
         </div>
 
         <div className="flex flex-col w-full space-y-2  ">
-          <div className="text-sm font-normal">電話番号</div>
+          <div className="text-sm font-normal">
+            {intl.user_add_telephone_number_label}
+          </div>
           <div className="text-sm font-semibold">
             {userDetails?.phone || "-"}
           </div>
 
-          <div className="text-sm font-normal mt-4">登録日時</div>
+          <div className="text-sm font-normal mt-4">
+            {intl.user_registration_date_time}
+          </div>
           <div className="text-sm font-semibold">
             {userDetails?.createdAtDate || "-"}
           </div>
 
-          <div className="text-sm font-normal mt-4">最終オンライン日時</div>
+          <div className="text-sm font-normal mt-4">
+            {intl.user_last_online_date_time}
+          </div>
           <div className="text-sm font-semibold">
             {userDetails?.appLastSeenDateTime || "-"}
           </div>
 
-          <div className="text-sm font-normal mt-4">利用開始日</div>
+          <div className="text-sm font-normal mt-4">
+            {intl.usage_start_date}
+          </div>
           <div className="text-sm font-semibold">
             {userDetails?.appLoginDateTime || "-"}
           </div>
 
-          <div className="text-sm font-normal mt-4">利用停止日</div>
+          <div className="text-sm font-normal mt-4">
+            {intl.usage_suspension_date}
+          </div>
           <div className="text-sm font-semibold">
             {userDetails?.appLogoutDateTime || "-"}
           </div>
 
-          <div className="text-sm font-normal mt-4">バージョン</div>
+          <div className="text-sm font-normal mt-4">{intl.user_version}</div>
           <div className="text-sm font-semibold">
             {userDetails?.appVersion || "-"}
           </div>
 
-          <div className="text-sm font-normal mt-4">ステータス</div>
+          <div className="text-sm font-normal mt-4">
+            {intl.form_component_status}
+          </div>
           <div className="text-sm font-semibold">
             {userDetails?.isActive ? "ON" : "OFF"}
           </div>
 
-          {/* <div className="text-sm font-normal mt-4">
-            ユーザーのアクティビティを見る権限
-          </div>
-          <div className="text-sm font-semibold">
-            {userDetails?.viewUserActivity ? "ON" : "OFF"}
-          </div> */}
-
           <div className="text-sm font-normal mt-4">
-            ユーザーのアクティビティを見る権限
+            {intl.user_is_see_user_activity}
           </div>
           <div className="text-sm font-semibold">
             {userDetails?.seeUserActivity ? "ON" : "OFF"}
@@ -754,14 +701,14 @@ export default function UserDetails() {
                   <TextPlain
                     type="text"
                     for={"id"}
-                    placeholder={"ファイル名"}
-                    borderRound="rounded-xl"
+                    placeholder={intl.user_history_settings_file_name}
+                    borderRound="rounded"
                     padding="p-[10px]"
                     focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
                     border="border border-gray-300"
                     bg="bg-white"
-                    additionalClass="block w-full pl-5 text-base pr-[30px] "
-                    label={"ファイル名"}
+                    additionalClass="block w-full pl-5 h-[40px] text-base pr-[30px] "
+                    label={intl.user_history_settings_file_name}
                     labelColor="#7B7B7B"
                     id={"id"}
                     isRequired={true}
@@ -778,8 +725,8 @@ export default function UserDetails() {
                 </div>
                 <div className="flex flex-col">
                   <DropdownMedium
-                    borderRound={"rounded-xl"}
-                    padding={"pt-[12px] pb-[12px] pr-[120px]"}
+                    borderRound={"rounded"}
+                    padding={" pr-[120px]"}
                     options={[
                       { id: 1, value: "1", label: "CSV" },
                       { id: 2, value: "2", label: "QR code" },
@@ -793,7 +740,7 @@ export default function UserDetails() {
                     }
                     bg={"bg-white"}
                     text={"text-sm"}
-                    additionalClass={"block w-full pl-5"}
+                    additionalClass={"block w-full pl-5 h-[40px]"}
                     id={"Id"}
                     labelColor={"#7B7B7B"}
                     label={"ファイルタイプ"}

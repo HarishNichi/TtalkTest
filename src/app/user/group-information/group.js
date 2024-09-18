@@ -223,11 +223,11 @@ export default function Group({
     let data;
     toast.dismiss();
     if (!csvFileName) {
-      setFileNameError("ファイル名が必要です。");
+      setFileNameError(intl.contacts_file_name_required);
       return;
     }
     if (!csvFileNameRegex.test(csvFileName)) {
-      setFileNameError("ファイル名を確認してください。");
+      setFileNameError(intl.user_check_file_name);
       return;
     }
     setFileNameError("");
@@ -240,7 +240,7 @@ export default function Group({
       };
     } else {
       if (selectedRows.length == 0) {
-        toast("レコードを選択してください", errorToastSettings);
+        toast(intl.contacts_selcet_record, errorToastSettings);
         return;
       }
       if (selectedRows.length > 0) {
@@ -409,7 +409,7 @@ export default function Group({
   const deleteGroup = async (selectedRows) => {
     toast.dismiss();
     if (selectedRows.length <= 0) {
-      toast("グループを選択してください。", errorToastSettings);
+      toast(intl.group_select, errorToastSettings);
       setDeleteModal(false);
       setDeleteModalData(false);
       return;

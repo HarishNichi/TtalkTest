@@ -404,7 +404,11 @@ export default function Login() {
       {isModalOpen && (
         <Modal
           height={308}
-          text={intl.login_forget_password_text}
+          text={
+            <div className="dark:text-black">
+              {intl.login_forget_password_text}
+            </div>
+          }
           fontSize="20"
           textColor="customBlue"
           fontWeight="600"
@@ -418,7 +422,9 @@ export default function Login() {
             </button>
           )}
         >
-          <p className="text-sm font-normal">{intl.forgot_password_message}</p>
+          <p className="text-sm dark:text-black font-normal">
+            {intl.forgot_password_message}
+          </p>
           <input
             type="email"
             name="email"

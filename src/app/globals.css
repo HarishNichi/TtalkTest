@@ -453,6 +453,8 @@ input::-webkit-calendar-picker-indicator {
   color: #85868b;
   width: "7.54px";
   height: "4.13px";
+  display: flex;
+  align-items: center;
 }
 
 .ant-modal-content {

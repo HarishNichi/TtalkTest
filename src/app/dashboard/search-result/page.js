@@ -217,7 +217,7 @@ export default function HelpSettingsList() {
     toast.dismiss();
 
     if (selectedRows.length <= 0) {
-      toast("ユーザーを選択してください。", errorToastSettings);
+      toast(intl.user_please_select_user, errorToastSettings);
       setDeleteModal(false);
       return;
     }

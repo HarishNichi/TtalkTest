@@ -75,7 +75,7 @@ export default function Contact({
         <a style={{ fontSize: "14px", fontWeight: "500" }}>{text}</a>
       ),
       align: "left",
-      width: 120
+      width: 120,
     },
   ];
   /**columns of company list and its operations ends here*/
@@ -372,7 +372,7 @@ export default function Contact({
   const deleteContact = async (selectedRows) => {
     toast.dismiss();
     if (selectedRows.length <= 0) {
-      toast("連絡先を選択してください。", {
+      toast(intl.user_contact_selectContact, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: true,
@@ -423,11 +423,11 @@ export default function Contact({
     let data;
     toast.dismiss();
     if (!csvFileName) {
-      setFileNameError("ファイル名が必要です。");
+      setFileNameError(intl.contacts_file_name_required);
       return;
     }
     if (!csvFileNameRegex.test(csvFileName)) {
-      setFileNameError("ファイル名を確認してください。");
+      setFileNameError(intl.user_check_file_name);
       return;
     }
     setFileNameError("");
@@ -441,7 +441,7 @@ export default function Contact({
       };
     } else {
       if (selectedRows.length == 0) {
-        toast("レコードを選択してください", errorToastSettings);
+        toast(intl.contacts_selcet_record, errorToastSettings);
         return;
       }
       if (selectedRows.length > 0) {
@@ -805,7 +805,7 @@ export default function Contact({
           >
             <div className="flex flex-col px-[4%]">
               <div className="flex-grow py-[90px] pt-[60px] dark:text-black">
-                {"連絡先を削除します。よろしいですか？"}
+                {intl.delete_contact}
               </div>
             </div>
           </Modal>
@@ -818,10 +818,10 @@ export default function Contact({
             textColor="#19388B"
             text={
               detailsModal
-                ? "連絡先の詳細"
+                ? intl.contact_details
                 : editModal
-                ? "連絡先の編集"
-                : "新しい連絡先を追加"
+                ? intl.edit_contacts
+                : intl.add_new_contact
             }
             onCloseHandler={onClose}
             displayEditIcon={detailsModal}

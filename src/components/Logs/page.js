@@ -28,7 +28,7 @@ dayjs.extend(customParseFormat);
 
 const companyColumns = [
   {
-    title: "通話履歴",
+    title: intl.user_logs_call_history,
     dataIndex: "callHistory",
     render: (text, record) => {
       // let call = record.isGroup ? record.groupId : record.pttNo;
@@ -45,7 +45,7 @@ const companyColumns = [
     align: "left",
   },
   {
-    title: "コールタイプ",
+    title: intl.user_logs_call_type,
     dataIndex: "callType",
     render: (text, record) => {
       return <a className="text-ellipsis">{CallType[text] || ""}</a>;
@@ -55,7 +55,7 @@ const companyColumns = [
   },
 
   {
-    title: "スターテス",
+    title: intl.company_list_company_status,
     dataIndex: "status",
     render: (text) => {
       return <a className="text-ellipsis">{CallStatus[text] || ""}</a>;
@@ -65,7 +65,7 @@ const companyColumns = [
   },
 
   {
-    title: "日付時刻",
+    title: intl.user_logs_date_time,
     dataIndex: "createdAt",
     render: (text, record) => {
       let date = (text && formatDate(text)) || "";
@@ -82,7 +82,7 @@ const companyColumns = [
   },
 ];
 
-export default function ViewLog({tab}) {
+export default function ViewLog({ tab }) {
   let [fromDate, setFromDate] = useState(null);
   let [toDate, setToDate] = useState(null);
   const Employee = useAppSelector((state) => state.employeeReducer.employee);
@@ -192,10 +192,6 @@ export default function ViewLog({tab}) {
     <>
       {loading && <LoaderOverlay />}
       <div id="view-log">
-        {/* <div className="flex justify-center mb-4 ">
-          <TitleUserCard title={intl.user_view_logo_screen_label} />
-        </div> */}
-
         <div className="w-full mx-auto mb-4">
           <div className="w-full flex gap-x-4 mb-8 px-2">
             <div className="w-1/2">
@@ -232,7 +228,7 @@ export default function ViewLog({tab}) {
                 onChange={(event, dateString) => {
                   const newToDate = dateString;
                   if (!dateString) {
-                    setToDate(null)
+                    setToDate(null);
                   }
                   // Ensure end date is greater than start date
                   if (!fromDate || newToDate >= fromDate) {
@@ -248,38 +244,30 @@ export default function ViewLog({tab}) {
             </div>
           </div>
           <div className="mb-[24px] w-full">
-              <DataTable
-                scrollHorizontal={500}
-                scrollVertical={tableHeight > 450 ? tableHeight : 450}
-                loading={loading}
-                rowSelectionFlag={false}
-                columns={companyColumns}
-                dataSource={logData}
-                onSelectRow={(tableData) => {
-                  // handleSelectRow(tableData);
-                  return tableData;
-                }}
-                defaultPaeSizeOptions={tableDefaultPageSizeOption}
-                defaultValue={1}
-                onRowClick={(row, rowIndex) => {
-                  // dispatch(addEmployee(row));
-                  // router.push("/user/details");
-                }}
-                selectAll={""}
-                setSelectAll={""}
-                setSelectedRows={""}
-                searchFlag={""}
-                deleted={""}
-                page={page}
-                setPage={setPage}
-                current={current}
-                setCurrent={setCurrent}
-              />
-            {/* {logData.length <= 0 && (
-              <div className="flex justify-center dark:text-black">
-                {intl.data_not_found}
-              </div>
-            )} */}
+            <DataTable
+              scrollHorizontal={500}
+              scrollVertical={tableHeight > 450 ? tableHeight : 450}
+              loading={loading}
+              rowSelectionFlag={false}
+              columns={companyColumns}
+              dataSource={logData}
+              onSelectRow={(tableData) => {
+                // handleSelectRow(tableData);
+                return tableData;
+              }}
+              defaultPaeSizeOptions={tableDefaultPageSizeOption}
+              defaultValue={1}
+              onRowClick={(row, rowIndex) => {}}
+              selectAll={""}
+              setSelectAll={""}
+              setSelectedRows={""}
+              searchFlag={""}
+              deleted={""}
+              page={page}
+              setPage={setPage}
+              current={current}
+              setCurrent={setCurrent}
+            />
           </div>
         </div>
       </div>

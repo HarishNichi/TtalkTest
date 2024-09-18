@@ -152,7 +152,10 @@ export default function CompanyInformation() {
   }, []);
 
   const companyDetailLinks = [
-    { title: intl.components_card_searchlist_companylist, link: "/company/list" },
+    {
+      title: intl.components_card_searchlist_companylist,
+      link: "/company/list",
+    },
     { title: organizationsData?.name, link: "/company/details" },
   ];
 

@@ -99,7 +99,9 @@ export default function CompanyList() {
             <div
               className={`rounded-[5px] cursor-pointer pt-[5px] pb-[5px] pl-[5px] pr-[5px] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-customBlue text-sm ${textColor} ${bgColor} text-center`}
             >
-              {text === true ? "有効" : "無効"}
+              {text === true
+                ? intl.form_status_valid
+                : intl.form_status_invalid}
             </div>
           </div>
         );
@@ -116,7 +118,6 @@ export default function CompanyList() {
   const [qrCodeModal, setQrCodeModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [exportModal, setExportModal] = useState(false);
-  //
   const [importModal, setImportModal] = useState(false);
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState(null);
@@ -233,17 +234,17 @@ export default function CompanyList() {
   async function exportCSVFile() {
     toast.dismiss();
     if (selectedRows.length <= 0) {
-      toast("会社を選択してください", errorToastSettings);
+      toast(intl.form_toast_message_select_company, errorToastSettings);
       setExportModal(false);
       return;
     }
     let data;
     if (!csvFileName) {
-      setFileNameError("ファイル名が必要です。");
+      setFileNameError(intl.contacts_file_name_required);
       return;
     }
     if (!csvFileNameRegex.test(csvFileName) && !/\s/.test(csvFileName)) {
-      setFileNameError("ファイル名を確認してください。");
+      setFileNameError(intl.user_check_file_name);
       return;
     }
     setFileNameError("");
@@ -264,10 +265,10 @@ export default function CompanyList() {
       setExportModal(() => false);
       setCsvFileName("");
       setLoading(false);
-      toast("エクスポートが成功しました", successToastSettings);
+      toast(intl.groups_export_success, successToastSettings);
     } catch (err) {
       setLoading(false);
-      toast("ファイルのエクスポートに失敗しました", errorToastSettings);
+      toast(intl.user_file_export_failed, errorToastSettings);
     }
   }
 
@@ -282,7 +283,7 @@ export default function CompanyList() {
     } catch (err) {
       subscriptionTrack.unsubscribe();
       setLoading(false);
-      toast("インポートに失敗しました", errorToastSettings);
+      toast(intl.user_import_failed, errorToastSettings);
     }
   }
 
@@ -391,7 +392,7 @@ export default function CompanyList() {
   const deleteOrganization = async (selectedRows) => {
     toast.dismiss();
     if (selectedRows.length <= 0) {
-      toast("会社を選択してください。", {
+      toast(intl.form_toast_message_select_company, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: true,
@@ -631,7 +632,7 @@ export default function CompanyList() {
           setFile(null);
 
           if (ecount == 0 && scount > 0) {
-            toast("正常にインポートされました。", successToastSettings);
+            toast(intl.user_imported_successfully, successToastSettings);
             subscription.unsubscribe();
             setImportModal(() => !importModal);
             fetchData();
@@ -683,22 +684,7 @@ export default function CompanyList() {
         <p style={{ textAlign: "center" }} className="px-[40px]">
           {intl.company_list_delete}
         </p>
-        {/* <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]">
-          <Button
-            key="cancel"
-            className="flex-1 text-[#214BB9] border-[#214BB9] font-semibold text-base"
-            onClick={() => setDeleteModal(false)}
-          >
-            {intl.help_settings_addition_modal_cancel}
-          </Button>
-          <Button
-            key="delete"
-            className="flex-1 bg-[#BA1818] text-white no-hover"
-            onClick={() => deleteOrganization(selectedRows)}
-          >
-            {intl.help_settings_addition_delete}
-          </Button>
-        </div> */}
+
         <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]  ">
           <Button
             key="cancel"
@@ -917,171 +903,6 @@ export default function CompanyList() {
           </form>
         )}
 
-        <div className="flex  justify-between  xl:mb-2 ">
-          {/* <div className="flex items-center">
-            <DynamicLabel
-              text={intl.company_details_company_management}
-              alignment="text-center"
-              fontSize="text-[22px]"
-              fontWeight="font-medium"
-              textColor="#000000"
-              disabled={false}
-            />
-          </div> */}
-          <div className="hidden lg:flex items-center">
-            {/* <span className="mr-2.5">
-              <IconOutlineBtn
-                text={intl.company_list_company_import}
-                textColor={"text-customBlue"}
-                textBold={true}
-                py={"xl:py-2.5 md:py-1.5 py-1.5"}
-                px={"xl:px-[32px] md:px-[33.5px] px-[33.5px]"}
-                icon={() => importIcon()}
-                borderColor={"border-customBlue"}
-                onClick={async () => {
-                  await setImportModal(() => false);
-                  await importHandler();
-                }}
-              />
-            </span> */}
-            {/* <span className="mr-2.5">
-              <IconOutlineBtn
-                text={intl.company_list_company_export_title}
-                textColor={"text-customBlue"}
-                textBold={true}
-                py={"xl:py-2.5 md:py-1.5 py-1.5"}
-                px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
-                icon={() => exportIcon()}
-                borderColor={"border-customBlue"}
-                onClick={() => {
-                  // check selected row
-                  toast.dismiss();
-                  if (selectedRows.length <= 0) {
-                    toast("会社を選択してください。", {
-                      position: "top-right",
-                      autoClose: 5000,
-                      hideProgressBar: true,
-                      closeOnClick: true,
-                      pauseOnHover: true,
-                      draggable: true,
-                      theme: "colored",
-                      type: "error",
-                    });
-                    setExportModal(() => false);
-                    return;
-                  }
-                  setExportModal(() => true);
-                }}
-              />
-            </span> */}
-            {/* <span className="mr-2.5">
-              <IconOutlineBtn
-                text={intl.company_details_company_add}
-                textColor={"text-customBlue"}
-                textBold={true}
-                py={"xl:py-2.5 md:py-1.5 py-1.5"}
-                px={"xl:px-[32.5px] md:px-[22.5px] px-[22.5px]"}
-                icon={() => editIcon()}
-                borderColor={"border-customBlue"}
-                onClick={() => {
-                  setIsModalOpen(true);
-                  //router.push("/company/add");
-                }}
-              />
-            </span> */}
-            {/* <span>
-              <span>
-                <IconBtn
-                  bg={"bg"}
-                  textColor={"text-white"}
-                  textBold={true}
-                  icon={() => deleteIcon(false)}
-                  onClick={() => {
-                    if (selectedRows.length <= 0) {
-                      toast("会社を選択してください。", {
-                        position: "top-right",
-                        autoClose: 5000,
-                        hideProgressBar: true,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        theme: "colored",
-                        type: "error",
-                      });
-                      setDeleteModal(false);
-                      return;
-                    }
-                    setDeleteModal(() => true);
-                  }}
-                />
-              </span>
-            </span> */}
-          </div>
-          {/* <div className=" lg:hidden flex">
-            <span className="mr-2.5">
-              <IconBtn
-                textColor={"text-white"}
-                textBold={true}
-                icon={() => importIcon()}
-                onClick={async () => {
-                  await setImportModal(() => false);
-                  await importHandler();
-                }}
-                bg="bg-transparent"
-              />
-            </span>
-            <span className="mr-2.5">
-              <IconBtn
-                textColor={"text-white"}
-                textBold={true}
-                icon={() => exportIcon()}
-                bg="bg-transparent"
-                onClick={() => {
-                  setExportModal(() => true);
-                }}
-              />
-            </span>
-            <span className="mr-2.5">
-              <IconBtn
-                textColor={"text-white"}
-                textBold={true}
-                icon={() => editIcon()}
-                additionalClass={"py-[8.5px] px-[8.5px]"}
-                bg="bg-transparent"
-                onClick={() => {
-                  // router.push("/company/add");
-                  setIsModalOpen(true);
-                }}
-              />
-            </span>
-            <span>
-              <IconBtn
-                textColor={"text-white"}
-                textBold={true}
-                icon={() => deleteIcon(false)}
-                additionalClass={"py-[7px] px-[8.5px]"}
-                bg="bg-transparent"
-                onClick={() => {
-                  if (selectedRows.length <= 0) {
-                    toast("会社を選択してください。", {
-                      position: "top-right",
-                      autoClose: 5000,
-                      hideProgressBar: true,
-                      closeOnClick: true,
-                      pauseOnHover: true,
-                      draggable: true,
-                      theme: "colored",
-                      type: "error",
-                    });
-                    setDeleteModal(false);
-                    return;
-                  }
-                  setDeleteModal(() => true);
-                }}
-              />
-            </span>
-          </div> */}
-        </div>
         <div className="mb-[16px] flex items-center">
           <label
             key={"selectAll"}
@@ -1097,7 +918,7 @@ export default function CompanyList() {
                 setSelectAll(evt.target.checked);
               }}
             />
-            <span className="ml-1"> {"すべて選択"}</span>
+            <span className="ml-1"> {intl.user_selectAll}</span>
           </label>
         </div>
         <div className=" relative" style={{ width: "100%" }}>
@@ -1149,7 +970,7 @@ export default function CompanyList() {
                   // check selected row
                   toast.dismiss();
                   if (selectedRows.length <= 0) {
-                    toast("会社を選択してください。", {
+                    toast(intl.form_toast_message_select_company, {
                       position: "top-right",
                       autoClose: 5000,
                       hideProgressBar: true,
@@ -1178,7 +999,7 @@ export default function CompanyList() {
                   // check selected row
                   toast.dismiss();
                   if (selectedRows.length <= 0) {
-                    toast("会社を選択してください。", {
+                    toast(intl.form_toast_message_select_company, {
                       position: "top-right",
                       autoClose: 5000,
                       hideProgressBar: true,
@@ -1197,22 +1018,6 @@ export default function CompanyList() {
             </div>
           </div>
         )}
-
-        {/* // <Modal
-          //   height="412px"
-          //   fontSize="text-xl"
-          //   fontWeight="font-semibold"
-          //   textColor="#19388B"
-          //   text={intl.help_settings_addition_delete}
-          //   onCloseHandler={setDeleteModal}
-          //   modalFooter={getDeleteModalFooter}
-          // >
-          //   <div className="flex flex-col">
-          //     <div className="flex-grow py-[50px] pt-[50px] px-6 dark:text-black">
-          //       {intl.company_list_company_delete}
-          //     </div>
-          //   </div>
-          // </Modal> */}
 
         {exportModal && (
           <Modal
@@ -1284,9 +1089,6 @@ export default function CompanyList() {
           <AntModal
             open={isModalOpen}
             footer={null}
-            // fontSize="20"
-            // textColor="customBlue"
-            // fontWeight="600"
             onCancel={handleCloseModal}
           >
             <div className="flex flex-col">
