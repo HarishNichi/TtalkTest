@@ -102,7 +102,6 @@ export default function ImportModal({
   };
 
   return (
-    <div className="flex direction-column">
       <AntModal
               title={
                 <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
@@ -112,7 +111,7 @@ export default function ImportModal({
               open={true}
               width={385}
               onCancel={onCloseHandler}
-              
+              centered
               footer={(_) => (
                 <>
                   <div className="flex justify-center mb-[32px]">
@@ -158,6 +157,5 @@ export default function ImportModal({
           </div>
         </div>
       </AntModal>
-    </div>
   );
 }
