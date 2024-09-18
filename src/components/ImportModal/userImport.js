@@ -7,6 +7,7 @@ import ProgressBar from "./plainProgressBar";
 import IconLeftBtn from "../Button/iconLeftBtn";
 import intl from "../../utils/locales/jp/jp.json";
 import { sampleLinks } from "@/utils/constant";
+import { Modal as AntModal } from "antd";
 export default function ImportUserModal(props) {
   const [empFile, setEmpFile] = useState(null);
   const [bulkFile, setBulkFile] = useState(null);
@@ -52,7 +53,7 @@ export default function ImportUserModal(props) {
     return (
       <IconLeftBtn
         text={intl.company_list_company_import}
-        textColor={"text-white font-semibold text-[16px]"}
+        textColor={"text-white font-semibold text-[16px] mb-[32px]"}
         py={"py-2.5"}
         px={"w-[100%] md:w-[85%]"}
         bgColor={"bg-customBlue"}
@@ -75,14 +76,30 @@ export default function ImportUserModal(props) {
 
   return (
     <>
-      <div className="flex direction-column">
-        <Modal
-          fontSize="text-xl"
-          fontWeight="font-semibold"
-          textColor="#19388B"
-          text={intl.company_list_company_import}
-          modalFooter={modelFooter}
-        >
+
+
+           <AntModal
+              title={
+                <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+                  {intl.company_list_company_import}
+                </div>
+              }
+              open={true}
+              width={385}
+              onCancel={()=>{
+                let { modelToggle, onCloseHandler } = props;
+                onCloseHandler(() => !modelToggle);
+              }}
+              centered
+              footer={(_) => (
+                <>
+                  <div className="flex justify-center">
+                    {modelFooter()}
+                    </div>
+                </>
+              )}
+            >
+          
           <div className="flex flex-col">
             <div data-testid="file-upload" className="md:px-[32px]">
               <FileUpload
@@ -123,8 +140,7 @@ export default function ImportUserModal(props) {
               )}
             </div>
           </div>
-        </Modal>
-      </div>
+        </AntModal>
     </>
   );
 }

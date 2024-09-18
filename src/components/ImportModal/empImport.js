@@ -7,6 +7,7 @@ import ProgressBar from "./plainProgressBar";
 import IconLeftBtn from "../Button/iconLeftBtn";
 import intl from "../../utils/locales/jp/jp.json";
 import { sampleLinks } from "@/utils/constant";
+import { Modal as AntModal } from "antd";
 export default function ImportModal(props) {
   const [empFile, setEmpFile] = useState(null);
   const [bulkFile, setBulkFile] = useState(null);
@@ -65,7 +66,7 @@ export default function ImportModal(props) {
     return (
       <IconLeftBtn
         text={intl.company_list_company_import}
-        textColor={"text-white font-semibold text-[16px]"}
+        textColor={"text-white font-semibold text-[16px] mb-[32px]"}
         py={"py-2.5"}
         px={"w-[100%] md:w-[85%]"}
         bgColor={"bg-customBlue"}
@@ -128,14 +129,27 @@ export default function ImportModal(props) {
   };
   return (
     <>
-      <div className="flex direction-column">
-        <Modal
-          fontSize="text-xl"
-          fontWeight="font-semibold"
-          textColor="#19388B"
-          text={intl.company_list_company_import}
-          modalFooter={modelFooter}
-        >
+      <AntModal
+              title={
+                <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+                  {intl.company_list_company_import}
+                </div>
+              }
+              open={true}
+              width={385}
+              onCancel={()=>{
+                let { modelToggle, onCloseHandler } = props;
+                onCloseHandler(() => !modelToggle);
+              }}
+              centered
+              footer={(_) => (
+                <>
+                  <div className="flex justify-center">
+                    {modelFooter()}
+                    </div>
+                </>
+              )}
+            >
           <div className="flex flex-col">
             <div className="mb-6 md:px-[32px]">
               <div
@@ -313,8 +327,7 @@ export default function ImportModal(props) {
               )}
             </div>
           </div>
-        </Modal>
-      </div>
+        </AntModal>
     </>
   );
 }
