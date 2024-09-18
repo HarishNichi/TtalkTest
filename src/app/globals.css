@@ -453,6 +453,7 @@ input::-webkit-calendar-picker-indicator {
   color: #85868b;
   width: "7.54px";
   height: "4.13px";
+  margin-bottom: 2px;
   display: flex;
   align-items: center;
 }
@@ -588,4 +589,8 @@ select {
 
 .ant-modal-close-icon {
   color: #0d0e11 !important;
+}
+
+.ant-table-wrapper .ant-table-tbody >tr >td {
+  border-bottom: 1px solid #E7E7E9;
 }
