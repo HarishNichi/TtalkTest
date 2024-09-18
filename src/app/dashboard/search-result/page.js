@@ -307,7 +307,6 @@ export default function HelpSettingsList() {
       title: intl.company_list_company_status,
       dataIndex: "isActive",
       render: (text, record) => {
-        console.log(text, record);
         let bg = text ? "bg-customBlue" : "bg-white";
         let textClass = text ? "text-white" : "text-customBlue";
         return (
@@ -589,6 +588,7 @@ export default function HelpSettingsList() {
             rowSelectionFlag
             columns={columns}
             dataSource={employeeDataList}
+            rowClassName={(record) => ( !record.isActive ? 'bg-gray-100 text-gray-400 pointer-events-none' : '')}
             onSelectRow={(tableData) => {
               handleSelectRow(tableData);
               return tableData;
