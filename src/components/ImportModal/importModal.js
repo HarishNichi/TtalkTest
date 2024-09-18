@@ -123,15 +123,6 @@ export default function ImportModal({
                 </>
               )}
             >
-      {/* <Modal
-        fontSize="text-xl"
-        fontWeight="font-semibold"
-        textColor="#19388B"
-        text={intl.company_list_company_import}
-        file={file}
-        modalFooter={modelFooter}
-        onCloseHandler={onCloseHandler}
-      > */}
         <div className="flex flex-col">
           {/* File upload component */}
           <div data-testid="file-upload" className="mb-6 md:px-[32px]">

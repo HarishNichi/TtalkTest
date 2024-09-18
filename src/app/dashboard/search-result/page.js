@@ -427,20 +427,22 @@ export default function HelpSettingsList() {
 
   function getExportModalFooter() {
     return (
-      <IconLeftBtn
-        text={intl.company_list_company_export_title}
-        textColor={"text-white font-semibold text-[16px] w-full"}
-        py={"py-[11px]"}
-        px={"w-[84%]"}
-        bgColor={"bg-customBlue"}
-        textBold={true}
-        icon={() => {
-          return null;
-        }}
-        onClick={() => {
-          exportCSVFile();
-        }}
-      />
+      <div className="px-[40px] pb-[40px]">
+        <IconLeftBtn
+          text={intl.company_list_company_export_title}
+          textColor={"text-white font-semibold text-[16px] w-full"}
+          py={"py-[11px]"}
+          px={"w-[84%]"}
+          bgColor={"bg-customBlue"}
+          textBold={true}
+          icon={() => {
+            return null;
+          }}
+          onClick={() => {
+            exportCSVFile();
+          }}
+        />
+      </div>
     );
   }
 
@@ -677,7 +679,7 @@ export default function HelpSettingsList() {
         {deleteModal && (
           <AntModal
             title={
-              <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+              <div className="px-[40px] pt-[25px] mb-[2vw] font-semibold text-xl text-customBlue text-center">
                 {intl.user_delete_modal}
               </div>
             }
@@ -687,8 +689,12 @@ export default function HelpSettingsList() {
               setDeleteModal(false);
             }}
             footer={null}
+            centered={true}
           >
-            <p style={{ textAlign: "center" }} className="px-[40px]">
+            <p
+              style={{ textAlign: "center" }}
+              className="px-[40px] font-normal text-base"
+            >
               {intl.user_modal_content}
             </p>
 
@@ -712,25 +718,24 @@ export default function HelpSettingsList() {
           </AntModal>
         )}
         {exportModal && (
-          <Modal
-            height="500px"
-            fontSize="text-xl"
-            fontWeight="font-semibold"
-            textColor="#19388B"
-            text={intl.company_list_company_export_title}
-            contentPaddingTop="pt-1"
-            contentPadding="px-0"
-            onCloseHandler={() => {
+          <AntModal
+            width={385}
+            title={
+              <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+                {intl.company_list_company_export_title}
+              </div>
+            }
+            open={exportModal}
+            onCancel={() => {
               setExportModal(false);
-              setCsvFileName("");
-              setFileNameError("");
             }}
-            modalFooter={getExportModalFooter}
+            footer={getExportModalFooter}
+            centered={true}
           >
             <div className="flex flex-col">
               <div className="flex-grow py-[24px]">
                 <form className="grid grid-cols-1 gap-y-3">
-                  <div className="flex flex-col">
+                  <div className="flex flex-col px-[40px]">
                     <TextPlain
                       type="text"
                       for={"id"}
@@ -759,7 +764,7 @@ export default function HelpSettingsList() {
                 </form>
               </div>
             </div>
-          </Modal>
+          </AntModal>
         )}
         <a
           id={"linkCsv"}

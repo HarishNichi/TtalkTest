@@ -156,20 +156,22 @@ export default function UserDetails() {
 
   function getExportModalFooter() {
     return (
-      <IconLeftBtn
-        text={intl.company_list_company_export_title}
-        textColor={"text-white font-semibold text-[16px] w-full"}
-        py={"py-[11px]"}
-        px={"w-[84%]"}
-        bgColor={"bg-customBlue"}
-        textBold={true}
-        icon={() => {
-          return null;
-        }}
-        onClick={() => {
-          exportCSVFile();
-        }}
-      />
+      <div className="px-[40px] pb-[40px] pt-[20px]">
+        <IconLeftBtn
+          text={intl.company_list_company_export_title}
+          textColor={"text-white font-semibold text-[16px] w-full"}
+          py={"py-[11px]"}
+          px={"w-[84%]"}
+          bgColor={"bg-customBlue"}
+          textBold={true}
+          icon={() => {
+            return null;
+          }}
+          onClick={() => {
+            exportCSVFile();
+          }}
+        />
+      </div>
     );
   }
 
@@ -680,23 +682,23 @@ export default function UserDetails() {
         />
       )}
       {exportModal && (
-        <Modal
-          height="500px"
-          fontSize="text-xl"
-          fontWeight="font-semibold"
-          textColor="#19388B"
-          text={intl.company_list_company_export_title}
-          onCloseHandler={() => {
-            setFileNameError("");
+        <AntModal
+          width={385}
+          title={
+            <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+              {intl.company_list_company_export_title}
+            </div>
+          }
+          open={exportModal}
+          onCancel={() => {
             setExportModal(false);
           }}
-          contentPaddingTop="pt-1"
-          contentPadding="px-0"
-          modalFooter={getExportModalFooter}
+          footer={getExportModalFooter}
+          centered={true}
         >
           <div className="flex flex-col">
             <div className="flex-grow">
-              <form className="grid grid-cols-1 gap-y-3">
+              <form className="grid grid-cols-1 gap-y-3 px-[40px]">
                 <div className="flex flex-col">
                   <TextPlain
                     type="text"
@@ -757,7 +759,7 @@ export default function UserDetails() {
               </form>
             </div>
           </div>
-        </Modal>
+        </AntModal>
       )}
       <a
         id={"linkCsv"}

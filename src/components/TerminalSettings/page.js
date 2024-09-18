@@ -16,7 +16,7 @@ import employee from "@/redux/features/employee";
 import UserDetails from "@/components/UserDetails/page";
 import Contact from "@/components/Contacts/page";
 import * as Yup from "yup";
-
+import { Modal as AntModal } from "antd";
 import ViewLog from "@/components/Logs/page";
 import Other from "@/components/Other/page";
 import IconOutlineBtn from "../Button/iconOutlineBtn";
@@ -2564,43 +2564,112 @@ export default function TerminalSettings({ isModal, selectedRows }) {
       )}
 
       {exportModal && (
-        <Modal
-          height="500px"
-          fontSize="text-xl"
-          fontWeight="font-semibold"
-          textColor="#19388B"
-          text={intl.company_list_company_export_title}
-          onCloseHandler={() => {
-            dispatch(exportPopup(false));
-            setCsvFileName("");
-            setFileNameError("");
+        // <Modal
+        //   height="500px"
+        //   fontSize="text-xl"
+        //   fontWeight="font-semibold"
+        //   textColor="#19388B"
+        //   text={intl.company_list_company_export_title}
+        //   onCloseHandler={() => {
+        //     dispatch(exportPopup(false));
+        //     setCsvFileName("");
+        //     setFileNameError("");
+        //     setExportModal(false);
+        //   }}
+        //   contentPaddingTop="pt-1"
+        //   modalFooter={() => {
+        //     return (
+        //       <IconLeftBtn
+        //         text={"エクスポート"}
+        //         textColor={"text-white font-semibold text-[16px] w-full"}
+        //         py={"py-[11px]"}
+        //         px={"w-[84%]"}
+        //         bgColor={"bg-customBlue"}
+        //         textBold={true}
+        //         icon={() => {
+        //           return null;
+        //         }}
+        //         onClick={() => {
+        //           exportCSVFile();
+        //           setExportModal(false);
+        //         }}
+        //       />
+        //     );
+        //   }}
+        // >
+        //   <div className="flex flex-col">
+        //     <div className="flex-grow py-[20px] mb-4">
+        //       <form className="grid grid-cols-1 gap-y-3">
+        //         <div className="flex flex-col">
+        //           <TextPlain
+        //             type="text"
+        //             for={"id"}
+        //             placeholder={"ファイル名"}
+        //             borderRound="rounded"
+        //             padding="p-[10px]"
+        //             focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
+        //             border="border border-gray-300"
+        //             bg="bg-white"
+        //             additionalClass="block w-full pl-5 text-base h-[40px] pr-[30px]"
+        //             label={"ファイル名"}
+        //             labelColor="#7B7B7B"
+        //             id={"id"}
+        //             isRequired={true}
+        //             labelClass={"float-left"}
+        //             value={csvFileName}
+        //             onChange={(event) => {
+        //               setCsvFileName(event.target.value);
+        //             }}
+        //           />
+
+        //           {fileNameError && (
+        //             <div className="validation-font text-sm text-[red] text-left">
+        //               {fileNameError}
+        //             </div>
+        //           )}
+        //         </div>
+        //       </form>
+        //     </div>
+        //   </div>
+        // </Modal>
+        <AntModal
+          width={385}
+          title={
+            <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+              {intl.company_list_company_export_title}
+            </div>
+          }
+          open={exportModal}
+          onCancel={() => {
             setExportModal(false);
           }}
-          contentPaddingTop="pt-1"
-          modalFooter={() => {
+          footer={() => {
             return (
-              <IconLeftBtn
-                text={"エクスポート"}
-                textColor={"text-white font-semibold text-[16px] w-full"}
-                py={"py-[11px]"}
-                px={"w-[84%]"}
-                bgColor={"bg-customBlue"}
-                textBold={true}
-                icon={() => {
-                  return null;
-                }}
-                onClick={() => {
-                  exportCSVFile();
-                  setExportModal(false);
-                }}
-              />
+              <div className="px-[40px] pb-[40px] ">
+                <IconLeftBtn
+                  text={"エクスポート"}
+                  textColor={"text-white font-semibold text-[16px] w-full"}
+                  py={"py-[11px]"}
+                  px={"w-[84%]"}
+                  bgColor={"bg-customBlue"}
+                  textBold={true}
+                  icon={() => {
+                    return null;
+                  }}
+                  onClick={() => {
+                    exportCSVFile();
+                    setExportModal(false);
+                  }}
+                />
+              </div>
             );
           }}
+          centered={true}
         >
           <div className="flex flex-col">
             <div className="flex-grow py-[20px] mb-4">
               <form className="grid grid-cols-1 gap-y-3">
-                <div className="flex flex-col">
+                <div className="flex flex-col px-[40px]">
                   <TextPlain
                     type="text"
                     for={"id"}
@@ -2631,7 +2700,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
               </form>
             </div>
           </div>
-        </Modal>
+        </AntModal>
       )}
       {importModal && (
         <>

@@ -252,7 +252,7 @@ export default function Login() {
                   />
                 </div>
                 <div className="mt-4 text-center text-xs text-gray-500">
-                  TELENet Inc. All Rights Reserved
+                  TELENET Inc. All Rights Reserved
                 </div>
               </div>
             </div>

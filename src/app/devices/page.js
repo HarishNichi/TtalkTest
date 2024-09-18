@@ -959,7 +959,7 @@ export default function Devices() {
           {deleteModal && (
             <AntModal
               title={
-                <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+                <div className="px-[40px] pt-[25px] font-semibold text-xl mb-[2vw] text-customBlue text-center">
                   {intl.device_delete_device}
                 </div>
               }
@@ -969,6 +969,7 @@ export default function Devices() {
                 setDeleteModal(false);
               }}
               footer={null}
+              centered
             >
               <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]  ">
                 <Button

@@ -289,23 +289,25 @@ export default function CompanyList() {
 
   function getExportModalFooter() {
     return (
-      <IconLeftBtnCSV
-        type="submit"
-        text={"エクスポート"}
-        textColor={"text-white font-semibold text-[16px] h-[40px] w-full"}
-        py={"py-[11px]"}
-        px={"w-[84%]"}
-        bgColor={"bg-customBlue"}
-        textBold={true}
-        icon={() => {
-          return null;
-        }}
-        onClick={() => {
-          exportCSVFile();
-        }}
-      >
-        エクスポート
-      </IconLeftBtnCSV>
+      <div className="px-[40px] pb-[40px]">
+        <IconLeftBtnCSV
+          type="submit"
+          text={"エクスポート"}
+          textColor={"text-white font-semibold text-[16px] h-[40px] w-full"}
+          py={"py-[11px]"}
+          px={"w-[84%]"}
+          bgColor={"bg-customBlue"}
+          textBold={true}
+          icon={() => {
+            return null;
+          }}
+          onClick={() => {
+            exportCSVFile();
+          }}
+        >
+          エクスポート
+        </IconLeftBtnCSV>
+      </div>
     );
   }
 
@@ -670,7 +672,7 @@ export default function CompanyList() {
       <ToastContainer />
       <AntModal
         title={
-          <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+          <div className="px-[40px] pt-[25px] mb-[2vw] font-semibold text-xl text-customBlue text-center">
             {intl.delete_company}
           </div>
         }
@@ -680,8 +682,12 @@ export default function CompanyList() {
           setDeleteModal(false);
         }}
         footer={null}
+        centered={true}
       >
-        <p style={{ textAlign: "center" }} className="px-[40px]">
+        <p
+          style={{ textAlign: "center" }}
+          className="px-[40px] font-normal text-base"
+        >
           {intl.company_list_delete}
         </p>
 
@@ -1020,25 +1026,24 @@ export default function CompanyList() {
         )}
 
         {exportModal && (
-          <Modal
-            height="500px"
-            fontSize="text-xl"
-            fontWeight="font-semibold"
-            textColor="#19388B"
-            text={intl.company_list_company_export_title}
-            onCloseHandler={() => {
-              setExportModal();
-              setCsvFileName("");
-              setFileNameError("");
+          <AntModal
+            width={385}
+            title={
+              <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+                {intl.company_list_company_export_title}
+              </div>
+            }
+            open={exportModal}
+            onCancel={() => {
+              setExportModal(false);
             }}
-            contentPaddingTop="pt-1"
-            contentPadding="px-0"
-            modalFooter={getExportModalFooter}
+            footer={getExportModalFooter}
+            centered={true}
           >
             <div className="flex flex-col">
               <div className="flex-grow py-[27px]">
                 <form className="grid grid-cols-1 gap-y-3">
-                  <div className="flex flex-col">
+                  <div className="flex flex-col px-[40px]">
                     <TextPlain
                       type="text"
                       for={"id"}
@@ -1068,7 +1073,7 @@ export default function CompanyList() {
                 </form>
               </div>
             </div>
-          </Modal>
+          </AntModal>
         )}
         {importModal && (
           <ImportModal

@@ -137,7 +137,7 @@ const Modal = ({
               aria-hidden="true"
               className="fixed top-0 left-0 right-0 z-50  w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
             >
-              <div className="relative w-full max-w-2xl max-h-full">
+              <div className="relative w-full max-w-2xl max-h-full flex justify-center items-center">
                 {/* <!-- Modal content --> */}
                 <div className="relative bg-white rounded-lg shadow w-full 1sm:w-1/2 2sm:w-2/3 md:w-3/5 mt-[12vw] md:mt-[12vw]">
                   {/* <!-- Modal header --> */}

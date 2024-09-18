@@ -362,6 +362,7 @@ export default function CompanyInformation() {
           visible={isModalVisible}
           onCancel={handleModalClose}
           footer={null}
+          className="my-[70px]"
         >
           <div className="flex justify-center h-[150px]">
             {organizationsData && (
@@ -396,7 +397,7 @@ export default function CompanyInformation() {
 
         <AntModal
           title={
-            <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+            <div className="px-[40px] font-semibold text-xl pt-[25px] mb-[2vw] text-customBlue text-center">
               {intl.delete_company}
             </div>
           }
@@ -404,10 +405,12 @@ export default function CompanyInformation() {
           open={isDeleteModalVisible}
           onCancel={handleDeleteCancel}
           footer={[null]}
+          centered={true}
+          className="my-[70px]"
         >
           <div
             style={{ textAlign: "center" }}
-            className="px-[40px] text-[16px] font-normal"
+            className="px-[40px] text-[16px] font-normal font-normal text-base"
           >
             {intl.company_list_delete}
           </div>

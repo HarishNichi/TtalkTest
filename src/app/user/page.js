@@ -617,20 +617,22 @@ export default function UserList() {
 
   function getExportModalFooter() {
     return (
-      <IconLeftBtn
-        text={intl.company_list_company_export_title}
-        textColor={"text-white font-semibold text-[16px] w-full"}
-        py={"py-[11px]"}
-        px={"w-[84%]"}
-        bgColor={"bg-customBlue"}
-        textBold={true}
-        icon={() => {
-          return null;
-        }}
-        onClick={() => {
-          exportCSVFile();
-        }}
-      />
+      <div className="px-[40px] pt-[20px] pb-[40px]">
+        <IconLeftBtn
+          text={intl.company_list_company_export_title}
+          textColor={"text-white font-semibold text-[16px] w-full"}
+          py={"py-[11px]"}
+          px={"w-[84%]"}
+          bgColor={"bg-customBlue"}
+          textBold={true}
+          icon={() => {
+            return null;
+          }}
+          onClick={() => {
+            exportCSVFile();
+          }}
+        />
+      </div>
     );
   }
   function getQrModalFooter() {
@@ -1996,23 +1998,23 @@ export default function UserList() {
         )}
 
         {exportModal && (
-          <Modal
-            height="500px"
-            fontSize="text-xl"
-            fontWeight="font-semibold"
-            textColor="#19388B"
-            text={intl.company_list_company_export_title}
-            onCloseHandler={() => {
-              setFileNameError("");
+          <AntModal
+            width={385}
+            title={
+              <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+                {intl.company_list_company_export_title}
+              </div>
+            }
+            open={exportModal}
+            onCancel={() => {
               setExportModal(false);
             }}
-            contentPaddingTop="pt-1"
-            contentPadding="px-0"
-            modalFooter={getExportModalFooter}
+            footer={getExportModalFooter}
+            centered={true}
           >
             <div className="flex flex-col">
               <div className="flex-grow">
-                <form className="grid grid-cols-1 gap-y-3">
+                <form className="grid grid-cols-1 gap-y-3 px-[40px]">
                   <div className="flex flex-col">
                     <TextPlain
                       type="text"
@@ -2039,7 +2041,7 @@ export default function UserList() {
                       </div>
                     )}
                   </div>
-                  <div className="flex flex-col">
+                  <div className="flex flex-col ">
                     <DropdownMedium
                       borderRound={"rounded"}
                       padding={" pr-[120px]"}
@@ -2073,7 +2075,7 @@ export default function UserList() {
                 </form>
               </div>
             </div>
-          </Modal>
+          </AntModal>
         )}
         {isModalOpen && (
           <AntModal
@@ -2106,7 +2108,7 @@ export default function UserList() {
         {deleteModal && (
           <AntModal
             title={
-              <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+              <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue font-semibold text-xl text-center">
                 {intl.user_delete_modal}
               </div>
             }
@@ -2116,8 +2118,12 @@ export default function UserList() {
               setDeleteModal(false);
             }}
             footer={null}
+            centered
           >
-            <p style={{ textAlign: "center" }} className="px-[40px]">
+            <p
+              style={{ textAlign: "center" }}
+              className="px-[40px] font-normal text-base"
+            >
               {intl.user_modal_content}
             </p>
 

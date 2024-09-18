@@ -605,7 +605,7 @@ export default function HelpSettingsList() {
           {deleteModal && (
             <AntModal
               title={
-                <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+                <div className="px-[40px] pt-[25px] mb-[2vw] font-semibold text-xl text-customBlue text-center">
                   {intl.help_settings_delete_help_category}
                 </div>
               }
@@ -615,8 +615,12 @@ export default function HelpSettingsList() {
                 setDeleteModal(false);
               }}
               footer={null}
+              centered
             >
-              <p style={{ textAlign: "center" }} className="px-[40px]">
+              <p
+                style={{ textAlign: "center" }}
+                className="px-[40px] font-normal text-base"
+              >
                 {intl.help_settings_help_items_deleted}
               </p>
 
