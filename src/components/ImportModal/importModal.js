@@ -77,7 +77,7 @@ export default function ImportModal({
     return (
       <IconLeftBtn
         text={intl.company_list_company_import}
-        textColor={"text-white font-semibold text-[16px]"}
+        textColor={"text-white font-semibold text-[16px] mb-[32px]"}
         py={"py-2.5"}
         px={"w-[100%] md:w-[85%]"}
         bgColor={"bg-customBlue"}
@@ -87,7 +87,7 @@ export default function ImportModal({
         }}
         onClick={(event) => {
           if (!file) {
-            setFileValidationError("ファイルを選択してください。"); // Japanese: "Please select a file."
+            setFileValidationError(intl.file_upload_select_file); // Japanese: "Please select a file."
             return;
           }
           !fileValidationError &&
@@ -110,11 +110,13 @@ export default function ImportModal({
               }
               open={true}
               width={385}
-              onCancel={onCloseHandler}
+              onCancel={()=>{
+                onCloseHandler();
+              }}
               centered
               footer={(_) => (
                 <>
-                  <div className="flex justify-center mb-[32px]">
+                  <div className="flex justify-center">
                     {modelFooter()}
                     </div>
                 </>
