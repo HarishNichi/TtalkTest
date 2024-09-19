@@ -364,6 +364,7 @@ export default function CompanyInformation() {
           footer={null}
           centered
           className="my-[70px]"
+          width={520}
         >
           <div className="flex justify-center h-[150px]">
             {organizationsData && (

@@ -531,8 +531,8 @@ export default function HelpSettingsList() {
                 </div>
               }
               open={editModal || addModal}
-              onCancel={()=>{
-                onClose()
+              onCancel={() => {
+                onClose();
               }}
               footer={() => {
                 return (

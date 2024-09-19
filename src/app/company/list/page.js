@@ -1099,6 +1099,7 @@ export default function CompanyList() {
             onCancel={handleCloseModal}
             centered
             className="my-[70px]"
+            width={520}
           >
             <div className="flex flex-col">
               <AddUser

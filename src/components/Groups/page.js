@@ -1230,7 +1230,7 @@ export default function Group({ children, tab }) {
       {deleteModal && (
         <AntModal
           title={
-            <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+            <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue font-semibold text-xl text-center">
               {intl.help_settings_addition_delete}
             </div>
           }
@@ -1243,7 +1243,7 @@ export default function Group({ children, tab }) {
           centered
           className="my-[70px]"
         >
-          <p style={{ textAlign: "center" }} className="">
+          <p style={{ textAlign: "center" }} className="font-normal text-base">
             {intl.user_group_delete}
           </p>
 
@@ -1268,71 +1268,6 @@ export default function Group({ children, tab }) {
         </AntModal>
       )}
       {exportModal && (
-        // <Modal
-        //   height="500px"
-        //   fontSize="text-xl"
-        //   fontWeight="font-semibold"
-        //   textColor="#19388B"
-        //   text={intl.company_list_company_export_title}
-        //   onCloseHandler={() => {
-        //     setExportModal();
-        //     setCsvFileName("");
-        //     setFileNameError("");
-        //   }}
-        //   contentPaddingTop="pt-1"
-        //   modalFooter={() => {
-        //     return (
-        //       <IconLeftBtn
-        //         text={intl.company_list_company_export_title}
-        //         textColor={"text-white font-semibold text-[16px] w-full"}
-        //         py={"py-[11px]"}
-        //         px={"w-[84%]"}
-        //         bgColor={"bg-customBlue"}
-        //         textBold={true}
-        //         icon={() => {
-        //           return null;
-        //         }}
-        //         onClick={() => {
-        //           exportCSVFile();
-        //         }}
-        //       />
-        //     );
-        //   }}
-        // >
-        //   <div className="flex flex-col">
-        //     <div className="flex-grow py-[20px] mb-4">
-        //       <form className="grid grid-cols-1 gap-y-3">
-        //         <div className="flex flex-col">
-        //           <TextPlain
-        //             type="text"
-        //             for={"id"}
-        //             placeholder={intl.user_history_settings_file_name}
-        //             borderRound="rounded-xl"
-        //             padding="p-[10px]"
-        //             focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
-        //             border="border border-gray-300"
-        //             bg="bg-white"
-        //             additionalClass="block w-full pl-5 text-base pr-[30px]"
-        //             label={intl.user_history_settings_file_name}
-        //             labelColor="#7B7B7B"
-        //             id={"id"}
-        //             isRequired={true}
-        //             labelClass={"float-left"}
-        //             value={csvFileName}
-        //             onChange={(event) => {
-        //               setCsvFileName(event.target.value);
-        //             }}
-        //           />
-        //           {fileNameError && (
-        //             <div className="validation-font text-sm text-[red] text-left">
-        //               {fileNameError}
-        //             </div>
-        //           )}
-        //         </div>
-        //       </form>
-        //     </div>
-        //   </div>
-        // </Modal>
         <AntModal
           width={385}
           title={

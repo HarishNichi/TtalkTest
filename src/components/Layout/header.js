@@ -287,15 +287,6 @@ export default function Header({
                     >
                       {!Admin && (
                         <li>
-                          {/* <Link
-                            href="/update-password"
-                            className="block px-4 py-2 hover:text-link border-b  border-[#E7E7E9]"
-                            onClick={() => {
-                              setIsResetModal(true);
-                            }}
-                          >
-                            パスワードリセット
-                          </Link> */}
                           <p
                             className="block px-4 py-2 hover:text-link  cursor-pointer"
                             onClick={() => {
@@ -393,10 +384,6 @@ export default function Header({
         onCancel={handleCloseModal}
       >
         <div className="flex flex-col">
-          {/* <AddUser
-            setIsModalOpen={setIsModalOpen}
-            setComCreated={setComCreated}
-          /> */}
           <UpdatePassword setIsResetModal={setIsResetModal} />
         </div>
       </AntModal>

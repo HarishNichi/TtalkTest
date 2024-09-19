@@ -409,7 +409,7 @@ export default function Login() {
               {intl.login_forget_password_text}
             </div>
           }
-          width={500}
+          width={400}
           open={isModalOpen}
           onCancel={() => {
             setIsModalOpen(false);

@@ -793,23 +793,21 @@ export default function Contact({ children, tab }) {
             }}
             footer={() => {
               return (
-                <div className="px-[40px] pb-[32x] pt-[20px]">
-                  
-                
-                <IconLeftBtn
-                  text={"エクスポート"}
-                  textColor={"text-white font-semibold text-[16px] w-full"}
-                  py={"py-[11px]"}
-                  px={"w-[84%]"}
-                  bgColor={"bg-customBlue"}
-                  textBold={true}
-                  icon={() => {
-                    return null;
-                  }}
-                  onClick={() => {
-                    exportCSVFile();
-                  }}
-                />
+                <div className="px-[40px] pb-[32px] pt-[20px]">
+                  <IconLeftBtn
+                    text={"エクスポート"}
+                    textColor={"text-white font-semibold text-[16px] w-full"}
+                    py={"py-[11px]"}
+                    px={"w-[84%]"}
+                    bgColor={"bg-customBlue"}
+                    textBold={true}
+                    icon={() => {
+                      return null;
+                    }}
+                    onClick={() => {
+                      exportCSVFile();
+                    }}
+                  />
                 </div>
               );
             }}
@@ -824,7 +822,7 @@ export default function Contact({ children, tab }) {
                       type="text"
                       for={"id"}
                       placeholder={"ファイル名"}
-                      borderRound="rounded-xl"
+                      borderRound="rounded"
                       padding="p-[10px]"
                       focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
                       border="border border-gray-300"
@@ -930,7 +928,7 @@ export default function Contact({ children, tab }) {
         {deleteModal && (
           <AntModal
             title={
-              <div className="px-[40px] pt-[40px] mb-[2vw] text-customBlue text-center">
+              <div className="px-[40px] pt-[40px] mb-[2vw] text-customBlue font-semibold text-xl text-center">
                 {intl.help_settings_addition_delete}
               </div>
             }
@@ -941,7 +939,10 @@ export default function Contact({ children, tab }) {
             }}
             footer={null}
           >
-            <p style={{ textAlign: "center" }} className="px-[40px]">
+            <p
+              style={{ textAlign: "center" }}
+              className="px-[40px] font-normal text-base"
+            >
               {intl.delete_contact}
             </p>
 
