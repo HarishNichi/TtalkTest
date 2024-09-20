@@ -163,10 +163,10 @@ export default function Group({ children, tab }) {
   const [deleted, setDeleted] = React.useState(false);
   const [checked, setChecked] = React.useState(undefined);
   const [tableHeight, setTableHeight] = React.useState(450);
-  const [csvFileName, setCsvFileName] = React.useState("");
+  const [csvFileName, setCsvFileName] = useState("");
   const [downloadCsvLink, setDownloadCsvLink] = React.useState(null);
   const [fileValidationError, setFileValidationError] = React.useState(null);
-  const [fileNameError, setFileNameError] = React.useState(null);
+  const [fileNameError, setFileNameError] = useState(null);
   const [csvUploadInitiated, setCsvUploadInitiated] = React.useState(null);
   const [subscriptionTrack, setSubscriptionTrack] = React.useState(null);
   const [detachContactFromGrp, setDetachContactFromGrp] = useState([]);
@@ -1257,7 +1257,7 @@ export default function Group({ children, tab }) {
             </Button>
             <Button
               key="delete"
-              className="sm:flex-1 w-full sm:w-auto bg-[#BA1818] h-[40px] text-white no-hover"
+              className="sm:flex-1 w-full sm:w-auto bg-[#BA1818] font-semibold h-[40px] text-base text-white no-hover"
               onClick={() => {
                 deleteGroup(selectedRows);
               }}
@@ -1277,9 +1277,9 @@ export default function Group({ children, tab }) {
           }
           open={true}
           onCancel={() => {
-            setExportModal();
-            setCsvFileName("");
-            setFileNameError("");
+            setExportModal(false); // Properly close the modal
+            setCsvFileName(""); // Clear the file name field
+            setFileNameError(""); // Clear the validation error
           }}
           footer={() => {
             return (
@@ -1359,7 +1359,10 @@ export default function Group({ children, tab }) {
         <>
           <ImportModal
             modelToggle={importModal}
-            onCloseHandler={setImportModal}
+            onCloseHandler={() => {
+              setImportModal(false);
+              setFileValidationError("");
+            }}
             file={file}
             setFile={setFile}
             fileName={fileName}

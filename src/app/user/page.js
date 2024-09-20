@@ -266,7 +266,7 @@ export default function UserList() {
             <div>{roundStatus}</div>
             <div style={{ width: "105px" }}>
               <div
-                className={`rounded-[5px] cursor-pointer  pt-[5px] pb-[5px] pl-[5px]  focus:outline-none focus:ring-2 focus:ring-customBlue text-sm text-black block w-full  text-center
+                className={`rounded-[5px] cursor-pointer  pt-[5px] pb-[5px] pl-[5px]  focus:outline-none focus:ring-2 focus:ring-customBlue text-[16px] text-black block w-full  text-center
             `}
               >
                 {text ? intl.user_online : intl.user_offline}
@@ -2008,6 +2008,8 @@ export default function UserList() {
             open={exportModal}
             onCancel={() => {
               setExportModal(false);
+              setCsvFileName("");
+              setFileNameError("");
             }}
             footer={getExportModalFooter}
             centered={true}
@@ -2140,7 +2142,7 @@ export default function UserList() {
               </Button>
               <Button
                 key="delete"
-                className="sm:flex-1 w-full sm:w-auto bg-[#BA1818] h-[40px] text-white no-hover"
+                className="sm:flex-1 w-full sm:w-auto bg-[#BA1818] font-semibold h-[40px] text-base text-white no-hover"
                 onClick={() => deleteEmployee(selectedRows)}
               >
                 {intl.help_settings_addition_delete_button}(

@@ -76,72 +76,67 @@ export default function ImportUserModal(props) {
 
   return (
     <>
-
-
-           <AntModal
-              title={
-                <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
-                  {intl.company_list_company_import}
-                </div>
-              }
-              className="my-[70px]"
-              open={true}
-              width={385}
-              onCancel={()=>{
-                let { modelToggle, onCloseHandler } = props;
-                onCloseHandler(() => !modelToggle);
-              }}
-              centered
-              footer={(_) => (
-                <>
-                  <div className="flex justify-center">
-                    {modelFooter()}
-                    </div>
-                </>
-              )}
-            >
-          
-          <div className="flex flex-col">
-            <div data-testid="file-upload" className="md:px-[32px]">
-              <FileUpload
-                onFileUpload={handleFileUpload}
-                key={bulkFileName + empFileName}
-              />
-            </div>
-            {error && (
-              <div
-                className="validation-font text-sm flex justify-center mt-2"
-                style={{ color: "red" }}
-              >
-                {error}
-              </div>
-            )}
-
-            {/* Progress bar component */}
-
-            <div data-testid="progress-bar" className="mt-6 mb-3 md:px-[32px]">
-              <div>
-                <a
-                  download
-                  href={sampleLinks().userImport}
-                  className="text-xs hover:text-blue-800"
-                >
-                  サンプル.csv
-                </a>
-              </div>
-
-              {(bulkFileName || empFileName) && progressLine > 0 && (
-                <ProgressBar
-                  fileName={empFileName}
-                  percentage={progressLine}
-                  onClick={() => {
-                    handleBarClick();
-                  }}
-                />
-              )}
-            </div>
+      <AntModal
+        title={
+          <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+            {intl.company_list_company_import}
           </div>
-        </AntModal>
+        }
+        className="my-[70px]"
+        open={true}
+        width={385}
+        onCancel={() => {
+          let { modelToggle, onCloseHandler } = props;
+          onCloseHandler(() => !modelToggle);
+        }}
+        centered
+        footer={(_) => (
+          <>
+            <div className="flex justify-center px-[32px]">{modelFooter()}</div>
+          </>
+        )}
+      >
+        <div className="flex flex-col">
+          <div data-testid="file-upload" className="px-[32px]">
+            <FileUpload
+              onFileUpload={handleFileUpload}
+              key={bulkFileName + empFileName}
+            />
+          </div>
+          {error && (
+            <div
+              className="validation-font text-sm flex justify-center mt-2"
+              style={{ color: "red" }}
+            >
+              {error}
+            </div>
+          )}
+
+          {/* Progress bar component */}
+
+          <div data-testid="progress-bar" className="mt-6 mb-3 md:px-[32px]">
+            <div>
+              <a
+                download
+                href={sampleLinks().userImport}
+                className="text-xs hover:text-blue-800"
+              >
+                サンプル.csv
+              </a>
+            </div>
+
+            {(bulkFileName || empFileName) && progressLine > 0 && (
+              <ProgressBar
+                fileName={empFileName}
+                percentage={progressLine}
+                onClick={() => {
+                  handleBarClick();
+                }}
+              />
+            )}
+          </div>
+        </div>
+      </AntModal>
     </>
   );
 }

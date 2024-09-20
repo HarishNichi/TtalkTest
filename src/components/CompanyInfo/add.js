@@ -19,6 +19,7 @@ export default function AddUser({ setIsModalOpen, setComCreated }) {
   const [loading, setLoading] = useState(false);
   const [imageSource, setImageURL] = useState(null);
   const [imgError, setImgError] = useState("");
+  const [validation, setValidation] = useState(false);
   const cardStyle = {
     background: "#FFFFFF",
     boxShadow: "0px 0px 15px rgba(0, 0, 0, 0.1)",
@@ -27,11 +28,14 @@ export default function AddUser({ setIsModalOpen, setComCreated }) {
   const [isToastActive, setIsToastActive] = useState(false);
   const createOrg = async (record, name) => {
     toast.dismiss();
+    if (!imageSource) {
+      setValidation(true);
+      return;
+      // throw { message: intl.logo_cant_be_empty };
+    }
     try {
       setLoading(true);
-      if (!imageSource) {
-        throw { message: intl.logo_cant_be_empty };
-      }
+
       record.accountDetail.organization.logo = imageSource;
       delete record.accountDetail.organization.isStatus;
       await api.post(`organizations/create`, { ...record });
@@ -67,9 +71,7 @@ export default function AddUser({ setIsModalOpen, setComCreated }) {
     <>
       {loading && <LoaderOverlay />}
       <ToastContainer />
-      {/* <div className="mb-1">
-          <Breadcrumb links={companyAddLinks} />
-        </div> */}
+      
       <div className="flex flex-col flex-1 h-full pt-[40px]">
         <div className="flex  justify-center mb-2 xl:mb-2">
           <div className="flex">
@@ -82,8 +84,9 @@ export default function AddUser({ setIsModalOpen, setComCreated }) {
             />
           </div>
         </div>
-        <div className="p-[40px] flex flex-1 flex-col h-full">
-          <div className="flex justify-center">
+
+        <div className="p-[40px] pt-[32px]  flex justify-center flex-1 flex-col h-full">
+          <div className="flex  justify-center">
             <Upload
               edit={true}
               imgError={imgError}
@@ -91,17 +94,23 @@ export default function AddUser({ setIsModalOpen, setComCreated }) {
               setImgError={setImgError}
             />
           </div>
-
-          <CompanyForm
-            isCreatePage
-            isForm={true}
-            isRequired={true}
-            routerPath={router}
-            updateOrg={createOrg}
-            initialIsTranslate={false}
-            initialIsTranscribe={false}
-            initialSosLocation={false}
-          ></CompanyForm>
+          {!imageSource && validation && (
+            <div className="validation-font text-sm text-[red] text-center mt-2">
+              {intl.logo_cant_be_empty}
+            </div>
+          )}
+          <div className="pb-[32px] pt-[32px]">
+            <CompanyForm
+              isCreatePage
+              isForm={true}
+              isRequired={true}
+              routerPath={router}
+              updateOrg={createOrg}
+              initialIsTranslate={false}
+              initialIsTranscribe={false}
+              initialSosLocation={false}
+            ></CompanyForm>
+          </div>
         </div>
       </div>
     </>

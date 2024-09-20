@@ -117,13 +117,13 @@ export default function ImportModal({
       centered
       footer={(_) => (
         <>
-          <div className="flex justify-center">{modelFooter()}</div>
+          <div className="flex justify-center px-[32px]">{modelFooter()}</div>
         </>
       )}
     >
       <div className="flex flex-col">
         {/* File upload component */}
-        <div data-testid="file-upload" className="mb-6 md:px-[32px]">
+        <div data-testid="file-upload" className="mb-6 px-[32px]">
           <div className="flex justify-content-left font-normal text-base mb-2">
             ファイルを選択
           </div>
@@ -135,7 +135,7 @@ export default function ImportModal({
         </div>
 
         {/* Progress bar component */}
-        <div data-testid="progress-bar" className="mb-3 md:px-[32px]">
+        <div data-testid="progress-bar" className="mb-3 px-[32px]">
           {fileName && progressLine > 0 && (
             <ProgressBar
               key={progressLine}

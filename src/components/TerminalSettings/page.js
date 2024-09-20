@@ -2524,16 +2524,22 @@ export default function TerminalSettings({ isModal, selectedRows }) {
         </div>
       )}
       {confirmModal && (
-        <Modal
-          height="412px"
-          fontSize="text-xl"
-          fontWeight="font-semibold"
-          textColor="#19388B"
-          text="設定を保存しますか？"
-          onCloseHandler={setConfirmModal}
-          modalFooter={() => {
+        <AntModal
+          width={385}
+          title={
+            <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+              設定を保存しますか？
+            </div>
+          }
+          open={confirmModal}
+          onCancel={() => {
+            setConfirmModal(false);
+          }}
+          centered
+          className="my-[70px]"
+          footer={() => {
             return (
-              <div className="flex flex-col sm:flex-row justify-center gap-4 w-full">
+              <div className="flex flex-col sm:flex-row justify-center gap-4 w-full px-[40px] pb-[32px]">
                 <Button
                   className="flex-1 h-[40px] text-[#19388B] border border-[#19388B] hover:bg-[#e0e7ff] focus:outline-none focus:ring-2 focus:ring-[#19388B] focus:ring-opacity-50 sm:w-[180px] w-full"
                   onClick={() => {
@@ -2559,79 +2565,14 @@ export default function TerminalSettings({ isModal, selectedRows }) {
             );
           }}
         >
-          選択した{selectedRows.length}の端末に変更が反映されます
-        </Modal>
+          <div className="text-center">
+            {" "}
+            選択した{selectedRows.length}の端末に変更が反映されます
+          </div>
+        </AntModal>
       )}
 
       {exportModal && (
-        // <Modal
-        //   height="500px"
-        //   fontSize="text-xl"
-        //   fontWeight="font-semibold"
-        //   textColor="#19388B"
-        //   text={intl.company_list_company_export_title}
-        //   onCloseHandler={() => {
-        //     dispatch(exportPopup(false));
-        //     setCsvFileName("");
-        //     setFileNameError("");
-        //     setExportModal(false);
-        //   }}
-        //   contentPaddingTop="pt-1"
-        //   modalFooter={() => {
-        //     return (
-        //       <IconLeftBtn
-        //         text={"エクスポート"}
-        //         textColor={"text-white font-semibold text-[16px] w-full"}
-        //         py={"py-[11px]"}
-        //         px={"w-[84%]"}
-        //         bgColor={"bg-customBlue"}
-        //         textBold={true}
-        //         icon={() => {
-        //           return null;
-        //         }}
-        //         onClick={() => {
-        //           exportCSVFile();
-        //           setExportModal(false);
-        //         }}
-        //       />
-        //     );
-        //   }}
-        // >
-        //   <div className="flex flex-col">
-        //     <div className="flex-grow py-[20px] mb-4">
-        //       <form className="grid grid-cols-1 gap-y-3">
-        //         <div className="flex flex-col">
-        //           <TextPlain
-        //             type="text"
-        //             for={"id"}
-        //             placeholder={"ファイル名"}
-        //             borderRound="rounded"
-        //             padding="p-[10px]"
-        //             focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
-        //             border="border border-gray-300"
-        //             bg="bg-white"
-        //             additionalClass="block w-full pl-5 text-base h-[40px] pr-[30px]"
-        //             label={"ファイル名"}
-        //             labelColor="#7B7B7B"
-        //             id={"id"}
-        //             isRequired={true}
-        //             labelClass={"float-left"}
-        //             value={csvFileName}
-        //             onChange={(event) => {
-        //               setCsvFileName(event.target.value);
-        //             }}
-        //           />
-
-        //           {fileNameError && (
-        //             <div className="validation-font text-sm text-[red] text-left">
-        //               {fileNameError}
-        //             </div>
-        //           )}
-        //         </div>
-        //       </form>
-        //     </div>
-        //   </div>
-        // </Modal>
         <AntModal
           width={385}
           title={
@@ -2642,6 +2583,9 @@ export default function TerminalSettings({ isModal, selectedRows }) {
           open={exportModal}
           onCancel={() => {
             setExportModal(false);
+
+            setCsvFileName(""); // Clear the file name field
+            setFileNameError("");
           }}
           footer={() => {
             return (
@@ -2658,7 +2602,6 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                   }}
                   onClick={() => {
                     exportCSVFile();
-                    setExportModal(false);
                   }}
                 />
               </div>
@@ -2717,6 +2660,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
             onCloseHandler={() => {
               dispatch(importPopup(false));
               setImportModal(false);
+              setFileValidationError("");
             }}
             sampleLink={sampleLinks().settingsImport}
           />

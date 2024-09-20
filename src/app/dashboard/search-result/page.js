@@ -312,7 +312,7 @@ export default function HelpSettingsList() {
         return (
           <div style={{ width: "105px" }}>
             <div
-              className={`rounded-[5px] cursor-pointer  pt-[5px] pb-[5px] pl-[5px] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-customBlue text-sm ${textClass} block w-full ${bg} text-center
+              className={`rounded-[5px] cursor-pointer  pt-[5px] pb-[5px] pl-[5px] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-customBlue text-[16px] ${textClass} block w-full ${bg} text-center
             `}
             >
               {text ? intl.user_online : intl.user_offline}
@@ -588,7 +588,7 @@ export default function HelpSettingsList() {
             rowSelectionFlag
             columns={columns}
             dataSource={employeeDataList}
-            rowClassName={(record) => ( !record.isActive ? 'bg-[#F9F9FA] text-gray-400' : '')}
+            rowClassName={(record) => (!record.isActive ? "bg-[#F9F9FA]" : "")}
             onSelectRow={(tableData) => {
               handleSelectRow(tableData);
               return tableData;
@@ -709,7 +709,7 @@ export default function HelpSettingsList() {
               </Button>
               <Button
                 key="delete"
-                className="sm:flex-1 w-full sm:w-auto bg-[#BA1818] h-[40px] text-white no-hover"
+                className="sm:flex-1 w-full sm:w-auto bg-[#BA1818] font-semibold h-[40px] text-base text-white no-hover"
                 onClick={() => deleteEmployee(selectedRows)}
               >
                 {intl.help_settings_addition_delete_button}(
@@ -729,6 +729,8 @@ export default function HelpSettingsList() {
             open={exportModal}
             onCancel={() => {
               setExportModal(false);
+              setCsvFileName("");
+              setFileNameError("");
             }}
             footer={getExportModalFooter}
             centered={true}

@@ -911,7 +911,10 @@ export default function Contact({ children, tab }) {
         {importModal && (
           <ImportModal
             modelToggle={importModal}
-            onCloseHandler={setImportModal}
+            onCloseHandler={() => {
+              setImportModal(false);
+              setFileValidationError("");
+            }}
             setImportModal={setImportModal}
             file={file}
             setFile={setFile}
@@ -938,6 +941,8 @@ export default function Contact({ children, tab }) {
               setDeleteModal(false);
             }}
             footer={null}
+            centered
+            className="my-[70px]"
           >
             <p
               style={{ textAlign: "center" }}
@@ -956,7 +961,7 @@ export default function Contact({ children, tab }) {
               </Button>
               <Button
                 key="delete"
-                className="sm:flex-1 w-full sm:w-auto bg-[#BA1818] h-[40px] text-white no-hover"
+                className="sm:flex-1 w-full sm:w-auto bg-[#BA1818] text-white no-hover font-semibold h-[40px] text-base"
                 onClick={() => {
                   deleteContact(selectedRows);
                 }}

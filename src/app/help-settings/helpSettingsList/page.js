@@ -641,7 +641,7 @@ export default function HelpSettingsList() {
                 </Button>
                 <Button
                   key="delete"
-                  className="sm:flex-1 w-full sm:w-auto bg-[#BA1818] h-[40px] text-white no-hover"
+                  className="sm:flex-1 w-full sm:w-auto bg-[#BA1818] font-semibold h-[40px] text-base text-white no-hover"
                   onClick={() => {
                     deleteSection(editRecord);
                   }}

@@ -396,7 +396,7 @@ export default function Login() {
             </div>
 
             <div className="text-center font-normal text-base text-white mb-[24px]">
-              TELENET Inc. All Rights Reserved
+            TELENET.inc All Rights Reserverd
             </div>
           </div>
         </div>

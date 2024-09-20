@@ -47,8 +47,8 @@ export default function CompanyList() {
   const router = useRouter();
   const customNameStyle = {
     color: "#19388B",
-    fontWeight: "500",
-    fontSize: "14px",
+    fontWeight: "400",
+    fontSize: "16px",
   };
   const [downloadCsvLink, setDownloadCsvLink] = useState(null);
   const [comCreated, setComCreated] = useState(false);
@@ -97,7 +97,7 @@ export default function CompanyList() {
         return (
           <div style={{ width: "85px" }}>
             <div
-              className={`rounded-[5px] cursor-pointer pt-[5px] pb-[5px] pl-[5px] pr-[5px] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-customBlue text-sm ${textColor} ${bgColor} text-center`}
+              className={`rounded-[5px] cursor-pointer pt-[5px] pb-[5px] pl-[5px] pr-[5px] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-customBlue text-[16px] ${textColor} ${bgColor} text-center`}
             >
               {text === true
                 ? intl.form_status_valid
@@ -243,7 +243,8 @@ export default function CompanyList() {
       setFileNameError(intl.contacts_file_name_required);
       return;
     }
-    if (!csvFileNameRegex.test(csvFileName) && !/\s/.test(csvFileName)) {
+    if (!csvFileNameRegex.test(csvFileName) || /\s/.test(csvFileName)) {
+      console.log("hit me");
       setFileNameError(intl.user_check_file_name);
       return;
     }
@@ -702,7 +703,7 @@ export default function CompanyList() {
           </Button>
           <Button
             key="delete"
-            className="sm:flex-1 w-full sm:w-auto bg-[#BA1818] h-[40px] text-white no-hover"
+            className="sm:flex-1 w-full sm:w-auto bg-[#BA1818] font-semibold h-[40px] text-base text-white no-hover"
             onClick={() => deleteOrganization(selectedRows)}
           >
             {intl.help_settings_addition_delete_button}({selectedRows.length})
@@ -746,7 +747,7 @@ export default function CompanyList() {
         </div>
 
         <form
-          className="w-full mb-[16px]  hidden lg:flex gap-2 flex-wrap flex-shrink-0 flex-grow-0  px-2 rounded-xl  md:mx-auto md:justify-center lg:justify-normal  "
+          className="w-full mb-[16px]  hidden lg:flex gap-2 flex-wrap flex-shrink-0 flex-grow-0   rounded-xl  md:mx-auto md:justify-center lg:justify-normal  "
           onSubmit={(e) => {
             e.preventDefault();
             //searchOrganization();
@@ -1037,6 +1038,8 @@ export default function CompanyList() {
             open={exportModal}
             onCancel={() => {
               setExportModal(false);
+              setCsvFileName("");
+              setFileNameError("");
             }}
             footer={getExportModalFooter}
             centered={true}
@@ -1077,10 +1080,14 @@ export default function CompanyList() {
             </div>
           </AntModal>
         )}
+
         {importModal && (
           <ImportModal
             modelToggle={importModal}
-            onCloseHandler={setImportModal}
+            onCloseHandler={() => {
+              setImportModal(false);
+              setFileValidationError("");
+            }}
             file={file}
             setFile={setFile}
             fileName={fileName}

@@ -315,64 +315,47 @@ export default function Header({
           </div>
         </div>
       </div>
-      {logoutModal && (
-        <Modal
-          height="250px"
-          fontSize="text-xl"
-          fontWeight="font-semibold"
-          textColor="#19388B"
-          text={"ログアウト"}
-          onCloseHandler={setLogoutModal}
-          modalFooter={() => {
-            return (
-              <div className=" flex justify-between">
-                <div>
-                  <IconLeftBtn
-                    text={intl.user_remote_wipe_no_btn}
-                    textColor={"text-white font-semibold text-sm w-full"}
-                    py={"py-[11px]"}
-                    px={"px-[26.5px] md:px-[35.5px]"}
-                    bgColor={"bg-customBlue"}
-                    textBold={true}
-                    icon={() => {
-                      return null;
-                    }}
-                    onClick={() => {
-                      setLogoutModal(() => false);
-                    }}
-                  />
-                </div>
-                <div>
-                  <IconLeftBtn
-                    text={intl.user_remote_wipe_yes_btn}
-                    textColor={"text-white font-semibold text-sm w-full ml-2"}
-                    py={"py-[11px]"}
-                    px={"px-[30.5px] md:px-[38.5px]"}
-                    bgColor={"bg-customBlue"}
-                    textBold={true}
-                    icon={() => {
-                      return null;
-                    }}
-                    onClick={() => {
-                      localStorage.clear();
-                      window.location.href = "/";
-                      // Clear navigation history
 
-                      window.history.replaceState(null, "", "/");
-                      setLogoutModal(false);
-                    }}
-                  />
-                </div>
-              </div>
-            );
-          }}
-        >
-          <div className="flex flex-col">
-            <div className="flex-grow dark:text-black">
+      {logoutModal && (
+        <AntModal
+          title={
+            <div className="pt-[40px] pb-[40px] text-customBlue text-center">
               {intl.logout_confirm}
             </div>
+          }
+          open={logoutModal}
+          onCancel={() => setLogoutModal(false)}
+          footer={null}
+          width={400}
+          centered
+        >
+          <div className="flex flex-col justify-between">
+            <div className="flex-grow dark:text-black text-center">
+              {intl.logout_confirm}
+            </div>
+            <div className="mt-6">
+              <div className="flex flex-col md:flex-row gap-2 w-full px-[40px] pb-[32px]">
+                <button
+                  className="w-full md:w-1/2 bg-customBlue text-white font-semibold py-[11px] px-[26.5px] md:px-[35.5px] text-sm"
+                  onClick={() => setLogoutModal(false)}
+                >
+                  {intl.user_remote_wipe_no_btn}
+                </button>
+                <button
+                  className="w-full md:w-1/2 bg-customBlue text-white font-semibold py-[11px] px-[30.5px] md:px-[38.5px] text-sm"
+                  onClick={() => {
+                    localStorage.clear();
+                    window.location.href = "/";
+                    window.history.replaceState(null, "", "/");
+                    setLogoutModal(false);
+                  }}
+                >
+                  {intl.user_remote_wipe_yes_btn}
+                </button>
+              </div>
+            </div>
           </div>
-        </Modal>
+        </AntModal>
       )}
 
       <AntModal

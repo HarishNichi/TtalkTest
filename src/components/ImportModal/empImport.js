@@ -130,205 +130,201 @@ export default function ImportModal(props) {
   return (
     <>
       <AntModal
-              title={
-                <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
-                  {intl.company_list_company_import}
-                </div>
-              }
-              className="my-[70px]"
-              open={true}
-              width={385}
-              onCancel={()=>{
-                let { modelToggle, onCloseHandler } = props;
-                onCloseHandler(() => !modelToggle);
+        title={
+          <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+            {intl.company_list_company_import}
+          </div>
+        }
+        className="my-[70px]"
+        open={true}
+        width={385}
+        onCancel={() => {
+          let { modelToggle, onCloseHandler } = props;
+          onCloseHandler(() => !modelToggle);
+        }}
+        centered
+        footer={(_) => (
+          <>
+            <div className="flex justify-center px-[32px]">{modelFooter()}</div>
+          </>
+        )}
+      >
+        <div className="flex flex-col">
+          <div className="mb-6 px-[32px]">
+            <div
+              style={{
+                width: "295px",
+                height: "42px",
+                flexShrink: 0,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                padding: "0 8px",
+                borderRadius: "32px",
+                background: "#EBEBEB",
+                boxShadow: "0px 0px 7px 0px rgba(0, 0, 0, 0.05)",
               }}
-              centered
-              footer={(_) => (
-                <>
-                  <div className="flex justify-center">
-                    {modelFooter()}
-                    </div>
-                </>
-              )}
             >
-          <div className="flex flex-col">
-            <div className="mb-6 md:px-[32px]">
-              <div
-                style={{
-                  width: "295px",
-                  height: "42px",
-                  flexShrink: 0,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  padding: "0 8px",
-                  borderRadius: "32px",
-                  background: "#EBEBEB",
-                  boxShadow: "0px 0px 7px 0px rgba(0, 0, 0, 0.05)",
-                }}
+              {/* User List Button */}
+              <button
+                style={
+                  props.activeButton === "employee"
+                    ? activeButtonStyles
+                    : inactiveButtonStyles
+                }
+                onClick={() => handleButtonClick("employee")}
               >
-                {/* Button 1 */}
-                <button
-                  style={
-                    props.activeButton === "employee"
-                      ? activeButtonStyles
-                      : inactiveButtonStyles
-                  }
-                  onClick={() => handleButtonClick("employee")}
-                >
-                  {"ユーザーインポート"}
-                </button>
+                {intl.user_import}
+              </button>
 
-                {/* Button 2 */}
-                <button
-                  style={
-                    props.activeButton === "bulk"
-                      ? activeButtonStyles
-                      : inactiveButtonStyles
-                  }
-                  onClick={() => handleButtonClick("bulk")}
-                >
-                  {"一括インポート"}
-                </button>
-              </div>
-            </div>
-
-            {props.activeButton == "bulk" && (
-              <div className="flex flex-col mb-6 md:px-[32px] items-center">
-                <div className="mb-[10px] ">
-                  インポートタイプを選択してください
-                </div>
-                <div className="mb-[10px] flex ">
-                  <input
-                    type="radio"
-                    name="action_value"
-                    className="accent-[#19388B]"
-                    id="settings"
-                    value={"settings"}
-                    checked={props.option == "settings"}
-                    onChange={(evt) => {
-                      props.setSelectedOption("settings");
-                    }}
-                  />
-                  <label
-                    htmlFor="settings"
-                    className="ml-3 w-[80px] text-left dark:text-black"
-                  >
-                    設定
-                  </label>
-                  <div>
-                    <a
-                      download
-                      href={sampleLinks().userImportSettings}
-                      className="text-xs hover:text-blue-800"
-                    >
-                      サンプル.csv
-                    </a>
-                  </div>
-                </div>
-                <div className="mb-[10px] flex items-center">
-                  <input
-                    type="radio"
-                    name="action_value"
-                    className="accent-[#19388B]"
-                    id="contact"
-                    value={"contacts"}
-                    checked={props.option == "contacts"}
-                    onChange={(evt) => {
-                      props.setSelectedOption("contacts");
-                    }}
-                  />
-                  <label
-                    htmlFor="contact"
-                    className="ml-3 w-[80px] text-left dark:text-black"
-                  >
-                    連絡先
-                  </label>
-                  <div>
-                    <a
-                      download
-                      href={sampleLinks().userImportContacts}
-                      className="text-xs hover:text-blue-800"
-                    >
-                      サンプル.csv
-                    </a>
-                  </div>
-                </div>
-                <div className="mb-[10px] flex items-center">
-                  <input
-                    type="radio"
-                    name="action_value"
-                    className="accent-[#19388B]"
-                    id="group"
-                    value={"groups"}
-                    checked={props.option == "groups"}
-                    onChange={(evt) => {
-                      props.setSelectedOption("groups");
-                    }}
-                  />
-                  <label
-                    htmlFor="group"
-                    className="ml-3 w-[80px] text-left dark:text-black"
-                  >
-                    グループ
-                  </label>
-                  <div>
-                    <a
-                      download
-                      href={sampleLinks().Groups}
-                      className="text-xs hover:text-blue-800"
-                    >
-                      サンプル.csv
-                    </a>
-                  </div>
-                </div>
-              </div>
-            )}
-            {/* File upload component */}
-            <div data-testid="file-upload" className="md:px-[32px]">
-              <FileUpload
-                onFileUpload={handleFileUpload}
-                key={bulkFileName + empFileName}
-              />
-            </div>
-            {error && (
-              <div
-                className="validation-font text-sm flex justify-center mt-2"
-                style={{ color: "red" }}
+              {/* Bulk Button */}
+              <button
+                style={
+                  props.activeButton === "bulk"
+                    ? activeButtonStyles
+                    : inactiveButtonStyles
+                }
+                onClick={() => handleButtonClick("bulk")}
               >
-                {error}
-              </div>
-            )}
+                {intl.bulk_import}
+              </button>
+            </div>
+          </div>
 
-            {/* Progress bar component */}
-
-            <div data-testid="progress-bar" className="mt-6 mb-3 md:px-[32px]">
-              {props.activeButton == "employee" && (
+          {props.activeButton == "bulk" && (
+            <div className="flex flex-col mb-6 px-[32px] items-center">
+              <div className="mb-[10px] ">{intl.select_import_type}</div>
+              <div className="mb-[10px] flex ">
+                <input
+                  type="radio"
+                  name="action_value"
+                  className="accent-[#19388B]"
+                  id="settings"
+                  value={"settings"}
+                  checked={props.option == "settings"}
+                  onChange={(evt) => {
+                    props.setSelectedOption("settings");
+                  }}
+                />
+                <label
+                  htmlFor="settings"
+                  className="ml-3 w-[80px] text-left dark:text-black"
+                >
+                  {intl.setting}
+                </label>
                 <div>
                   <a
                     download
-                    href={sampleLinks().userImport}
+                    href={sampleLinks().userImportSettings}
                     className="text-xs hover:text-blue-800"
                   >
-                    サンプル.csv
+                    {intl.sample_csv}{" "}
                   </a>
                 </div>
-              )}
-
-              {(bulkFileName || empFileName) && progressLine > 0 && (
-                <ProgressBar
-                  fileName={
-                    props.activeButton == "bulk" ? bulkFileName : empFileName
-                  }
-                  percentage={progressLine}
-                  onClick={() => {
-                    handleBarClick();
+              </div>
+              <div className="mb-[10px] flex items-center">
+                <input
+                  type="radio"
+                  name="action_value"
+                  className="accent-[#19388B]"
+                  id="contact"
+                  value={"contacts"}
+                  checked={props.option == "contacts"}
+                  onChange={(evt) => {
+                    props.setSelectedOption("contacts");
                   }}
                 />
-              )}
+                <label
+                  htmlFor="contact"
+                  className="ml-3 w-[80px] text-left dark:text-black"
+                >
+                  {intl.tab_contact_address}
+                </label>
+                <div>
+                  <a
+                    download
+                    href={sampleLinks().userImportContacts}
+                    className="text-xs hover:text-blue-800"
+                  >
+                    {intl.sample_csv}
+                  </a>
+                </div>
+              </div>
+              <div className="mb-[10px] flex items-center">
+                <input
+                  type="radio"
+                  name="action_value"
+                  className="accent-[#19388B]"
+                  id="group"
+                  value={"groups"}
+                  checked={props.option == "groups"}
+                  onChange={(evt) => {
+                    props.setSelectedOption("groups");
+                  }}
+                />
+                <label
+                  htmlFor="group"
+                  className="ml-3 w-[80px] text-left dark:text-black"
+                >
+                  {intl.tab_group_label}
+                </label>
+                <div>
+                  <a
+                    download
+                    href={sampleLinks().Groups}
+                    className="text-xs hover:text-blue-800"
+                  >
+                    {intl.sample_csv}
+                  </a>
+                </div>
+              </div>
             </div>
+          )}
+          {/* File upload component */}
+          <div data-testid="file-upload" className="px-[32px]">
+            <FileUpload
+              onFileUpload={handleFileUpload}
+              key={bulkFileName + empFileName}
+            />
           </div>
-        </AntModal>
+          {error && (
+            <div
+              className="validation-font text-sm flex justify-center mt-2"
+              style={{ color: "red" }}
+            >
+              {error}
+            </div>
+          )}
+
+          {/* Progress bar component */}
+
+          <div data-testid="progress-bar" className="mt-6 mb-3 px-[32px]">
+            {props.activeButton == "employee" && (
+              <div>
+                <a
+                  download
+                  href={sampleLinks().userImport}
+                  className="text-xs hover:text-blue-800"
+                >
+                  {intl.sample_csv}
+                </a>
+              </div>
+            )}
+
+            {(bulkFileName || empFileName) && progressLine > 0 && (
+              <ProgressBar
+                fileName={
+                  props.activeButton == "bulk" ? bulkFileName : empFileName
+                }
+                percentage={progressLine}
+                onClick={() => {
+                  handleBarClick();
+                }}
+              />
+            )}
+          </div>
+        </div>
+      </AntModal>
     </>
   );
 }

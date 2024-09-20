@@ -54,6 +54,7 @@ export default function Devices() {
   const [helpSettingsData, setHelpSettingsData] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
+  const [fileNameError, setFileNameError] = useState(null);
   const [data, setData] = useState([]);
   // Yup schema to validate the form
   const schema = Yup.object().shape({
@@ -785,7 +786,10 @@ export default function Devices() {
           {importModal && (
             <ImportModal
               modelToggle={importModal}
-              onCloseHandler={setImportModal}
+              onCloseHandler={() => {
+                setImportModal(false);
+                setFileValidationError("");
+              }}
               setImportModal={setImportModal}
               file={file}
               setFile={setFile}
@@ -989,7 +993,7 @@ export default function Devices() {
                 </Button>
                 <Button
                   key="delete"
-                  className="sm:flex-1 w-full sm:w-auto bg-[#BA1818] h-[40px] text-white no-hover"
+                  className="sm:flex-1 w-full sm:w-auto bg-[#BA1818] font-semibold h-[40px] text-base text-white no-hover"
                   onClick={deleteDevices}
                 >
                   {intl.help_settings_addition_delete_button}(

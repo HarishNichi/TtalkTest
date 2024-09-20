@@ -158,7 +158,13 @@ export default function CompanyInformation() {
     },
     { title: organizationsData?.name, link: "/company/details" },
   ];
-
+  const DataSection = ({ label, value }) => (
+    <div className="mb-4">
+      {/* Apply mb-16px as 4 is equivalent to 16px */}
+      <div className="text-sm font-normal text-[#595959]">{label}</div>
+      <div className="text-sm dark:text-black font-semibold">{value}</div>
+    </div>
+  );
   return (
     <>
       <ProtectedRoute allowedRoles={["admin"]}>
@@ -237,7 +243,7 @@ export default function CompanyInformation() {
             }}
             className="p-[24px]  flex flex-col flex-1 h-full"
           >
-            <div className="pb-[24px]">
+            <div className="pb-[32px]">
               {organizationsData && (
                 <Upload imgSrc={organizationsData.logo} disabled={true} />
               )}
@@ -245,108 +251,54 @@ export default function CompanyInformation() {
 
             {organizationsData && (
               <div className="flex flex-col md:flex-row">
-                <div className="flex flex-col w-full space-y-2 ">
-                  <div className="text-sm font-normal text-[#595959]">
-                    {intl.form_component_company_name_label}
-                  </div>
-
-                  <div className="text-sm dark:text-black font-semibold">
-                    {organizationsData.name}
-                  </div>
-
-                  {/* <div className="text-sm font-normal text-[#595959]">
-                    {intl.furigana}
-                  </div>
-                  <div className="text-sm font-semibold">
-                    {organizationsData.name}
-                  </div> */}
-                  <div className="text-sm font-normal text-[#595959]">
-                    {intl.form_component_company_id}
-                  </div>
-
-                  <div className="text-sm dark:text-black font-semibold">
-                    {organizationsData.id}
-                  </div>
-
-                  <div className="text-sm font-normal text-[#595959]">
-                    {intl.form_component_mailid_label}
-                  </div>
-
-                  <div className="text-sm dark:text-black font-semibold">
-                    {organizationsData.email}
-                  </div>
-
-                  <div className="text-sm font-normal text-[#595959]">
-                    {intl.form_component_usercount_label}
-                  </div>
-
-                  <div className="text-sm dark:text-black font-semibold">
-                    {organizationsData.numberOfUsers}
-                  </div>
-
-                  <div className="text-sm font-normal text-[#595959]">
-                    {intl.form_component_sales_channel}
-                  </div>
-
-                  <div className="text-sm dark:text-black font-semibold">
-                    {organizationsData.salesChannel}
-                  </div>
-
-                  <div className="text-sm font-normal text-[#595959]">
-                    {intl.form_component_fleet_number}
-                  </div>
-
-                  <div className="text-sm dark:text-black font-semibold">
-                    {organizationsData.fleetNumber}
-                  </div>
+                <div className="flex flex-col w-full">
+                  <DataSection
+                    label={intl.form_component_company_name_label}
+                    value={organizationsData.name}
+                  />
+                  <DataSection
+                    label={intl.form_component_company_id}
+                    value={organizationsData.id}
+                  />
+                  <DataSection
+                    label={intl.form_component_mailid_label}
+                    value={organizationsData.email}
+                  />
+                  <DataSection
+                    label={intl.form_component_usercount_label}
+                    value={organizationsData.numberOfUsers}
+                  />
+                  <DataSection
+                    label={intl.form_component_sales_channel}
+                    value={organizationsData.salesChannel}
+                  />
+                  <DataSection
+                    label={intl.form_component_fleet_number}
+                    value={organizationsData.fleetNumber}
+                  />
                 </div>
 
-                <div className="flex flex-col w-full space-y-2">
-                  {/* <div className="text-sm font-normal text-[#595959]">
-                    {intl.form_component_sales_channel}
-                  </div>
-                  <div className="text-sm font-semibold">
-                    {organizationsData.salesChannel}
-                  </div> */}
-                  <div className="text-sm font-normal text-[#595959]">
-                    {intl.form_component_simulataneous_intepretation}
-                  </div>
-
-                  <div className="text-sm dark:text-black font-semibold">
-                    {organizationsData.isTranslate ? "ON" : "OFF"}
-                  </div>
-
-                  <div className="text-sm font-normal text-[#595959] text-[#595959]">
-                    {intl.form_component_transcription}
-                  </div>
-
-                  <div className="text-sm dark:text-black font-semibold">
-                    {organizationsData.isTranscribe ? "ON" : "OFF"}
-                  </div>
-
-                  <div className="text-sm font-normal text-[#595959]">
-                    {intl.company_list_sos_location}
-                  </div>
-
-                  <div className="text-sm dark:text-black font-semibold">
-                    {organizationsData.sosLocation ? "ON" : "OFF"}
-                  </div>
-
-                  <div className="text-sm font-normal text-[#595959]">
-                    {intl.company_list_company_status}
-                  </div>
-
-                  <div className="text-sm dark:text-black font-semibold">
-                    {organizationsData.isStatus ? "ON" : "OFF"}
-                  </div>
-
-                  <div className="text-sm font-normal text-[#595959]">
-                    {intl.help_settings_addition_service_manual}
-                  </div>
-
-                  <div className="text-sm dark:text-black font-semibold">
-                    {organizationsData.description || "-"}
-                  </div>
+                <div className="flex flex-col w-full ">
+                  <DataSection
+                    label={intl.form_component_simulataneous_intepretation}
+                    value={organizationsData.isTranslate ? "ON" : "OFF"}
+                  />
+                  <DataSection
+                    label={intl.form_component_transcription}
+                    value={organizationsData.isTranscribe ? "ON" : "OFF"}
+                  />
+                  <DataSection
+                    label={intl.company_list_sos_location}
+                    value={organizationsData.sosLocation ? "ON" : "OFF"}
+                  />
+                  <DataSection
+                    label={intl.company_list_company_status}
+                    value={organizationsData.isStatus ? "ON" : "OFF"}
+                  />
+                  <DataSection
+                    label={intl.help_settings_addition_service_manual}
+                    value={organizationsData.description || "-"}
+                  />
                 </div>
               </div>
             )}
@@ -355,7 +307,7 @@ export default function CompanyInformation() {
 
         <AntModal
           title={
-            <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+            <div className="px-[40px] pt-[40px] mb-[32px] text-customBlue text-center">
               {intl.edit_screen_label}
             </div>
           }
@@ -366,7 +318,7 @@ export default function CompanyInformation() {
           className="my-[70px]"
           width={520}
         >
-          <div className="flex justify-center h-[150px]">
+          <div className="flex justify-center h-[150px] pb-[32px]">
             {organizationsData && (
               <Upload
                 imgError={imgError}
@@ -426,7 +378,7 @@ export default function CompanyInformation() {
             </Button>
             <Button
               key="delete"
-              className="flex-1 bg-[#BA1818] border-[#BA1818] text-white hover:bg-red-500 no-hover h-[40px]"
+              className="flex-1 bg-[#BA1818] border-[#BA1818] text-white hover:bg-red-500 no-hover font-semibold h-[40px] text-base"
               onClick={handleDeleteConfirm}
             >
               {intl.help_settings_addition_delete_button}

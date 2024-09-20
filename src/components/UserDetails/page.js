@@ -511,6 +511,13 @@ export default function UserDetails() {
     );
     return matchingOption ? matchingOption.label : "";
   }
+  const DataSection = ({ label, value }) => (
+    <div className="mb-4">
+      {/* Apply mb-16px as 4 is equivalent to 16px */}
+      <div className="text-sm font-normal text-[#595959]">{label}</div>
+      <div className="text-sm dark:text-black font-semibold">{value}</div>
+    </div>
+  );
   return (
     <>
       {loading && <LoaderOverlay />}
@@ -554,114 +561,79 @@ export default function UserDetails() {
         />
       </div>
       <div className="bg-white shadow-lg flex flex-col md:flex-row p-[24px]">
-        <div className="flex flex-col  pr-0  w-full space-y-2 ">
-          <div className="text-sm font-normal">{intl.machineName}</div>
-          <div className="text-sm font-semibold">
-            {deviceName(userDetails?.device?.id) || "-"}
-          </div>
-
-          <div className="text-sm font-normal">
-            {intl.login_email_placeholder}
-          </div>
-          <div className="text-sm font-semibold">
-            {userDetails?.userId || "-"}
-          </div>
-
-          <div className="text-sm font-normal mt-4">
-            {intl.company_list_company_radioNumber}
-          </div>
-          <div className="text-sm font-semibold">
-            {userDetails?.radioNumber || "-"}
-          </div>
-
-          <div className="text-sm font-normal">{intl.user_name}</div>
-          <div className="text-sm font-semibold">
-            {userDetails?.userName || "-"}
-          </div>
-
-          <div className="text-sm font-normal mt-4">{intl.furigana}</div>
-          <div className="text-sm font-semibold">
-            {userDetails?.furigana || "-"}
-          </div>
-
-          <div className="text-sm font-normal mt-4">
-            {intl.form_component_company_name_label}
-          </div>
-          <div className="text-sm font-semibold">
-            {userDetails?.companyName || "-"}
-          </div>
-
-          <div className="text-sm font-normal mt-4">
-            {intl.user_add_specify_label}
-          </div>
-          <div className="text-sm font-semibold">
-            {userDetails?.designation || "-"}
-          </div>
-
-          <div className="text-sm font-normal mt-4">
-            {intl.user_email_id_label}
-          </div>
-          <div className="text-sm font-semibold">
-            {userDetails?.email || "-"}
-          </div>
+        {/* Left Column */}
+        <div className="flex flex-col w-full ">
+          <DataSection
+            label={intl.machineName}
+            value={deviceName(userDetails?.device?.id) || "-"}
+          />
+          <DataSection
+            label={intl.login_email_placeholder}
+            value={userDetails?.userId || "-"}
+          />
+          <DataSection
+            label={intl.company_list_company_radioNumber}
+            value={userDetails?.radioNumber || "-"}
+          />
+          <DataSection
+            label={intl.user_name}
+            value={userDetails?.userName || "-"}
+          />
+          <DataSection
+            label={intl.furigana}
+            value={userDetails?.furigana || "-"}
+          />
+          <DataSection
+            label={intl.form_component_company_name_label}
+            value={userDetails?.companyName || "-"}
+          />
+          <DataSection
+            label={intl.user_add_specify_label}
+            value={userDetails?.designation || "-"}
+          />
+          <DataSection
+            label={intl.user_email_id_label}
+            value={userDetails?.email || "-"}
+          />
         </div>
 
-        <div className="flex flex-col w-full space-y-2  ">
-          <div className="text-sm font-normal">
-            {intl.user_add_telephone_number_label}
-          </div>
-          <div className="text-sm font-semibold">
-            {userDetails?.phone || "-"}
-          </div>
-
-          <div className="text-sm font-normal mt-4">
-            {intl.user_registration_date_time}
-          </div>
-          <div className="text-sm font-semibold">
-            {userDetails?.createdAtDate || "-"}
-          </div>
-
-          <div className="text-sm font-normal mt-4">
-            {intl.user_last_online_date_time}
-          </div>
-          <div className="text-sm font-semibold">
-            {userDetails?.appLastSeenDateTime || "-"}
-          </div>
-
-          <div className="text-sm font-normal mt-4">
-            {intl.usage_start_date}
-          </div>
-          <div className="text-sm font-semibold">
-            {userDetails?.appLoginDateTime || "-"}
-          </div>
-
-          <div className="text-sm font-normal mt-4">
-            {intl.usage_suspension_date}
-          </div>
-          <div className="text-sm font-semibold">
-            {userDetails?.appLogoutDateTime || "-"}
-          </div>
-
-          <div className="text-sm font-normal mt-4">{intl.user_version}</div>
-          <div className="text-sm font-semibold">
-            {userDetails?.appVersion || "-"}
-          </div>
-
-          <div className="text-sm font-normal mt-4">
-            {intl.form_component_status}
-          </div>
-          <div className="text-sm font-semibold">
-            {userDetails?.isActive ? "ON" : "OFF"}
-          </div>
-
-          <div className="text-sm font-normal mt-4">
-            {intl.user_is_see_user_activity}
-          </div>
-          <div className="text-sm font-semibold">
-            {userDetails?.seeUserActivity ? "ON" : "OFF"}
-          </div>
+        {/* Right Column */}
+        <div className="flex flex-col w-full ">
+          <DataSection
+            label={intl.user_add_telephone_number_label}
+            value={userDetails?.phone || "-"}
+          />
+          <DataSection
+            label={intl.user_registration_date_time}
+            value={userDetails?.createdAtDate || "-"}
+          />
+          <DataSection
+            label={intl.user_last_online_date_time}
+            value={userDetails?.appLastSeenDateTime || "-"}
+          />
+          <DataSection
+            label={intl.usage_start_date}
+            value={userDetails?.appLoginDateTime || "-"}
+          />
+          <DataSection
+            label={intl.usage_suspension_date}
+            value={userDetails?.appLogoutDateTime || "-"}
+          />
+          <DataSection
+            label={intl.user_version}
+            value={userDetails?.appVersion || "-"}
+          />
+          <DataSection
+            label={intl.form_component_status}
+            value={userDetails?.isActive ? "ON" : "OFF"}
+          />
+          <DataSection
+            label={intl.user_is_see_user_activity}
+            value={userDetails?.seeUserActivity ? "ON" : "OFF"}
+          />
         </div>
       </div>
+
       {isModalOpen && (
         <AntModal
           open={isModalOpen}
@@ -683,6 +655,8 @@ export default function UserDetails() {
           modelToggle={importModal}
           onCloseHandler={() => {
             setImportModal(false);
+            setCsvFileName("");
+            setFileNameError("");
           }}
           onClickImport={handelImport}
         />
@@ -698,6 +672,8 @@ export default function UserDetails() {
           open={exportModal}
           onCancel={() => {
             setExportModal(false);
+            setCsvFileName("");
+            setFileNameError("");
           }}
           footer={getExportModalFooter}
           centered={true}

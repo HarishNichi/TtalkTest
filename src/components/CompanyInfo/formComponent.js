@@ -189,7 +189,7 @@ const CompanyForm = (props) => {
   return (
     <form
       id="model-scroll"
-      className="grid grid-cols-1  gap-y-4 gap-x-12 lg:gap-y-3 xl:gap-y-4 2xl:gap-y-6 lg:gap-x-24"
+      className="grid grid-cols-1   gap-x-12  lg:gap-x-24"
     >
       <div style={{ maxHeight: "450px", overflow: "auto", padding: "2px" }}>
         <FormField
@@ -267,7 +267,7 @@ const CompanyForm = (props) => {
           </>
         )}
 
-        <div className="flex  flex-col mt-[32px]">
+        <div className="flex  flex-col mt-[20px]">
           <div className="">
             <ToggleBoxMedium
               isDisabled={disabled}
@@ -295,7 +295,7 @@ const CompanyForm = (props) => {
             />
           </div>
         </div>
-        <div className="flex  flex-col mt-[32px]">
+        <div className="flex  flex-col mt-[20px]">
           <div className="">
             <ToggleBoxMedium
               isDisabled={disabled}
@@ -322,7 +322,7 @@ const CompanyForm = (props) => {
             />
           </div>
         </div>
-        <div className="flex  flex-col mt-[32px] mb-[32px]">
+        <div className="flex  flex-col mt-[20px] mb-[20px]">
           <div className="">
             <ToggleBoxMedium
               isDisabled={disabled}
@@ -351,7 +351,7 @@ const CompanyForm = (props) => {
         </div>
         {!props.isCreatePage && (
           <>
-            <div className="flex  flex-col mt-[32px]">
+            <div className="flex  flex-col mt-[20px]">
               <div className="">
                 <ToggleBoxMedium
                   isDisabled={disabled}
@@ -398,11 +398,6 @@ const CompanyForm = (props) => {
 
       {isForm && (
         <>
-          <div className="hidden lg:flex lg:flex-col"></div>
-          <div className="hidden lg:flex lg:flex-col"></div>
-          {props.isCreatePage && (
-            <div className="hidden lg:flex lg:flex-col"></div>
-          )}
           <div className="w-full">
             <div className="w-full">
               <IconLeftBtn

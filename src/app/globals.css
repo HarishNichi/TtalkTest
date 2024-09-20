@@ -218,6 +218,10 @@ body {
   font-family: inherit !important;
 }
 
+.ant-btn {
+  font-family: inherit !important;
+}
+
 .custom-date-picker .ant-picker-input input {
   font-size: 0.75rem; /* XS font size */
   font-weight: 400; /* Make font bold */
@@ -526,12 +530,12 @@ input::-webkit-calendar-picker-indicator {
 /* Hide the default checkbox appearance */
 input[type="checkbox"] {
   position: relative;
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   appearance: none; /* Removes default styles */
   background-color: #f0f0f0; /* Default background color */
   border: 1px solid #19388b; /* Border color */
-  border-radius: 4px; /* Optional: Rounded corners */
+  border-radius: 0px !important; /* Optional: Rounded corners */
   cursor: pointer;
   transition: background-color 0.3s ease; /* Smooth transition */
 }
@@ -601,4 +605,8 @@ select {
 
 .ant-table-wrapper .ant-table-tbody >tr >td {
   border-bottom: 1px solid #E7E7E9;
+}
+
+.ant-table-thead > tr > th  {
+  border-bottom: 1px solid #E7E7E9 !important;
 }

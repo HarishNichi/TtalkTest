@@ -135,7 +135,7 @@ export default function EditCompanyInformation() {
           footer={null}
         >
           <div className="flex flex-col flex-1 h-full">
-            <div className="flex justify-between mb-2 xl:mb-2">
+            <div className="flex justify-between ">
               <div className="flex items-center">
                 <DynamicLabel
                   text={intl.edit_screen_label}
