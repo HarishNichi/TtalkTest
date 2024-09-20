@@ -73,7 +73,7 @@ export default function AddUser({ setIsModalOpen, setComCreated }) {
       <ToastContainer />
       
       <div className="flex flex-col flex-1 h-full pt-[40px]">
-        <div className="flex  justify-center mb-2 xl:mb-2">
+        <div className="flex  justify-center">
           <div className="flex">
             <DynamicLabel
               text={intl.add_new_company}
@@ -99,7 +99,7 @@ export default function AddUser({ setIsModalOpen, setComCreated }) {
               {intl.logo_cant_be_empty}
             </div>
           )}
-          <div className="pb-[32px] pt-[32px]">
+          <div className="pt-[32px]">
             <CompanyForm
               isCreatePage
               isForm={true}

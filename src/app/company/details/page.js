@@ -23,6 +23,7 @@ export default function CompanyInformation() {
   const [loading, setLoading] = useState(false);
   const [imageSource, setImageURL] = useState(null);
   const [imgError, setImgError] = useState("");
+  const [validation, setValidation] = useState(false);
   const router = useRouter();
 
   const Organization = useAppSelector(
@@ -318,7 +319,7 @@ export default function CompanyInformation() {
           className="my-[70px]"
           width={520}
         >
-          <div className="flex justify-center h-[150px] pb-[32px]">
+          <div className="flex justify-center h-[150px] pb-[32px] max-h-[120px]">
             {organizationsData && (
               <Upload
                 imgError={imgError}
@@ -329,6 +330,11 @@ export default function CompanyInformation() {
               />
             )}
           </div>
+          {!imageSource && validation && (
+            <div className="validation-font text-sm text-[red] text-center mt-2">
+              {intl.logo_cant_be_empty}
+            </div>
+          )}
           <div className="px-[40px] pb-[40px]">
             <CompanyForm
               initialCompanyName={organizationsData?.name}
