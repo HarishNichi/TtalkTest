@@ -86,7 +86,7 @@ export default function AddUser({ setIsModalOpen, setComCreated }) {
         </div>
 
         <div className="p-[40px] pt-[32px]  flex justify-center flex-1 flex-col h-full">
-          <div className="flex  justify-center">
+          <div className="flex  justify-center max-h-[120px]">
             <Upload
               edit={true}
               imgError={imgError}
