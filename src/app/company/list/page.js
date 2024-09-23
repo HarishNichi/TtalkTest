@@ -313,7 +313,14 @@ export default function CompanyList() {
   }
 
   useEffect(() => {
-    fetchData();
+    try{
+      setLoading(true);
+      fetchData();
+    }
+    catch (error) {
+      setLoading(false);
+      console.error(error);
+    }
   }, []);
 
   useEffect(() => {
@@ -653,7 +660,7 @@ export default function CompanyList() {
                 errorToastSettings
               );
               subscription.unsubscribe();
-              setImportModal(() => !importModal);
+              setImportModal(false);
               fetchData();
               setLoading(false);
             }
