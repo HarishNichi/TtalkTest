@@ -664,6 +664,7 @@ export default function CompanyList() {
             }
           }
           setLoading(false);
+          setImportModal(false);
           setCsvUploadInitiated(() => null);
         }
       }
