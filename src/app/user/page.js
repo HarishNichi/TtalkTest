@@ -889,6 +889,7 @@ export default function UserList() {
   useEffect(() => {
     let maxCurrent = (current - 1) * page + page;
     console.log((current - 1) * page, maxCurrent);
+    try {
     if (employeeData.length > 0) {
       let temp = employeeData.map((el, index) => {
         if (
@@ -896,11 +897,15 @@ export default function UserList() {
           index >= (current - 1) * page &&
           index <= maxCurrent
         ) {
-          el.status = received.status;
+          el.status = received?.status;
         }
         return el;
       });
       setEmployeeData(temp);
+    }
+    }
+    catch(err) {
+      console.log(err)
     }
   }, [received]);
 
