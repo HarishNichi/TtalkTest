@@ -271,7 +271,7 @@ body {
   }
 }
 .ql-container {
-  height: auto !important;
+  height: 100% !important;
 }
 
 .ql-container.ql-snow {
