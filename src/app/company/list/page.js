@@ -330,13 +330,11 @@ export default function CompanyList() {
   useEffect(() => {
     const fetchOrg = async () => {
       try {
-        setLoading(true);
         let { data: projectionList } = await api.post(
           "organizations/projection",
           {}
         );
         setCompanyListDropdown(() => projectionList.data.Items);
-        setLoading(false);
       } catch (error) {
         setLoading(false);
       }
