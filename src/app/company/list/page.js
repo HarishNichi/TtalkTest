@@ -281,7 +281,6 @@ export default function CompanyList() {
       setCurrentAPI("organizations/import");
       let result = await api.post("organizations/import", payload);
       setLoading(false);
-      setImportModal(false);
     } catch (err) {
       subscriptionTrack.unsubscribe();
       setLoading(false);
@@ -314,14 +313,7 @@ export default function CompanyList() {
   }
 
   useEffect(() => {
-    try{
-      setLoading(true);
-      fetchData();
-    }
-    catch (error) {
-      setLoading(false);
-      console.error(error);
-    }
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -331,11 +323,13 @@ export default function CompanyList() {
   useEffect(() => {
     const fetchOrg = async () => {
       try {
+        setLoading(true);
         let { data: projectionList } = await api.post(
           "organizations/projection",
           {}
         );
         setCompanyListDropdown(() => projectionList.data.Items);
+        setLoading(false);
       } catch (error) {
         setLoading(false);
       }
@@ -608,7 +602,6 @@ export default function CompanyList() {
     /* eslint-disable no-undef*/
     let hasMap = new Set();
     if (!csvUploadInitiated) {
-      // setLoading(false);
       return;
     }
     let scount = 0;
@@ -643,7 +636,7 @@ export default function CompanyList() {
           if (ecount == 0 && scount > 0) {
             toast(intl.user_imported_successfully, successToastSettings);
             subscription.unsubscribe();
-            setImportModal(() => false);
+            setImportModal(() => !importModal);
             fetchData();
           }
           if (ecount > 0) {
@@ -659,17 +652,17 @@ export default function CompanyList() {
                 errorToastSettings
               );
               subscription.unsubscribe();
-              setImportModal(false);
+              setImportModal(() => !importModal);
               fetchData();
               setLoading(false);
             }
           }
           setLoading(false);
-          setImportModal(false);
           setCsvUploadInitiated(() => null);
         }
       }
     });
+    setImportModal(false);
     setSubscriptionTrack(subscription);
     return () => subscription.unsubscribe();
   }, [csvUploadInitiated]);
