@@ -607,7 +607,7 @@ export default function CompanyList() {
     /* eslint-disable no-undef*/
     let hasMap = new Set();
     if (!csvUploadInitiated) {
-      setLoading(false);
+      // setLoading(false);
       return;
     }
     let scount = 0;
