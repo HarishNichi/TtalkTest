@@ -24,11 +24,10 @@ export default function UserDetails() {
   const [errors, setErrors] = useState(null);
   const [touched, setTouched] = useState({});
   const schema = Yup.object().shape({
-    recordedFileStorageLocation: Yup.string()
-      .matches(
-        /^(\/[0-9a-zA-Z]+)*\/?$/,
-        "パスが無効です。パターンは '/xxxxx/xxx' です。"
-      ),
+    recordedFileStorageLocation: Yup.string().matches(
+      /^(\/[0-9a-zA-Z]+)*\/?$/,
+      "パスが無効です。パターンは '/xxxxx/xxx' です。"
+    ),
     recordedFileSize: Yup.number()
       .required(intl.validation_required)
       .max(1024, "録音ファイルの保存容量は 1024MB を超えることはできません")
@@ -204,7 +203,7 @@ export default function UserDetails() {
                 type={"text"}
                 for={"recordedFileSize"}
                 placeholder={intl.user_voice_recording_storage_label}
-                borderRound={"rounded-xl"}
+                borderRound={"rounded"}
                 padding={"p-[10px]"}
                 focus={
                   "focus:outline-none focus:ring-2  focus:ring-customBlue "
@@ -223,7 +222,7 @@ export default function UserDetails() {
                   }));
                   setUserDetailsInfo({
                     ...userDetailsInfo,
-                    ...{ recordedFileSize: event.target.value},
+                    ...{ recordedFileSize: event.target.value },
                   });
                 }}
               />

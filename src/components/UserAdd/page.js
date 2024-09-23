@@ -296,7 +296,7 @@ export default function AddUser({
         <TitleUserCard title={intl.user_add_screen_label} />
       </div>
       <div
-        className="flex flex-col h-full p-[40px] pt-[20px] pb-0 "
+        className="flex flex-col h-full p-[40px] pt-[32px] pb-0 "
         style={{ maxHeight: "450px", overflow: "auto" }}
       >
         <div className="w-full">
@@ -579,7 +579,7 @@ export default function AddUser({
           </div>
         </div>
       </div>
-      <div className="md:mt-6 p-[40px]">
+      <div className=" p-[40px] pt-[32px]">
         <div className="flex justify-end">
           <IconLeftBtn
             type="submit"

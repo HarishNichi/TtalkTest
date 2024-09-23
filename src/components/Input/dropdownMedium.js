@@ -3,7 +3,7 @@ import DropDownIcon from "../Icons/dropdownIcon";
 import intl from "../../utils/locales/jp/jp.json";
 export default function DropdownMedium(props) {
   const selectRef = useRef(null);
-  let selectedOptionValue=props.value;
+  let selectedOptionValue = "";
   const handleChange = (event) => {
     event.stopPropagation();
     const selectedIndex = event.target.selectedIndex;
@@ -11,7 +11,7 @@ export default function DropdownMedium(props) {
     const selectedValue = selectedOption.value;
     if (props.onChange) {
       props.onChange(selectedValue, event);
-      selectedOptionValue = selectedValue
+      selectedOptionValue = selectedValue;
     }
   };
   const handleIconClick = (event) => {
@@ -26,7 +26,7 @@ export default function DropdownMedium(props) {
     <main>
       <label
         htmlFor="countries"
-        className={`block pt-1 text-[14px] font-medium ${props.labelClass}`}
+        className={`block pt-1 text-[14px] font-normal ${props.labelClass}`}
         style={{ color: props.labelColor }}
       >
         {props.label}
@@ -37,7 +37,9 @@ export default function DropdownMedium(props) {
           id={props.id}
           className={`${props.additionalClass} ${props.padding} ${props.text}
             ${props.border} ${props.borderRound} ${props.additionalClass}
-            ${props.focus} ${props.bg} truncate dark:text-black ${selectedOptionValue==""? 'text-[#85868B]' :"text-black"}`}
+            ${props.focus} ${props.bg} truncate dark:text-black ${
+            selectedOptionValue == "" ? "text-[#85868B]" : "text-black"
+          }`}
           ref={selectRef}
           onChange={handleChange}
           onBlur={handleChange}
@@ -53,9 +55,8 @@ export default function DropdownMedium(props) {
               style={{ fontSize: "14px", width: "200px",}}
               key={"default"}
               className="text-[#85868B]"
-              
             >
-              {props?.placeholder||"--選択する--"}
+              {props?.placeholder || "--選択する--"}
             </option>
           )}
           {props.options.map((dropDownOption, index) => {

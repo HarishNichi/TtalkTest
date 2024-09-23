@@ -17,8 +17,8 @@ export default function TextPlain(props) {
     <main>
       <label
         htmlFor={props.for}
-        className={`flex mb-1 text-[16px] font-medium ${props.labelClass}`}
-        style={{ color: props.labelColor, fontSize: "16px" }}
+        className={`flex mb-1 text-[14px] font-[400] ${props.labelClass}`}
+        style={{ color: props.labelColor, fontSize: "14px" }}
       >
         {props.label}
         {props.isRequired && <span style={requiredColor}> *</span>}

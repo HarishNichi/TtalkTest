@@ -27,10 +27,7 @@ import {
   EMAIL_PATTERN,
   MAX_100_LENGTH_PATTERN,
 } from "@/validation/validationPattern";
-import {
-  formatDate,
-  validateHandler,
-} from "@/validation/helperFunction";
+import { formatDate, validateHandler } from "@/validation/helperFunction";
 
 // Yup schema to validate the form
 const schema = Yup.object().shape(
@@ -341,7 +338,9 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
         await api.put(`employees/update`, payload);
         setLoading(false);
         setIsModalOpen(false);
-        router.push("/user");
+
+        router.push("/user-details");
+
         toast("正常に保存しました。", successToastSettings);
       } catch (error) {
         setLoading(false);

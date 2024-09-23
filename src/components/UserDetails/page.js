@@ -390,7 +390,7 @@ export default function UserDetails() {
   useEffect(() => {
     Admin ? fetchOrg() : fetchData([]);
     fetchDevices();
-  }, []);
+  }, [isModalOpen]);
 
   const handelImport = async (file) => {
     let files;

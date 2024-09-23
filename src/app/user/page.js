@@ -53,7 +53,8 @@ import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import AddUser from "@/components/UserAdd/page";
 import CopyButton from "@/components/Icons/copyButton";
-import TerminalSettings from "@/components/TerminalSettings/page";
+import TerminalSettings from "@/components/TerminalSettingsPopup/page";
+import TerminalSettingsPopup from "@/components/TerminalSettingsPopup/page";
 dayjs.extend(customParseFormat);
 dayjs.extend(isSameOrBefore);
 dayjs.extend(isSameOrAfter);
@@ -890,22 +891,21 @@ export default function UserList() {
     let maxCurrent = (current - 1) * page + page;
     console.log((current - 1) * page, maxCurrent);
     try {
-    if (employeeData.length > 0) {
-      let temp = employeeData.map((el, index) => {
-        if (
-          el.radioNumber == received.pttNo &&
-          index >= (current - 1) * page &&
-          index <= maxCurrent
-        ) {
-          el.status = received?.status;
-        }
-        return el;
-      });
-      setEmployeeData(temp);
-    }
-    }
-    catch(err) {
-      console.log(err)
+      if (employeeData.length > 0) {
+        let temp = employeeData.map((el, index) => {
+          if (
+            el.radioNumber == received.pttNo &&
+            index >= (current - 1) * page &&
+            index <= maxCurrent
+          ) {
+            el.status = received?.status;
+          }
+          return el;
+        });
+        setEmployeeData(temp);
+      }
+    } catch (err) {
+      console.log(err);
     }
   }, [received]);
 
@@ -2110,7 +2110,10 @@ export default function UserList() {
             className="my-[70px]"
           >
             <div className="flex flex-col p-[24px]">
-              <TerminalSettings isModal={true} selectedRows={selectedRows} />
+              <TerminalSettingsPopup
+                isModal={true}
+                selectedRows={selectedRows}
+              />
             </div>
           </AntModal>
         )}
