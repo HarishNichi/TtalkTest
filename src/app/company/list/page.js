@@ -642,7 +642,7 @@ export default function CompanyList() {
           if (ecount == 0 && scount > 0) {
             toast(intl.user_imported_successfully, successToastSettings);
             subscription.unsubscribe();
-            setImportModal(() => !importModal);
+            setImportModal(() => false);
             fetchData();
           }
           if (ecount > 0) {
