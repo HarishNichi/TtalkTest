@@ -3,7 +3,7 @@ import DropDownIcon from "../Icons/dropdownIcon";
 import intl from "../../utils/locales/jp/jp.json";
 export default function DropdownMedium(props) {
   const selectRef = useRef(null);
-  let selectedOptionValue = "";
+  let selectedOptionValue = props.value || "";
   const handleChange = (event) => {
     event.stopPropagation();
     const selectedIndex = event.target.selectedIndex;
