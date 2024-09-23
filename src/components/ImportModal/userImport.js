@@ -115,7 +115,7 @@ export default function ImportUserModal(props) {
           {/* Progress bar component */}
 
           <div data-testid="progress-bar" className="mt-6 mb-3 md:px-[32px]">
-            <div>
+            <div className="text-center">
               <a
                 download
                 href={sampleLinks().userImport}

@@ -522,6 +522,13 @@ export default function Subsection() {
       );
     }
   };
+  const helperSubSectionLinks = [
+    {
+      title: intl.helper_sub_section_terminal_help_list,
+      link: "/help-settings/helpSettingsList",
+    },
+    { title: Help.section, link: "/help-settings/sub-section" },
+  ];
 
   return (
     <ProtectedRoute allowedRoles={["admin"]}>
@@ -645,7 +652,7 @@ export default function Subsection() {
               </div>
               <div className="flex flex-row justify-end mt-4 sm:space-y-0 sm:space-x-2">
                 <button
-                  className="text-[14px] h-[32px] w-[120px] mr-[10px] text-center font-semibold cursor-pointer text-customBlue border border-customBlue bg-white rounded"
+                  className="text-[16px] h-[32px] w-[120px] mr-[10px] text-center font-semibold cursor-pointer text-customBlue border border-customBlue bg-white rounded"
                   onClick={() => {
                     if (tabKey == "1") {
                       handleAddButton();
@@ -658,7 +665,7 @@ export default function Subsection() {
                 </button>
                 <button
                   style={HeaderButton}
-                  className="text-base w-[150px] truncate bg-customBlue hover:bg-[#5283B3] h-[32px] border border-customBlue rounded"
+                  className="text-[16px] font-[600] w-[150px] truncate bg-customBlue hover:bg-[#5283B3] h-[32px] border border-customBlue rounded"
                   onClick={() => {
                     if (tabKey == "1") {
                       handleFileButtonClick();
@@ -691,7 +698,8 @@ export default function Subsection() {
             style={{ textAlign: "center" }}
             className="px-[40px] font-normal text-base"
           >
-            {helpToDelete}
+            {childData.name}
+            {/* {JSON.stringify(childData)} */}
           </p>
           <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]">
             <Button

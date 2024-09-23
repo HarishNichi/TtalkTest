@@ -403,7 +403,7 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
         <TitleUserCard title={intl.user_edit_screen_label} />
       </div>
       <div
-        className="flex flex-col h-full p-[40px] pt-[20px] pb-0 "
+        className="flex flex-col h-full p-[40px] pt-[32px] pb-0 "
         style={{ maxHeight: "450px", overflow: "auto" }}
       >
         <div className="w-full">
@@ -822,7 +822,7 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
             />
           </div>
           {/* バージョン  version*/}
-          <div className="mb-[32px]">
+          <div className="mb-[20px]">
             <DynamicLabel
               text={"バージョン"}
               textColor="#7B7B7B"
@@ -854,7 +854,7 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
 
           {/* onlineStatus - <<<<<<<<<<<<<<<<<<<<*/}
           <div className="">
-            <div className="  pl-4  ">
+            <div className="   ">
               <ToggleBoxMedium
                 toggle={isActive}
                 setToggle={(evt) => {
@@ -882,7 +882,7 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
 
           {/* activity - no vaidation  */}
           <div className="">
-            <div className=" mb-[10px] pl-4  ">
+            <div className=" mb-[10px]   ">
               <ToggleBoxMedium
                 toggle={seeUserActivity}
                 setToggle={(evt) => {
@@ -909,7 +909,7 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
           </div>
         </div>
       </div>
-      <div className="flex  w-full px-[40px] mb-[10px]">
+      <div className="flex  w-full px-[40px] mb-[32px]">
         <ActionButton
           title={intl.help_settings_addition_keep}
           onClick={updateUser}

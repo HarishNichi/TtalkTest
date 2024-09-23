@@ -23,7 +23,7 @@
 
   "help_settings_help_category": "カテゴリ追加",
   "help_settings_help_category_edit": "カテゴリ編集",
-  "help_settings_help_name": "ヘルプカテゴリ",
+  "help_settings_help_name": "ヘルプカテゴリ名",
   "help_settings_delete_help_category": "ヘルプカテゴリを削除しますか",
   "help_settings_help_items_deleted": "全てのヘルプ項目が削除されます",
   "help_settings_count": "項目数",
@@ -185,6 +185,7 @@
   "user_dial_pad_operation_volume": "ダイヤルパッドの操作音量",
   "user_sound_settings_notifcation_volume": "お知らせ音量",
   "user_dial_pad_operation_sound": "ダイヤルパッドの操作音",
+  "help_settings_add": "ヘルプカテゴリ名",
   "user_sound_settings_select_ptt_notication_sound": "PTT通知音の選択",
   "user_sound_settings_reply_tone": "返信要求音の選択",
   "user_sound_settings_tone_repeat": "返信要求音の繰り返し設定",

@@ -699,16 +699,15 @@ export default function Devices() {
                     : `${intl.help_settings_addition_delete}(${selectedRows.length})`
                 }
                 textColor={
-                  selectedRows.length === 0
-                    ? "text-[#FFCCCC]"
-                    : "text-[#BA1818]"
+                
+                    "text-[#BA1818]"
                 } // Light red when disabled, darker red otherwise
                 borderColor={"border-none"} // Light border when disabled, no border otherwise
                 textBold={true}
                 py={"xl:py-2.5 md:py-1.5 py-1.5"}
                 px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
                 icon={
-                  selectedRows.length === 0 ? disabledDeleteIcon : deleteIcon
+                  deleteIcon
                 }
                 onClick={(event) => {
                   event.stopPropagation();
@@ -821,7 +820,7 @@ export default function Devices() {
                   <div className="px-[40px] pb-[40px] ">
                     <IconLeftBtn
                       text={addModal ? "追加" : "保存"}
-                      textColor={"text-white font-semibold text-sm w-full"}
+                      textColor={"text-white font-semibold text-[16px] w-full"}
                       py={"py-[8px] px-[55px] w-full"}
                       px={""}
                       bgColor={"bg-customBlue"}

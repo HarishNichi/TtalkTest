@@ -26,6 +26,13 @@ export default function UserDetail() {
     console.log(`onTabChange: ${key}`);
     setTabKey(key);
   };
+  const userSubSectionLinks = [
+    {
+      title: intl.dashboard_user_list,
+      link: "/user",
+    },
+    { title: Employee.name, link: "/user-details" },
+  ];
   return (
     <div className="mb-[16px]">
       <ToastContainer />

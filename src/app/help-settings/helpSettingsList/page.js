@@ -443,18 +443,12 @@ export default function HelpSettingsList() {
                     ? `${intl.help_settings_addition_delete}`
                     : `${intl.help_settings_addition_delete}(${selectedRows.length})`
                 }
-                textColor={
-                  selectedRows.length === 0
-                    ? "text-[#FFCCCC]"
-                    : "text-[#BA1818]"
-                } // Light red when disabled, darker red otherwise
+                textColor={"text-[#BA1818]"} // Light red when disabled, darker red otherwise
                 borderColor={"border-none"} // Light border when disabled, no border otherwise
                 textBold={true}
                 py={"xl:py-2.5 md:py-1.5 py-1.5"}
                 px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
-                icon={
-                  selectedRows.length === 0 ? disabledDeleteIcon : deleteIcon
-                }
+                icon={deleteIcon}
                 disabled={selectedRows.length === 0} // Disable the button when selectedRows is empty
                 onClick={(event) => {
                   event.stopPropagation();
