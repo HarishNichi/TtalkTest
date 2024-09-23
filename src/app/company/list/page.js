@@ -281,6 +281,7 @@ export default function CompanyList() {
       setCurrentAPI("organizations/import");
       let result = await api.post("organizations/import", payload);
       setLoading(false);
+      setImportModal(false);
     } catch (err) {
       subscriptionTrack.unsubscribe();
       setLoading(false);
