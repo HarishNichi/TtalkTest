@@ -68,7 +68,7 @@ export default function ImportModal(props) {
         text={intl.company_list_company_import}
         textColor={"text-white font-semibold text-[16px] mb-[32px]"}
         py={"py-2.5"}
-        px={"w-[100%] md:w-[85%]"}
+        px={"w-[100%] "}
         bgColor={"bg-customBlue"}
         textBold={true}
         icon={() => {
@@ -145,7 +145,7 @@ export default function ImportModal(props) {
         centered
         footer={(_) => (
           <>
-            <div className="flex justify-center px-[32px]">{modelFooter()}</div>
+            <div className="flex px-[32px]">{modelFooter()}</div>
           </>
         )}
       >

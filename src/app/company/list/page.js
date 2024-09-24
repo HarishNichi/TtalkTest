@@ -602,6 +602,7 @@ export default function CompanyList() {
     /* eslint-disable no-undef*/
     let hasMap = new Set();
     if (!csvUploadInitiated) {
+      setLoading(false);
       return;
     }
     let scount = 0;
@@ -612,7 +613,6 @@ export default function CompanyList() {
         hasMap.add(data.token);
         setLoading(true);
         let dataReceived = JSON.parse(data);
-        console.log("Loading data")
         toast.dismiss();
         if (dataReceived?.rowsInserted) {
           dataReceived.rowsInserted =
@@ -658,9 +658,7 @@ export default function CompanyList() {
               setLoading(false);
             }
           }
-          console.log("Success");
           setLoading(false);
-          setImportModal(false);
           setCsvUploadInitiated(() => null);
         }
       }

@@ -11,9 +11,10 @@ import Contact from "@/components/Contacts/page";
 import { useAppSelector } from "@/redux/hooks";
 import ViewLog from "@/components/Logs/page";
 import Other from "@/components/Other/page";
-import TerminalSettings from "@/components/TerminalSettingsPopup/page";
+
 import { toast, ToastContainer } from "react-toastify";
 import intl from "@/utils/locales/jp/jp.json";
+import TerminalSettings from "@/components/TerminalSettings/page";
 
 export default function UserDetail() {
   const [tabKey, setTabKey] = useState("1");

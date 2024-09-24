@@ -70,6 +70,11 @@ export default function CompanyInformation() {
 
   const updateOrg = async (record) => {
     toast.dismiss();
+    if(!organizationsData.logo)
+    {
+      setValidation(true);
+      return;
+    }
     setLoading(true);
     if (imageSource) {
       record.accountDetail.organization.logo = imageSource;
@@ -330,7 +335,7 @@ export default function CompanyInformation() {
               />
             )}
           </div>
-          {!imageSource && validation && (
+          {!imageSource && !organizationsData.logo && validation && (
             <div className="validation-font text-sm text-[red] text-center mt-2">
               {intl.logo_cant_be_empty}
             </div>

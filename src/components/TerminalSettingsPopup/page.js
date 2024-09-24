@@ -1,10 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import {
-  maxLimit,
-  code,
-} from "@/utils/constant";
+import { maxLimit, code } from "@/utils/constant";
 import { Button, Tabs } from "antd";
 import { Modal as AntModal } from "antd";
 import intl from "@/utils/locales/jp/jp.json";
@@ -29,7 +26,6 @@ import TextPlain from "../Input/textPlain";
 import Medium from "../Input/medium";
 import api from "@/utils/api";
 import { HiSearch } from "react-icons/hi";
-
 
 export default function TerminalSettingsPopup({ isModal, selectedRows }) {
   const [loading, setLoading] = useState(false);
@@ -132,8 +128,6 @@ export default function TerminalSettingsPopup({ isModal, selectedRows }) {
   const [csvUploadInitiated, setCsvUploadInitiated] = useState(null);
   const CSVDownloadRef = useRef("");
 
-
-
   useEffect(() => {
     setUserDetailsInfo(userInfo);
   }, []);
@@ -190,8 +184,6 @@ export default function TerminalSettingsPopup({ isModal, selectedRows }) {
       setLoading(false);
     }
   }
-
-
 
   const fetchOtherData = async () => {
     setLoading(true);
@@ -1887,22 +1879,22 @@ export default function TerminalSettingsPopup({ isModal, selectedRows }) {
           footer={() => {
             return (
               <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]">
-                <Button
-                  className="sm:flex-1 w-full sm:w-auto text-[#19388B] border-[#19388B] font-semibold h-[40px] text-base"
+                <button
+                  className=" sm:flex-1 w-full sm:w-auto text-[#19388B] border-2 border-[#19388B] font-semibold h-[40px] text-base"
                   onClick={() => {
                     setConfirmModal(false);
                   }}
                 >
                   {intl.help_settings_addition_modal_cancel}
-                </Button>
-                <Button
-                  className="sm:flex-1 w-full sm:w-auto bg-[#19388B] font-semibold h-[40px] text-base text-white "
+                </button>
+                <button
+                  className="sm:flex-1 w-full sm:w-auto bg-[#19388B] hover:bg-[#5283B3] font-semibold h-[40px] text-base text-white "
                   onClick={() => {
                     updateBulkSettings();
                   }}
                 >
                   保存する
-                </Button>
+                </button>
               </div>
             );
           }}

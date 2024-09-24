@@ -240,6 +240,8 @@ export default function TerminalSettings({ isModal, selectedRows }) {
   const importIsOn = useAppSelector((state) => state.pttBarReducer.importIsOn);
   const [fileValidationError, setFileValidationError] = useState(null);
   const [csvUploadInitiated, setCsvUploadInitiated] = useState(null);
+  const [isEditable, setIsEditable] = useState(false);
+
   const CSVDownloadRef = useRef("");
 
   useEffect(() => {
@@ -348,6 +350,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
       if (settingsUpdated) {
         toast(intl.settings_update_success, successToastSettings);
         setConfirmModal(false);
+        setIsEditable(false);
       }
     } catch (err) {
       toast(intl.settings_update_failed, errorToastSettings);
@@ -1127,7 +1130,8 @@ export default function TerminalSettings({ isModal, selectedRows }) {
             borderColor={"border-customBlue bg-white"}
             icon={() => editIcon()}
             onClick={() => {
-              updateEmployeeSettings();
+              setIsEditable(true);
+              // updateEmployeeSettings();
             }}
           />
         </div>
@@ -1149,7 +1153,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
               <div>
                 <div className=" ml-2 mb-[16px]">
                   <ToggleBoxMediumRevamp
-                    disabled={false}
+                    isDisabled={!isEditable}
                     checked={!!userDetailsInfo.userState}
                     setToggle={(userState) => {
                       setUserDetailsInfo({
@@ -1169,7 +1173,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
               <div className="mb-2">
                 <div className="ml-2 ">
                   <ToggleBoxMediumRevamp
-                    disabled={false}
+                    isDisabled={!isEditable}
                     checked={!!userDetailsInfo.backgroundStart}
                     setToggle={(backgroundStart) => {
                       setUserDetailsInfo({
@@ -1192,7 +1196,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
 
           <div className="flex flex-col ml-2 w-full space-y-2 mb-2">
             <ToggleBoxMediumRevamp
-              disabled={false}
+              isDisabled={!isEditable}
               checked={!!userDetailsInfo.goOffline}
               setToggle={(goOffline) => {
                 setUserDetailsInfo({
@@ -1226,6 +1230,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
               />
               <div className="bg-input-white py-5 px-4 rounded-lg">
                 <Progress
+                  disabled={!isEditable}
                   value={progressBarPtt}
                   setValue={setProgressBarPtt}
                   id="nv"
@@ -1240,6 +1245,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
               />
 
               <select
+                disabled={!isEditable}
                 className="rounded-lg border border-gray-400 focus:outline-none focus:ring-2 focus:ring-customBlue block w-full px-4 py-2 dark:text-black"
                 defaultValue={"--選択する--"}
                 value={userDetailsInfo.notificationSound}
@@ -1281,6 +1287,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
               />
 
               <select
+                disabled={!isEditable}
                 className="rounded-lg border border-gray-400 focus:outline-none focus:ring-2 focus:ring-customBlue block w-full px-4 py-2 dark:text-black"
                 value={userDetailsInfo.toneRepeatSettings}
                 onChange={(evt) => {
@@ -1319,6 +1326,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
               />
 
               <select
+                disabled={!isEditable}
                 className="rounded-lg border border-gray-400 focus:outline-none focus:ring-2 focus:ring-customBlue block w-full px-4 py-2 dark:text-black"
                 id={"replyTone"}
                 defaultValue={"--選択する--"}
@@ -1349,6 +1357,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
             </div>
             <div className="mb-4 2xl:mb-6">
               <DropdownMedium
+                isDisabled={!isEditable}
                 borderRound={"rounded-lg"}
                 padding={"py-2 pr-[120px]"}
                 options={[
@@ -1381,6 +1390,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
             </div>
             <div className="mb-8">
               <DropdownMedium
+                isDisabled={!isEditable}
                 borderRound={"rounded-lg"}
                 padding={"py-2 pr-[120px]"}
                 options={[
@@ -1435,6 +1445,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                 />
                 <div className="bg-input-white py-5 px-4 rounded-lg">
                   <Progress
+                    disabled={!isEditable}
                     value={progressBarNotification}
                     setValue={setProgressBarNotification}
                     id="notification"
@@ -1444,6 +1455,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
               <div className="mb-4 2xl:mb-6">
                 <div className="bg-white  md:pl-4 pl-0 rounded-lg ">
                   <ToggleBoxMedium
+                    isDisabled={!isEditable}
                     toggle={userDetailsInfo.vibrateOnRequestReceived}
                     setToggle={(vibrateOnRequestReceived) => {
                       setUserDetailsInfo({
@@ -1476,6 +1488,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                 <div>
                   <div className="bg-white  md:pl-4 pl-0 rounded-lg">
                     <ToggleBoxMedium
+                      isDisabled={!isEditable}
                       toggle={userDetailsInfo.vibrationOnPtt}
                       setToggle={(vibrationOnPtt) => {
                         setUserDetailsInfo({
@@ -1507,6 +1520,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
               </div>
               <div className="mb-6 md:pl-4 pl-0">
                 <DropdownMedium
+                  isDisabled={!isEditable}
                   borderRound={"rounded-lg"}
                   padding={"py-2 pr-[120px]"}
                   options={[
@@ -1555,6 +1569,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
           <div className="w-full md:w-1/2">
             <div className="mb-8">
               <DropdownMedium
+                isDisabled={!isEditable}
                 borderRound={"rounded-lg"}
                 padding={"py-2.5 pr-[120px]"}
                 options={[
@@ -1583,6 +1598,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
 
             <div className="mb-4 2xl:mb-6">
               <TextPlain
+                disabled={!isEditable}
                 type={"text"}
                 for={"recordedFileSize"}
                 placeholder={intl.user_voice_recording_storage_label}
@@ -1671,8 +1687,9 @@ export default function TerminalSettings({ isModal, selectedRows }) {
           <div className="w-full md:w-1/2 flex flex-col ">
             <div className="">
               <div className="2xl:mb-[19px]">
-                <div className="bg-white mb-[13px] md:mb-[45px] md:mt-[-8px]  md:pl-4 pl-0 rounded-lg">
+                <div className="bg-white mb-[32px] md:mb-[36px] md:mt-[-8px]   pl-0 rounded-lg">
                   <ToggleBoxMedium
+                    isDisabled={!isEditable}
                     toggle={userDetailsInfo.isRecordingSettings}
                     setToggle={(isRecordingSettings) => {
                       setUserDetailsInfo({
@@ -1701,50 +1718,36 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                   />
                 </div>
               </div>
-              <div className="mt-[8px] md:pl-4 pl-0 2xl:mb-6">
-                <DynamicLabel
-                  text={intl.user_voice_recording_storage_location}
-                  textColor="#7B7B7B"
-                  htmlFor="recordedFileStorageLocation"
-                />
-                <Medium
-                  id="recordedFileStorageLocation"
-                  type={"text"}
-                  placeholder={""}
-                  borderRound={"rounded-lg"}
-                  padding={"p-[10px] py-3"}
-                  focus={"focus:outline-none"}
+              <div className="mb-4 2xl:mb-6">
+                <DropdownMedium
+                  isDisabled={!isEditable}
+                  labelClass={"mb-[4px]"}
+                  borderRound={"rounded"}
+                  padding={"py-2 pr-[120px]"}
+                  options={[
+                    { id: 1, value: "internal", label: "内蔵ストレージ" },
+                    { id: 2, value: "external", label: "外部ストレージ" },
+                  ]}
+                  keys={"value"} // From options array
+                  optionLabel={"label"} // From options array
                   border={"border border-gray-400"}
-                  bg={"bg-[#f2f2f2]"}
-                  isDisabled="true"
-                  additionalClass={
-                    "block w-full pl-5 text-sm mt-[1px] pr-[30px] h-[40px] text-[#C7C7C7]"
+                  focus={
+                    "focus:outline-none focus:ring-2 focus:ring-customBlue"
                   }
-                  value={userDetailsInfo.recordedFileStorageLocation}
-                  onChange={(evt) => {
-                    setTouched(() => ({
-                      ...touched,
-                      ["recordedFileStorageLocation"]: true,
-                    }));
+                  bg=""
+                  text={"text-sm"}
+                  additionalClass={"block w-full px-4 h-[40px]"}
+                  id={"mobileStorage"}
+                  labelColor={"#7B7B7B"}
+                  label={intl.user_sos_destination_label}
+                  value={userDetailsInfo.mobileStorage}
+                  onChange={(mobileStorage) => {
                     setUserDetailsInfo({
                       ...userDetailsInfo,
-                      ...{
-                        recordedFileStorageLocation: evt.target.value,
-                      },
+                      ...{ mobileStorage: mobileStorage },
                     });
                   }}
                 />
-                {touched &&
-                  errors &&
-                  errors.recordedFileStorageLocation &&
-                  touched.recordedFileStorageLocation && (
-                    <div
-                      className="pl-1 validation-font"
-                      style={{ color: "red" }}
-                    >
-                      {errors.recordedFileStorageLocation}
-                    </div>
-                  )}
               </div>
             </div>
           </div>
@@ -1772,6 +1775,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                   {deviceSettings.map((el, index) => {
                     return (
                       <button
+                        disabled={!isEditable}
                         key={index}
                         type="button"
                         className={`${btnClass} ${
@@ -2362,7 +2366,8 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                 <ToggleBoxMediumRevamp
                   isDisabled={
                     !organizationsData?.isTranscribe ||
-                    !userInfo.isRecordingSettings
+                    !userInfo.isRecordingSettings ||
+                    !isEditable
                   }
                   checked={
                     organizationsData?.isTranscribe
@@ -2389,7 +2394,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
 
             <div className="bg-white mb-4 pl-4 rounded-lg mb-4 2xl:mb-6 items-center">
               <ToggleBoxMediumRevamp
-                isDisabled={!organizationsData?.sosLocation}
+                isDisabled={!organizationsData?.sosLocation || !isEditable}
                 checked={userDetailsInfo.isSOS}
                 setToggle={(isSOS) => {
                   setUserDetailsInfo({
@@ -2413,7 +2418,9 @@ export default function TerminalSettings({ isModal, selectedRows }) {
             <div className="bg-white mb-4 pl-4 rounded-lg mb-4 2xl:mb-6 items-center">
               <ToggleBoxMediumRevamp
                 isDisabled={
-                  !organizationsData?.sosLocation || !userDetailsInfo.isSOS
+                  !organizationsData?.sosLocation ||
+                  !userDetailsInfo.isSOS ||
+                  !isEditable
                 }
                 checked={userDetailsInfo.locationInformation}
                 setToggle={(locationInformation) => {
@@ -2441,7 +2448,8 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                 <ToggleBoxMediumRevamp
                   isDisabled={
                     !organizationsData?.isTranslate ||
-                    !userInfo.isRecordingSettings
+                    !userInfo.isRecordingSettings ||
+                    !isEditable
                   }
                   checked={
                     organizationsData?.isTranslate
@@ -2474,7 +2482,9 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                 <div className=" pr-2  flex ">
                   <select
                     disabled={
-                      !organizationsData?.sosLocation || !userDetailsInfo.isSOS
+                      !organizationsData?.sosLocation ||
+                      !userDetailsInfo.isSOS ||
+                      !isEditable
                     }
                     className="rounded w-full border border-gray-400 h-[40px] focus:outline-none focus:ring-2 focus:ring-customBlue block px-4 py-2 w-24 dark:text-black"
                     value={userDetailsInfo.sosScheduledTime}
@@ -2510,8 +2520,8 @@ export default function TerminalSettings({ isModal, selectedRows }) {
           </div>
         </div>
       </div>
-      {isModal && (
-        <div className="flex justify-end mr-[16px] mb-[16px]">
+      {isEditable && (
+        <div className="flex justify-end p-[16px] bg-white mb-[16px]">
           <Button
             type="secondary"
             className="border-[#214BB9] h-[40px] border-solid text-[#214BB9] font-semibold"
@@ -2539,36 +2549,28 @@ export default function TerminalSettings({ isModal, selectedRows }) {
           className="my-[70px]"
           footer={() => {
             return (
-              <div className="flex flex-col sm:flex-row justify-center gap-4 w-full px-[40px] pb-[32px]">
-                <Button
-                  className="flex-1 h-[40px] text-[#19388B] border border-[#19388B] hover:bg-[#e0e7ff] focus:outline-none focus:ring-2 focus:ring-[#19388B] focus:ring-opacity-50 sm:w-[180px] w-full"
+              <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]">
+                <button
+                  className=" sm:flex-1 w-full sm:w-auto text-[#19388B] border-2 border-[#19388B] font-semibold h-[40px] text-base"
                   onClick={() => {
                     setConfirmModal(false);
                   }}
                 >
                   {intl.help_settings_addition_modal_cancel}
-                </Button>
-
-                <IconLeftBtn
-                  text="保存する"
-                  textColor="text-white font-semibold text-sm w-full h-[40px] sm:w-[180px]"
-                  bgColor="bg-customBlue"
-                  textBold={true}
+                </button>
+                <button
+                  className="sm:flex-1 w-full sm:w-auto bg-[#19388B] hover:bg-[#5283B3] font-semibold h-[40px] text-base text-white "
                   onClick={() => {
-                    updateBulkSettings();
+                    updateEmployeeSettings();
                   }}
-                  icon={() => {
-                    return null;
-                  }}
-                />
+                >
+                  保存する
+                </button>
               </div>
             );
           }}
         >
-          <div className="text-center">
-            {" "}
-            選択した{selectedRows.length}の端末に変更が反映されます
-          </div>
+          <div className="text-center"> 端末に変更が反映されます</div>
         </AntModal>
       )}
 
