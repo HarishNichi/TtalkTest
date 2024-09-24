@@ -330,12 +330,12 @@ export default function CompanyInformation() {
                 imgError={imgError}
                 edit={true}
                 setImageURL={setImageURL}
-                imgSrc={organizationsData.logo}
+                imgSrc={organizationsData?.logo}
                 setImgError={setImgError}
               />
             )}
           </div>
-          {!imageSource && !organizationsData.logo && validation && (
+          {!imageSource && !organizationsData?.logo && validation && (
             <div className="validation-font text-sm text-[red] text-center mt-2">
               {intl.logo_cant_be_empty}
             </div>
