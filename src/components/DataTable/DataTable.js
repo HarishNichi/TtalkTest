@@ -159,7 +159,7 @@ export default function DataTable(props) {
   };
 
   let locale = {
-    emptyText: "表示するデータがありません",
+    emptyText: intl.devices_no_data_in_table,
   };
 
   return (

@@ -60,12 +60,12 @@ export default function TerminalSettings({ isModal, selectedRows }) {
   const schema = Yup.object().shape({
     recordedFileStorageLocation: Yup.string().matches(
       /^(\/[0-9a-zA-Z]+)*\/?$/,
-      "パスが無効です。パターンは '/xxxxx/xxx' です。"
+      intl.path_is_invalid
     ),
     recordedFileSize: Yup.number()
       .required(intl.validation_required)
-      .max(1024, "録音ファイルの保存容量は 1024MB を超えることはできません")
-      .typeError("ファイルサイズを数字で入力してください"),
+      .max(1024, intl.recording_cannot_exceed)
+      .typeError(intl.file_size_message),
   });
   function editIcon() {
     return (
@@ -416,12 +416,12 @@ export default function TerminalSettings({ isModal, selectedRows }) {
               toast(
                 `${ecount} 行のデータインポートに失敗しました`,
                 errorToastSettings
-              );
+              )
               setLoading(false);
             }
           }
           if (ecount == 0 && scount > 0) {
-            toast("正常にインポートされました。", successToastSettings);
+            toast(intl.user_imported_successfully, successToastSettings);
           }
           subscription.unsubscribe();
           setLoading(false);
@@ -446,7 +446,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
       setLoading(false);
     } catch (err) {
       setLoading(false);
-      toast("インポートに失敗しました", errorToastSettings);
+      toast(intl.user_import_failed, errorToastSettings);
     }
   }
 
@@ -454,11 +454,11 @@ export default function TerminalSettings({ isModal, selectedRows }) {
     let data;
     toast.dismiss();
     if (!csvFileName) {
-      setFileNameError("ファイル名が必要です。");
+      setFileNameError(intl.contacts_file_name_required);
       return;
     }
     if (!csvFileNameRegex.test(csvFileName)) {
-      setFileNameError("ファイル名を確認してください。");
+      setFileNameError(intl.user_check_file_name);
       return;
     }
     setFileNameError("");
@@ -473,12 +473,12 @@ export default function TerminalSettings({ isModal, selectedRows }) {
       setDownloadCsvLink(result.data.data.data.path);
       dispatch(exportPopup(false));
       setCsvFileName("");
-      toast("エクスポートが成功しました", successToastSettings);
+      toast(intl.groups_export_success, successToastSettings);
 
       setLoading(false);
     } catch (err) {
       setLoading(false);
-      toast("エクスポートに失敗しました", errorToastSettings);
+      toast(intl.contacts_export_failed, errorToastSettings);
     }
   }
   const fetchOtherData = async () => {
@@ -797,10 +797,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
       });
     });
     if (!isValid) {
-      toast(
-        "少なくとも1つのオプションを記入してください。",
-        errorToastSettings
-      );
+      toast(intl.please_fill_atleast_1, errorToastSettings);
       setLoading(false);
       return;
     }
@@ -1138,7 +1135,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
       )}
       {isModal && (
         <div className="flex mt-[16px] ml-[16px] mb-[16px] ">
-          <TitleUserCard title="一括設定変更" />
+          <TitleUserCard title={intl.bulk_setting_change} />
         </div>
       )}
       <div className=" p-[16px] bg-white">
@@ -1184,10 +1181,12 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                       });
                     }}
                     toggle={userDetailsInfo.backgroundStart}
-                    label={"バックグラウンドで起動"}
+                    label={intl.start_in_background}
                     id={"Id"}
                   >
-                    <div className="text-[#434343]">バックグラウンドで起動</div>
+                    <div className="text-[#434343]">
+                      {intl.start_in_background}
+                    </div>
                   </ToggleBoxMediumRevamp>
                 </div>
               </div>
@@ -1207,10 +1206,10 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                 });
               }}
               toggle={userDetailsInfo.goOffline}
-              label={"オフラインにする"}
+              label={intl.go_offline}
               id={"Id"}
             >
-              <div className="text-[#434343]">{"強制オフライン"}</div>
+              <div className="text-[#434343]">{intl.forced_offline}</div>
             </ToggleBoxMediumRevamp>
           </div>
         </div>
@@ -1224,7 +1223,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
           <div className="w-full md:w-1/2">
             <div className="mb-4 2xl:mb-6">
               <DynamicLabel
-                text={"PTT通知音量"}
+                text={intl.user_dial_pad_operation_volume}
                 textColor="#7B7B7B"
                 htmlFor="userId"
               />
@@ -1239,7 +1238,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
             </div>
             <div className="mb-4 2xl:mb-6">
               <DynamicLabel
-                text="PTT通知音"
+                text={intl.user_dial_pad_operation_sound}
                 textColor="#7B7B7B"
                 htmlFor="userId"
               />
@@ -1247,7 +1246,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
               <select
                 disabled={!isEditable}
                 className="rounded-lg border border-gray-400 focus:outline-none focus:ring-2 focus:ring-customBlue block w-full px-4 py-2 dark:text-black"
-                defaultValue={"--選択する--"}
+                defaultValue={intl.dropdownmedium_select_label}
                 value={userDetailsInfo.notificationSound}
                 onChange={(evt) => {
                   setUserDetailsInfo({
@@ -1260,12 +1259,12 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                   {
                     id: 1,
                     value: "pttNotificationSound1",
-                    label: "PTT通知音1",
+                    label: intl.ptt_notification_sound_1,
                   },
                   {
                     id: 2,
                     value: "pttNotificationSound2",
-                    label: "PTT通知音2",
+                    label: intl.ptt_notification_sound_2,
                   },
                 ].map((dropDownOption, index) => (
                   <option
@@ -1281,7 +1280,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
             </div>
             <div className="mb-4 2xl:mb-6">
               <DynamicLabel
-                text="返信要求繰り返し"
+                text={intl.user_repeated_request}
                 textColor="#7B7B7B"
                 htmlFor="user_sound_settings_tone_repeat"
               />
@@ -1298,13 +1297,25 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                 }}
               >
                 <option disabled value={""} selected className="py-4">
-                  {"--選択する--"}
+                  {intl.dropdownmedium_select_label}
                 </option>
                 {[
-                  { id: 1, value: "1time", label: "1回のみ" },
-                  { id: 2, value: "1minuteInterval", label: "1分間隔" },
-                  { id: 3, value: "5minuteInterval", label: "５分間隔" },
-                  { id: 4, value: "30minuteInterval", label: "30分間隔" },
+                  { id: 1, value: "1time", label: intl.only_once },
+                  {
+                    id: 2,
+                    value: "1minuteInterval",
+                    label: intl.one_minute_interval,
+                  },
+                  {
+                    id: 3,
+                    value: "5minuteInterval",
+                    label: intl.five_minute_interval,
+                  },
+                  {
+                    id: 4,
+                    value: "30minuteInterval",
+                    label: intl.thirty_minute_interval,
+                  },
                 ].map((dropDownOption, index) => (
                   <option
                     className="bg-white text-black rounded py-4"
@@ -1320,7 +1331,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
 
             <div className=" hidden mb-4 2xl:mb-6">
               <DynamicLabel
-                text="返信要求繰り返し"
+                text={intl.user_repeated_request}
                 textColor="#7B7B7B"
                 htmlFor="userId"
               />
@@ -1329,7 +1340,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                 disabled={!isEditable}
                 className="rounded-lg border border-gray-400 focus:outline-none focus:ring-2 focus:ring-customBlue block w-full px-4 py-2 dark:text-black"
                 id={"replyTone"}
-                defaultValue={"--選択する--"}
+                defaultValue={intl.dropdownmedium_select_label}
                 value={userDetailsInfo.replyTone}
                 onChange={(evt) => {
                   setUserDetailsInfo({
@@ -1366,8 +1377,8 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                     value: "continuousAlarm",
                     label: intl.user_network_failure_alarm_option1,
                   },
-                  { id: 2, value: "5times", label: "5回" },
-                  { id: 3, value: "off", label: "オフ" },
+                  { id: 2, value: "5times", label: intl.five_times },
+                  { id: 3, value: "off", label: intl.off },
                 ]}
                 keys={"value"} // From options array
                 optionLabel={"label"} // From options array
@@ -1378,7 +1389,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                 additionalClass={"block w-full px-4"}
                 id={"networkFailure"}
                 labelColor={"#7B7B7B"}
-                label="通信環境エラー音"
+                label={intl.user_network_failure_alarm_screen_label}
                 value={userDetailsInfo.networkFailure}
                 onChange={(networkFailure) => {
                   setUserDetailsInfo({
@@ -1397,22 +1408,22 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                   {
                     id: 1,
                     value: "off",
-                    label: "オフ",
+                    label: intl.off,
                   },
                   {
                     id: 2,
                     value: "customGroupCallRejection",
-                    label: "カスタムグループコール受信拒否",
+                    label: intl.custom_group_call_rejection,
                   },
                   {
                     id: 3,
                     value: "cloudGroupCallRejection",
-                    label: "クラウドグループコール受信拒否",
+                    label: intl.rejecting_cloud_group_calls,
                   },
                   {
                     id: 4,
                     value: "individualCallRejection",
-                    label: "個別コール受信拒否",
+                    label: intl.rejecting_individual_calls,
                   },
                 ]}
                 keys={"value"} // From options array
@@ -1424,7 +1435,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                 additionalClass={"block w-full px-4"}
                 id={"callRejection"}
                 labelColor={"#7B7B7B"}
-                label="受信拒否"
+                label={intl.refusal_to_recieve}
                 value={userDetailsInfo.callRejection}
                 onChange={(callRejection) => {
                   setUserDetailsInfo({
@@ -1546,7 +1557,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                   additionalClass={"block w-full px-4 text-[14px] font-normal"}
                   id={"boosterDuration"}
                   labelColor={"#7B7B7B"}
-                  label="TPPブースター"
+                  label={intl.ptt_booster}
                   value={userDetailsInfo.boosterDuration}
                   onChange={(boosterDuration) => {
                     setUserDetailsInfo({
@@ -2357,7 +2368,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
 
       <div className="mt-[16px] bg-white p-[16px]">
         <div className="flex ">
-          <TitleUserCard title={"その他"} />
+          <TitleUserCard title={intl.user_others} />
         </div>
         <div className="flex flex-col md:flex-row md:gap-x-4">
           <div className="w-full md:w-1/2 md:mb-12">
@@ -2387,7 +2398,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                   }
                   id={"Id"}
                 >
-                  <div className="text-[#7B7B7B]">{"文字おこし"}</div>
+                  <div className="text-[#7B7B7B]">{intl.transcribe}</div>
                 </ToggleBoxMediumRevamp>
               </div>
             </div>
@@ -2496,13 +2507,13 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                     }}
                   >
                     <option disabled value={""} selected className="py-4">
-                      {"--選択する--"}
+                      {intl.dropdownmedium_select_label}
                     </option>
                     {[
-                      { id: 1, value: "5sec", label: "5秒" },
-                      { id: 2, value: "10sec", label: "10秒" },
-                      { id: 3, value: "15sec", label: "15秒" },
-                      { id: 4, value: "20sec", label: "20秒" },
+                      { id: 1, value: "5sec", label: intl.five_seconds },
+                      { id: 2, value: "10sec", label: intl.ten_seconds },
+                      { id: 3, value: "15sec", label: intl.fifteen_seconds },
+                      { id: 4, value: "20sec", label: intl.twenty_seconds },
                     ].map((dropDownOption, index) => (
                       <option
                         className="bg-white text-black rounded py-4"
@@ -2529,7 +2540,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
               setConfirmModal(true);
             }}
           >
-            設定を保存
+            {intl.save_settings}
           </Button>
         </div>
       )}
@@ -2538,7 +2549,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
           width={385}
           title={
             <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
-              設定を保存しますか？
+              {intl.save_popup}
             </div>
           }
           open={confirmModal}
@@ -2564,13 +2575,13 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                     updateEmployeeSettings();
                   }}
                 >
-                  保存する
+                  {intl.save}
                 </button>
               </div>
             );
           }}
         >
-          <div className="text-center"> 端末に変更が反映されます</div>
+          <div className="text-center"> {intl.changes_reflected}</div>
         </AntModal>
       )}
 
@@ -2593,7 +2604,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
             return (
               <div className="px-[40px] pb-[40px] ">
                 <IconLeftBtn
-                  text={"エクスポート"}
+                  text={intl.company_list_company_export_title}
                   textColor={"text-white font-semibold text-[16px] w-full"}
                   py={"py-[11px]"}
                   px={"w-[84%]"}
@@ -2618,14 +2629,14 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                   <TextPlain
                     type="text"
                     for={"id"}
-                    placeholder={"ファイル名"}
+                    placeholder={intl.user_history_settings_file_name}
                     borderRound="rounded"
                     padding="p-[10px]"
                     focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
                     border="border border-gray-300"
                     bg="bg-white"
                     additionalClass="block w-full pl-5 text-base h-[40px] pr-[30px]"
-                    label={"ファイル名"}
+                    label={intl.user_history_settings_file_name}
                     labelColor="#7B7B7B"
                     id={"id"}
                     isRequired={true}

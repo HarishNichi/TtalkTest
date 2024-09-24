@@ -136,6 +136,15 @@ export default function ImportModal({
 
         {/* Progress bar component */}
         <div data-testid="progress-bar" className="mb-3 px-[32px]">
+          <div>
+            <a
+              download
+              href={sampleLink}
+              className="text-xs hover:text-blue-800"
+            >
+              サンプル.csv
+            </a>
+          </div>
           {fileName && progressLine > 0 && (
             <ProgressBar
               key={progressLine}

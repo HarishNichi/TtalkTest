@@ -48,15 +48,15 @@ export default function DropdownMedium(props) {
         >
           {!props.defaultSelectNoOption && (
             <option
-             disabled 
-             selected 
-             hidden
+              disabled
+              selected
+              hidden
               value=""
-              style={{ fontSize: "14px", width: "200px",}}
+              style={{ fontSize: "14px", width: "200px" }}
               key={"default"}
               className="text-[#85868B]"
             >
-              {props?.placeholder || "--選択する--"}
+              {props?.placeholder || intl.dropdownmedium_select_label}
             </option>
           )}
           {props.options.map((dropDownOption, index) => {

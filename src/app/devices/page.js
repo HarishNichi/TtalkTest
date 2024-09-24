@@ -100,7 +100,7 @@ export default function Devices() {
       sortDirections: ["ascend", "descend", "ascend"],
     },
     {
-      title: "期限指定",
+      title: intl.deadline,
       dataIndex: "isToggleOn",
       render: (text, record) => (
         <div style={{ marginLeft: "20%" }}>
@@ -110,7 +110,7 @@ export default function Devices() {
       width: "140px",
     },
     {
-      title: "開始日",
+      title: intl.start_date,
       dataIndex: "startDate",
       render: (text, record) => {
         let startDate = record.isToggleOn ? text : "";
@@ -122,7 +122,7 @@ export default function Devices() {
       sortDirections: ["ascend", "descend", "ascend"],
     },
     {
-      title: "終了日",
+      title: intl.end_date,
       dataIndex: "endDate",
       render: (text, record) => {
         let endDate = record.isToggleOn ? text : "";
@@ -639,7 +639,7 @@ export default function Devices() {
             }
           }
           if (ecount == 0 && scount > 0) {
-            toast("正常にインポートされました。", successToastSettings);
+            toast(intl.user_imported_successfully, successToastSettings);
           }
           setImportModal(() => !importModal);
           subscription.unsubscribe();
@@ -698,17 +698,12 @@ export default function Devices() {
                     ? `${intl.help_settings_addition_delete}`
                     : `${intl.help_settings_addition_delete}(${selectedRows.length})`
                 }
-                textColor={
-                
-                    "text-[#BA1818]"
-                } // Light red when disabled, darker red otherwise
+                textColor={"text-[#BA1818]"} // Light red when disabled, darker red otherwise
                 borderColor={"border-none"} // Light border when disabled, no border otherwise
                 textBold={true}
                 py={"xl:py-2.5 md:py-1.5 py-1.5"}
                 px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
-                icon={
-                  deleteIcon
-                }
+                icon={deleteIcon}
                 onClick={(event) => {
                   event.stopPropagation();
                   if (selectedRows.length > 0) {
@@ -761,7 +756,7 @@ export default function Devices() {
                   setSelectAll(evt.target.checked);
                 }}
               />
-              <span className="ml-1"> {"すべて選択"}</span>
+              <span className="ml-1"> {intl.user_selectAll}</span>
             </label>
           </div>
           <div className=" relative" style={{ width: "100%" }}>
@@ -806,7 +801,7 @@ export default function Devices() {
               width={520}
               title={
                 <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
-                  {addModal ? "端末追加" : "端末編集"}
+                  {addModal ? intl.device_add_device : intl.device_edit}
                 </div>
               }
               open={editModal || addModal}
@@ -819,7 +814,11 @@ export default function Devices() {
                 return (
                   <div className="px-[40px] pb-[40px] ">
                     <IconLeftBtn
-                      text={addModal ? "追加" : "保存"}
+                      text={
+                        addModal
+                          ? intl.help_settings_addition_btn
+                          : intl.help_settings_addition_keep
+                      }
                       textColor={"text-white font-semibold text-[16px] w-full"}
                       py={"py-[8px] px-[55px] w-full"}
                       px={""}
@@ -849,7 +848,7 @@ export default function Devices() {
                       isRequired={true}
                       type={"text"}
                       for={addModal ? "addSettings" : "editSettings"}
-                      placeholder={"端末名"}
+                      placeholder={intl.machineName}
                       padding={"p-[10px] h-[40px]"}
                       focus={
                         "focus:outline-none focus:ring-2  focus:ring-customBlue "
@@ -886,7 +885,7 @@ export default function Devices() {
                   </div>
                   <div className="mb-4">
                     <label className="flex mb-1 text-[16px] font-medium  text-[#7b7b7b]">
-                      期限指定
+                    {intl.deadline}
                     </label>
                     <div className="flex justify-start">
                       <Switch

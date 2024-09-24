@@ -602,18 +602,19 @@ export default function CompanyList() {
     /* eslint-disable no-undef*/
     let hasMap = new Set();
     if (!csvUploadInitiated) {
-      setLoading(false);
       return;
     }
     let scount = 0;
     let ecount = 0;
     let failedRowIndexes = [];
     const subscription = gen.subscribe(csvUploadInitiated, async ({ data }) => {
+      console.log(data);
       if (!hasMap.has(data.token)) {
         hasMap.add(data.token);
         setLoading(true);
         let dataReceived = JSON.parse(data);
         toast.dismiss();
+        console.log(dataReceived);
         if (dataReceived?.rowsInserted) {
           dataReceived.rowsInserted =
             dataReceived?.rowsInserted &&
@@ -633,13 +634,6 @@ export default function CompanyList() {
         if (dataReceived?.currentChunk == dataReceived?.totalChunks) {
           setFileName("");
           setFile(null);
-
-          if (ecount == 0 && scount > 0) {
-            toast(intl.user_imported_successfully, successToastSettings);
-            subscription.unsubscribe();
-            setImportModal(() => !importModal);
-            fetchData();
-          }
           if (ecount > 0) {
             try {
               setLoading(true);
@@ -658,6 +652,14 @@ export default function CompanyList() {
               setLoading(false);
             }
           }
+
+         else if (ecount == 0 && scount > 0) {
+            toast(intl.user_imported_successfully, successToastSettings);
+            subscription.unsubscribe();
+            setImportModal(() => !importModal);
+            fetchData();
+          }
+         
           setLoading(false);
           setCsvUploadInitiated(() => null);
         }
