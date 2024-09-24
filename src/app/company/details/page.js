@@ -109,7 +109,11 @@ export default function CompanyInformation() {
   };
 
   const handleEditClick = () => {
-    setIsModalVisible(true);
+    setValidation(false)
+    setTimeout(()=>
+    {
+      setIsModalVisible(true);
+    },100)
   };
 
   const handleModalClose = () => {
