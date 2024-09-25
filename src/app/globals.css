@@ -457,6 +457,11 @@ input[list]::-webkit-calendar-picker-indicator {
   display: none; /* Hide the default dropdown arrow */
 }
 
+input[list]::-webkit-calendar-picker-indicator:hover {
+  display: none; /* Hide the default dropdown arrow */
+  opacity: 0;
+}
+
 /* Customize the input and add custom icon */
 input[list] {
   background-image: url(../../public/Vector.png); /* Custom icon */
