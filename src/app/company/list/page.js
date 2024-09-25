@@ -598,42 +598,57 @@ export default function CompanyList() {
     };
   }, []);
 
-  useEffect(() => {
-    /* eslint-disable no-undef*/
-    let hasMap = new Set();
-    if (!csvUploadInitiated) {
-      return;
-    }
-    let scount = 0;
-    let ecount = 0;
-    let failedRowIndexes = [];
-    const subscription = gen.subscribe(csvUploadInitiated, async ({ data }) => {
-      console.log(data);
-      if (!hasMap.has(data.token)) {
-        hasMap.add(data.token);
-        setLoading(true);
+  // Declare hasMap outside of useEffect to maintain its state across renders
+// eslint-disable-next-line no-undef
+useEffect(() => {
+  /* eslint-disable no-undef*/
+  let hasMap = new Set();
+
+  if (!csvUploadInitiated) {
+    return;
+  }
+
+  let scount = 0;
+  let ecount = 0;
+  let failedRowIndexes = [];
+
+  const subscription = gen.subscribe(csvUploadInitiated, async ({ data }) => {
+    console.log(data);
+    let parsedData = JSON.parse(data);
+    // Generate a unique key for each chunk using token, currentChunk, and copy
+    const uniqueKey = `${parsedData?.currentChunk}-${parsedData?.copy}`;
+
+    console.log("Unique key:", uniqueKey);
+
+    if (!hasMap.has(uniqueKey)) {
+      hasMap.add(uniqueKey);
+      setLoading(true);
+
+      try {
         let dataReceived = JSON.parse(data);
         toast.dismiss();
         console.log(dataReceived);
+
         if (dataReceived?.rowsInserted) {
-          dataReceived.rowsInserted =
-            dataReceived?.rowsInserted &&
-            JSON.parse(dataReceived?.rowsInserted);
-          scount = scount + dataReceived?.rowsInserted;
+          dataReceived.rowsInserted = JSON.parse(dataReceived?.rowsInserted);
+          scount += dataReceived?.rowsInserted;
+        }
+        console.log(scount, dataReceived?.rowsInserted);
+
+        if (dataReceived?.rowsFailed > 0) {
+          dataReceived.rowsFailed = JSON.parse(dataReceived?.rowsFailed);
+          ecount += dataReceived?.rowsFailed;
         }
 
-        if (dataReceived?.rowsFailed) {
-          dataReceived.rowsFailed =
-            dataReceived?.rowsFailed && JSON.parse(dataReceived?.rowsFailed);
-          ecount = ecount + dataReceived?.rowsFailed;
-        }
-
-        // get failed index
+        // Collect failed row indexes
         failedRowIndexes = [...failedRowIndexes, ...dataReceived.failures];
-        // finished loop
-        if (dataReceived?.currentChunk == dataReceived?.totalChunks) {
+
+        // Check if all chunks have been processed
+        console.log(dataReceived?.currentChunk, dataReceived?.totalChunks);
+        if (dataReceived?.currentChunk === dataReceived?.totalChunks) {
           setFileName("");
           setFile(null);
+
           if (ecount > 0) {
             try {
               setLoading(true);
@@ -642,32 +657,44 @@ export default function CompanyList() {
               });
               setDownloadCsvLink(csvLink.data.data.failureFile);
             } finally {
-              toast(
-                `${ecount} 行のデータインポートに失敗しました`,
-                errorToastSettings
-              );
+              console.log("exiting...");
+              toast(`${ecount} 行のデータインポートに失敗しました`, errorToastSettings);
               subscription.unsubscribe();
               setImportModal(() => !importModal);
               fetchData();
               setLoading(false);
             }
-          }
-
-         else if (ecount == 0 && scount > 0) {
+          } else if (ecount === 0 && scount > 0) {
+            console.log("entering");
             toast(intl.user_imported_successfully, successToastSettings);
             subscription.unsubscribe();
             setImportModal(() => !importModal);
             fetchData();
           }
-         
+
           setLoading(false);
           setCsvUploadInitiated(() => null);
+
+          // Optionally clear hasMap after completion
+          hasMap.clear();
         }
+
+      } catch (error) {
+        console.error("Error processing data:", error);
       }
-    });
-    setSubscriptionTrack(subscription);
-    return () => subscription.unsubscribe();
-  }, [csvUploadInitiated]);
+
+    } else {
+      console.log("Duplicate request received");
+    }
+  });
+
+  // Track subscription and ensure it gets cleaned up
+  setSubscriptionTrack(subscription);
+
+  return () => subscription.unsubscribe();
+}, [csvUploadInitiated]);
+
+
 
   return (
     <ProtectedRoute allowedRoles={["admin"]}>

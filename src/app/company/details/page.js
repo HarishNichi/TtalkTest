@@ -70,7 +70,7 @@ export default function CompanyInformation() {
 
   const updateOrg = async (record) => {
     toast.dismiss();
-    if(!organizationsData.logo)
+    if(!organizationsData.logo && !imageSource)
     {
       setValidation(true);
       return;
