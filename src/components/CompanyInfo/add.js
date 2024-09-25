@@ -71,7 +71,7 @@ export default function AddUser({ setIsModalOpen, setComCreated }) {
     <>
       {loading && <LoaderOverlay />}
       <ToastContainer />
-      
+
       <div className="flex flex-col flex-1 h-full pt-[40px]">
         <div className="flex  justify-center">
           <div className="flex">
@@ -86,12 +86,13 @@ export default function AddUser({ setIsModalOpen, setComCreated }) {
         </div>
 
         <div className="p-[40px] pt-[32px]  flex justify-center flex-1 flex-col h-full">
-          <div className="flex  justify-center max-h-[120px]">
+          <div className="flex  justify-center max-h-[120px] ">
             <Upload
               edit={true}
               imgError={imgError}
               setImageURL={setImageURL}
               setImgError={setImgError}
+              cursorClass={"cursor-pointer"}
             />
           </div>
           {!imageSource && validation && (

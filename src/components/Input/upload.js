@@ -94,7 +94,7 @@ export default function Upload(props) {
   return (
     <main>
       <div
-        className="avatar "
+        className={`avatar ${props.cursorClass}`}
         style={{ borderRadius: "50%", background: "#D9D9D9" }}
         onClick={handleClick}
       >

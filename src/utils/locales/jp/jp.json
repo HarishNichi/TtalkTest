@@ -296,8 +296,8 @@
   "groups_export_success": "エクスポートが成功しました",
   "user_usage_start_date": "利用開始日(YYYY/MM/DD)",
   "usage_start_date": "利用開始日",
-  "start_date":"開始日",
-  "end_date":"終了日",
+  "start_date": "開始日",
+  "end_date": "終了日",
   "user_usage_suspension_date": "利用停止日(YYYY/MM/DD)",
   "usage_suspension_date": "利用停止日",
   "user_version": "バージョン",
@@ -361,6 +361,7 @@
   "password_pattern_msg": "パスワードは6文字から12文字の間である必要があります。",
   "devices_canbe": "あり",
   "devices_none": "なし",
+
   "devices_no_data_in_table": "表示するデータがありません",
   "password_updated": "パスワードを送信しました",
   "add_user_email_id_label": "連絡先メールアドレスを入力してください",
@@ -372,7 +373,7 @@
   "help_title": "ヘルプタイトル",
   "device_terminal": "端末",
   "device_add_device": "端末追加",
-  "device_edit":"端末編集",
+  "device_edit": "端末編集",
   "device_delete_device": "選択した端末を削除しますか",
   "sidebar_corporate_management": "企業管理",
   "password_placeholder": "パスワード"

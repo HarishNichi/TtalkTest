@@ -101,7 +101,7 @@ export default function HelpSettingsList() {
                 dayjs(today).isSameOrBefore(item.endDate) &&
                 dayjs(today).isSameOrAfter(item.startDate);
               if (!isValid) {
-                item.name = item.name + " - 期限切れ";
+                item.name = item.name + intl.user_expired;
                 deviceListMap.push(item.id);
                 setDeviceList((prv) => [...prv, item.id]);
               }
@@ -163,7 +163,7 @@ export default function HelpSettingsList() {
             machine:
               emp.accountDetail.employee?.machine.id &&
               expDeviceList.includes(emp.accountDetail.employee?.machine.id)
-                ? emp.accountDetail.employee?.machine.name + " - 期限切れ"
+                ? emp.accountDetail.employee?.machine.name + intl.user_expired
                 : emp.accountDetail.employee?.machine.name || "-",
 
             fleetNumber: emp.fleetNumber,

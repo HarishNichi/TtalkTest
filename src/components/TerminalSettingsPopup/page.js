@@ -499,7 +499,7 @@ export default function TerminalSettingsPopup({ isModal, selectedRows }) {
           <div className="flex flex-col w-full space-y-2    ">
             <div className="">
               <div>
-                <div className=" ml-2 mb-[16px]">
+                <div className="  mb-[16px]">
                   <ToggleBoxMediumRevamp
                     disabled={false}
                     checked={!!userDetailsInfo.userState}
@@ -519,7 +519,7 @@ export default function TerminalSettingsPopup({ isModal, selectedRows }) {
                 </div>
               </div>
               <div className="mb-2">
-                <div className="ml-2 ">
+                <div className=" ">
                   <ToggleBoxMediumRevamp
                     disabled={false}
                     checked={!!userDetailsInfo.backgroundStart}
@@ -542,7 +542,7 @@ export default function TerminalSettingsPopup({ isModal, selectedRows }) {
             </div>
           </div>
 
-          <div className="flex flex-col ml-2 w-full space-y-2 mb-2">
+          <div className="flex flex-col ml-0 md:ml-2 w-full space-y-2 mb-2">
             <ToggleBoxMediumRevamp
               disabled={false}
               checked={!!userDetailsInfo.goOffline}
@@ -576,7 +576,7 @@ export default function TerminalSettingsPopup({ isModal, selectedRows }) {
                 textColor="#7B7B7B"
                 htmlFor="userId"
               />
-              <div className="bg-input-white py-5 px-4 rounded-lg">
+              <div className="bg-input-white py-5  rounded-lg">
                 <Progress
                   value={progressBarPtt}
                   setValue={setProgressBarPtt}
@@ -779,13 +779,13 @@ export default function TerminalSettingsPopup({ isModal, selectedRows }) {
           </div>
           <div className="w-full md:w-1/2 flex flex-col ">
             <div className="w-full md:mb-9 2xl:mb-32">
-              <div className="mb-1  2xl:mb-4 3xl:mb-4">
+              <div className="mb-1  pl-0 md:pl-4 2xl:mb-4 3xl:mb-4">
                 <DynamicLabel
                   text={intl.user_sound_settings_notifcation_volume}
                   textColor="#7B7B7B"
                   htmlFor="userId"
                 />
-                <div className="bg-input-white py-5 px-4 rounded-lg">
+                <div className="bg-input-white py-5 rounded-lg">
                   <Progress
                     value={progressBarNotification}
                     setValue={setProgressBarNotification}
@@ -1025,7 +1025,7 @@ export default function TerminalSettingsPopup({ isModal, selectedRows }) {
           <div className="w-full md:w-1/2 flex flex-col ">
             <div className="">
               <div className="2xl:mb-[19px]">
-                <div className="bg-white mb-[13px] md:mb-[32px] md:mt-[-8px]   pl-0 rounded">
+                <div className="bg-white mb-[13px] md:mb-[32px] md:mt-[-8px]   pl-0 md:pl-4 rounded">
                   <ToggleBoxMedium
                     toggle={userDetailsInfo.isRecordingSettings}
                     setToggle={(isRecordingSettings) => {
@@ -1055,7 +1055,7 @@ export default function TerminalSettingsPopup({ isModal, selectedRows }) {
                   />
                 </div>
               </div>
-              <div className="mb-4 2xl:mb-6">
+              <div className="mb-4 2xl:mb-6 pl-0 md:pl-4">
                 <DropdownMedium
                   labelClass={"mb-[4px]"}
                   borderRound={"rounded"}
@@ -1697,7 +1697,7 @@ export default function TerminalSettingsPopup({ isModal, selectedRows }) {
         <div className="flex flex-col md:flex-row md:gap-x-4">
           <div className="w-full md:w-1/2 md:mb-12">
             <div className="mb-4 2xl:mb-6">
-              <div className="bg-white mb-4 pl-4 rounded-lg">
+              <div className="bg-white mb-4  rounded-lg">
                 <ToggleBoxMediumRevamp
                   isDisabled={
                     !organizationsData?.isTranscribe ||
@@ -1726,7 +1726,7 @@ export default function TerminalSettingsPopup({ isModal, selectedRows }) {
               </div>
             </div>
 
-            <div className="bg-white mb-4 pl-4 rounded-lg mb-4 2xl:mb-6 items-center">
+            <div className="bg-white mb-4  rounded-lg mb-4 2xl:mb-6 items-center">
               <ToggleBoxMediumRevamp
                 isDisabled={!organizationsData?.sosLocation}
                 checked={userDetailsInfo.isSOS}
@@ -1749,7 +1749,7 @@ export default function TerminalSettingsPopup({ isModal, selectedRows }) {
                 <div className="text-[#434343]">{"SOS"}</div>
               </ToggleBoxMediumRevamp>
             </div>
-            <div className="bg-white mb-4 pl-4 rounded-lg mb-4 2xl:mb-6 items-center">
+            <div className="bg-white mb-4  rounded-lg mb-4 2xl:mb-6 items-center">
               <ToggleBoxMediumRevamp
                 isDisabled={
                   !organizationsData?.sosLocation || !userDetailsInfo.isSOS
@@ -1776,7 +1776,7 @@ export default function TerminalSettingsPopup({ isModal, selectedRows }) {
           </div>
           <div className="w-full md:w-1/2 flex flex-col ">
             <div className="">
-              <div className="bg-white  mb-4 pl-4 rounded-lg">
+              <div className="bg-white  mb-4 pl-0 md:pl-4 rounded-lg">
                 <ToggleBoxMediumRevamp
                   isDisabled={
                     !organizationsData?.isTranslate ||
@@ -1805,7 +1805,7 @@ export default function TerminalSettingsPopup({ isModal, selectedRows }) {
               </div>
             </div>
 
-            <div className="bg-white pl-4 rounded-lg mb-4 2xl:mb-6 grid grid-cols-4 items-start">
+            <div className="bg-white pl-0 md:pl-4 rounded-lg mb-4 2xl:mb-6 grid grid-cols-4 items-start">
               <div className="col-span-4 mb-[1px] ">
                 <div className="text-[#434343]">{"SOS定期時間"}</div>
               </div>

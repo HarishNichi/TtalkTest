@@ -38,13 +38,13 @@ export default function HelpFileUpload({
   const handleFileUpload = (file) => {
     const maxSizeInBytes = 5 * 1024 * 1024;
     if (!file) {
-      setFileValidationError("ファイルを選択してください。"); // Japanese: "Please select a file."
+      setFileValidationError(intl.file_upload_select_file); // Japanese: "Please select a file."
       return;
     } else if (!file.type.includes("csv")) {
-      setFileValidationError("csvファイルを選択してください。");
+      setFileValidationError(intl.select_csv_file);
       return;
     } else if (file.size > maxSizeInBytes) {
-      setFileValidationError("ファイルサイズが5MBの制限を超えています。");
+      setFileValidationError(intl.exceeds_limit);
       return;
     } else {
       setFileValidationError(null);
@@ -72,64 +72,35 @@ export default function HelpFileUpload({
     });
   };
 
-//   const modelFooter = () => {
-//     return (
-//       <IconLeftBtn
-//         text={intl.company_list_company_import}
-//         textColor={"text-white font-semibold text-[16px]"}
-//         py={"py-2.5"}
-//         px={"w-[100%] md:w-[85%]"}
-//         bgColor={"bg-customBlue"}
-//         textBold={true}
-//         icon={() => {
-//           return null;
-//         }}
-//         onClick={(event) => {
-//           if (!file) {
-//             setFileValidationError("ファイルを選択してください。"); // Japanese: "Please select a file."
-//             return;
-//           }
-//           !fileValidationError &&
-//             uploadCsvFile({
-//               file: file,
-//               operation: operation,
-//               channel: channelName,
-//             });
-//         }}
-//       />
-//     );
-//   };
-
   return (
     <div className="flex direction-column">
-
-        <div className="flex flex-col">
-          {/* File upload component */}
-          <div data-testid="file-upload" className="mb-6 md:px-[32px]">
-            <div className="flex justify-content-left font-normal text-base mb-2">
-              ファイルを選択
-            </div>
-            <FileUpload onFileUpload={handleFileUpload} key={fileName} />
-
-            <div className="validation-font text-sm flex justify-center mt-2 text-[red]">
-              {fileValidationError ?? fileValidationError}
-            </div>
+      <div className="flex flex-col">
+        {/* File upload component */}
+        <div data-testid="file-upload" className="mb-6 md:px-[32px]">
+          <div className="flex justify-content-left font-normal text-base mb-2">
+            {intl.importmodal_fileupload_browse}
           </div>
+          <FileUpload onFileUpload={handleFileUpload} key={fileName} />
 
-          {/* Progress bar component */}
-          <div data-testid="progress-bar" className="mb-3 md:px-[32px]">
-            {fileName && progressLine > 0 && (
-              <ProgressBar
-                key={progressLine}
-                fileName={fileName}
-                percentage={progressLine}
-                onClick={() => {
-                  handleBarClick();
-                }}
-              />
-            )}
+          <div className="validation-font text-sm flex justify-center mt-2 text-[red]">
+            {fileValidationError ?? fileValidationError}
           </div>
         </div>
+
+        {/* Progress bar component */}
+        <div data-testid="progress-bar" className="mb-3 md:px-[32px]">
+          {fileName && progressLine > 0 && (
+            <ProgressBar
+              key={progressLine}
+              fileName={fileName}
+              percentage={progressLine}
+              onClick={() => {
+                handleBarClick();
+              }}
+            />
+          )}
+        </div>
+      </div>
     </div>
   );
 }

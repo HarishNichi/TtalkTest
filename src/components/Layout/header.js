@@ -336,13 +336,13 @@ export default function Header({
             <div className="mt-6">
               <div className="flex flex-col md:flex-row gap-2 w-full px-[40px] pb-[32px]">
                 <button
-                  className="w-full md:w-1/2 bg-customBlue text-white font-semibold py-[11px] px-[26.5px] md:px-[35.5px] text-sm"
+                  className="w-full md:w-1/2 bg-customBlue hover:bg-[#5283B3] text-white font-semibold py-[11px] px-[26.5px] md:px-[35.5px] text-sm"
                   onClick={() => setLogoutModal(false)}
                 >
                   {intl.user_remote_wipe_no_btn}
                 </button>
                 <button
-                  className="w-full md:w-1/2 bg-customBlue text-white font-semibold py-[11px] px-[30.5px] md:px-[38.5px] text-sm"
+                  className="w-full md:w-1/2 bg-customBlue hover:bg-[#5283B3] text-white font-semibold py-[11px] px-[30.5px] md:px-[38.5px] text-sm"
                   onClick={() => {
                     localStorage.clear();
                     window.location.href = "/";

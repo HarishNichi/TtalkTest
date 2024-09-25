@@ -30,7 +30,7 @@ export default function RemoteWipe() {
     try {
       await api.post("push/notify", payload);
       setLoading(false);
-      toast(intl.notify_success, successToastSettings)
+      toast(intl.notify_success, successToastSettings);
       setDeleteModal(() => false);
     } catch (error) {
       setLoading(false);
@@ -61,7 +61,7 @@ export default function RemoteWipe() {
 
         <div className="mb-0 flex gap-x-4 justify-center md:px-24">
           <div className="w-[150px]" onClick={setDeleteModal}>
-            <ActionButton title={"はい"} />
+            <ActionButton title={intl.user_remote_wipe_yes_btn} />
           </div>
         </div>
       </div>

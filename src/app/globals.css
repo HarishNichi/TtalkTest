@@ -511,8 +511,7 @@ input::-webkit-calendar-picker-indicator {
 .ant-tabs .ant-tabs-ink-bar {
   background: #19388b !important;
 }
-.ant-checkbox:not(.ant-checkbox-disabled):hover .ant-checkbox-inner
-{
+.ant-checkbox:not(.ant-checkbox-disabled):hover .ant-checkbox-inner {
   border-color: #19388b !important;
 }
 
@@ -586,8 +585,8 @@ input[type="checkbox"]:checked::after {
 select {
   -webkit-appearance: none;
   -moz-appearance: none;
-  appearance: none;       /* Remove default arrow */
-  background-image: url(../../public/Vector.png);   /* Add custom arrow */
+  appearance: none; /* Remove default arrow */
+  background-image: url(../../public/Vector.png); /* Add custom arrow */
   background-repeat: no-repeat;
   background-position: right 10px center;
 }
@@ -603,10 +602,10 @@ select {
   color: #0d0e11 !important;
 }
 
-.ant-table-wrapper .ant-table-tbody >tr >td {
-  border-bottom: 1px solid #E7E7E9;
+.ant-table-wrapper .ant-table-tbody > tr > td {
+  border-bottom: 1px solid #e7e7e9;
 }
 
-.ant-table-thead > tr > th  {
-  border-bottom: 1px solid #E7E7E9 !important;
+.ant-table-thead > tr > th {
+  border-bottom: 1px solid #e7e7e9 !important;
 }

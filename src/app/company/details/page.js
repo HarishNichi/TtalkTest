@@ -70,8 +70,7 @@ export default function CompanyInformation() {
 
   const updateOrg = async (record) => {
     toast.dismiss();
-    if(!organizationsData.logo && !imageSource)
-    {
+    if (!organizationsData.logo && !imageSource) {
       setValidation(true);
       return;
     }
@@ -109,11 +108,10 @@ export default function CompanyInformation() {
   };
 
   const handleEditClick = () => {
-    setValidation(false)
-    setTimeout(()=>
-    {
+    setValidation(false);
+    setTimeout(() => {
       setIsModalVisible(true);
-    },100)
+    }, 100);
   };
 
   const handleModalClose = () => {
@@ -328,7 +326,7 @@ export default function CompanyInformation() {
           className="my-[70px]"
           width={520}
         >
-          <div className="flex justify-center h-[150px] pb-[32px] max-h-[120px]">
+          <div className="flex justify-center h-[150px] pb-[32px] max-h-[120px] r">
             {organizationsData && (
               <Upload
                 imgError={imgError}
@@ -336,6 +334,7 @@ export default function CompanyInformation() {
                 setImageURL={setImageURL}
                 imgSrc={organizationsData?.logo}
                 setImgError={setImgError}
+                cursorClass={"cursor-pointer"}
               />
             )}
           </div>

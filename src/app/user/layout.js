@@ -295,11 +295,11 @@ export default function UserLayout({ children }) {
     let data;
     toast.dismiss();
     if (!csvFileName) {
-      setFileNameError("ファイル名が必要です。");
+      setFileNameError(intl.contacts_file_name_required);
       return;
     }
     if (!csvFileNameRegex.test(csvFileName)) {
-      setFileNameError("ファイル名を確認してください。");
+      setFileNameError(intl.user_check_file_name);
       return;
     }
     setFileNameError("");
@@ -314,12 +314,12 @@ export default function UserLayout({ children }) {
       setDownloadCsvLink(result.data.data.data.path);
       dispatch(exportPopup(false));
       setCsvFileName("");
-      toast("エクスポートが成功しました", successToastSettings);
+      toast(intl.groups_export_success, successToastSettings);
 
       setLoading(false);
     } catch (err) {
       setLoading(false);
-      toast("エクスポートに失敗しました", errorToastSettings);
+      toast(intl.contacts_export_failed, errorToastSettings);
     }
   }
 
@@ -335,7 +335,7 @@ export default function UserLayout({ children }) {
       });
     } catch (err) {
       setLoading(false);
-      toast("インポートに失敗しました", errorToastSettings);
+      toast(intl.user_import_failed, errorToastSettings);
     }
   }
 

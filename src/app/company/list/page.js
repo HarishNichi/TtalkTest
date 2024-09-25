@@ -293,7 +293,7 @@ export default function CompanyList() {
       <div className="px-[40px] pb-[40px]">
         <IconLeftBtnCSV
           type="submit"
-          text={"エクスポート"}
+          text={intl.company_list_company_export_title}
           textColor={"text-white font-semibold text-[16px] h-[40px] w-full"}
           py={"py-[11px]"}
           px={"w-[84%]"}
@@ -306,7 +306,7 @@ export default function CompanyList() {
             exportCSVFile();
           }}
         >
-          エクスポート
+          {intl.company_list_company_export_title}
         </IconLeftBtnCSV>
       </div>
     );
@@ -599,102 +599,101 @@ export default function CompanyList() {
   }, []);
 
   // Declare hasMap outside of useEffect to maintain its state across renders
-// eslint-disable-next-line no-undef
-useEffect(() => {
-  /* eslint-disable no-undef*/
-  let hasMap = new Set();
+  // eslint-disable-next-line no-undef
+  useEffect(() => {
+    /* eslint-disable no-undef*/
+    let hasMap = new Set();
 
-  if (!csvUploadInitiated) {
-    return;
-  }
+    if (!csvUploadInitiated) {
+      return;
+    }
 
-  let scount = 0;
-  let ecount = 0;
-  let failedRowIndexes = [];
+    let scount = 0;
+    let ecount = 0;
+    let failedRowIndexes = [];
 
-  const subscription = gen.subscribe(csvUploadInitiated, async ({ data }) => {
-    console.log(data);
-    let parsedData = JSON.parse(data);
-    // Generate a unique key for each chunk using token, currentChunk, and copy
-    const uniqueKey = `${parsedData?.currentChunk}-${parsedData?.copy}`;
+    const subscription = gen.subscribe(csvUploadInitiated, async ({ data }) => {
+      console.log(data);
+      let parsedData = JSON.parse(data);
+      // Generate a unique key for each chunk using token, currentChunk, and copy
+      const uniqueKey = `${parsedData?.currentChunk}-${parsedData?.copy}`;
 
-    console.log("Unique key:", uniqueKey);
+      console.log("Unique key:", uniqueKey);
 
-    if (!hasMap.has(uniqueKey)) {
-      hasMap.add(uniqueKey);
-      setLoading(true);
+      if (!hasMap.has(uniqueKey)) {
+        hasMap.add(uniqueKey);
+        setLoading(true);
 
-      try {
-        let dataReceived = JSON.parse(data);
-        toast.dismiss();
-        console.log(dataReceived);
+        try {
+          let dataReceived = JSON.parse(data);
+          toast.dismiss();
+          console.log(dataReceived);
 
-        if (dataReceived?.rowsInserted) {
-          dataReceived.rowsInserted = JSON.parse(dataReceived?.rowsInserted);
-          scount += dataReceived?.rowsInserted;
-        }
-        console.log(scount, dataReceived?.rowsInserted);
+          if (dataReceived?.rowsInserted) {
+            dataReceived.rowsInserted = JSON.parse(dataReceived?.rowsInserted);
+            scount += dataReceived?.rowsInserted;
+          }
+          console.log(scount, dataReceived?.rowsInserted);
 
-        if (dataReceived?.rowsFailed > 0) {
-          dataReceived.rowsFailed = JSON.parse(dataReceived?.rowsFailed);
-          ecount += dataReceived?.rowsFailed;
-        }
+          if (dataReceived?.rowsFailed > 0) {
+            dataReceived.rowsFailed = JSON.parse(dataReceived?.rowsFailed);
+            ecount += dataReceived?.rowsFailed;
+          }
 
-        // Collect failed row indexes
-        failedRowIndexes = [...failedRowIndexes, ...dataReceived.failures];
+          // Collect failed row indexes
+          failedRowIndexes = [...failedRowIndexes, ...dataReceived.failures];
 
-        // Check if all chunks have been processed
-        console.log(dataReceived?.currentChunk, dataReceived?.totalChunks);
-        if (dataReceived?.currentChunk === dataReceived?.totalChunks) {
-          setFileName("");
-          setFile(null);
+          // Check if all chunks have been processed
+          console.log(dataReceived?.currentChunk, dataReceived?.totalChunks);
+          if (dataReceived?.currentChunk === dataReceived?.totalChunks) {
+            setFileName("");
+            setFile(null);
 
-          if (ecount > 0) {
-            try {
-              setLoading(true);
-              let csvLink = await api.post("organizations/import", {
-                failures: failedRowIndexes,
-              });
-              setDownloadCsvLink(csvLink.data.data.failureFile);
-            } finally {
-              console.log("exiting...");
-              toast(`${ecount} 行のデータインポートに失敗しました`, errorToastSettings);
+            if (ecount > 0) {
+              try {
+                setLoading(true);
+                let csvLink = await api.post("organizations/import", {
+                  failures: failedRowIndexes,
+                });
+                setDownloadCsvLink(csvLink.data.data.failureFile);
+              } finally {
+                console.log("exiting...");
+                toast(
+                  `${ecount} 行のデータインポートに失敗しました`,
+                  errorToastSettings
+                );
+                subscription.unsubscribe();
+                setImportModal(() => !importModal);
+                fetchData();
+                setLoading(false);
+              }
+            } else if (ecount === 0 && scount > 0) {
+              console.log("entering");
+              toast(intl.user_imported_successfully, successToastSettings);
               subscription.unsubscribe();
               setImportModal(() => !importModal);
               fetchData();
-              setLoading(false);
             }
-          } else if (ecount === 0 && scount > 0) {
-            console.log("entering");
-            toast(intl.user_imported_successfully, successToastSettings);
-            subscription.unsubscribe();
-            setImportModal(() => !importModal);
-            fetchData();
+
+            setLoading(false);
+            setCsvUploadInitiated(() => null);
+
+            // Optionally clear hasMap after completion
+            hasMap.clear();
           }
-
-          setLoading(false);
-          setCsvUploadInitiated(() => null);
-
-          // Optionally clear hasMap after completion
-          hasMap.clear();
+        } catch (error) {
+          console.error("Error processing data:", error);
         }
-
-      } catch (error) {
-        console.error("Error processing data:", error);
+      } else {
+        console.log("Duplicate request received");
       }
+    });
 
-    } else {
-      console.log("Duplicate request received");
-    }
-  });
+    // Track subscription and ensure it gets cleaned up
+    setSubscriptionTrack(subscription);
 
-  // Track subscription and ensure it gets cleaned up
-  setSubscriptionTrack(subscription);
-
-  return () => subscription.unsubscribe();
-}, [csvUploadInitiated]);
-
-
+    return () => subscription.unsubscribe();
+  }, [csvUploadInitiated]);
 
   return (
     <ProtectedRoute allowedRoles={["admin"]}>
@@ -1081,14 +1080,14 @@ useEffect(() => {
                     <TextPlain
                       type="text"
                       for={"id"}
-                      placeholder={"ファイル名"}
+                      placeholder={intl.user_history_settings_file_name}
                       borderRound="rounded"
                       padding="p-[10px]"
                       focus="focus:outline-none focus:ring-2 h-[40px] focus:ring-customBlue"
                       border="border border-gray-300"
                       bg="bg-white"
                       additionalClass="block w-full pl-5 text-base pr-[30px]"
-                      label={"ファイル名"}
+                      label={intl.user_history_settings_file_name}
                       labelColor="#7B7B7B"
                       id={"id"}
                       isRequired={true}

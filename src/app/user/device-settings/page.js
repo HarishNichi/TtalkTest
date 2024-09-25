@@ -93,10 +93,7 @@ export default function DeviceSettings() {
       });
     });
     if (!isValid) {
-      toast(
-        "少なくとも1つのオプションを記入してください。",
-        errorToastSettings
-      );
+      toast(intl.please_fill_atleast_1, errorToastSettings);
       setLoading(false);
       return;
     }

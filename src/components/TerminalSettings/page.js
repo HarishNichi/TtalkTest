@@ -416,7 +416,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
               toast(
                 `${ecount} 行のデータインポートに失敗しました`,
                 errorToastSettings
-              )
+              );
               setLoading(false);
             }
           }
@@ -1148,7 +1148,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
           <div className="flex flex-col w-full space-y-2    ">
             <div className="">
               <div>
-                <div className=" ml-2 mb-[16px]">
+                <div className="  mb-[16px]">
                   <ToggleBoxMediumRevamp
                     isDisabled={!isEditable}
                     checked={!!userDetailsInfo.userState}
@@ -1168,7 +1168,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                 </div>
               </div>
               <div className="mb-2">
-                <div className="ml-2 ">
+                <div className=" ">
                   <ToggleBoxMediumRevamp
                     isDisabled={!isEditable}
                     checked={!!userDetailsInfo.backgroundStart}
@@ -1193,7 +1193,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
             </div>
           </div>
 
-          <div className="flex flex-col ml-2 w-full space-y-2 mb-2">
+          <div className="flex flex-col  w-full pl-0 md:pl-4 space-y-2 mb-2">
             <ToggleBoxMediumRevamp
               isDisabled={!isEditable}
               checked={!!userDetailsInfo.goOffline}
@@ -1227,7 +1227,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                 textColor="#7B7B7B"
                 htmlFor="userId"
               />
-              <div className="bg-input-white py-5 px-4 rounded-lg">
+              <div className="bg-input-white py-5  rounded-lg">
                 <Progress
                   disabled={!isEditable}
                   value={progressBarPtt}
@@ -1448,13 +1448,13 @@ export default function TerminalSettings({ isModal, selectedRows }) {
           </div>
           <div className="w-full md:w-1/2 flex flex-col ">
             <div className="w-full md:mb-9 2xl:mb-32">
-              <div className="mb-1  2xl:mb-4 3xl:mb-4">
+              <div className="mb-1 pl-0 md:pl-4 2xl:mb-4 3xl:mb-4">
                 <DynamicLabel
                   text={intl.user_sound_settings_notifcation_volume}
                   textColor="#7B7B7B"
                   htmlFor="userId"
                 />
-                <div className="bg-input-white py-5 px-4 rounded-lg">
+                <div className="bg-input-white py-5  rounded-lg">
                   <Progress
                     disabled={!isEditable}
                     value={progressBarNotification}
@@ -1695,7 +1695,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                 )}
             </div>
           </div>
-          <div className="w-full md:w-1/2 flex flex-col ">
+          <div className="w-full pl-0 md:pl-4 md:w-1/2 flex flex-col ">
             <div className="">
               <div className="2xl:mb-[19px]">
                 <div className="bg-white mb-[32px] md:mb-[36px] md:mt-[-8px]   pl-0 rounded-lg">
@@ -2373,7 +2373,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
         <div className="flex flex-col md:flex-row md:gap-x-4">
           <div className="w-full md:w-1/2 md:mb-12">
             <div className="mb-4 2xl:mb-6">
-              <div className="bg-white mb-4 pl-4 rounded-lg">
+              <div className="bg-white mb-4  rounded-lg">
                 <ToggleBoxMediumRevamp
                   isDisabled={
                     !organizationsData?.isTranscribe ||
@@ -2403,7 +2403,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
               </div>
             </div>
 
-            <div className="bg-white mb-4 pl-4 rounded-lg mb-4 2xl:mb-6 items-center">
+            <div className="bg-white mb-4  rounded-lg mb-4 2xl:mb-6 items-center">
               <ToggleBoxMediumRevamp
                 isDisabled={!organizationsData?.sosLocation || !isEditable}
                 checked={userDetailsInfo.isSOS}
@@ -2426,7 +2426,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                 <div className="text-[#434343]">{"SOS"}</div>
               </ToggleBoxMediumRevamp>
             </div>
-            <div className="bg-white mb-4 pl-4 rounded-lg mb-4 2xl:mb-6 items-center">
+            <div className="bg-white mb-4  rounded-lg mb-4 2xl:mb-6 items-center">
               <ToggleBoxMediumRevamp
                 isDisabled={
                   !organizationsData?.sosLocation ||
@@ -2455,7 +2455,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
           </div>
           <div className="w-full md:w-1/2 flex flex-col ">
             <div className="">
-              <div className="bg-white  mb-4 pl-4 rounded-lg">
+              <div className="bg-white  mb-4 pl-0 md:pl-4 rounded-lg">
                 <ToggleBoxMediumRevamp
                   isDisabled={
                     !organizationsData?.isTranslate ||
@@ -2485,7 +2485,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
               </div>
             </div>
 
-            <div className="bg-white pl-4 rounded-lg mb-4 2xl:mb-6 grid grid-cols-4 items-start">
+            <div className="bg-white pl-0 md:pl-4 rounded-lg mb-4 2xl:mb-6 grid grid-cols-4 items-start">
               <div className="col-span-4 mb-[1px] ">
                 <div className="text-[#434343]">{"SOS定期時間"}</div>
               </div>
