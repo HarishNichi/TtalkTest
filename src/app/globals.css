@@ -453,13 +453,17 @@ body {
 }
 
 input::-webkit-calendar-picker-indicator {
-  opacity: 100;
+  opacity: 0;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none; /* Remove default arrow */
   background-image: url(../../public/Vector.png); /* Add custom arrow */
   background-repeat: no-repeat;
   background-position: right 10px center;
+}
+
+input::-webkit-calendar-picker-indicator:hover {
+  opacity: 0;
 }
 
 .ant-modal-content {
