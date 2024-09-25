@@ -454,14 +454,12 @@ body {
 
 input::-webkit-calendar-picker-indicator {
   opacity: 100;
-  color: #85868b;
-  width: "7.54px";
-  height: "4.13px";
-  margin-bottom: 2px;
-  margin-top: -4px;
-  display: flex;
-  align-items: center;
-  margin-right: 5px !important;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none; /* Remove default arrow */
+  background-image: url(../../public/Vector.png); /* Add custom arrow */
+  background-repeat: no-repeat;
+  background-position: right 10px center;
 }
 
 .ant-modal-content {

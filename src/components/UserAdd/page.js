@@ -295,285 +295,307 @@ export default function AddUser({
       <div className="flex p-[40px] pb-0 justify-center items-center ">
         <TitleUserCard title={intl.user_add_screen_label} />
       </div>
-      <div
-        className="flex flex-col h-full p-[40px] pt-[32px] pb-0 "
-        style={{ maxHeight: "450px", overflow: "auto" }}
-      >
-        <div className="w-full">
-          {/* machine */}
-          <div className="mb-[32px]">
-            <DropdownMedium
-              defaultSelectNoOption={false}
-              isRequired={true}
-              requiredColor={{
-                color: "#ED2E2E",
-              }}
-              padding={"h-[40px]"}
-              options={deviceList}
-              keys={"value"} // From options array
-              optionLabel={"label"} // From options array
-              border={"border border-gray-400 rounded"}
-              focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
-              bg=""
-              text={"text-sm"}
-              additionalClass={"block w-full pl-5"}
-              id={"machine"}
-              name={"machine"}
-              labelColor={"#0D0E11"}
-              label={intl.machineName}
-              value={machine}
-              onChange={async (event) => {
-                setMachine(event);
-                await setTouched(() => ({ ...touched, ["machine"]: true }));
-              }}
-            />
-            {touched && errors && errors.machine && touched.machine && (
-              <div className="pl-1 validation-font" style={{ color: "red" }}>
-                {errors.machine}
-              </div>
-            )}
-          </div>
-          {/* user name */}
-          <div className="mb-[32px]">
-            <DynamicLabel
-              isRequired={true}
-              text={intl.user_name}
-              textColor="#0D0E11"
-              fontWeight={"font-medium"}
-              htmlFor="userName"
-            />
-            <Input
-              id="userName"
-              name="userName"
-              type={"text"}
-              placeholder={intl.user_name}
-              padding={"py-3"}
-              focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
-              border={"border border-gray-400 rounded"}
-              bg=""
-              additionalClass={"block w-full pl-5 text-sm pr-[30px] h-[40px]"}
-              value={userName}
-              onChange={async (event) => {
-                setUserName(event.target.value);
-              }}
-            />
-            {touched && errors && errors.userName && touched.userName && (
-              <div className="pl-1 validation-font" style={{ color: "red" }}>
-                {errors.userName}
-              </div>
-            )}
-          </div>
-          {/* furigana */}
-          <div className="mb-[32px]">
-            <DynamicLabel
-              isRequired={true}
-              text={intl.furigana}
-              textColor="#0D0E11"
-              fontWeight={"font-medium"}
-              htmlFor="furigana"
-            />
-            <Input
-              id="furigana"
-              name="furigana"
-              type={"text"}
-              placeholder={intl.furigana}
-              padding={"py-3"}
-              focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
-              border={"border border-gray-400 rounded"}
-              bg=""
-              additionalClass={"block w-full pl-5 text-sm h-[40px] pr-[30px]"}
-              value={furigana}
-              onChange={async (event) => {
-                setFurigana(event.target.value);
-              }}
-            />
-            {touched && errors && errors.furigana && touched.furigana && (
-              <div className="pl-1 validation-font" style={{ color: "red" }}>
-                {errors.furigana}
-              </div>
-            )}
-          </div>
-          {/*  */}
-
-          {/* org list */}
-          <div className="mb-[32px]">
-            {organizationList.length > 0 && (
+      <div id="model-scroll">
+        <div
+          className="flex flex-col h-full p-[40px] pt-[32px] pb-0 "
+          style={{ maxHeight: "450px", overflow: "auto" }}
+        >
+          <div className="w-full">
+            {/* machine */}
+            <div className="mb-[32px]">
               <DropdownMedium
                 defaultSelectNoOption={false}
                 isRequired={true}
                 requiredColor={{
                   color: "#ED2E2E",
                 }}
-                padding={""}
-                options={organizationList}
+                padding={"h-[40px]"}
+                options={deviceList}
                 keys={"value"} // From options array
                 optionLabel={"label"} // From options array
                 border={"border border-gray-400 rounded"}
                 focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
                 bg=""
                 text={"text-sm"}
-                additionalClass={"block w-full pl-5 h-[40px]"}
-                id={"organization"}
-                name={"organization"}
+                additionalClass={"block w-full pl-5"}
+                id={"machine"}
+                name={"machine"}
                 labelColor={"#0D0E11"}
-                label={intl.user_add_company_name}
-                value={organization}
+                label={intl.machineName}
+                value={machine}
                 onChange={async (event) => {
-                  setOrganization(event);
-                  await setTouched(() => ({
-                    ...touched,
-                    ["organization"]: true,
-                  }));
+                  setMachine(event);
+                  await setTouched(() => ({ ...touched, ["machine"]: true }));
                 }}
               />
-            )}
-            {touched &&
-              errors &&
-              errors.organization &&
-              touched.organization && (
+              {touched && errors && errors.machine && touched.machine && (
                 <div className="pl-1 validation-font" style={{ color: "red" }}>
-                  {errors.organization}
+                  {errors.machine}
                 </div>
               )}
-          </div>
-        </div>
-
-        {/* -------------- */}
-        <div className="md:w-full ">
-          <div className="">
+            </div>
+            {/* user name */}
             <div className="mb-[32px]">
               <DynamicLabel
                 isRequired={true}
-                text={intl.user_add_specify_label}
+                text={intl.user_name}
                 textColor="#0D0E11"
                 fontWeight={"font-medium"}
+                htmlFor="userName"
               />
               <Input
+                id="userName"
+                name="userName"
                 type={"text"}
-                name="designation"
-                placeholder={intl.user_add_specify_label}
+                placeholder={intl.user_name}
+                padding={"py-3"}
+                focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
+                border={"border border-gray-400 rounded"}
+                bg=""
+                additionalClass={"block w-full pl-5 text-sm pr-[30px] h-[40px]"}
+                value={userName}
+                onChange={async (event) => {
+                  setUserName(event.target.value);
+                }}
+              />
+              {touched && errors && errors.userName && touched.userName && (
+                <div className="pl-1 validation-font" style={{ color: "red" }}>
+                  {errors.userName}
+                </div>
+              )}
+            </div>
+            {/* furigana */}
+            <div className="mb-[32px]">
+              <DynamicLabel
+                isRequired={true}
+                text={intl.furigana}
+                textColor="#0D0E11"
+                fontWeight={"font-medium"}
+                htmlFor="furigana"
+              />
+              <Input
+                id="furigana"
+                name="furigana"
+                type={"text"}
+                placeholder={intl.furigana}
                 padding={"py-3"}
                 focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
                 border={"border border-gray-400 rounded"}
                 bg=""
                 additionalClass={"block w-full pl-5 text-sm h-[40px] pr-[30px]"}
-                value={designation}
+                value={furigana}
                 onChange={async (event) => {
-                  setDesignation(event.target.value);
-                  await setTouched(() => ({
-                    ...touched,
-                    ["designation"]: true,
-                  }));
+                  setFurigana(event.target.value);
                 }}
               />
-              {touched &&
-                errors &&
-                errors.designation &&
-                touched.designation && (
-                  <div
-                    className="pl-1 validation-font"
-                    style={{ color: "red" }}
-                  >
-                    {errors.designation}
-                  </div>
-                )}
-            </div>
-            <div className="mb-[32px]">
-              <DynamicLabel
-                isRequired={false}
-                text={intl.user_email_id_label}
-                textColor="#0D0E11"
-                fontWeight={"font-medium"}
-              />
-              <Input
-                type={"email"}
-                placeholder={intl.user_email_id_label}
-                name="emailId"
-                id="emailId"
-                padding={"py-3"}
-                focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
-                border={"border border-gray-400 rounded"}
-                bg=""
-                additionalClass={"block w-full h-[40px] pl-5 text-sm pr-[30px]"}
-                testId="content-input-email"
-                value={emailId}
-                onChange={async (event) => {
-                  setEmailId(event.target.value);
-                  await setTouched(() => ({ ...touched, ["emailId"]: true }));
-                }}
-              />
-              {touched && errors && errors.emailId && touched.emailId && (
+              {touched && errors && errors.furigana && touched.furigana && (
                 <div className="pl-1 validation-font" style={{ color: "red" }}>
-                  {errors.emailId}
+                  {errors.furigana}
                 </div>
               )}
             </div>
+            {/*  */}
 
-            {/* telephone */}
-
+            {/* org list */}
             <div className="mb-[32px]">
-              <DynamicLabel
-                text={intl.user_add_telephone_number_label}
-                textColor="#0D0E11"
-                fontWeight={"font-medium"}
-              />
-              <Input
-                type={"tel"}
-                placeholder={intl.user_add_telephone_number_label}
-                name="telephoneNo"
-                id="telephoneNo"
-                padding={"py-3"}
-                focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
-                border={"border border-gray-400 rounded"}
-                bg=""
-                additionalClass={"block w-full pl-5 h-[40px] text-sm pr-[30px]"}
-                value={telephoneNo}
-                onChange={async (event) => {
-                  setTelephoneNo(event.target.value);
-                  await setTouched(() => ({
-                    ...touched,
-                    ["telephoneNo"]: true,
-                  }));
-                }}
-              />
+              {organizationList.length > 0 && (
+                <DropdownMedium
+                  defaultSelectNoOption={false}
+                  isRequired={true}
+                  requiredColor={{
+                    color: "#ED2E2E",
+                  }}
+                  padding={""}
+                  options={organizationList}
+                  keys={"value"} // From options array
+                  optionLabel={"label"} // From options array
+                  border={"border border-gray-400 rounded"}
+                  focus={
+                    "focus:outline-none focus:ring-2 focus:ring-customBlue"
+                  }
+                  bg=""
+                  text={"text-sm"}
+                  additionalClass={"block w-full pl-5 h-[40px]"}
+                  id={"organization"}
+                  name={"organization"}
+                  labelColor={"#0D0E11"}
+                  label={intl.user_add_company_name}
+                  value={organization}
+                  onChange={async (event) => {
+                    setOrganization(event);
+                    await setTouched(() => ({
+                      ...touched,
+                      ["organization"]: true,
+                    }));
+                  }}
+                />
+              )}
               {touched &&
                 errors &&
-                errors.telephoneNo &&
-                touched.telephoneNo && (
+                errors.organization &&
+                touched.organization && (
                   <div
                     className="pl-1 validation-font"
                     style={{ color: "red" }}
                   >
-                    {errors.telephoneNo}
+                    {errors.organization}
                   </div>
                 )}
             </div>
+          </div>
 
-            {/* activity - no vaidation  */}
-            <div className="mb-8 sm:mb-0">
-              <div className="rounded-lg">
-                <ToggleBoxMedium
-                  toggle={seeUserActivity}
-                  setToggle={(evt) => {
-                    setSeeUserActivity(evt);
-                  }}
-                  label={intl.user_is_see_user_activity}
-                  labelColor={"#0D0E11"}
-                  id={"Id"}
-                  onColor={"#1E1E1E"}
-                  onHandleColor={"#00ACFF"}
-                  handleDiameter={16}
-                  uncheckedIcon={false}
-                  checkedIcon={false}
-                  boxShadow={"0px 1px 5px rgba(0, 0, 0, 0.6)"}
-                  activeBoxShadow={"0px 0px 1px 10px rgba(0, 0, 0, 0.2)"}
-                  height={10}
-                  width={27}
-                  additionalClass={""}
-                  labelClass={
-                    "text-sm font-medium text-gray-900 dark:text-gray-300"
-                  }
+          {/* -------------- */}
+          <div className="md:w-full ">
+            <div className="">
+              <div className="mb-[32px]">
+                <DynamicLabel
+                  isRequired={true}
+                  text={intl.user_add_specify_label}
+                  textColor="#0D0E11"
+                  fontWeight={"font-medium"}
                 />
+                <Input
+                  type={"text"}
+                  name="designation"
+                  placeholder={intl.user_add_specify_label}
+                  padding={"py-3"}
+                  focus={
+                    "focus:outline-none focus:ring-2 focus:ring-customBlue"
+                  }
+                  border={"border border-gray-400 rounded"}
+                  bg=""
+                  additionalClass={
+                    "block w-full pl-5 text-sm h-[40px] pr-[30px]"
+                  }
+                  value={designation}
+                  onChange={async (event) => {
+                    setDesignation(event.target.value);
+                    await setTouched(() => ({
+                      ...touched,
+                      ["designation"]: true,
+                    }));
+                  }}
+                />
+                {touched &&
+                  errors &&
+                  errors.designation &&
+                  touched.designation && (
+                    <div
+                      className="pl-1 validation-font"
+                      style={{ color: "red" }}
+                    >
+                      {errors.designation}
+                    </div>
+                  )}
+              </div>
+              <div className="mb-[32px]">
+                <DynamicLabel
+                  isRequired={false}
+                  text={intl.user_email_id_label}
+                  textColor="#0D0E11"
+                  fontWeight={"font-medium"}
+                />
+                <Input
+                  type={"email"}
+                  placeholder={intl.user_email_id_label}
+                  name="emailId"
+                  id="emailId"
+                  padding={"py-3"}
+                  focus={
+                    "focus:outline-none focus:ring-2 focus:ring-customBlue"
+                  }
+                  border={"border border-gray-400 rounded"}
+                  bg=""
+                  additionalClass={
+                    "block w-full h-[40px] pl-5 text-sm pr-[30px]"
+                  }
+                  testId="content-input-email"
+                  value={emailId}
+                  onChange={async (event) => {
+                    setEmailId(event.target.value);
+                    await setTouched(() => ({ ...touched, ["emailId"]: true }));
+                  }}
+                />
+                {touched && errors && errors.emailId && touched.emailId && (
+                  <div
+                    className="pl-1 validation-font"
+                    style={{ color: "red" }}
+                  >
+                    {errors.emailId}
+                  </div>
+                )}
+              </div>
+
+              {/* telephone */}
+
+              <div className="mb-[32px]">
+                <DynamicLabel
+                  text={intl.user_add_telephone_number_label}
+                  textColor="#0D0E11"
+                  fontWeight={"font-medium"}
+                />
+                <Input
+                  type={"tel"}
+                  placeholder={intl.user_add_telephone_number_label}
+                  name="telephoneNo"
+                  id="telephoneNo"
+                  padding={"py-3"}
+                  focus={
+                    "focus:outline-none focus:ring-2 focus:ring-customBlue"
+                  }
+                  border={"border border-gray-400 rounded"}
+                  bg=""
+                  additionalClass={
+                    "block w-full pl-5 h-[40px] text-sm pr-[30px]"
+                  }
+                  value={telephoneNo}
+                  onChange={async (event) => {
+                    setTelephoneNo(event.target.value);
+                    await setTouched(() => ({
+                      ...touched,
+                      ["telephoneNo"]: true,
+                    }));
+                  }}
+                />
+                {touched &&
+                  errors &&
+                  errors.telephoneNo &&
+                  touched.telephoneNo && (
+                    <div
+                      className="pl-1 validation-font"
+                      style={{ color: "red" }}
+                    >
+                      {errors.telephoneNo}
+                    </div>
+                  )}
+              </div>
+
+              {/* activity - no vaidation  */}
+              <div className="mb-8 sm:mb-0">
+                <div className="rounded-lg">
+                  <ToggleBoxMedium
+                    toggle={seeUserActivity}
+                    setToggle={(evt) => {
+                      setSeeUserActivity(evt);
+                    }}
+                    label={intl.user_is_see_user_activity}
+                    labelColor={"#0D0E11"}
+                    id={"Id"}
+                    onColor={"#1E1E1E"}
+                    onHandleColor={"#00ACFF"}
+                    handleDiameter={16}
+                    uncheckedIcon={false}
+                    checkedIcon={false}
+                    boxShadow={"0px 1px 5px rgba(0, 0, 0, 0.6)"}
+                    activeBoxShadow={"0px 0px 1px 10px rgba(0, 0, 0, 0.2)"}
+                    height={10}
+                    width={27}
+                    additionalClass={""}
+                    labelClass={
+                      "text-sm font-medium text-gray-900 dark:text-gray-300"
+                    }
+                  />
+                </div>
               </div>
             </div>
           </div>

@@ -123,8 +123,6 @@ export default function RootLayout({ children }) {
           name="viewport"
           content="width=device-width, initial-scale=1.0"
         ></meta>
-        <meta httpEquiv="Content-Security-Policy" content="img-src 'self' blob: data:;">
-      </meta>
       </head>
       <body className={natoSans.className} style={natoSans.style}>
         <Providers>

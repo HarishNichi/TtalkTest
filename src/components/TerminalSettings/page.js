@@ -2535,7 +2535,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
         <div className="flex justify-end p-[16px] bg-white mb-[16px]">
           <Button
             type="secondary"
-            className="border-[#214BB9] h-[40px] border-solid text-[#214BB9] font-semibold"
+            className="border-[#214BB9] h-[40px] border-solid text-[#214BB9] text-[16px] font-semibold"
             onClick={() => {
               setConfirmModal(true);
             }}
