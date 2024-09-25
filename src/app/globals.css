@@ -458,8 +458,8 @@ input[list]::-webkit-calendar-picker-indicator {
 }
 
 input[list]::-webkit-calendar-picker-indicator:hover {
-  display: none; /* Hide the default dropdown arrow */
-  opacity: 0;
+  display: none !important; /* Hide the default dropdown arrow */
+  opacity: 0 !important;
 }
 
 /* Customize the input and add custom icon */
@@ -473,6 +473,8 @@ input[list] {
   -moz-appearance: none; /* For Firefox */
   position: relative;
 }
+
+
 
 
 .ant-modal-content {
