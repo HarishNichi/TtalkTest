@@ -21,7 +21,7 @@ export default function Progress(props) {
       type="range"
       value={props.value}
       disabled={props.disabled}
-      className="h-1 w-full bg-[#214BB9] flex items-center rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700"
+      className="h-1 w-full bg-[#214BB9] flex items-center rounded-lg appearance-none disabled:pointer-events-none range-sm dark:bg-gray-700"
     />
   );
 }

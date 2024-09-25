@@ -455,11 +455,15 @@ body {
 /* Hide the default dropdown arrow for datalist */
 input[list]::-webkit-calendar-picker-indicator {
   display: none; /* Hide the default dropdown arrow */
+  opacity: 0 !important;
+  color: transparent; /* Hide the default text */
+  pointer-events: none;
 }
 
 input[list]::-webkit-calendar-picker-indicator:hover {
   display: none !important; /* Hide the default dropdown arrow */
   opacity: 0 !important;
+
 }
 
 /* Customize the input and add custom icon */
@@ -473,19 +477,7 @@ input[list] {
   -moz-appearance: none; /* For Firefox */
   position: relative;
 }
-input::-webkit-calendar-picker-indicator:hover,
-input::-webkit-calendar-picker-indicator:focus
-{
-  opacity: 0;
-  color: #fff;
-  width: "0px";
-  height: "0px";
-  margin-bottom: 2px;
-  margin-top: -4px;
-  display: flex;
-  align-items: center;
-  margin-right: 5px !important;
-}
+
 
 .ant-modal-content {
   padding: 0px !important;

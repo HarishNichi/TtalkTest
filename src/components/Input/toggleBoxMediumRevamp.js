@@ -4,7 +4,7 @@ import Switch from "react-switch";
 export default function ToggleBoxMedium(props) {
   return (
     <>
-      <label className="flex-col  flex-1 items-center justify-between cursor-pointer pr-2 ">
+      <label className="flex-col  flex-1 items-center justify-between  pr-2 ">
         <div
           className={`text-ellipsis overflow-hidden truncate font-normal mb-[8px] ${props.labelClass}`}
           style={{ fontSize: "14px" }}

@@ -907,7 +907,7 @@ export default function TerminalSettingsPopup({ isModal, selectedRows }) {
         </div>
         <div className="flex flex-col md:flex-row md:gap-x-4">
           <div className="w-full md:w-1/2">
-            <div className="mb-8">
+            <div className="mb-4">
               <DropdownMedium
                 borderRound={"rounded-lg"}
                 padding={"py-2.5 pr-[120px]"}
@@ -1025,7 +1025,7 @@ export default function TerminalSettingsPopup({ isModal, selectedRows }) {
           <div className="w-full md:w-1/2 flex flex-col ">
             <div className="">
               <div className="2xl:mb-[19px]">
-                <div className="bg-white mb-[13px] md:mb-[32px] md:mt-[-8px]   pl-0 md:pl-4 rounded">
+                <div className="bg-white mb-[13px] md:mb-[18px] md:mt-[-8px]   pl-0 md:pl-4 rounded">
                   <ToggleBoxMedium
                     toggle={userDetailsInfo.isRecordingSettings}
                     setToggle={(isRecordingSettings) => {

@@ -315,7 +315,7 @@ export default function CompanyInformation() {
 
         <AntModal
           title={
-            <div className="px-[40px] pt-[40px] mb-[32px] text-customBlue text-center">
+            <div className="px-[40px] pt-[40px] mb-[32px] text-customBlue text-center text-[20px]">
               {intl.edit_screen_label}
             </div>
           }

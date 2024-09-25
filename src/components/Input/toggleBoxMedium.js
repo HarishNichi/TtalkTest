@@ -2,9 +2,7 @@
 import Switch from "react-switch";
 
 export default function pToggleBoxMedium(props) {
-  const cursorClass = props.isDisabled
-    ? "cursor-not-allowed"
-    : "cursor-pointer";
+  const cursorClass = props.isDisabled ? "cursor-allowed" : "cursor-pointer";
   return (
     <>
       <label

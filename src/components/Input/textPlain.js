@@ -31,7 +31,7 @@ export default function TextPlain(props) {
         className={`${props.padding} ${props.additionalClass}  
                   ${props.border} ${props.borderRound}
                   ${props.focus} ${props.bg} ${
-          props.disabled ? "text-dark cursor-not-allowed" : ""
+          props.disabled ? "text-dark cursor-allowed" : ""
         }`}
         placeholder={props.placeholder}
         value={props.value}
