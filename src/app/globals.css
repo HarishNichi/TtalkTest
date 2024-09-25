@@ -473,9 +473,9 @@ input[list] {
   -moz-appearance: none; /* For Firefox */
   position: relative;
 }
-
-
-
+input::-webkit-calendar-picker-indicator:hover {
+  opacity: 0 !important;
+}
 
 .ant-modal-content {
   padding: 0px !important;
