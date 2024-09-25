@@ -5,6 +5,7 @@ const cspHeader = `
     script-src 'self' 'unsafe-eval' 'unsafe-inline';
     style-src 'self' 'unsafe-inline';
     connect-src 'self' https://${process.env.AWS_BRANCH}.ttalk.nichi.in/ https://t-talk-${process.env.AWS_BRANCH}.s3.ap-northeast-1.amazonaws.com/ https://${process.env.AWS_BRANCH}.ttalk.nichi.in/ https://ez7bnwrmz5.execute-api.ap-northeast-1.amazonaws.com/ wss://*.appsync-realtime-api.ap-northeast-1.amazonaws.com  https://*.appsync-api.ap-northeast-1.amazonaws.com;
+    img-src 'self' blob: data:;
 `
 const nextConfig = {
   compiler: { styledComponents: true },
