@@ -126,7 +126,7 @@ export default function RootLayout({ children }) {
       </head>
       <body className={natoSans.className} style={natoSans.style}>
         <Providers>
-          <div className="w-full" style={bgStyle}>
+          <div className="w-full bg-[#f9f9fa]">
             <div className="w-full sticky z-10 top-0">
               <Header
                 toggleSidebar={(flag) => {
@@ -138,7 +138,7 @@ export default function RootLayout({ children }) {
                 setIsExpandSidebar={setIsExpandSidebar}
               />
             </div>
-            <div className="flex bg-gray-200">
+            <div className="flex bg-[#f9f9fa]">
               {on && (
                 <div className=" w-full lg:w-1/5 h-screen fixed lg:hidden z-50">
                   <Sidebar toggleSidebar={hideAndShowSidebar} on={on} />
@@ -159,7 +159,7 @@ export default function RootLayout({ children }) {
                 />
               </div>
               <div
-                className={`w-full lg:flex-1 lg:pl-[20%] min-h-[calc(100vh)] max-h-full  bg-[#f9f9a] duration-300 ${
+                className={`w-full lg:flex-1 lg:pl-[20%] min-h-[calc(100vh)] max-h-full  bg-[#f9f9fa] duration-300 ${
                   isExpandSidebar ? "lg:pl-[20%]" : "lg:pl-[80px]"
                 }`}
                 style={{
