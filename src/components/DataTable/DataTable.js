@@ -120,7 +120,7 @@ export default function DataTable(props) {
     if (type === "prev") {
       return (
         <div
-          className="flex bg-white mt-[0.2px] w-[32px]  hover:bg-[#D4DFFA]"
+          className="flex bg-white mt-[0.2px] w-[32px]  hover:bg-[#D4DFFA] rounded"
           style={{
             height: "32px",
             border: "1px solid #d9d9d9",
@@ -139,7 +139,7 @@ export default function DataTable(props) {
     if (type === "next") {
       return (
         <div
-          className="flex bg-white mt-[0.2px] w-[32px]  hover:bg-[#D4DFFA]"
+          className="flex bg-white mt-[0.2px] w-[32px] rounded hover:bg-[#D4DFFA]"
           style={{
             height: "32px",
             border: "1px solid #d9d9d9",
