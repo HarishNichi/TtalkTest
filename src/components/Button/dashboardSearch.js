@@ -13,7 +13,7 @@ export default function DashboardSearch(props) {
       } inline-flex items-center justify-center`}
       onClick={props.onClick}
     >
-      {props.icon()} <span className="ml-2 lg:hidden">{props.text}</span>
+      {props.icon()} <span className="ml-2 lg:hidden xl:block">{props.text}</span>
     </button>
   );
 }

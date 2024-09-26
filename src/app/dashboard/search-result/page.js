@@ -744,11 +744,11 @@ export default function HelpSettingsList() {
                       for={"id"}
                       placeholder={intl.user_history_settings_file_name}
                       borderRound="rounded"
-                      padding="p-[10px]"
+                      padding="p-[8px]"
                       focus="focus:outline-none focus:ring-2 h-[40px] focus:ring-customBlue"
                       border="border border-gray-300"
                       bg="bg-white"
-                      additionalClass="block w-full pl-5 text-base pr-[30px]"
+                      additionalClass="block w-full placeholder:text-[16px] text-[16px]  "
                       label={intl.user_history_settings_file_name}
                       labelColor="#7B7B7B"
                       id={"id"}

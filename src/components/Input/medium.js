@@ -20,7 +20,7 @@ export default function Medium(props) {
             id={props.id}
             name={props.name ? props.name : props.id}
             disabled={props.isDisabled || false}
-            className={`p-2 text-[16px] ${props.padding} ${props.additionalClass}  
+            className={`${props.padding} ${props.additionalClass}  
                   ${props.border} ${props.borderRound}
                   ${props.focus} ${props.bg}`}
             placeholder={props.placeholder}

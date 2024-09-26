@@ -28,7 +28,9 @@ export default function TextPlain(props) {
         name={props.name ? props.name : props.id}
         id={props.id}
         style={props.disabled ? disableTextStyle : normalStyle}
-        className={`${props.padding} ${props.additionalClass}  
+        className={`placeholder:text-[16px] ${props.padding} ${
+          props.additionalClass
+        }  
                   ${props.border} ${props.borderRound}
                   ${props.focus} ${props.bg} ${
           props.disabled ? "text-dark cursor-allowed" : ""

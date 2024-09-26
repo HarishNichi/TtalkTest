@@ -71,12 +71,12 @@ body {
 }
 
 .ant-table-thead > tr > th {
-  background: #F9F9FA !important;
+  background: #f9f9fa !important;
   color: #0d0e11 !important;
 }
 
 .ant-table-thead > tr > td {
-  background: #F9F9FA !important;
+  background: #f9f9fa !important;
   color: #0d0e11 !important;
 }
 
@@ -210,10 +210,9 @@ body {
 
 .ant-table-wrapper {
   font-family: inherit !important;
-  
 }
 .ant-table-container {
-  border: 1px solid #E7E7E9;
+  border: 1px solid #e7e7e9;
 }
 .ant-spin-nested-loading {
   font-family: inherit !important;
@@ -310,6 +309,13 @@ body {
   border-radius: 5px;
 }
 
+.ant-picker-input input::placeholder {
+  font-size: 16px !important;
+}
+
+.ant-picker-input input {
+  font-size: 16px !important;
+}
 #model-scroll ::-webkit-scrollbar {
   width: 0px; /* Adjust the width as needed */
   height: 3px; /* Adjust the width as needed - for horizontal's scrollbar*/
@@ -467,7 +473,6 @@ input[list]::-webkit-calendar-picker-indicator {
 input[list]::-webkit-calendar-picker-indicator:hover {
   display: none !important; /* Hide the default dropdown arrow */
   opacity: 0 !important;
-
 }
 
 /* Customize the input and add custom icon */
@@ -481,7 +486,6 @@ input[list] {
   -moz-appearance: none; /* For Firefox */
   position: relative;
 }
-
 
 .ant-modal-content {
   padding: 0px !important;
@@ -634,20 +638,11 @@ select {
   border-bottom: 1px solid #e7e7e9 !important;
 }
 
-.ant-table-wrapper .ant-table-container  {
-  border-radius: 8px !important;
+.ant-table-wrapper
+  .ant-table-container
+  table
+  > thead
+  > tr:first-child
+  > *:first-child {
+  border-start-start-radius: 8px;
 }
-
-
-/* Apply border-radius to the first pagination item after "Previous Page" */
- .ant-pagination-item:first-of-type {
-  border-top-left-radius: 4px !important;
-  border-bottom-left-radius: 4px !important;
-}
-
-/* Apply border-radius to the last pagination item before "Next Page" */
-.ant-pagination-item:last-of-type {
-  border-top-right-radius: 4px !important;
-  border-bottom-right-radius: 4px !important;
-}
-

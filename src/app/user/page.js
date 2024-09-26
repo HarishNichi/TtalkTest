@@ -1589,7 +1589,7 @@ export default function UserList() {
                 <input
                   list="company_search"
                   name="company_search"
-                  className={`w-full border flex  py-[0.5rem] text-[16px]  pl-2  rounded focus:outline-none placeholder-[#AEA8A8] 
+                  className={`w-full border flex   text-[16px]  p-2 rounded focus:outline-none placeholder-[#AEA8A8] 
         placeholder:text-left placeholder:text-[16px] md:placeholder:text-left md:placeholder:pl-0
         dark:text-black h-[40px]`}
                   placeholder={intl.company_list_company_name}
@@ -1628,7 +1628,7 @@ export default function UserList() {
             <div className="col-span-12 md:col-span-6 xl:col-span-2 custom-date-picker">
               <DatePicker
                 placeholder={intl.user_registration_date_without_ddmmyy}
-                className="w-full py-[0.5rem] rounded h-[40px] placeholder:text-[16px] text-[16px]"
+                className="w-full  rounded h-[40px] placeholder:text-[16px] text-[16px] p-2"
                 id="createdAt"
                 style={{
                   border: "1px solid #e5e7eb",
@@ -1654,7 +1654,7 @@ export default function UserList() {
             <div className="col-span-12 md:col-span-6 xl:col-span-2 custom-date-picker">
               <DatePicker
                 placeholder={intl.user_last_online_date_time}
-                className="w-full py-[0.5rem] rounded h-[40px] placeholder:text-[16px] text-[16px]"
+                className="w-full  rounded h-[40px] placeholder:text-[16px] text-[16px] p-2"
                 id="appLastSeenDateTime"
                 style={{
                   border: "1px solid #e5e7eb",
@@ -1680,7 +1680,7 @@ export default function UserList() {
             <div className="col-span-12 md:col-span-6 xl:col-span-2 custom-date-picker">
               <DatePicker
                 placeholder={intl.usage_start_date}
-                className="w-full py-[0.5rem] rounded h-[40px] placeholder:text-[16px] text-[16px]"
+                className="w-full  rounded h-[40px] placeholder:text-[16px] text-[16px] p-2"
                 id="appLoginDateTime"
                 style={{
                   border: "1px solid #e5e7eb",
@@ -1708,7 +1708,7 @@ export default function UserList() {
             <div className="col-span-12 md:col-span-6 xl:col-span-2 custom-date-picker">
               <DatePicker
                 placeholder={intl.usage_suspension_date}
-                className="w-full py-[0.5rem] rounded h-[40px] placeholder:text-[16px] text-[16px]"
+                className="w-full  rounded h-[40px] placeholder:text-[16px] text-[16px] p-2"
                 id="appLogoutDateTime"
                 style={{
                   border: "1px solid #e5e7eb",
@@ -1744,7 +1744,7 @@ export default function UserList() {
             <div className="col-span-12 md:col-span-6 xl:col-span-2">
               <select
                 id={"isActive"}
-                className={`w-full md:min-w-[100px] lg:min-w-[100px] border flex flex-auto md:flex-1  py-[0.5px] text-[16px]  pl-2 bg-[white] rounded-lg focus:outline-none placeholder-[#AEA8A8] 
+                className={`w-full md:min-w-[100px] lg:min-w-[100px] border flex flex-auto md:flex-1  text-[16px]  p-2 bg-[white] rounded-lg focus:outline-none placeholder-[#AEA8A8] 
                 placeholder:text-center placeholder:text-[16px] rounded h-[40px]  md:placeholder:text-left md:placeholder:pl-0 dark:text-black h-[38px] ${
                   searchPayload.isActive == ""
                     ? "text-[#85868B] text-[16px]"

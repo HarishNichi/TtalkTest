@@ -272,7 +272,7 @@ export default function DashboardLayout({ children }) {
               <input
                 list="company_search"
                 name="company_search"
-                className={`w-full border flex  py-[0.5rem] text-[16px]  pl-2  rounded focus:outline-none placeholder-[#AEA8A8] 
+                className={`w-full border flex  text-[16px]  p-2  rounded focus:outline-none placeholder-[#AEA8A8] 
         placeholder:text-center placeholder:text-[16px]  md:placeholder:text-left md:placeholder:pl-0
         dark:text-black h-[40px]`}
                 placeholder={intl.company_list_company_name}
