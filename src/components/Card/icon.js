@@ -14,7 +14,7 @@ export default function CardIcon({
         <div className={`flex items-center h-full ml-2`}>
           {icon}
           <div className=" ml-2">
-            <div className="text-[12px] tracking-tight text-gray-900">
+            <div className="text-[12px] tracking-tight text-[#595959]">
               {title}
             </div>
             <p className=" font-[600] text-[20px] dark:text-black">{value}</p>

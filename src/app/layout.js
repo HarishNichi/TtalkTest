@@ -159,7 +159,7 @@ export default function RootLayout({ children }) {
                 />
               </div>
               <div
-                className={`w-full lg:flex-1 lg:pl-[20%] min-h-[calc(100vh)] max-h-full  bg-gray-200 duration-300 ${
+                className={`w-full lg:flex-1 lg:pl-[20%] min-h-[calc(100vh)] max-h-full  bg-[#f9f9a] duration-300 ${
                   isExpandSidebar ? "lg:pl-[20%]" : "lg:pl-[80px]"
                 }`}
                 style={{
