@@ -640,13 +640,13 @@ select {
 
 
 /* Apply border-radius to the first pagination item after "Previous Page" */
-.ant-pagination .ant-pagination-item:first-of-type {
+ .ant-pagination-item:first-of-type {
   border-top-left-radius: 4px !important;
   border-bottom-left-radius: 4px !important;
 }
 
 /* Apply border-radius to the last pagination item before "Next Page" */
-.ant-pagination .ant-pagination-item:last-of-type {
+.ant-pagination-item:last-of-type {
   border-top-right-radius: 4px !important;
   border-bottom-right-radius: 4px !important;
 }
