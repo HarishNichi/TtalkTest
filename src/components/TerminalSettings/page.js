@@ -2590,7 +2590,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                   {intl.help_settings_addition_modal_cancel}
                 </button>
                 <button
-                  className="sm:flex-1 w-full sm:w-auto bg-[#19388B] hover:bg-[#5283B3] font-semibold h-[40px] text-base text-white "
+                  className="sm:flex-1 w-full sm:w-auto bg-[#19388B] hover:bg-[#214BB9] font-semibold h-[40px] text-base text-white "
                   onClick={() => {
                     updateEmployeeSettings();
                   }}

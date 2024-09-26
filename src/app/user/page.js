@@ -1539,7 +1539,7 @@ export default function UserList() {
               <>
                 <div className="w-full mx-auto">
                   <button
-                    className="w-1/2 text-white py-2 px-2 rounded-lg bg-customBlue  hover:bg-[#5283B3]"
+                    className="w-1/2 text-white py-2 px-2 rounded-lg bg-customBlue  hover:bg-[#214BB9]"
                     onClick={() => {
                       setExportModal(true);
                       setConfirmationExport(false);
@@ -1766,7 +1766,7 @@ export default function UserList() {
 
             <div className="col-span-12 md:col-span-6 xl:col-span-2 mb-2">
               <button
-                className="bg-customBlue hover:bg-[#5283B3] w-full text-white font-medium text-sm w-full px-6 rounded-lg  py-[9px] px-4  rounded inline-flex items-center justify-center"
+                className="bg-customBlue hover:bg-[#214BB9] w-full text-white font-medium text-sm w-full px-6 rounded-lg  py-[9px] px-4  rounded inline-flex items-center justify-center"
                 onClick={searchEmployee}
               >
                 {getIconWithClass()}{" "}

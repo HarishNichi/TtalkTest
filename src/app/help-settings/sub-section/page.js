@@ -665,7 +665,7 @@ export default function Subsection() {
                 </button>
                 <button
                   style={HeaderButton}
-                  className="text-[16px] font-[600] w-[124px] h-[32px] truncate bg-customBlue hover:bg-[#5283B3] border border-customBlue rounded"
+                  className="text-[16px] font-[600] w-[124px] h-[32px] truncate bg-customBlue hover:bg-[#214BB9] border border-customBlue rounded"
                   onClick={() => {
                     if (tabKey == "1") {
                       handleFileButtonClick();

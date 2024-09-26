@@ -310,7 +310,7 @@ export default function DashboardLayout({ children }) {
               }
               py={"py-2"}
               px={""}
-              bgColor={"bg-customBlue  hover:bg-[#5283B3]"}
+              bgColor={"bg-customBlue  hover:bg-[#214BB9]"}
               textBold={true}
               icon={() => getIconWithClass("")}
               onClick={() => {
@@ -359,7 +359,7 @@ export default function DashboardLayout({ children }) {
               }
               py={"py-2"}
               px={""}
-              bgColor={"bg-customBlue  hover:bg-[#5283B3]"}
+              bgColor={"bg-customBlue  hover:bg-[#214BB9]"}
               textBold={true}
               icon={() => getIconWithClass("")}
               onClick={() => {
@@ -423,7 +423,7 @@ export default function DashboardLayout({ children }) {
               }
               py={"py-2"}
               px={""}
-              bgColor={"bg-customBlue  hover:bg-[#5283B3]"}
+              bgColor={"bg-customBlue  hover:bg-[#214BB9]"}
               textBold={true}
               icon={() => getIconWithClass("")}
               onClick={() => {
@@ -472,7 +472,7 @@ export default function DashboardLayout({ children }) {
               }
               py={"py-2"}
               px={""}
-              bgColor={"bg-customBlue  hover:bg-[#5283B3]"}
+              bgColor={"bg-customBlue  hover:bg-[#214BB9]"}
               textBold={true}
               icon={() => getIconWithClass("")}
               onClick={() => {
@@ -492,7 +492,7 @@ export default function DashboardLayout({ children }) {
             }
             py={"py-2"}
             px={""}
-            bgColor={"bg-customBlue hover:bg-[#5283B3]"}
+            bgColor={"bg-customBlue hover:bg-[#214BB9]"}
             textBold={true}
             icon={() => getIconWithClass("")}
             onClick={() => {

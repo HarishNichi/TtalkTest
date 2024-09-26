@@ -112,7 +112,7 @@ export default function SearchCard({
               }
               py={""}
               px={""}
-              bgColor={"bg-white hover:bg-[#5283B3]"}
+              bgColor={"bg-white hover:bg-[#214BB9]"}
               borderColor={"border-customBlue"}
               textBold={true}
               icon={() => getIconWithClass("")}

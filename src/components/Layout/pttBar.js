@@ -58,7 +58,7 @@ export default function Pttbar({
       <div className="flex gap-x-2 items-center">
         <div>
           <div
-            className="bg-customBlue px-2 lg:px-4 py-1 rounded-lg  hover:bg-[#5283B3]"
+            className="bg-customBlue px-2 lg:px-4 py-1 rounded-lg  hover:bg-[#214BB9]"
             onClick={() => {
               router.push("/user");
               setActiveTab(0);

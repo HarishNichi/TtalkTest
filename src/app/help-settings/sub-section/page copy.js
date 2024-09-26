@@ -446,7 +446,7 @@ export default function Subsection() {
                     router.push("/help-settings/helpSettingsList");
                   }}
                   style={HeaderButton}
-                  className="text-base py-2 w-[150px] truncate px-[3px] bg-customBlue hover:bg-[#5283B3]"
+                  className="text-base py-2 w-[150px] truncate px-[3px] bg-customBlue hover:bg-[#214BB9]"
                 >
                   {Help.section}
                 </button>

@@ -301,7 +301,7 @@ export default function UserDetails() {
         <div></div>
         <TitleUserCard title={intl.user_details_screem_label} />
         <div
-          className="bg-customBlue hover:bg-[#5283B3] h-8 w-8 rounded-lg flex items-center justify-center"
+          className="bg-customBlue hover:bg-[#214BB9] h-8 w-8 rounded-lg flex items-center justify-center"
           onClick={() => routerPath.push("/user/edit")}
         >
           <EditIcon fill="#ffffff" />

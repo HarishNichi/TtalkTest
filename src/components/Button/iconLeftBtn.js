@@ -4,7 +4,7 @@ export default function IconLeftBtn(props) {
   return (
     <button
       type={props.type}
-      className={`bg-customBlue  hover:bg-[#5283B3] h-[40px] ${
+      className={`bg-customBlue  hover:bg-[#214BB9] h-[40px] ${
         props?.textColor
       } ${props?.text} ${props?.py ? props.py : "py-1"} ${
         props?.px ? props.px : "px-4"
