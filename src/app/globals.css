@@ -71,12 +71,13 @@ body {
 }
 
 .ant-table-thead > tr > th {
-  background: #e7e7e9 !important;
+  background: #F9F9FA !important;
   color: #0d0e11 !important;
+  border-top: 1px solid #E7E7E9;
 }
 
 .ant-table-thead > tr > td {
-  background: #e7e7e9 !important;
+  background: #F9F9FA !important;
   color: #0d0e11 !important;
 }
 
@@ -210,6 +211,7 @@ body {
 
 .ant-table-wrapper {
   font-family: inherit !important;
+  border: 1px solid #E7E7E9;
 }
 .ant-spin-nested-loading {
   font-family: inherit !important;
