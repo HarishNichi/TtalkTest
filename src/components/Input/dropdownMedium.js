@@ -35,7 +35,7 @@ export default function DropdownMedium(props) {
       <div className="select-container">
         <select
           id={props.id}
-          className={`${props.additionalClass} ${props.padding} ${props.text}
+          className={`p-2 text-[16px]${props.additionalClass} ${props.padding} ${props.text}
             ${props.border} ${props.borderRound} ${props.additionalClass}
             ${props.focus} ${props.bg} truncate dark:text-black ${
             selectedOptionValue == "" ? "text-[#85868B]" : "text-black"
