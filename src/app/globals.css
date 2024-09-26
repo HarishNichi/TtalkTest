@@ -73,7 +73,6 @@ body {
 .ant-table-thead > tr > th {
   background: #F9F9FA !important;
   color: #0d0e11 !important;
-  border-top: 1px solid #E7E7E9;
 }
 
 .ant-table-thead > tr > td {
@@ -628,4 +627,8 @@ select {
 
 .ant-table-thead > tr > th {
   border-bottom: 1px solid #e7e7e9 !important;
+}
+
+.ant-table-wrapper .ant-table-container table>thead>tr:first-child >*:first-child {
+  border-start-start-radius: 8px;
 }
