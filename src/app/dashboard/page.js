@@ -310,7 +310,7 @@ const Dashboard = () => {
               searchResults={searchResults}
               Admin={Admin}
               onLinkClick={handleLinkClick}
-              height={490}
+              height={512}
             />
           </div>
           <div className="flex flex-col gap-y-2  lg:w-2/3">

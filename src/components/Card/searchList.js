@@ -78,7 +78,7 @@ export default function SearchCard({
     <>
       <div
         className="py-2 block pl-4 pr-4 bg-white border border-gray-200 rounded-xl shadow relative overflow-auto"
-        style={{ maxHeight: "490px", minHeight: "490px" }}
+        style={{ maxHeight: "512", minHeight: "512px" }}
       >
         <h1 className="text-base md:text-xl dark:text-black mb-2 font-semibold">
           {Admin
