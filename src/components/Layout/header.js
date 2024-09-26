@@ -124,7 +124,8 @@ export default function Header({
           className="flex justify-between items-center px-5 lg:hidden"
         >
           <span className="lg:hidden" onClick={toggleSidebar}>
-            <HeaderTabMenu data-testid="menu-icon" />
+            {/* <HeaderTabMenu data-testid="menu-icon" /> */}
+            <SidebarExpansion />
           </span>
           <Image
             src={Logo}

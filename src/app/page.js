@@ -258,14 +258,14 @@ export default function Login() {
       <div className={`${natoSans.className} bg-white `} style={natoSans.style}>
         <div className="flex flex-col md:flex-row min-h-screen bg-white">
           {/* Left Side */}
-          <div className="hidden md:flex md:w-1/2 w-full h-[50vh] md:h-auto items-center justify-center bg-white">
+          {/* <div className="hidden md:flex md:w-1/2 w-full h-[50vh] md:h-auto items-center justify-center bg-white">
             <Image
               src={TelnetLogo}
               width={200}
               alt="telnet logo"
               className="block lg:block mx-auto "
             />
-          </div>
+          </div> */}
 
           {/* Right Side */}
           <div className="flex-1 flex flex-col items-center justify-center bg-customBlue text-white">
@@ -279,8 +279,8 @@ export default function Login() {
               />
             </div>
 
-            <div className=" xl:px-[80px] lg:px-[60px] md:px-[40px] py-[24px] p-[20px]  w-full">
-              <div className="w-full md:px-[60px] md:py-[40px] px-[40px] py-[20px] bg-white rounded-xl shadow-md text-black">
+            <div className=" xl:px-[80px] lg:px-[60px] md:px-[40px] py-[24px] p-[20px]  w-full flex justify-center">
+              <div className="w-[600px] md:px-[60px] md:py-[40px] px-[40px] py-[20px] bg-white rounded-2xl shadow-md text-black">
                 <div className="text-xl font-semibold mb-[32px] text-left">
                   {intl.login_btn_label}
                 </div>
@@ -396,7 +396,7 @@ export default function Login() {
             </div>
 
             <div className="text-center font-normal text-base text-white mb-[24px]">
-            TELENET.inc All Rights Reserverd
+              TELENET.inc All Rights Reserverd
             </div>
           </div>
         </div>
