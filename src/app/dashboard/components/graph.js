@@ -133,7 +133,8 @@ const LineChart = (graphData) => {
   return (
     <>
       <div
-        className="p-4 block  bg-white border border-gray-200 rounded-xl shadow relative flex flex-col h-full"
+        className="py-2 block pl-4 pr-3 bg-white border border-gray-200 rounded-xl shadow relative flex flex-col"
+        style={{ maxHeight: "490px", minHeight: "490px" }}
       >
         <span className="text-base md:text-xl mb-[30px] dark:text-black">
           <span className="fond-bold" style={{ fontWeight: 600 }}>
@@ -165,8 +166,8 @@ const LineChart = (graphData) => {
           style={{
             width: "100%",
             height: "370px",
-            maxHeight: "370px",
-            minHeight: "370px",
+            maxHeight: "398px",
+            minHeight: "398px",
           }}
         />
       </div>
