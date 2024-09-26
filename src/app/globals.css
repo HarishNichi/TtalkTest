@@ -623,6 +623,11 @@ select {
 
 .ant-table-wrapper .ant-table-tbody > tr > td {
   border-bottom: 1px solid #e7e7e9;
+  color: #595959;
+}
+
+.ant-table-wrapper .ant-table-tbody > tr > td > a {
+  color: #595959 !important;
 }
 
 .ant-table-thead > tr > th {
