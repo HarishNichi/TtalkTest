@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState, useEffect,createContext, useContext } from "react";
+import React, { useState, useEffect, createContext, useContext } from "react";
 import IconLeftBtn from "@/components/Button/iconLeftBtn";
+import DashboardSearch from "@/components/Button/dashboardSearch";
 import { usePathname, useRouter } from "next/navigation";
 import SearchInput from "@/components/Layout/search";
 import intl from "@/utils/locales/jp/jp.json";
@@ -225,283 +226,285 @@ export default function DashboardLayout({ children }) {
   }, []);
   return (
     <>
-     <LayoutContext.Provider value={{ searchDashboard }}>
-      {loading && <LoaderOverlay />}
-      {showResult && (
-        <>
-          <div className="mb-[16px]">
-            <Breadcrumb links={dashboardLinks} />
-          </div>
-          <div className="flex mb-[16px]">
-            <DynamicLabel
-              text={intl.search_results}
-              alignment="text-center"
-              fontSize="text-[20px]"
-              fontWeight="font-semibold"
-              textColor="#000000"
-              disabled={false}
-            />
-          </div>
-        </>
-      )}
-      {Admin && (
-        <form
-          className="w-full  hidden lg:flex gap-2 flex-wrap flex-shrink-0 flex-grow-0 py-2 rounded-xl mb-2 md:mx-auto md:justify-center lg:justify-normal pt-0"
-          onSubmit={(e) => {
-            e.preventDefault();
-            searchDashboard();
-          }}
-        >
-          <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
-            <SearchInput
-              placeholder={intl.company_list_company_radioNumber}
-              onInput={setPttNo}
-              value={pttNo}
-            />
-          </div>
-          <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
-            <SearchInput
-              placeholder={intl.user_userId_label}
-              onInput={setUserId}
-              value={userId}
-            />
-          </div>
-
-          <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
-            <input
-              list="company_search"
-              name="company_search"
-              className={`w-full border flex  py-2.5 text-xs  pl-2  rounded-lg focus:outline-none placeholder-[#AEA8A8] 
-        placeholder:text-center md:placeholder:text-left md:placeholder:pl-0
-        dark:text-black`}
-              placeholder={intl.company_list_company_name}
-              onInput={(e) => setCompName(e.target.value)}
-              value={compName}
-            />
-            <datalist id="company_search">
-              {companyListDropdown.length > 0 &&
-                companyListDropdown.map((item) => {
-                  return <option value={item.name} key={item.value}></option>;
-                })}
-            </datalist>
-          </div>
-
-          <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
-            <SearchInput
-              placeholder={intl.form_component_sales_channel}
-              onInput={setSalesChannel}
-              value={salesChannel}
-            />
-          </div>
-
-          <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
-            <SearchInput
-              placeholder={intl.machine_name}
-              onInput={setDevice}
-              value={device}
-            />
-          </div>
-
-          <div className="w-full md:w-[calc(100%-10px)]  lg:w-[100px]   xl:flex xl:flex-1">
-            <IconLeftBtn
-              text={intl.dashboard_layout_search_btn}
-              textColor={
-                "w-full text-white font-medium text-[16px] w-full px-6 rounded-lg"
-              }
-              py={"py-2"}
-              px={""}
-              bgColor={"bg-customBlue  hover:bg-[#214BB9]"}
-              textBold={true}
-              icon={() => getIconWithClass("")}
-              onClick={() => {
-                searchDashboard();
-              }}
-            />
-          </div>
-        </form>
-      )}
-      {!Admin && (
-        <form
-          className="w-full  hidden lg:flex gap-2 flex-wrap flex-shrink-0 flex-grow-0 py-2  rounded-xl mb-2 md:mx-auto md:justify-center lg:justify-normal pt-0"
-          onSubmit={(e) => {
-            e.preventDefault();
-            searchDashboard();
-          }}
-        >
-          <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
-            <SearchInput
-              placeholder={intl.company_list_company_radioNumber}
-              onInput={setPttNo}
-              value={pttNo}
-            />
-          </div>
-          <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
-            <SearchInput
-              placeholder={intl.user_userId_label}
-              onInput={setUserId}
-              value={userId}
-            />
-          </div>
-
-          <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
-            <SearchInput
-              placeholder={intl.machine_name}
-              onInput={setDevice}
-              value={device}
-            />
-          </div>
-
-          <div className="w-full md:w-[calc(100%-10px)]  lg:w-[144px]   xl:flex xl:flex-1">
-            <IconLeftBtn
-              text={intl.dashboard_layout_search_btn}
-              textColor={
-                "w-full text-white font-medium text-[16px] w-full px-6 rounded-lg"
-              }
-              py={"py-2"}
-              px={""}
-              bgColor={"bg-customBlue  hover:bg-[#214BB9]"}
-              textBold={true}
-              icon={() => getIconWithClass("")}
-              onClick={() => {
-                searchDashboard();
-              }}
-            />
-          </div>
-        </form>
-      )}
-      {searchPanelOnMobile && Admin && (
-        <form
-          className="md:w-[96%] w-[92%] bg-white flex lg:hidden gap-2 flex-wrap flex-shrink-0 flex-grow-0  py-6 px-5 rounded-xl mb-4 md:mx-auto md:justify-center lg:justify-normal absolute z-20"
-          onSubmit={(e) => {
-            e.preventDefault();
-            searchDashboard();
-          }}
-        >
-          <div className={`w-full md:w-[calc(50%-10px)] `}>
-            <SearchInput
-              placeholder={intl.company_list_company_name}
-              onInput={setCompName}
-              value={compName}
-            />
-          </div>
-          <div className={`w-full md:w-[calc(50%-10px)] `}>
-            <SearchInput
-              placeholder={intl.user_userId_label}
-              onInput={setUserId}
-              value={userId}
-            />
-          </div>
-
-          <div className={`w-full md:w-[calc(50%-10px)] `}>
-            <SearchInput
-              placeholder={intl.company_list_company_radioNumber}
-              onInput={setPttNo}
-              value={pttNo}
-            />
-          </div>
-
-          <div className={`w-full md:w-[calc(50%-10px)] `}>
-            <SearchInput
-              placeholder={intl.form_component_sales_channel}
-              onInput={setSalesChannel}
-              value={salesChannel}
-            />
-          </div>
-
-          <div className={`w-full md:w-[calc(50%-10px)] `}>
-            <SearchInput
-              placeholder={intl.machine_name}
-              onInput={setDevice}
-              value={device}
-            />
-          </div>
-          <div className="w-full md:w-[calc(100%-10px)] sm:float-right ">
-            <IconLeftBtn
-              text={intl.dashboard_layout_search_btn}
-              textColor={
-                "w-full text-white font-medium text-[16px] w-full px-6 rounded-lg"
-              }
-              py={"py-2"}
-              px={""}
-              bgColor={"bg-customBlue  hover:bg-[#214BB9]"}
-              textBold={true}
-              icon={() => getIconWithClass("")}
-              onClick={() => {
-                setSearchPanelOnMobile(false);
-                searchDashboard();
-              }}
-            />
-          </div>
-        </form>
-      )}
-      {searchPanelOnMobile && !Admin && (
-        <form
-          className="md:w-[96%] w-[92%] bg-white  flex lg:hidden gap-2 flex-wrap flex-shrink-0 flex-grow-0  py-6 px-5 rounded-xl mb-4 md:mx-auto md:justify-center lg:justify-normal absolute z-20"
-          onSubmit={(e) => {
-            e.preventDefault();
-            searchDashboard();
-          }}
-        >
-          <div className={`w-full md:w-[calc(50%-10px)] `}>
-            <SearchInput
-              placeholder={intl.company_list_company_radioNumber}
-              onInput={setPttNo}
-              value={pttNo}
-            />
-          </div>
-          <div className={`w-full md:w-[calc(50%-10px)] `}>
-            <SearchInput
-              placeholder={intl.user_userId_label}
-              onInput={setUserId}
-              value={userId}
-            />
-          </div>
-
-          <div className={`w-full md:w-[calc(50%-10px)] `}>
-            <SearchInput
-              placeholder={intl.machine_name}
-              onInput={setDevice}
-              value={device}
-            />
-          </div>
-          <div className="w-full md:w-[calc(100%-10px)] sm:float-right ">
-            <IconLeftBtn
-              text={intl.dashboard_layout_search_btn}
-              textColor={
-                "w-full text-white font-medium text-[16px] w-full px-6 rounded-lg"
-              }
-              py={"py-2"}
-              px={""}
-              bgColor={"bg-customBlue  hover:bg-[#214BB9]"}
-              textBold={true}
-              icon={() => getIconWithClass("")}
-              onClick={() => {
-                setSearchPanelOnMobile(false);
-                searchDashboard();
-              }}
-            />
-          </div>
-        </form>
-      )}
-      <div className="lg:hidden flex mb-2">
-        <span className="w-full md:w-[160px]">
-          <IconLeftBtn
-            text={intl.dashboard_layout_search_btn}
-            textColor={
-              "w-full text-white font-medium text-[16px] w-full px-6 rounded-lg"
-            }
-            py={"py-2"}
-            px={""}
-            bgColor={"bg-customBlue hover:bg-[#214BB9]"}
-            textBold={true}
-            icon={() => getIconWithClass("")}
-            onClick={() => {
-              setSearchPanelOnMobile(true);
+      <LayoutContext.Provider value={{ searchDashboard }}>
+        {loading && <LoaderOverlay />}
+        {showResult && (
+          <>
+            <div className="mb-[16px]">
+              <Breadcrumb links={dashboardLinks} />
+            </div>
+            <div className="flex mb-[16px]">
+              <DynamicLabel
+                text={intl.search_results}
+                alignment="text-center"
+                fontSize="text-[20px]"
+                fontWeight="font-semibold"
+                textColor="#000000"
+                disabled={false}
+              />
+            </div>
+          </>
+        )}
+        {Admin && (
+          <form
+            className="w-full  hidden lg:flex gap-2 flex-wrap flex-shrink-0 flex-grow-0 py-2 rounded-xl mb-2 md:mx-auto md:justify-center lg:justify-normal pt-0"
+            onSubmit={(e) => {
+              e.preventDefault();
+              searchDashboard();
             }}
-          />
-        </span>
-      </div>
-      <div className="m-w-[1400] flex flex-col flex-1 h-full ">{children}</div>
+          >
+            <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
+              <SearchInput
+                placeholder={intl.company_list_company_radioNumber}
+                onInput={setPttNo}
+                value={pttNo}
+              />
+            </div>
+            <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
+              <SearchInput
+                placeholder={intl.user_userId_label}
+                onInput={setUserId}
+                value={userId}
+              />
+            </div>
+
+            <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
+              <input
+                list="company_search"
+                name="company_search"
+                className={`w-full border flex  py-[0.5rem] text-[16px]  pl-2  rounded focus:outline-none placeholder-[#AEA8A8] 
+        placeholder:text-center placeholder:text-[16px]  md:placeholder:text-left md:placeholder:pl-0
+        dark:text-black h-[40px]`}
+                placeholder={intl.company_list_company_name}
+                onInput={(e) => setCompName(e.target.value)}
+                value={compName}
+              />
+              <datalist id="company_search">
+                {companyListDropdown.length > 0 &&
+                  companyListDropdown.map((item) => {
+                    return <option value={item.name} key={item.value}></option>;
+                  })}
+              </datalist>
+            </div>
+
+            <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
+              <SearchInput
+                placeholder={intl.form_component_sales_channel}
+                onInput={setSalesChannel}
+                value={salesChannel}
+              />
+            </div>
+
+            <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
+              <SearchInput
+                placeholder={intl.machine_name}
+                onInput={setDevice}
+                value={device}
+              />
+            </div>
+
+            <div className="w-full md:w-[calc(100%-10px)]  lg:w-[100px]   xl:flex xl:flex-1">
+              <DashboardSearch
+                text={intl.dashboard_layout_search_btn}
+                textColor={
+                  "w-full text-white font-medium text-[16px] w-full px-6 rounded-lg"
+                }
+                py={"py-2"}
+                px={""}
+                bgColor={"bg-customBlue  hover:bg-[#214BB9]"}
+                textBold={true}
+                icon={() => getIconWithClass("")}
+                onClick={() => {
+                  searchDashboard();
+                }}
+              />
+            </div>
+          </form>
+        )}
+        {!Admin && (
+          <form
+            className="w-full  hidden lg:flex gap-2 flex-wrap flex-shrink-0 flex-grow-0 py-2  rounded-xl mb-2 md:mx-auto md:justify-center lg:justify-normal pt-0"
+            onSubmit={(e) => {
+              e.preventDefault();
+              searchDashboard();
+            }}
+          >
+            <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
+              <SearchInput
+                placeholder={intl.company_list_company_radioNumber}
+                onInput={setPttNo}
+                value={pttNo}
+              />
+            </div>
+            <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
+              <SearchInput
+                placeholder={intl.user_userId_label}
+                onInput={setUserId}
+                value={userId}
+              />
+            </div>
+
+            <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
+              <SearchInput
+                placeholder={intl.machine_name}
+                onInput={setDevice}
+                value={device}
+              />
+            </div>
+
+            <div className="w-full md:w-[calc(100%-10px)]  lg:w-[144px]   xl:flex xl:flex-1">
+              <DashboardSearch
+                text={intl.dashboard_layout_search_btn}
+                textColor={
+                  "w-full text-white font-medium text-[16px] w-full px-6 rounded-lg"
+                }
+                py={"py-2"}
+                px={""}
+                bgColor={"bg-customBlue  hover:bg-[#214BB9]"}
+                textBold={true}
+                icon={() => getIconWithClass("")}
+                onClick={() => {
+                  searchDashboard();
+                }}
+              />
+            </div>
+          </form>
+        )}
+        {searchPanelOnMobile && Admin && (
+          <form
+            className="md:w-[96%] w-[92%] bg-white flex lg:hidden gap-2 flex-wrap flex-shrink-0 flex-grow-0  py-6 px-5 rounded-xl mb-4 md:mx-auto md:justify-center lg:justify-normal absolute z-20"
+            onSubmit={(e) => {
+              e.preventDefault();
+              searchDashboard();
+            }}
+          >
+            <div className={`w-full md:w-[calc(50%-10px)] `}>
+              <SearchInput
+                placeholder={intl.company_list_company_name}
+                onInput={setCompName}
+                value={compName}
+              />
+            </div>
+            <div className={`w-full md:w-[calc(50%-10px)] `}>
+              <SearchInput
+                placeholder={intl.user_userId_label}
+                onInput={setUserId}
+                value={userId}
+              />
+            </div>
+
+            <div className={`w-full md:w-[calc(50%-10px)] `}>
+              <SearchInput
+                placeholder={intl.company_list_company_radioNumber}
+                onInput={setPttNo}
+                value={pttNo}
+              />
+            </div>
+
+            <div className={`w-full md:w-[calc(50%-10px)] `}>
+              <SearchInput
+                placeholder={intl.form_component_sales_channel}
+                onInput={setSalesChannel}
+                value={salesChannel}
+              />
+            </div>
+
+            <div className={`w-full md:w-[calc(50%-10px)] `}>
+              <SearchInput
+                placeholder={intl.machine_name}
+                onInput={setDevice}
+                value={device}
+              />
+            </div>
+            <div className="w-full md:w-[calc(100%-10px)] sm:float-right ">
+              <DashboardSearch
+                text={intl.dashboard_layout_search_btn}
+                textColor={
+                  "w-full text-white font-medium text-[16px] w-full px-6 rounded-lg"
+                }
+                py={"py-2"}
+                px={""}
+                bgColor={"bg-customBlue  hover:bg-[#214BB9]"}
+                textBold={true}
+                icon={() => getIconWithClass("")}
+                onClick={() => {
+                  setSearchPanelOnMobile(false);
+                  searchDashboard();
+                }}
+              />
+            </div>
+          </form>
+        )}
+        {searchPanelOnMobile && !Admin && (
+          <form
+            className="md:w-[96%] w-[92%] bg-white  flex lg:hidden gap-2 flex-wrap flex-shrink-0 flex-grow-0  py-6 px-5 rounded-xl mb-4 md:mx-auto md:justify-center lg:justify-normal absolute z-20"
+            onSubmit={(e) => {
+              e.preventDefault();
+              searchDashboard();
+            }}
+          >
+            <div className={`w-full md:w-[calc(50%-10px)] `}>
+              <SearchInput
+                placeholder={intl.company_list_company_radioNumber}
+                onInput={setPttNo}
+                value={pttNo}
+              />
+            </div>
+            <div className={`w-full md:w-[calc(50%-10px)] `}>
+              <SearchInput
+                placeholder={intl.user_userId_label}
+                onInput={setUserId}
+                value={userId}
+              />
+            </div>
+
+            <div className={`w-full md:w-[calc(50%-10px)] `}>
+              <SearchInput
+                placeholder={intl.machine_name}
+                onInput={setDevice}
+                value={device}
+              />
+            </div>
+            <div className="w-full md:w-[calc(100%-10px)] sm:float-right ">
+              <DashboardSearch
+                text={intl.dashboard_layout_search_btn}
+                textColor={
+                  "w-full text-white font-medium text-[16px] w-full px-6 rounded-lg"
+                }
+                py={"py-2"}
+                px={""}
+                bgColor={"bg-customBlue  hover:bg-[#214BB9]"}
+                textBold={true}
+                icon={() => getIconWithClass("")}
+                onClick={() => {
+                  setSearchPanelOnMobile(false);
+                  searchDashboard();
+                }}
+              />
+            </div>
+          </form>
+        )}
+        <div className="lg:hidden flex mb-2">
+          <span className="w-full md:w-[160px]">
+            <DashboardSearch
+              text={intl.dashboard_layout_search_btn}
+              textColor={
+                "w-full text-white font-medium text-[16px] w-full px-6 rounded-lg"
+              }
+              py={"py-2"}
+              px={""}
+              bgColor={"bg-customBlue hover:bg-[#214BB9]"}
+              textBold={true}
+              icon={() => getIconWithClass("")}
+              onClick={() => {
+                setSearchPanelOnMobile(true);
+              }}
+            />
+          </span>
+        </div>
+        <div className="m-w-[1400] flex flex-col flex-1 h-full ">
+          {children}
+        </div>
       </LayoutContext.Provider>
     </>
   );

@@ -751,6 +751,7 @@ export default function CompanyList() {
                 py={"xl:py-2.5 md:py-1.5 py-1.5"}
                 px={"xl:px-[32px] md:px-[33.5px] px-[33.5px]"}
                 icon={() => importIcon()}
+                borderColor={"border-none"}
                 onClick={async () => {
                   await setImportModal(() => false);
                   await importHandler();
@@ -761,6 +762,7 @@ export default function CompanyList() {
               <IconOutlineBtn
                 text={intl.company_details_company_add}
                 textColor={"text-customBlue"}
+                borderColor={"border-none"}
                 textBold={true}
                 py={"xl:py-2.5 md:py-1.5 py-1.5"}
                 px={"xl:px-[32.5px] md:px-[22.5px] px-[22.5px]"}
@@ -785,8 +787,8 @@ export default function CompanyList() {
             <input
               list="company_search"
               name="company_search"
-              className={`w-full border flex  py-2.5 text-xs  pl-2  rounded focus:outline-none placeholder-[#AEA8A8] 
-        placeholder:text-center md:placeholder:text-left md:placeholder:pl-0
+              className={`w-full border flex  py-[0.5rem] text-[16px]  pl-2  rounded focus:outline-none placeholder-[#AEA8A8] 
+        placeholder:text-center placeholder:text-[16px] md:placeholder:text-left md:placeholder:pl-0
         dark:text-black h-[40px]`}
               placeholder={intl.company_list_company_name}
               onInput={(e) => setCompName(e.target.value)}
@@ -825,9 +827,11 @@ export default function CompanyList() {
 
           <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
             <select
-              className={`w-full md:min-w-[100px] lg:min-w-[100px] border flex flex-auto md:flex-1  py-2.5 text-xs  pl-2 bg-[white] rounded focus:outline-none placeholder-[#AEA8A8] 
-                placeholder:text-center  h-[40px] md:placeholder:text-left md:placeholder:pl-0 dark:text-black ${
-                  selectedValue == "" ? "text-[#85868B]" : "text-black"
+              className={`w-full md:min-w-[100px] lg:min-w-[100px] border flex flex-auto md:flex-1  py-[0.5rem] text-[16px]  pl-2 bg-[white] rounded focus:outline-none placeholder-[#AEA8A8] 
+                placeholder:text-center placeholder:text-[16px] h-[40px] md:placeholder:text-left md:placeholder:pl-0 dark:text-black ${
+                  selectedValue == ""
+                    ? "text-[#85868B] text-[16px] "
+                    : "text-black text-[16px]"
                 }`}
               value={selectedValue}
               onChange={handleSelectChange}

@@ -1436,6 +1436,7 @@ export default function UserList() {
           <IconOutlineBtn
             text={intl.company_list_company_import}
             textColor={"text-customBlue"}
+            borderColor={"border-none"}
             textBold={true}
             py={"xl:py-2 md:py-1.5 py-1.5"}
             px={" px-[33.5px]  md:px-[24.5px] xl:px-[24px]"}
@@ -1450,6 +1451,7 @@ export default function UserList() {
             <IconOutlineBtn
               text={intl.user_addUser_label}
               textColor={"text-customBlue"}
+              borderColor={"border-none"}
               textBold={true}
               py={"xl:py-2 md:py-1.5 py-1.5"}
               px={"xl:px-[32.5px] md:px-[22.5px] px-[22.5px]"}
@@ -1576,7 +1578,7 @@ export default function UserList() {
             <div className="col-span-12 md:col-span-6 xl:col-span-2 md:mt-2 lg:mt-0">
               <SearchInput
                 value={searchPayload.employeeId}
-                placeholder={intl.login_email_placeholder}
+                placeholder={intl.login_email}
                 id="employeeId"
                 onSubmit={(e) => searchEmployee(e)}
                 onInput={(e) => updateSearchPayload(e)}
@@ -1587,9 +1589,9 @@ export default function UserList() {
                 <input
                   list="company_search"
                   name="company_search"
-                  className={`w-full border flex  py-2.5 text-xs  pl-2  rounded-lg focus:outline-none placeholder-[#AEA8A8] 
-        placeholder:text-left md:placeholder:text-left md:placeholder:pl-0
-        dark:text-black`}
+                  className={`w-full border flex  py-[0.5rem] text-[16px]  pl-2  rounded focus:outline-none placeholder-[#AEA8A8] 
+        placeholder:text-left placeholder:text-[16px] md:placeholder:text-left md:placeholder:pl-0
+        dark:text-black h-[40px]`}
                   placeholder={intl.company_list_company_name}
                   id="organization"
                   onInput={(e) => updateSearchPayload(e)}
@@ -1625,8 +1627,8 @@ export default function UserList() {
             </div>
             <div className="col-span-12 md:col-span-6 xl:col-span-2 custom-date-picker">
               <DatePicker
-                placeholder={intl.user_registration_date}
-                className="w-full py-[0.44rem] rounded-lg h-[38px] "
+                placeholder={intl.user_registration_date_without_ddmmyy}
+                className="w-full py-[0.5rem] rounded h-[40px] placeholder:text-[16px] text-[16px]"
                 id="createdAt"
                 style={{
                   border: "1px solid #e5e7eb",
@@ -1651,8 +1653,8 @@ export default function UserList() {
             </div>
             <div className="col-span-12 md:col-span-6 xl:col-span-2 custom-date-picker">
               <DatePicker
-                placeholder={intl.user_last_online_date}
-                className="w-full py-[0.44rem] rounded-lg h-[38px]"
+                placeholder={intl.user_last_online_date_time}
+                className="w-full py-[0.5rem] rounded h-[40px] placeholder:text-[16px] text-[16px]"
                 id="appLastSeenDateTime"
                 style={{
                   border: "1px solid #e5e7eb",
@@ -1677,8 +1679,8 @@ export default function UserList() {
             </div>
             <div className="col-span-12 md:col-span-6 xl:col-span-2 custom-date-picker">
               <DatePicker
-                placeholder={intl.user_usage_start_date}
-                className="w-full py-[0.44rem] h-[38px] rounded-lg"
+                placeholder={intl.usage_start_date}
+                className="w-full py-[0.5rem] rounded h-[40px] placeholder:text-[16px] text-[16px]"
                 id="appLoginDateTime"
                 style={{
                   border: "1px solid #e5e7eb",
@@ -1705,8 +1707,8 @@ export default function UserList() {
             {/* <!-- Row 2 --> */}
             <div className="col-span-12 md:col-span-6 xl:col-span-2 custom-date-picker">
               <DatePicker
-                placeholder={intl.user_usage_suspension_date}
-                className="w-full py-[0.44rem] h-[38px] rounded-lg"
+                placeholder={intl.usage_suspension_date}
+                className="w-full py-[0.5rem] rounded h-[40px] placeholder:text-[16px] text-[16px]"
                 id="appLogoutDateTime"
                 style={{
                   border: "1px solid #e5e7eb",
@@ -1742,9 +1744,11 @@ export default function UserList() {
             <div className="col-span-12 md:col-span-6 xl:col-span-2">
               <select
                 id={"isActive"}
-                className={`w-full md:min-w-[100px] lg:min-w-[100px] border flex flex-auto md:flex-1  py-[8.5px] text-xs  pl-2 bg-[white] rounded-lg focus:outline-none placeholder-[#AEA8A8] 
-                placeholder:text-center md:placeholder:text-left md:placeholder:pl-0 dark:text-black h-[38px] ${
-                  searchPayload.isActive == "" ? "text-[#85868B]" : "text-black"
+                className={`w-full md:min-w-[100px] lg:min-w-[100px] border flex flex-auto md:flex-1  py-[0.5px] text-[16px]  pl-2 bg-[white] rounded-lg focus:outline-none placeholder-[#AEA8A8] 
+                placeholder:text-center placeholder:text-[16px] rounded h-[40px]  md:placeholder:text-left md:placeholder:pl-0 dark:text-black h-[38px] ${
+                  searchPayload.isActive == ""
+                    ? "text-[#85868B] text-[16px]"
+                    : "text-black text-[16px]"
                 }`}
                 value={searchPayload.isActive}
                 onChange={(e) => updateSearchPayload(e)}

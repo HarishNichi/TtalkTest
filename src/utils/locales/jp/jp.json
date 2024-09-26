@@ -76,6 +76,7 @@
   "login_password": "パスワード",
   "password_copy": "パスワードがクリップボードにコピーされました。",
   "login_email_placeholder": "ユーザーID*",
+  "login_email": "ユーザーID",
   "login_forget_password_text": "パスワードを忘れた場合",
   "login_terms_of_service": "利用規約",
   "login_btn_label": "ログイン",
@@ -257,6 +258,7 @@
   "user_registration_date_time": "登録日時",
   "user_last_online_date_time": "最終オンライン日時",
   "user_registration_date": "登録日(YYYY/MM/DD)",
+  "user_registration_date_without_ddmmyy": "登録日",
   "user_last_online_date": "最終オンライン日(YYYY/MM/DD)",
   "user_online": "オンライン",
   "user_away": "離席中",
@@ -295,6 +297,7 @@
   "contacts_selcet_record": "レコードを選択してください",
   "groups_export_success": "エクスポートが成功しました",
   "user_usage_start_date": "利用開始日(YYYY/MM/DD)",
+  
   "usage_start_date": "利用開始日",
   "start_date": "開始日",
   "end_date": "終了日",
