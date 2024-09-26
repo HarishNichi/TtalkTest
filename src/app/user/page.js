@@ -2006,7 +2006,7 @@ export default function UserList() {
           <AntModal
             width={385}
             title={
-              <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+              <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-[20px] text-center">
                 {intl.company_list_company_export_title}
               </div>
             }
@@ -2120,7 +2120,7 @@ export default function UserList() {
         {deleteModal && (
           <AntModal
             title={
-              <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue font-semibold text-xl text-center">
+              <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue font-semibold text-[20px] text-center">
                 {intl.user_delete_modal}
               </div>
             }

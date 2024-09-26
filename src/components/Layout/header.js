@@ -319,7 +319,7 @@ export default function Header({
       {logoutModal && (
         <AntModal
           title={
-            <div className="pt-[40px] pb-[40px] text-customBlue text-center">
+            <div className="pt-[40px] pb-[40px] text-[20px] text-customBlue text-center">
               {intl.logout_confirm}
             </div>
           }

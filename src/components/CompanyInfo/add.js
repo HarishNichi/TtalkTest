@@ -78,7 +78,7 @@ export default function AddUser({ setIsModalOpen, setComCreated }) {
             <DynamicLabel
               text={intl.add_new_company}
               alignment="text-center text-customBlue"
-              fontSize="text-xl"
+              fontSize="text-[20px]"
               fontWeight="font-semibold"
               disabled={false}
             />

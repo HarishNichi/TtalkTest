@@ -652,7 +652,7 @@ export default function Subsection() {
               </div>
               <div className="flex flex-row justify-end mt-4 sm:space-y-0 sm:space-x-2">
                 <button
-                  className="text-[16px] h-[32px] w-[120px] mr-[10px] text-center font-semibold cursor-pointer text-customBlue border border-customBlue bg-white rounded"
+                  className="text-[16px] h-[32px] w-[124px] mr-[10px] text-center font-semibold cursor-pointer text-customBlue border border-customBlue bg-white rounded"
                   onClick={() => {
                     if (tabKey == "1") {
                       handleAddButton();
@@ -665,7 +665,7 @@ export default function Subsection() {
                 </button>
                 <button
                   style={HeaderButton}
-                  className="text-[16px] font-[600] w-[150px] truncate bg-customBlue hover:bg-[#5283B3] h-[32px] border border-customBlue rounded"
+                  className="text-[16px] font-[600] w-[124px] h-[32px] truncate bg-customBlue hover:bg-[#5283B3] border border-customBlue rounded"
                   onClick={() => {
                     if (tabKey == "1") {
                       handleFileButtonClick();
@@ -683,7 +683,7 @@ export default function Subsection() {
 
         <AntModal
           title={
-            <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+            <div className="px-[40px] pt-[25px] mb-[2vw] text-[20px] text-customBlue text-center">
               {intl.help_settings_delete_help_item}
             </div>
           }

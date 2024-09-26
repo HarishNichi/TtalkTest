@@ -2568,7 +2568,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
         <AntModal
           width={385}
           title={
-            <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+            <div className="px-[40px] pt-[25px] mb-[2vw] text-[20px] text-customBlue text-center">
               {intl.save_popup}
             </div>
           }
@@ -2609,7 +2609,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
         <AntModal
           width={385}
           title={
-            <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+            <div className="px-[40px] pt-[25px] mb-[2vw] text-[20px] text-customBlue text-center">
               {intl.company_list_company_export_title}
             </div>
           }

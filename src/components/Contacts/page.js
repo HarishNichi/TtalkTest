@@ -977,13 +977,13 @@ export default function Contact({ children, tab }) {
             title={
               <div className="flex justify-center items-center pt-4 px-4 pb-0 rounded-t">
                 {/* Modify this line */}
-                <h3 className="text-xl font-semibold text-[#19388b] dark:text-black flex-grow flex justify-center">
+                <div className="text-xl font-semibold text-[#19388b] dark:text-black flex-grow flex text-customBlue justify-center">
                   {detailsModal
                     ? intl.contact_details
                     : editModal
                     ? intl.edit_contacts
                     : intl.add_new_contact}
-                </h3>
+                </div>
                 {detailsModal && (
                   <IconBtn
                     textColor={"text-white"}

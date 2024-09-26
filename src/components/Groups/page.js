@@ -1230,7 +1230,7 @@ export default function Group({ children, tab }) {
       {deleteModal && (
         <AntModal
           title={
-            <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue font-semibold text-xl text-center">
+            <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue font-semibold text-[20px] text-center">
               {intl.help_settings_addition_delete}
             </div>
           }
@@ -1271,7 +1271,7 @@ export default function Group({ children, tab }) {
         <AntModal
           width={385}
           title={
-            <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+            <div className="px-[40px] pt-[25px] mb-[2vw] text-[20px] text-customBlue text-center">
               {intl.company_list_company_export_title}
             </div>
           }
@@ -1378,7 +1378,7 @@ export default function Group({ children, tab }) {
       {addNewModal && (
         <AntModal
           title={
-            <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+            <div className="px-[40px] pt-[25px] mb-[2vw] text-[20px] text-customBlue text-center">
               {intl.user_group_add_new}
             </div>
           }
@@ -1650,9 +1650,9 @@ export default function Group({ children, tab }) {
 
         <AntModal
           title={
-            <div className="flex justify-center items-center pt-4 px-4 pb-0 rounded-t">
+            <div className="flex justify-center items-center pt-4 px-4 pb-0 rounded-t ">
               {/* Modify this line */}
-              <h3 className="text-xl font-semibold text-[#19388b] dark:text-black flex-grow flex justify-center">
+              <h3 className="text-[20px] font-semibold text-[#19388b] dark:text-black flex-grow flex justify-center">
                 {detailsModal ? intl.group_details : intl.edit_group}
               </h3>
               {detailsModal && (

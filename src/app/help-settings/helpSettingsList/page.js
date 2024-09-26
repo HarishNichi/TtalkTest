@@ -518,7 +518,7 @@ export default function HelpSettingsList() {
             <AntModal
               width={520}
               title={
-                <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+                <div className="px-[40px] pt-[25px] mb-[2vw] text-[20px] text-customBlue text-center">
                   {addModal
                     ? intl.help_settings_help_category
                     : intl.help_settings_help_category_edit}
@@ -605,7 +605,7 @@ export default function HelpSettingsList() {
           {deleteModal && (
             <AntModal
               title={
-                <div className="px-[40px] pt-[25px] mb-[2vw] font-semibold text-xl text-customBlue text-center">
+                <div className="px-[40px] pt-[25px] mb-[2vw] font-semibold text-[20px] text-customBlue text-center">
                   {intl.help_settings_delete_help_category}
                 </div>
               }

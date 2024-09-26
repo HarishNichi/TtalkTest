@@ -800,7 +800,7 @@ export default function Devices() {
             <AntModal
               width={520}
               title={
-                <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+                <div className="px-[40px] pt-[25px] mb-[2vw] text-[20px] text-customBlue text-center">
                   {addModal ? intl.device_add_device : intl.device_edit}
                 </div>
               }
@@ -885,7 +885,7 @@ export default function Devices() {
                   </div>
                   <div className="mb-4">
                     <label className="flex mb-1 text-[16px] font-medium  text-[#7b7b7b]">
-                    {intl.deadline}
+                      {intl.deadline}
                     </label>
                     <div className="flex justify-start">
                       <Switch
@@ -968,7 +968,7 @@ export default function Devices() {
           {deleteModal && (
             <AntModal
               title={
-                <div className="px-[40px] pt-[25px] font-semibold text-xl mb-[2vw] text-customBlue text-center">
+                <div className="px-[40px] pt-[25px] font-semibold text-[20px] mb-[2vw] text-customBlue text-center">
                   {intl.device_delete_device}
                 </div>
               }

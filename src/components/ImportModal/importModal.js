@@ -104,7 +104,7 @@ export default function ImportModal({
   return (
     <AntModal
       title={
-        <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+        <div className="px-[40px] pt-[25px] mb-[2vw] text-[20px] text-customBlue text-center">
           {intl.company_list_company_import}
         </div>
       }

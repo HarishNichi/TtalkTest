@@ -680,7 +680,7 @@ export default function HelpSettingsList() {
         {deleteModal && (
           <AntModal
             title={
-              <div className="px-[40px] pt-[25px] mb-[2vw] font-semibold text-xl text-customBlue text-center">
+              <div className="px-[40px] pt-[25px] mb-[2vw] font-semibold text-[20px] text-customBlue text-center">
                 {intl.user_delete_modal}
               </div>
             }
@@ -722,7 +722,7 @@ export default function HelpSettingsList() {
           <AntModal
             width={385}
             title={
-              <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+              <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue  text-[20px] text-center">
                 {intl.company_list_company_export_title}
               </div>
             }
