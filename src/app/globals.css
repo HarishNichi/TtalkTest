@@ -211,6 +211,9 @@ body {
 
 .ant-table-wrapper {
   font-family: inherit !important;
+  
+}
+.ant-table-container {
   border: 1px solid #E7E7E9;
 }
 .ant-spin-nested-loading {
