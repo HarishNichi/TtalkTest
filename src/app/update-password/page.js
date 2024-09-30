@@ -168,7 +168,7 @@ export default function UpdatePassword(setIsResetModal) {
                 for={"currentPassword"}
                 onChange={handleChange}
                 placeholder={"今のパスワード"}
-                padding={"p-[10px]"}
+                padding={"p-[8px]"}
                 label={"今のパスワード"}
                 labelColor={"#7B7B7B"}
                 isRequired={true}
@@ -180,7 +180,7 @@ export default function UpdatePassword(setIsResetModal) {
                 focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
                 text={"text-base text-gray-900"}
                 additionalClass={
-                  "bg-white block w-full pl-5 text-base pr-[30px] h-[40px]"
+                  "bg-white block w-full  text-base pr-[30px] h-[40px]"
                 }
                 value={currentPassword}
               />
