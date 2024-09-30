@@ -575,11 +575,11 @@ export default function Subsection() {
                 for="sectionName"
                 placeholder=""
                 borderRound="rounded"
-                padding="p-2"
+                padding="p-[8px]"
                 focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
                 border="border border-gray-300"
                 bg="bg-white"
-                additionalClass="block w-full pl-5 text-base pr-[30px]"
+                additionalClass="block w-full text-base"
                 label={intl.help_title}
                 labelColor="#7B7B7B"
                 id="sectionName"

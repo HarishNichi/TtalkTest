@@ -849,13 +849,13 @@ export default function Devices() {
                       type={"text"}
                       for={addModal ? "addSettings" : "editSettings"}
                       placeholder={intl.machineName}
-                      padding={"p-[10px] h-[40px]"}
+                      padding={"p-[8px] h-[40px]"}
                       focus={
                         "focus:outline-none focus:ring-2  focus:ring-customBlue "
                       }
                       border={"border border-gray-300"}
                       bg={"bg-white"}
-                      additionalClass={"flex w-full pl-5 text-base pr-[30px]"}
+                      additionalClass={"flex w-full text-base"}
                       label={intl.machine_name}
                       labelColor={"#7B7B7B"}
                       id={addModal ? "addSettings" : "editSettings"}
@@ -911,7 +911,7 @@ export default function Devices() {
                   </div>
                   {deviceIsOnRent && (
                     <RangePicker
-                      className="w-full py-[0.44rem] rounded-lg"
+                      className="w-full py-[0.44rem] rounded"
                       id="deviceIsOnRent"
                       separator={<PiWaveSineLight />}
                       style={{
