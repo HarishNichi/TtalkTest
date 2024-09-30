@@ -137,9 +137,9 @@ body {
   background-color: #d4dffa !important;
 }
 .ant-pagination .ant-pagination-item:hover {
-  background-color: #F9F9FA !important;
+  background-color: #d4dffa !important;
   color: #19388b !important;
-  border-color: #F9F9FA !important;
+  border-color: #d4dffa !important;
 }
 
 .ant-pagination .ant-pagination-item {
@@ -657,12 +657,12 @@ select {
   background-color: #D4DFFA !important;
 }
 
-.ant-pagination .ant-pagination-item:first-of-type {
+.ant-pagination li:first-of-type(2) {
   border-top-left-radius: 4px !important;
   border-bottom-left-radius: 4px !important;
 }
 
-.ant-pagination .ant-pagination-item:last-of-type {
+.ant-pagination li:last-of-type(2) {
   border-top-right-radius: 4px !important;
   border-bottom-right-radius: 4px !important;
 }
