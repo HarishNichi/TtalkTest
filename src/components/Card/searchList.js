@@ -64,7 +64,7 @@ export default function SearchCard({
           props?.text
         } rounded-lg flex items-center justify-center ${
           props?.btnWidth ? props.btnWidth : "w-full"
-        } max-w-max  hover:bg-gray-300`}
+        }   hover:bg-gray-300`}
         onClick={props.onClick}
       >
         <div className="md:pr-1 md:py-1 text-2xl  ">{props.icon()}</div>
