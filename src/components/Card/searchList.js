@@ -77,8 +77,8 @@ export default function SearchCard({
   return (
     <>
       <div
-        className="py-2 block pl-4 pr-4 bg-white border border-gray-200 rounded-xl shadow relative overflow-auto"
-        style={{ maxHeight: "512", minHeight: "512px" }}
+        className="py-4 block pl-4 pr-4 bg-white border border-gray-200 rounded-xl shadow relative overflow-auto"
+        style={{ maxHeight: "490px", minHeight: "490px" }}
       >
         <h1 className="text-base md:text-xl dark:text-black mb-2 font-semibold">
           {Admin
@@ -127,7 +127,7 @@ export default function SearchCard({
         {searchResults && (
           <ul
             className={`mt-2 space-y-0 text-xl overflow-y-auto`}
-            style={{ minHeight: `335px`, maxHeight: `335px` }}
+            style={{ minHeight: `320px`, maxHeight: `320px` }}
           >
             {searchResults.map((result, index) => {
               return (

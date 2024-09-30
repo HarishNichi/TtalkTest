@@ -137,9 +137,9 @@ body {
   background-color: #d4dffa !important;
 }
 .ant-pagination .ant-pagination-item:hover {
-  background-color: #d4dffa !important;
+  background-color: #F9F9FA !important;
   color: #19388b !important;
-  border-color: #d4dffa !important;
+  border-color: #F9F9FA !important;
 }
 
 .ant-pagination .ant-pagination-item {
@@ -655,4 +655,14 @@ select {
 
 .ant-table-wrapper .ant-table-tbody .ant-table-row.ant-table-row-selected >.ant-table-cell {
   background-color: #D4DFFA !important;
+}
+
+.ant-pagination .ant-pagination-item:first-of-type {
+  border-top-left-radius: 4px !important;
+  border-bottom-left-radius: 4px !important;
+}
+
+.ant-pagination .ant-pagination-item:last-of-type {
+  border-top-right-radius: 4px !important;
+  border-bottom-right-radius: 4px !important;
 }
