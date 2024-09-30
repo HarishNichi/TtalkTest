@@ -113,7 +113,7 @@ export default function Sidebar({
                         isExpandSidebar
                           ? "flex-grow px-2"
                           : "flex-grow lg:justify-center px-2"
-                      } bg-[#dce5ed]  text-[#19388B] rounded py-2  items-center min-h-[40px] max-h-[40px]`
+                      } bg-[#d4dffa]  text-[#19388B] rounded py-2  items-center min-h-[40px] max-h-[40px]`
                     : `flex ${
                         isExpandSidebar
                           ? "flex-grow px-2"

@@ -652,3 +652,7 @@ select {
   > *:first-child {
   border-start-start-radius: 8px;
 }
+
+.ant-table-wrapper .ant-table-tbody .ant-table-row.ant-table-row-selected >.ant-table-cell {
+  background-color: #D4DFFA !important;
+}
