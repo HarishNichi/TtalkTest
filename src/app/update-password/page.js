@@ -198,13 +198,13 @@ export default function UpdatePassword(setIsResetModal) {
                   value={password}
                   onChange={handleChange}
                   placeholder={""}
-                  padding={"p-[10px]"}
+                  padding={"p-[8px]"}
                   focus={
                     "focus:outline-none focus:ring-2  focus:ring-customBlue "
                   }
                   border={"border border-gray-300"}
                   bg={"bg-white "}
-                  additionalClass={"block w-full pl-5 text-base pr-[40px] h-[40px]"}
+                  additionalClass={"block w-full  text-base pr-[40px] h-[40px]"}
                   label={intl.reset_new_password_label}
                   labelColor={"#7B7B7B"}
                   isRequired={true}
@@ -238,13 +238,13 @@ export default function UpdatePassword(setIsResetModal) {
                   type={type2}
                   placeholder={""}
                   for={"confirmPassword"}
-                  padding={"p-[10px]"}
+                  padding={"p-[8px]"}
                   focus={
                     "focus:outline-none focus:ring-2  focus:ring-customBlue "
                   }
                   border={"border border-gray-300"}
                   bg={"bg-white "}
-                  additionalClass={"block w-full pl-5 text-base pr-[40px] h-[40px]"}
+                  additionalClass={"block w-full text-base pr-[40px] h-[40px]"}
                   isRequired={true}
                   label={intl.confirm_password}
                   labelColor={"#7B7B7B"}

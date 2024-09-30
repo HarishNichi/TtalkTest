@@ -656,13 +656,3 @@ select {
 .ant-table-wrapper .ant-table-tbody .ant-table-row.ant-table-row-selected >.ant-table-cell {
   background-color: #D4DFFA !important;
 }
-
- li:first-of-type(2) {
-  border-top-left-radius: 4px !important;
-  border-bottom-left-radius: 4px !important;
-}
-
-li:last-of-type(2) {
-  border-top-right-radius: 4px !important;
-  border-bottom-right-radius: 4px !important;
-}

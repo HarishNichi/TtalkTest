@@ -403,10 +403,10 @@ export default function Other() {
                       value={password}
                       name="password"
                       className={`rounded
-                        py-3 h-[40px]
+                        p-[8px] h-[40px]
                         focus:outline-none focus:ring-2 focus:ring-customBlue
                         border border-gray-400
-                        block w-full pl-5 text-sm pr-[40px] font-medium text-black`}
+                        block w-full  text-sm pr-[40px] font-medium text-black`}
                       placeholder={intl.reset_new_password_label}
                       onChange={(event) => {
                         handleChange(event);
@@ -449,10 +449,10 @@ export default function Other() {
                       name="confirmPassword"
                       value={confirmPassword}
                       className={`h-[40px] rounded
-                        py-3
+                        p-[8px]
                         focus:outline-none focus:ring-2 focus:ring-customBlue
                         border border-gray-400
-                        block w-full pl-5 text-sm pr-[40px] font-medium text-black h-[40px]`}
+                        block w-full text-sm pr-[40px] font-medium text-black h-[40px]`}
                       placeholder={intl.forgot_autenticate_password_placeholder}
                       onChange={(event) => {
                         handleChange(event);
