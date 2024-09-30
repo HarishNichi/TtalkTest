@@ -21,7 +21,7 @@ export default function Sidebar({ toggleSidebar }) {
                 className={
                   currentRoute === linkElm.link
                     ? `flex flex-1 bg-[#dce5ed]  text-[#19388B] rounded py-2 px-4 items-center`
-                    : "flex flex-1 px-4 py-2 rounded text-[#817E78] items-center  hover:bg-[#dce5ed] hover:text-[#19388B] "
+                    : "flex flex-1 px-4 py-2 rounded text-[#817E78] items-center  hover:bg-[#F9F9FA] hover:text-[#19388B] "
                 }
               >
                 <div className="pl-0">{linkElm.title}</div>

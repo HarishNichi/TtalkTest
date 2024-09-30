@@ -85,7 +85,7 @@ export default function SearchCard({
             ? intl.components_card_searchlist_companylist
             : intl.dashboard_user_list}
         </h1>
-        <div className="flex">
+        <div className="flex w-full">
           <div className="relative mb-2 w-[65%]">
             <input
               type="text"
@@ -105,6 +105,7 @@ export default function SearchCard({
             </div> */}
           </div>
           <div className="ml-[2%] w-[33%] max-h-[32px]">
+            <div className="w-full">
             <IconOutlineBtn
               text={intl.dashboard_layout_search_btn}
               textColor={
@@ -120,6 +121,7 @@ export default function SearchCard({
                 onInput(searchText);
               }}
             />
+            </div>
           </div>
         </div>
         {searchResults && (

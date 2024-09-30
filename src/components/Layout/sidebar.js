@@ -118,7 +118,7 @@ export default function Sidebar({
                         isExpandSidebar
                           ? "flex-grow px-2"
                           : "flex-grow lg:justify-center px-2"
-                      }  py-2 rounded text-[#817E78] items-center min-h-[40px] max-h-[40px]  hover:bg-[#dce5ed] hover:text-[#19388B]`
+                      }  py-2 rounded text-[#817E78] items-center min-h-[40px] max-h-[40px]  hover:bg-[#F9F9FA] hover:text-[#19388B]`
                 }
               >
                 {currentRoute === linkElm.link
