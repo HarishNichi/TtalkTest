@@ -313,11 +313,11 @@ export default function AddUser({
                 options={deviceList}
                 keys={"value"} // From options array
                 optionLabel={"label"} // From options array
-                border={"border border-gray-400 rounded"}
+                border={"border border-[#E7E7E9] rounded"}
                 focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
                 bg=""
-                text={"text-sm"}
-                additionalClass={"block w-full pl-5"}
+                text={"text-[16px]"}
+                additionalClass={"block w-full p-[8px]"}
                 id={"machine"}
                 name={"machine"}
                 labelColor={"#0D0E11"}
@@ -348,11 +348,11 @@ export default function AddUser({
                 name="userName"
                 type={"text"}
                 placeholder={intl.user_name}
-                padding={"py-3"}
+                padding={"p-[8px]"}
                 focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
-                border={"border border-gray-400 rounded"}
+                border={"border border-[#E7E7E9] rounded"}
                 bg=""
-                additionalClass={"block w-full pl-5 text-sm pr-[30px] h-[40px]"}
+                additionalClass={"block w-full  text-[16px]  h-[40px]"}
                 value={userName}
                 onChange={async (event) => {
                   setUserName(event.target.value);
@@ -378,11 +378,11 @@ export default function AddUser({
                 name="furigana"
                 type={"text"}
                 placeholder={intl.furigana}
-                padding={"py-3"}
+                padding={"p-[8px]"}
                 focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
-                border={"border border-gray-400 rounded"}
+                border={"border border-[#E7E7E9] rounded"}
                 bg=""
-                additionalClass={"block w-full pl-5 text-sm h-[40px] pr-[30px]"}
+                additionalClass={"block w-full  text-[16px] h-[40px] "}
                 value={furigana}
                 onChange={async (event) => {
                   setFurigana(event.target.value);
@@ -405,17 +405,17 @@ export default function AddUser({
                   requiredColor={{
                     color: "#ED2E2E",
                   }}
-                  padding={""}
+                  padding={"p-[8px]"}
                   options={organizationList}
                   keys={"value"} // From options array
                   optionLabel={"label"} // From options array
-                  border={"border border-gray-400 rounded"}
+                  border={"border border-[#E7E7E9] rounded"}
                   focus={
                     "focus:outline-none focus:ring-2 focus:ring-customBlue"
                   }
                   bg=""
-                  text={"text-sm"}
-                  additionalClass={"block w-full pl-5 h-[40px]"}
+                  text={"text-[16px]"}
+                  additionalClass={"block w-full  h-[40px]"}
                   id={"organization"}
                   name={"organization"}
                   labelColor={"#0D0E11"}
@@ -458,15 +458,13 @@ export default function AddUser({
                   type={"text"}
                   name="designation"
                   placeholder={intl.user_add_specify_label}
-                  padding={"py-3"}
+                  padding={"p-[8px]"}
                   focus={
                     "focus:outline-none focus:ring-2 focus:ring-customBlue"
                   }
-                  border={"border border-gray-400 rounded"}
+                  border={"border border-[#E7E7E9] rounded"}
                   bg=""
-                  additionalClass={
-                    "block w-full pl-5 text-sm h-[40px] pr-[30px]"
-                  }
+                  additionalClass={"block w-full  text-[16px] h-[40px] "}
                   value={designation}
                   onChange={async (event) => {
                     setDesignation(event.target.value);
@@ -500,15 +498,13 @@ export default function AddUser({
                   placeholder={intl.user_email_id_label}
                   name="emailId"
                   id="emailId"
-                  padding={"py-3"}
+                  padding={"p-[8px]"}
                   focus={
                     "focus:outline-none focus:ring-2 focus:ring-customBlue"
                   }
-                  border={"border border-gray-400 rounded"}
+                  border={"border border-[#E7E7E9] rounded"}
                   bg=""
-                  additionalClass={
-                    "block w-full h-[40px] pl-5 text-sm pr-[30px]"
-                  }
+                  additionalClass={"block w-full h-[40px]  text-[16px] "}
                   testId="content-input-email"
                   value={emailId}
                   onChange={async (event) => {
@@ -539,15 +535,13 @@ export default function AddUser({
                   placeholder={intl.user_add_telephone_number_label}
                   name="telephoneNo"
                   id="telephoneNo"
-                  padding={"py-3"}
+                  padding={"p-[8px]"}
                   focus={
                     "focus:outline-none focus:ring-2 focus:ring-customBlue"
                   }
-                  border={"border border-gray-400 rounded"}
+                  border={"border border-[#E7E7E9] rounded"}
                   bg=""
-                  additionalClass={
-                    "block w-full pl-5 h-[40px] text-sm pr-[30px]"
-                  }
+                  additionalClass={"block w-full  h-[40px] text-[16px] "}
                   value={telephoneNo}
                   onChange={async (event) => {
                     setTelephoneNo(event.target.value);

@@ -451,14 +451,14 @@ const FormField = ({
           type="text"
           for={id}
           placeholder={placeholder}
-          borderRound="rounded-[4px] placeholder:text-[16px] text-[16px]"
+          borderRound="rounded-[4px] "
           padding="p-[8px]"
-          focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
-          border="border border-gray-300"
+          focus="focus:outline-none focus:ring-2 focus:ring-customBlue placeholder:text-[16px] text-[16px]"
+          border="border border-[#E7E7E9]"
           bg="bg-white"
           additionalClass={`${
             disabled ? "bg-[#AAAAAA] cursor-not-allowed text-white " : ""
-          } block w-full  text-base  h-[40px]`}
+          } block w-full  text-[16px]  h-[40px] `}
           label={label}
           labelColor="#0D0E11"
           id={id}

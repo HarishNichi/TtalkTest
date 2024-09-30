@@ -746,7 +746,7 @@ export default function HelpSettingsList() {
                       borderRound="rounded"
                       padding="p-[8px]"
                       focus="focus:outline-none focus:ring-2 h-[40px] focus:ring-customBlue"
-                      border="border border-gray-300"
+                      border="border border-[#E7E7E9]"
                       bg="bg-white"
                       additionalClass="block w-full placeholder:text-[16px] text-[16px]  "
                       label={intl.user_history_settings_file_name}

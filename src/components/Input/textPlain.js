@@ -3,11 +3,11 @@
 export default function TextPlain(props) {
   const disableTextStyle = {
     color: "#666666",
-    fontSize: "14px",
+    fontSize: "16px",
   };
   const normalStyle = {
     color: "#303030",
-    fontSize: "14px",
+    fontSize: "16px",
     fontWeight: "400",
   };
   const requiredColor = {

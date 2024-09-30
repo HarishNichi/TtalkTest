@@ -9,7 +9,8 @@ export default function Medium(props) {
   };
   const normalStyle = {
     color: "#303030",
-    fontWeight: "500",
+    fontWeight: "400",
+    fontSize: "16px",
   };
   return (
     <main>
@@ -34,7 +35,7 @@ export default function Medium(props) {
             onFocus={(event) => {
               props.onKeyDownEvent && props.onKeyDownEvent(event);
             }}
-            onBlur={(event) =>{
+            onBlur={(event) => {
               props.onKeyDownEvent && props.onKeyDownEvent(event);
             }}
             style={props.isDisabled ? disableTextStyle : normalStyle}

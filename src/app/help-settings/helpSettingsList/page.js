@@ -566,13 +566,13 @@ export default function HelpSettingsList() {
                     type={"text"}
                     for={addModal ? "addSettings" : "editSettings"}
                     placeholder={intl.help_settings_help_name}
-                    padding={"p-[10px] h-[40px]"}
+                    padding={"p-[8px] h-[40px]"}
                     focus={
                       "focus:outline-none focus:ring-2  focus:ring-customBlue "
                     }
-                    border={"border border-gray-300"}
+                    border={"border border-[#E7E7E9]"}
                     bg={"bg-white "}
-                    additionalClass={"flex w-full pl-5 text-base pr-[30px]"}
+                    additionalClass={"flex w-full  text-[16px]"}
                     label={intl.help_settings_help_name}
                     labelColor={"#7B7B7B"}
                     id={addModal ? "addSettings" : "editSettings"}

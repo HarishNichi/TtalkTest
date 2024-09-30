@@ -3,13 +3,13 @@
 export default function TextareaMedium(props) {
   const disableTextStyle = {
     color: "#666666",
-    fontSize: "14px",
+    fontSize: "16px",
     resize: props.resize ? props.resize : "none",
   };
   const normalStyle = {
     color: "#303030",
     fontWeight: "400",
-    fontSize: "14px",
+    fontSize: "16px",
     resize: props.resize ? props.resize : "none",
   };
   const requiredColor = {
@@ -33,7 +33,7 @@ export default function TextareaMedium(props) {
         className={`
                 block ${props.padding} w-full 
                 ${props.text} 
-                ${props.bg} rounded-lg 
+                ${props.bg} rounded border border-[#E7E7E9] p-[8px]
                 ${props.border} 
                 ${props.focus}  
                 ${props.additionalClass}  

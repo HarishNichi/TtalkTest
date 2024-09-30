@@ -1049,15 +1049,15 @@ export default function Group({ children, tab }) {
               defaultSelectNoOption={false}
               isModal={true}
               borderRound={"rounded"}
-              padding={"py-[8px] px-[8px]"}
+              padding={"p-[8px]"}
               options={groupListOptionFirst}
               keys={"value"} // From options array
               optionLabel={"label"} // From options array
-              border={"border border-gray-300 w-[140px]"}
+              border={"border border-[#E7E7E9] w-[140px]"}
               focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
               bg={"bg-white"}
-              text={"text-sm"}
-              additionalClass={"block w-full min-w-[250px] pl-2"}
+              text={"text-[16px] placeholder:text-[16px]"}
+              additionalClass={"block w-full min-w-[250px] "}
               id={"Id"}
               labelColor={"#7B7B7B"}
               placeholder={intl.groups_last_call}
@@ -1427,11 +1427,11 @@ export default function Group({ children, tab }) {
                     for={"groupNameCreate"}
                     placeholder={intl.user_group_mongst_list_grp_name}
                     borderRound="rounded"
-                    padding="p-[10px]"
+                    padding="p-[8px]"
                     focus="focus:outline-none focus:ring-2 h-[40px] focus:ring-customBlue"
-                    border="border border-gray-300"
+                    border="border border-[#E7E7E9]"
                     bg="bg-white"
-                    additionalClass="block w-full pl-5 text-base pr-[30px]"
+                    additionalClass="block w-full  text-[16px]"
                     label={intl.user_group_mongst_list_grp_name}
                     labelColor="#7B7B7B"
                     id={"groupNameCreate"}
@@ -1459,11 +1459,11 @@ export default function Group({ children, tab }) {
                     for={"groupNameFurigana"}
                     placeholder={intl.furigana}
                     borderRound="rounded"
-                    padding="p-[10px]"
+                    padding="p-[8px]"
                     focus="focus:outline-none focus:ring-2 h-[40px] focus:ring-customBlue"
-                    border="border border-gray-300"
+                    border="border border-[#E7E7E9]"
                     bg="bg-white"
-                    additionalClass="block w-full pl-5 text-base pr-[30px]"
+                    additionalClass="block w-full  text-[16px] "
                     label={intl.furigana}
                     labelColor="#7B7B7B"
                     id={"groupNameFurigana"}
@@ -1491,18 +1491,18 @@ export default function Group({ children, tab }) {
                       <DropdownMedium
                         defaultSelectNoOption={false}
                         borderRound={"rounded"}
-                        padding={" h-[40px]"}
+                        padding={" h-[40px] p-[8px]"}
                         options={contactDataDropdownList}
                         keys={"value"} // From options array
                         optionLabel={"label"} // From options array
-                        border={"border border-gray-300"}
+                        border={"border border-[#E7E7E9]"}
                         focus={
                           "focus:outline-none focus:ring-2 focus:ring-customBlue"
                         }
                         width="max-h-[300px]"
                         bg={"bg-white"}
-                        text={"text-sm"}
-                        additionalClass={"block w-full pl-5"}
+                        text={"text-[16px]"}
+                        additionalClass={"block w-full "}
                         id={"Id"}
                         labelColor={"#7B7B7B"}
                         label={intl.group_member}

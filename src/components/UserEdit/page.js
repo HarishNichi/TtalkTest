@@ -417,7 +417,7 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
             />
 
             <select
-              className="rounded-lg border h-[40px] border-gray-400 focus:outline-none focus:ring-2 focus:ring-customBlue block w-full px-4 py-[8px] truncate dark:text-black"
+              className="rounded placeholder:text-[16px] border h-[40px] border-[#E7E7E9] focus:outline-none focus:ring-2 focus:ring-customBlue block w-full p-[8px] truncate dark:text-black"
               id={"device"}
               defaultValue={""}
               value={device}
@@ -426,7 +426,7 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
                 setTouched(() => ({ ...touched, ["device"]: true }));
               }}
             >
-              <option defaultValue={""} value="" style={{ fontSize: "14px" }}>
+              <option defaultValue={""} value="" style={{ fontSize: "16px" }}>
                 {"--選択する--"}
               </option>
               {deviceList.length > 0 &&
@@ -443,7 +443,7 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
 
                   return (
                     <option
-                      className="bg-white text-black rounded py-2"
+                      className="bg-white text-black rounded p-[8px] text-[16px] placeholder:text-[16px]"
                       id={`id-${index}`}
                       key={dropDownOption.value}
                       value={dropDownOption.value}
@@ -473,13 +473,13 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
               type={"text"}
               isDisabled={true}
               placeholder={intl.user_userId_label}
-              borderRound={"rounded-lg"}
-              padding={"px-[10px] py-2.5"}
+              borderRound={"rounded"}
+              padding={"p-[8px]"}
               focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
-              border={"border border-gray-400"}
+              border={"border border-[#E7E7E9]"}
               bg={"bg-white"}
               additionalClass={
-                "font-medium  block w-full pl-5 h-[40px] text-[16px] pr-[30px]"
+                "font-[400] placeholder:text-[16px] block w-full  h-[40px] text-[16px]"
               }
               value={userId}
             />
@@ -498,14 +498,12 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
               id="pttNumber"
               type={"text"}
               placeholder={intl.company_list_company_radioNumber}
-              borderRound={"rounded-lg"}
-              padding={"px-[10px] py-2.5"}
+              borderRound={"rounded"}
+              padding={"p-[8px]"}
               focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
-              border={"border border-gray-400"}
+              border={"border border-[#E7E7E9]"}
               bg={""}
-              additionalClass={
-                "font-medium  block h-[40px] w-full pl-5 text-sm pr-[30px]"
-              }
+              additionalClass={"font-[400] block h-[40px] w-full text-[16px] "}
               value={radioNumber}
             />
           </div>
@@ -522,14 +520,12 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
               id="userName"
               type={"text"}
               placeholder={intl.user_name}
-              borderRound={"rounded-lg"}
-              padding={"px-[10px] py-2.5"}
+              borderRound={"rounded"}
+              padding={"p-[8px]"}
               focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
-              border={"border border-gray-400"}
+              border={"border border-[#E7E7E9]"}
               bg={""}
-              additionalClass={
-                "font-medium  block h-[40px] w-full pl-5 text-sm pr-[30px]"
-              }
+              additionalClass={"font-[400]  block h-[40px] w-full text-[16px]"}
               value={userName}
               onChange={async (evt) => {
                 setUserName(() => evt.target.value);
@@ -554,14 +550,12 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
               id="furigana"
               type={"text"}
               placeholder={intl.furigana}
-              borderRound={"rounded-lg"}
-              padding={"px-[10px] py-2.5"}
+              borderRound={"rounded"}
+              padding={"p-[8px]"}
               focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
-              border={"border border-gray-400"}
+              border={"border border-[#E7E7E9]"}
               bg={""}
-              additionalClass={
-                "font-medium  h-[40px] block w-full pl-5 text-sm pr-[30px]"
-              }
+              additionalClass={"font-[400]  h-[40px] block w-full  text-[16px]"}
               value={furigana}
               onChange={async (evt) => {
                 setFurigana(() => evt.target.value);
@@ -587,14 +581,12 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
               type={"text"}
               isDisabled={true}
               placeholder={intl.form_component_company_name_label}
-              borderRound={"rounded-lg"}
-              padding={"px-[10px] py-2"}
+              borderRound={"rounded"}
+              padding={"p-[8px]"}
               focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
-              border={"border border-gray-400"}
+              border={"border border-[#E7E7E9]"}
               bg={"bg-white"}
-              additionalClass={
-                "font-medium h-[40px] block w-full pl-5 text-[16px] pr-[30px]"
-              }
+              additionalClass={"font-[400] h-[40px] block w-full  text-[16px] "}
               value={companyName}
             />
           </div>
@@ -608,13 +600,13 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
             <Input
               type={"text"}
               placeholder={intl.user_add_specify_label}
-              borderRound={"rounded-lg"}
-              padding={"px-[10px] py-2.5"}
+              borderRound={"rounded"}
+              padding={"p-[8px]"}
               focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
-              border={"border border-gray-400"}
+              border={"border border-[#E7E7E9]"}
               bg={""}
               additionalClass={
-                "font-medium h-[40px]  block w-full pl-5 text-sm pr-[30px]"
+                "font-[400] h-[40px]  block w-full  text-[16px] "
               }
               value={designation}
               onChange={async (evt) => {
@@ -642,14 +634,12 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
             <Input
               type={"email"}
               placeholder={intl.user_email_id_label}
-              borderRound={"rounded-lg"}
-              padding={"px-[10px] py-2.5"}
+              borderRound={"rounded"}
+              padding={"p-[8px]"}
               focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
-              border={"border border-gray-400"}
+              border={"border border-[#E7E7E9]"}
               bg={""}
-              additionalClass={
-                "font-medium h-[40px] block w-full pl-5 text-sm pr-[30px]"
-              }
+              additionalClass={"font-[400] h-[40px] block w-full  text-[16px]"}
               testId="content-input-email"
               value={email}
               onChange={async (evt) => {
@@ -677,14 +667,12 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
               name="phone"
               type={"text"}
               placeholder={intl.user_add_telephone_number_label}
-              borderRound={"rounded-lg"}
-              padding={"px-[10px] py-2.5"}
+              borderRound={"rounded"}
+              padding={"p-[8px]"}
               focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
-              border={"border border-gray-400"}
+              border={"border border-[#E7E7E9]"}
               bg={""}
-              additionalClass={
-                "font-medium h-[40px] block w-full pl-5 text-sm pr-[30px]"
-              }
+              additionalClass={"font-[400] h-[40px] block w-full text-[16px] "}
               value={phone}
               onChange={async (evt) => {
                 setPhone(evt.target.value);
@@ -706,7 +694,7 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
             <DynamicLabel
               text={"登録日時"}
               textColor="#7B7B7B"
-              fontWeight={"font-[500]"}
+              fontWeight={"font-[400]"}
               htmlFor="createdAtDate"
             />
             <Input
@@ -714,14 +702,12 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
               type={"text"}
               isDisabled={true}
               placeholder={"登録日時"}
-              borderRound={"rounded-lg"}
-              padding={"px-[10px] py-2.5"}
+              borderRound={"rounded"}
+              padding={"p-[8px]"}
               focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
-              border={"border border-gray-400"}
+              border={"border border-[#E7E7E9]"}
               bg={"bg-white"}
-              additionalClass={
-                "font-medium h-[40px] block w-full pl-5 text-[16px] pr-[30px]"
-              }
+              additionalClass={"font-[400] h-[40px] block w-full  text-[16px] "}
               value={userDetails.createdAtDate}
               onChange={(createdAtDate) => {
                 setUserDetails({
@@ -737,20 +723,18 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
             <DynamicLabel
               text={"最終オンライン日時"}
               textColor="#7B7B7B"
-              fontWeight={"font-[500]"}
+              fontWeight={"font-[400]"}
             />
             <Input
               type={"text"}
               isDisabled={true}
               placeholder={"最終オンライン日時"}
-              borderRound={"rounded-lg"}
-              padding={"px-[10px] py-2"}
+              borderRound={"rounded"}
+              padding={"p-[8px]"}
               focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
-              border={"border border-gray-400"}
+              border={"border border-[#E7E7E9]"}
               bg={"bg-white"}
-              additionalClass={
-                "font-medium h-[40px] block w-full pl-5 text-[16px] pr-[30px]"
-              }
+              additionalClass={"font-[400] h-[40px] block w-full text-[16px]"}
               value={userDetails.appLastSeenDateTime}
               onChange={(appLastSeenDateTime) => {
                 setUserDetails({
@@ -768,7 +752,7 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
             <DynamicLabel
               text={"利用開始日"}
               textColor="#7B7B7B"
-              fontWeight={"font-[500]"}
+              fontWeight={"font-[400]"}
               htmlFor="appLoginDateTime"
             />
             <Input
@@ -776,13 +760,13 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
               type={"text"}
               isDisabled={true}
               placeholder={"利用開始日"}
-              borderRound={"rounded-lg"}
-              padding={"px-[10px] py-2"}
+              borderRound={"rounded"}
+              padding={"p-[8px]"}
               focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
-              border={"border border-gray-400"}
+              border={"border border-[#E7E7E9]"}
               bg={"bg-white"}
               additionalClass={
-                "font-medium h-[40px]  block w-full pl-5 text-[16px] pr-[30px]"
+                "font-[400] h-[40px]  block w-full  text-[16px] "
               }
               value={userDetails.appLoginDateTime}
               onChange={(appLoginDateTime) => {
@@ -798,20 +782,18 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
             <DynamicLabel
               text={"利用停止日"}
               textColor="#7B7B7B"
-              fontWeight={"font-[500]"}
+              fontWeight={"font-[400]"}
             />
             <Input
               type={"text"}
               isDisabled={true}
               placeholder={"利用停止日"}
-              borderRound={"rounded-lg"}
-              padding={"px-[10px] py-2"}
+              borderRound={"rounded"}
+              padding={"p-[8px]"}
               focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
-              border={"border border-gray-400"}
+              border={"border border-[#E7E7E9]"}
               bg={"bg-white"}
-              additionalClass={
-                "font-medium h-[40px] block w-full pl-5 text-[16px] pr-[30px]"
-              }
+              additionalClass={"font-[400] h-[40px] block w-full  text-[16px] "}
               value={userDetails.appLogoutDateTime}
               onChange={(appLogoutDateTime) => {
                 setUserDetails({
@@ -826,7 +808,7 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
             <DynamicLabel
               text={"バージョン"}
               textColor="#7B7B7B"
-              fontWeight={"font-[500]"}
+              fontWeight={"font-[400]"}
               htmlFor="version"
             />
             <Input
@@ -834,13 +816,13 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
               type={"text"}
               isDisabled={true}
               placeholder={"バージョン"}
-              borderRound={"rounded-lg"}
-              padding={"px-[10px] py-2"}
+              borderRound={"rounded"}
+              padding={"p-[8px]"}
               focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
-              border={"border border-gray-400"}
+              border={"border border-[#E7E7E9]"}
               bg={"bg-white"}
               additionalClass={
-                "font-medium  block h-[40px] w-full pl-5 text-[16px] pr-[30px]"
+                "font-[400]  block h-[40px] w-full  text-[16px] "
               }
               value={userDetails.appVersion}
               onChange={(version) => {

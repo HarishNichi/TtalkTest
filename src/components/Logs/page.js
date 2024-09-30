@@ -197,7 +197,7 @@ export default function ViewLog({ tab }) {
             <div className="w-1/2">
               <DatePicker
                 className={
-                  "rounded py-2 border border-gray-400 block w-full text-sm px-2 focus:outline-none focus:ring-2 focus:ring-customBlue text-[#8B8B8B] md:text-center"
+                  "rounded p-[8px] border border-[#E7E7E9] block w-full text-[16px]  focus:outline-none focus:ring-2 focus:ring-customBlue text-[#8B8B8B] md:text-center"
                 }
                 onChange={(dateObj, dateString) => {
                   const newFromDate = dateString || null;
@@ -223,7 +223,7 @@ export default function ViewLog({ tab }) {
                 key={reRender}
                 min={fromDate}
                 className={
-                  "rounded py-2 border border-gray-400 block w-full text-sm  focus:outline-none focus:ring-2 focus:ring-customBlue text-[#8B8B8B] text-center px-2"
+                  "rounded p-[8px] border border-[#E7E7E9] block w-full text-[16px]  focus:outline-none focus:ring-2 focus:ring-customBlue text-[#8B8B8B] text-center "
                 }
                 onChange={(event, dateString) => {
                   const newToDate = dateString;

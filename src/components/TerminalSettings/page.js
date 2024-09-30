@@ -2651,11 +2651,11 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                     for={"id"}
                     placeholder={intl.user_history_settings_file_name}
                     borderRound="rounded"
-                    padding="p-[10px]"
+                    padding="p-[8px]"
                     focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
-                    border="border border-gray-300"
+                    border="border border-[#E7E7E9]"
                     bg="bg-white"
-                    additionalClass="block w-full pl-5 text-base h-[40px] pr-[30px]"
+                    additionalClass="block w-full  text-[16px] h-[40px]"
                     label={intl.user_history_settings_file_name}
                     labelColor="#7B7B7B"
                     id={"id"}

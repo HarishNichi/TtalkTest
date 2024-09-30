@@ -482,19 +482,23 @@ export default function CompanyList() {
   function getIconWithClass(cls) {
     return (
       <svg
-        width="14"
-        height="14"
-        viewBox="0 0 14 14"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M10.0161 9.1667C10.6485 8.29789 11.0218 7.22781 11.0218 6.07129C11.0218 3.16365 8.66481 0.806641 5.75733 0.806641C2.84967 0.806641 0.492676 3.16359 0.492676 6.07129C0.492676 8.97873 2.84963 11.3357 5.75733 11.3357C6.91399 11.3357 7.98413 10.9624 8.85288 10.33L11.9607 13.4378C12.2821 13.7592 12.8032 13.7605 13.1249 13.4388C13.4486 13.1151 13.4447 12.5952 13.124 12.2746C13.124 12.2746 13.1239 12.2745 13.124 12.2746L10.0161 9.1667ZM9.61808 9.19293C9.61811 9.19289 9.61805 9.19298 9.61808 9.19293C9.68154 9.11453 9.74253 9.03403 9.8012 8.95179C10.3808 8.13946 10.7218 7.14517 10.7218 6.07129C10.7218 3.32932 8.49912 1.10664 5.75733 1.10664C3.01536 1.10664 0.792676 3.32928 0.792676 6.07129C0.792676 8.81304 3.01531 11.0357 5.75733 11.0357C6.94009 11.0357 8.02624 10.6222 8.87896 9.93182L12.1728 13.2257C12.3776 13.4304 12.7087 13.4307 12.9128 13.2266C13.1183 13.0211 13.1165 12.6912 12.9118 12.4867L9.61808 9.19293ZM5.75724 9.69069C7.75614 9.69069 9.37664 8.07019 9.37664 6.07129C9.37664 4.07231 7.75614 2.45189 5.75724 2.45189C3.75825 2.45189 2.13784 4.0723 2.13784 6.07129C2.13784 8.0702 3.75825 9.69069 5.75724 9.69069ZM9.67664 6.07129C9.67664 8.23588 7.92182 9.99069 5.75724 9.99069C3.59256 9.99069 1.83784 8.23588 1.83784 6.07129C1.83784 3.90662 3.59256 2.15189 5.75724 2.15189C7.92182 2.15189 9.67664 3.90662 9.67664 6.07129Z"
-          fill="white"
-          stroke="#ffffff"
-        />
+        <g clip-path="url(#clip0_6622_3226)">
+          <path
+            d="M9.51906 15.6153C7.81139 15.6153 6.36522 15.023 5.18056 13.8385C3.99606 12.6538 3.40381 11.2077 3.40381 9.50002C3.40381 7.79235 3.99606 6.34618 5.18056 5.16152C6.36522 3.97702 7.81139 3.38477 9.51906 3.38477C11.2267 3.38477 12.6729 3.97702 13.8576 5.16152C15.0421 6.34618 15.6343 7.79235 15.6343 9.50002C15.6343 10.2142 15.5145 10.8963 15.2748 11.5463C15.035 12.1963 14.7151 12.7616 14.3151 13.2423L20.0691 18.9963C20.2076 19.1346 20.2784 19.3086 20.2816 19.5183C20.2847 19.7279 20.2139 19.9052 20.0691 20.05C19.9242 20.1948 19.7486 20.2673 19.5421 20.2673C19.3357 20.2673 19.1601 20.1948 19.0153 20.05L13.2613 14.296C12.7613 14.7088 12.1863 15.0319 11.5363 15.2653C10.8863 15.4986 10.2139 15.6153 9.51906 15.6153ZM9.51906 14.1155C10.8076 14.1155 11.8989 13.6683 12.7931 12.774C13.6874 11.8798 14.1346 10.7885 14.1346 9.50002C14.1346 8.21152 13.6874 7.12018 12.7931 6.22601C11.8989 5.33168 10.8076 4.88452 9.51906 4.88452C8.23056 4.88452 7.13922 5.33168 6.24506 6.22601C5.35072 7.12018 4.90356 8.21152 4.90356 9.50002C4.90356 10.7885 5.35072 11.8798 6.24506 12.774C7.13922 13.6683 8.23056 14.1155 9.51906 14.1155Z"
+            fill="white"
+          />
+        </g>
+        <defs>
+          <clipPath id="clip0_6622_3226">
+            <rect width="24" height="24" fill="white" />
+          </clipPath>
+        </defs>
       </svg>
     );
   }
@@ -789,7 +793,7 @@ export default function CompanyList() {
               name="company_search"
               className={`w-full border flex   text-[16px]  p-2  rounded focus:outline-none placeholder-[#AEA8A8] 
         placeholder:text-center placeholder:text-[16px] md:placeholder:text-left md:placeholder:pl-0
-        dark:text-black h-[40px]`}
+        dark:text-black h-[40px] border border-[#E7E7E9]`}
               placeholder={intl.company_list_company_name}
               onInput={(e) => setCompName(e.target.value)}
               value={compName}
@@ -828,7 +832,7 @@ export default function CompanyList() {
           <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
             <select
               className={`w-full md:min-w-[100px] lg:min-w-[100px] border flex flex-auto md:flex-1   text-[16px]  p-2 bg-[white] rounded focus:outline-none placeholder-[#AEA8A8] 
-                placeholder:text-center placeholder:text-[16px] h-[40px] md:placeholder:text-left md:placeholder:pl-0 dark:text-black ${
+                placeholder:text-center placeholder:text-[16px] h-[40px] md:placeholder:text-left md:placeholder:pl-0 dark:text-black border border-[#E7E7E9] ${
                   selectedValue == ""
                     ? "text-[#85868B] text-[16px] "
                     : "text-black text-[16px]"
@@ -852,7 +856,7 @@ export default function CompanyList() {
             <IconLeftBtn
               text={intl.dashboard_layout_search_btn}
               textColor={
-                "w-full  h-[40px] text-white font-medium text-sm w-full px-6 rounded"
+                "w-full  h-[40px] text-white font-[600] text-[16px] w-full px-6 border"
               }
               py={"py-2"}
               px={""}
@@ -1086,11 +1090,11 @@ export default function CompanyList() {
                       for={"id"}
                       placeholder={intl.user_history_settings_file_name}
                       borderRound="rounded"
-                      padding="p-[10px]"
+                      padding="p-[8px]"
                       focus="focus:outline-none focus:ring-2 h-[40px] focus:ring-customBlue"
-                      border="border border-gray-300"
+                      border="border border-[#E7E7E9]"
                       bg="bg-white"
-                      additionalClass="block w-full pl-5 text-base pr-[30px]"
+                      additionalClass="block w-full text-[16px]"
                       label={intl.user_history_settings_file_name}
                       labelColor="#7B7B7B"
                       id={"id"}

@@ -1591,7 +1591,7 @@ export default function UserList() {
                   name="company_search"
                   className={`w-full border flex   text-[16px]  p-2 rounded focus:outline-none placeholder-[#AEA8A8] 
         placeholder:text-left placeholder:text-[16px] md:placeholder:text-left md:placeholder:pl-0
-        dark:text-black h-[40px]`}
+        dark:text-black h-[40px] border border-[#E7E7E9]`}
                   placeholder={intl.company_list_company_name}
                   id="organization"
                   onInput={(e) => updateSearchPayload(e)}
@@ -1628,7 +1628,7 @@ export default function UserList() {
             <div className="col-span-12 md:col-span-6 xl:col-span-2 custom-date-picker">
               <DatePicker
                 placeholder={intl.user_registration_date_without_ddmmyy}
-                className="w-full  rounded h-[40px] placeholder:text-[16px] text-[16px] p-2"
+                className="w-full  rounded h-[40px] placeholder:text-[16px] text-[16px] p-2 border border-[#E7E7E9]"
                 id="createdAt"
                 style={{
                   border: "1px solid #e5e7eb",
@@ -1654,7 +1654,7 @@ export default function UserList() {
             <div className="col-span-12 md:col-span-6 xl:col-span-2 custom-date-picker">
               <DatePicker
                 placeholder={intl.user_last_online_date_time}
-                className="w-full  rounded h-[40px] placeholder:text-[16px] text-[16px] p-2"
+                className="w-full  rounded h-[40px] placeholder:text-[16px] text-[16px] p-2 border border-[#E7E7E9]"
                 id="appLastSeenDateTime"
                 style={{
                   border: "1px solid #e5e7eb",
@@ -1680,7 +1680,7 @@ export default function UserList() {
             <div className="col-span-12 md:col-span-6 xl:col-span-2 custom-date-picker">
               <DatePicker
                 placeholder={intl.usage_start_date}
-                className="w-full  rounded h-[40px] placeholder:text-[16px] text-[16px] p-2"
+                className="w-full  rounded h-[40px] placeholder:text-[16px] text-[16px] p-2 border border-[#E7E7E9]"
                 id="appLoginDateTime"
                 style={{
                   border: "1px solid #e5e7eb",
@@ -1708,7 +1708,7 @@ export default function UserList() {
             <div className="col-span-12 md:col-span-6 xl:col-span-2 custom-date-picker">
               <DatePicker
                 placeholder={intl.usage_suspension_date}
-                className="w-full  rounded h-[40px] placeholder:text-[16px] text-[16px] p-2"
+                className="w-full  rounded h-[40px] placeholder:text-[16px] text-[16px] p-2 border border-[#E7E7E9]"
                 id="appLogoutDateTime"
                 style={{
                   border: "1px solid #e5e7eb",
@@ -1745,7 +1745,7 @@ export default function UserList() {
               <select
                 id={"isActive"}
                 className={`w-full md:min-w-[100px] lg:min-w-[100px] border flex flex-auto md:flex-1  text-[16px]  p-2 bg-[white] rounded-lg focus:outline-none placeholder-[#AEA8A8] 
-                placeholder:text-center placeholder:text-[16px] rounded h-[40px]  md:placeholder:text-left md:placeholder:pl-0 dark:text-black h-[38px] ${
+                placeholder:text-center placeholder:text-[16px] rounded h-[40px] border border-[#E7E7E9] md:placeholder:text-left md:placeholder:pl-0 dark:text-black h-[38px] ${
                   searchPayload.isActive == ""
                     ? "text-[#85868B] text-[16px]"
                     : "text-black text-[16px]"
@@ -2032,11 +2032,11 @@ export default function UserList() {
                       for={"id"}
                       placeholder={intl.user_history_settings_file_name}
                       borderRound="rounded "
-                      padding="p-[10px]"
+                      padding="p-[8px]"
                       focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
-                      border="border border-gray-300"
+                      border="border border-[#E7E7E9]"
                       bg="bg-white"
-                      additionalClass="block w-full pl-5 text-base pr-[30px] h-[40px] "
+                      additionalClass="block w-full  text-[16px] h-[40px] "
                       label={intl.user_history_settings_file_name}
                       labelColor="#7B7B7B"
                       id={"id"}
@@ -2055,21 +2055,21 @@ export default function UserList() {
                   <div className="flex flex-col ">
                     <DropdownMedium
                       borderRound={"rounded"}
-                      padding={" pr-[120px]"}
+                      padding={" p-[8px]"}
                       options={[
                         { id: 1, value: "1", label: "CSV" },
                         { id: 2, value: "2", label: "QR code" },
                       ]}
                       keys={"value"} // From options array
                       optionLabel={"label"} // From options array
-                      border={"border border-gray-300"}
+                      border={"border border-[#E7E7E9]"}
                       value={exportType}
                       focus={
                         "focus:outline-none focus:ring-2 focus:ring-customBlue h-[40px]"
                       }
                       bg={"bg-white"}
-                      text={"text-sm"}
-                      additionalClass={"block w-full pl-5"}
+                      text={"text-[16px]"}
+                      additionalClass={"block w-full "}
                       id={"Id"}
                       labelColor={"#7B7B7B"}
                       label={intl.user_file_type}

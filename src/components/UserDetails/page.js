@@ -687,11 +687,11 @@ export default function UserDetails() {
                     for={"id"}
                     placeholder={intl.user_history_settings_file_name}
                     borderRound="rounded"
-                    padding="p-[10px]"
+                    padding="p-[8px]"
                     focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
-                    border="border border-gray-300"
+                    border="border border-[#E7E7E9]"
                     bg="bg-white"
-                    additionalClass="block w-full pl-5 h-[40px] text-base pr-[30px] "
+                    additionalClass="block w-full  h-[40px] text-base  "
                     label={intl.user_history_settings_file_name}
                     labelColor="#7B7B7B"
                     id={"id"}
@@ -710,21 +710,21 @@ export default function UserDetails() {
                 <div className="flex flex-col">
                   <DropdownMedium
                     borderRound={"rounded"}
-                    padding={" pr-[120px]"}
+                    padding={" p-[8px]"}
                     options={[
                       { id: 1, value: "1", label: "CSV" },
                       { id: 2, value: "2", label: "QR code" },
                     ]}
                     keys={"value"} // From options array
                     optionLabel={"label"} // From options array
-                    border={"border border-gray-300"}
+                    border={"border border-[#E7E7E9]"}
                     value={exportType}
                     focus={
                       "focus:outline-none focus:ring-2 focus:ring-customBlue"
                     }
                     bg={"bg-white"}
-                    text={"text-sm"}
-                    additionalClass={"block w-full pl-5 h-[40px]"}
+                    text={"text-[16px] placeholder:text-[16px]"}
+                    additionalClass={"block w-full  h-[40px]"}
                     id={"Id"}
                     labelColor={"#7B7B7B"}
                     label={"ファイルタイプ"}
