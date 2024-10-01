@@ -127,7 +127,7 @@ export default function RootLayout({ children }) {
       <body className={natoSans.className} style={natoSans.style}>
         <Providers>
           <div className="w-full bg-[#f9f9fa]">
-            <div className="w-full sticky z-10 top-0">
+            <div className="w-full fixed z-10 top-0 ">
               <Header
                 toggleSidebar={(flag) => {
                   hideAndShowSidebar((prev) => flag);
