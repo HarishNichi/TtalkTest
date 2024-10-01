@@ -16,16 +16,8 @@
   }
 }
 
-html {
-  height: 100%;
-}
-
 body {
   color: rgb(var(--foreground-rgb));
-  overscroll-behavior: contain;
-  min-height: 100%;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 .bg-search-custom {
