@@ -139,7 +139,7 @@ const Dashboard = () => {
             id: emp.id,
             userName: emp.name,
             radioNumber: emp.pttNo,
-            link: "/user/details",
+            link: "/user-details",
           };
         });
         setEmployeeData(response);

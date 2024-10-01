@@ -145,7 +145,7 @@ export default function RootLayout({ children }) {
                 </div>
               )}
               <div
-                className="hidden lg:block w-full h-screen fixed duration-300"
+                className="hidden lg:block w-full h-screen fixed duration-300 mt-[56px]"
                 style={{
                   width: isExpandSidebar ? "20%" : "80px",
                   transition: "auto",
@@ -166,7 +166,7 @@ export default function RootLayout({ children }) {
                   transition: "auto",
                 }}
               >
-                <main className="mt-[60px] px-[24px]  py-[40px] h-full">
+                <main className="mt-[56px] px-[24px]  py-[40px] h-full">
                   <div className="rounded flex flex-col  flex-grow  h-full">
                     <ProtectedRoute allowedRoles={["admin", "organization"]}>
                       {children}
