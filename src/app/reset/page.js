@@ -190,7 +190,7 @@ export default function Forgot() {
               <div className="mb-8 md:mb-12">
                 <button
                   type="button"
-                  className=" bg-white border border-gray-300 focus:outline-none  font-medium rounded-2xl px-5 py-1 md:py-2 mr-2 mb-2 text-auth-button-text text-xl w-full "
+                  className=" bg-white border border-[#e7e7e9] focus:outline-none  font-medium rounded-2xl px-5 py-1 md:py-2 mr-2 mb-2 text-auth-button-text text-xl w-full "
                 >
                   {intl.update_password}
                 </button>

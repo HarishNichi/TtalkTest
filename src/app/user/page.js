@@ -1958,7 +1958,7 @@ export default function UserList() {
                   focus={
                     "focus:outline-none focus:ring-2  focus:ring-customBlue "
                   }
-                  border={"border border-gray-300"}
+                  border={"border border-[#e7e7e9]"}
                   bg={"bg-input-color "}
                   additionalClass={"block w-full pl-5 text-base pr-[30px]"}
                   label={intl.help_settings_addition_section_name}

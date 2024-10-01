@@ -178,7 +178,7 @@ export default function Reset() {
                   <div className="mb-8 md:mb-12 lg:mb-32">
                     <button
                       type="button"
-                      className=" bg-white hover:bg-[#5FA7D0] hover:text-white hover:border-[#5FA7D0] border border-gray-300 focus:outline-none font-medium rounded-xl md:rounded-2xl px-5 py-1 md:py-2 mr-2 mb-2 text-[#326394] text-xl w-full "
+                      className=" bg-white hover:bg-[#5FA7D0] hover:text-white hover:border-[#5FA7D0] border border-[#e7e7e9] focus:outline-none font-medium rounded-xl md:rounded-2xl px-5 py-1 md:py-2 mr-2 mb-2 text-[#326394] text-xl w-full "
                       onClick={handleSubmit}
                     >
                       {intl.forgot_btn_form_send}

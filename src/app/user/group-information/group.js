@@ -950,7 +950,7 @@ export default function Group({
               options={groupListOptionFirst}
               keys={"value"} // From options array
               optionLabel={"label"} // From options array
-              border={"border border-gray-300"}
+              border={"border border-[#e7e7e9]"}
               focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
               bg={"bg-white"}
               text={"text-sm"}
@@ -1118,7 +1118,7 @@ export default function Group({
                     borderRound="rounded-xl"
                     padding="p-[10px]"
                     focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
-                    border="border border-gray-300"
+                    border="border border-[#e7e7e9]"
                     bg="bg-white"
                     additionalClass="block w-full pl-5 text-base pr-[30px]"
                     label={"ファイル名"}
@@ -1219,7 +1219,7 @@ export default function Group({
                     borderRound="rounded-xl"
                     padding="p-[10px]"
                     focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
-                    border="border border-gray-300"
+                    border="border border-[#e7e7e9]"
                     bg="bg-white"
                     additionalClass="block w-full pl-5 text-base pr-[30px]"
                     label={"グループ名"}
@@ -1246,7 +1246,7 @@ export default function Group({
                     borderRound="rounded-xl"
                     padding="p-[10px]"
                     focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
-                    border="border border-gray-300"
+                    border="border border-[#e7e7e9]"
                     bg="bg-white"
                     additionalClass="block w-full pl-5 text-base pr-[30px]"
                     label={"ふりがな"}
@@ -1275,7 +1275,7 @@ export default function Group({
                         options={contactDataDropdownList}
                         keys={"value"} // From options array
                         optionLabel={"label"} // From options array
-                        border={"border border-gray-300"}
+                        border={"border border-[#e7e7e9]"}
                         focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
                         width="max-h-[300px]"
                         bg={"bg-white"}
@@ -1421,7 +1421,7 @@ export default function Group({
                     borderRound="rounded-xl"
                     padding="p-[10px]"
                     focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
-                    border="border border-gray-300"
+                    border="border border-[#e7e7e9]"
                     bg="bg-white border"
                     additionalClass="block w-full pl-5 text-base pr-[30px]"
                     label={"グループ名"}
@@ -1448,7 +1448,7 @@ export default function Group({
                     borderRound="rounded-xl"
                     padding="p-[10px]"
                     focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
-                    border="border border-gray-300"
+                    border="border border-[#e7e7e9]"
                     bg="bg-white border"
                     additionalClass="block w-full pl-5 text-base pr-[30px]"
                     label={"ふりがな"}
@@ -1475,7 +1475,7 @@ export default function Group({
                     borderRound="rounded-xl"
                     padding="p-[10px]"
                     focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
-                    border="border border-gray-300"
+                    border="border border-[#e7e7e9]"
                     bg="bg-white border"
                     additionalClass="block w-full pl-5 text-base pr-[30px]"
                     label={intl.group_id}
@@ -1501,7 +1501,7 @@ export default function Group({
                             options={contactDataDropdownList}
                             keys={"value"} // From options array
                             optionLabel={"label"} // From options array
-                            border={"border border-gray-300"}
+                            border={"border border-[#e7e7e9]"}
                             focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
                             bg={"bg-white"}
                             text={"text-sm"}

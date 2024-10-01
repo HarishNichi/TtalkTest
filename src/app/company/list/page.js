@@ -97,7 +97,7 @@ export default function CompanyList() {
         return (
           <div style={{ width: "85px" }}>
             <div
-              className={`rounded-[5px] cursor-pointer pt-[5px] pb-[5px] pl-[5px] pr-[5px] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-customBlue text-[16px] ${textColor} ${bgColor} text-center`}
+              className={`rounded-[5px] cursor-pointer pt-[5px] pb-[5px] pl-[5px] pr-[5px] border border-[#e7e7e9] focus:outline-none focus:ring-2 focus:ring-customBlue text-[16px] ${textColor} ${bgColor} text-center`}
             >
               {text === true
                 ? intl.form_status_valid

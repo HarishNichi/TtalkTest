@@ -176,7 +176,7 @@ export default function UpdatePassword(setIsResetModal) {
                   "mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 }
                 bg={"bg-white"}
-                border={"border border-gray-300"}
+                border={"border border-[#e7e7e9]"}
                 focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
                 text={"text-base text-gray-900"}
                 additionalClass={
@@ -202,7 +202,7 @@ export default function UpdatePassword(setIsResetModal) {
                   focus={
                     "focus:outline-none focus:ring-2  focus:ring-customBlue "
                   }
-                  border={"border border-gray-300"}
+                  border={"border border-[#e7e7e9]"}
                   bg={"bg-white "}
                   additionalClass={"block w-full  text-base pr-[40px] h-[40px]"}
                   label={intl.reset_new_password_label}
@@ -242,7 +242,7 @@ export default function UpdatePassword(setIsResetModal) {
                   focus={
                     "focus:outline-none focus:ring-2  focus:ring-customBlue "
                   }
-                  border={"border border-gray-300"}
+                  border={"border border-[#e7e7e9]"}
                   bg={"bg-white "}
                   additionalClass={"block w-full text-base pr-[40px] h-[40px]"}
                   isRequired={true}

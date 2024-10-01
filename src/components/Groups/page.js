@@ -1315,7 +1315,7 @@ export default function Group({ children, tab }) {
                     borderRound="rounded"
                     padding="p-[10px]"
                     focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
-                    border="border border-gray-300"
+                    border="border border-[#e7e7e9]"
                     bg="bg-white"
                     additionalClass="block w-full pl-5 h-[40px] text-base pr-[30px]"
                     label={intl.user_history_settings_file_name}
@@ -1724,7 +1724,7 @@ export default function Group({ children, tab }) {
                     borderRound="rounded"
                     padding="p-[10px]"
                     focus="focus:outline-none h-[40px] focus:ring-2 focus:ring-customBlue"
-                    border="border border-gray-300"
+                    border="border border-[#e7e7e9]"
                     bg="bg-white border"
                     additionalClass="block w-full pl-5 text-base pr-[30px]"
                     label={intl.user_group_mongst_list_grp_name}
@@ -1754,7 +1754,7 @@ export default function Group({ children, tab }) {
                     borderRound="rounded"
                     padding="p-[10px]"
                     focus="focus:outline-none h-[40px] focus:ring-2 focus:ring-customBlue"
-                    border="border border-gray-300"
+                    border="border border-[#e7e7e9]"
                     bg="bg-white border"
                     additionalClass="block w-full pl-5 text-base pr-[30px]"
                     label={intl.furigana}
@@ -1784,7 +1784,7 @@ export default function Group({ children, tab }) {
                     borderRound="rounded"
                     padding="p-[10px]"
                     focus="focus:outline-none h-[40px] focus:ring-2 focus:ring-customBlue"
-                    border="border border-gray-300"
+                    border="border border-[#e7e7e9]"
                     bg="bg-white border"
                     additionalClass="block w-full pl-5 text-base pr-[30px]"
                     label={intl.group_id}
@@ -1810,7 +1810,7 @@ export default function Group({ children, tab }) {
                             options={contactDataDropdownList}
                             keys={"value"} // From options array
                             optionLabel={"label"} // From options array
-                            border={"border border-gray-300"}
+                            border={"border border-[#e7e7e9]"}
                             focus={
                               "focus:outline-none focus:ring-2 focus:ring-customBlue"
                             }

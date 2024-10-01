@@ -853,7 +853,7 @@ export default function Devices() {
                       focus={
                         "focus:outline-none focus:ring-2  focus:ring-customBlue "
                       }
-                      border={"border border-gray-300"}
+                      border={"border border-[#E7E7E9]"}
                       bg={"bg-white"}
                       additionalClass={"flex w-full text-base"}
                       label={intl.machine_name}

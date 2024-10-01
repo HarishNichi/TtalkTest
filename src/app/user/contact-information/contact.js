@@ -654,7 +654,7 @@ export default function Contact({
           //             borderRound="rounded-xl"
           //             padding="p-[10px]"
           //             focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
-          //             border="border border-gray-300"
+          //             border="border border-[#e7e7e9]"
           //             bg="bg-white"
           //             additionalClass="block w-full pl-5 text-base pr-[30px]"
           //             label={"ファイル名"}
@@ -722,7 +722,7 @@ export default function Contact({
                       borderRound="rounded-xl"
                       padding="p-[10px]"
                       focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
-                      border="border border-gray-300"
+                      border="border border-[#e7e7e9]"
                       bg="bg-white"
                       additionalClass="block w-full pl-5 text-base pr-[30px]"
                       label={"ファイル名"}
@@ -996,7 +996,7 @@ export default function Contact({
                       borderRound="rounded-xl"
                       padding="p-[10px]"
                       focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
-                      border="border border-gray-300"
+                      border="border border-[#e7e7e9]"
                       bg="bg-white"
                       additionalClass="block w-full pl-5 text-base pr-[30px]"
                       label={"連絡先名"}
@@ -1037,7 +1037,7 @@ export default function Contact({
                       borderRound="rounded-xl"
                       padding="p-[10px]"
                       focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
-                      border="border border-gray-300"
+                      border="border border-[#e7e7e9]"
                       bg="bg-white"
                       additionalClass="block w-full pl-5 text-base pr-[30px]"
                       label={"ふりがな"}
@@ -1078,7 +1078,7 @@ export default function Contact({
                       borderRound="rounded-xl"
                       padding="p-[10px]"
                       focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
-                      border="border border-gray-300"
+                      border="border border-[#e7e7e9]"
                       bg="bg-white"
                       additionalClass="block w-full pl-5 text-base pr-[30px]"
                       label={"無線番号"}

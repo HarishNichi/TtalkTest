@@ -265,7 +265,7 @@ export default function TerminalSettingsPopup({ isModal, selectedRows }) {
       <>
         <div className="px-8 w-full">
           <button
-            className="w-full bg-customBlue border border-gray-300 focus:outline-none font-medium rounded-lg px-4 py-2  mb-2 text-white"
+            className="w-full bg-customBlue border border-[#e7e7e9] focus:outline-none font-medium rounded-lg px-4 py-2  mb-2 text-white"
             onClick={() => {
               let settings = deviceSettings.map((deviceSetting) => {
                 if (selectedButton.name == deviceSetting.name) {
@@ -298,7 +298,7 @@ export default function TerminalSettingsPopup({ isModal, selectedRows }) {
       <>
         <div className="px-8 w-full">
           <button
-            className="w-full bg-customBlue border border-gray-300 focus:outline-none font-medium rounded-lg px-4 py-2  mb-2 text-white"
+            className="w-full bg-customBlue border border-[#e7e7e9] focus:outline-none font-medium rounded-lg px-4 py-2  mb-2 text-white"
             onClick={() => {
               let settings = deviceSettings.map((deviceSetting) => {
                 if (selectedButton.name == deviceSetting.name) {
@@ -1425,7 +1425,7 @@ export default function TerminalSettingsPopup({ isModal, selectedRows }) {
                             <div>
                               <button
                                 type="button"
-                                className=" bg-customBlue border border-gray-300 focus:outline-none rounded-lg px-2 py-1  mb-2 text-white  min-w-min text-sm"
+                                className=" bg-customBlue border border-[#e7e7e9] focus:outline-none rounded-lg px-2 py-1  mb-2 text-white  min-w-min text-sm"
                                 onClick={() => setModal(!isModalOpen)}
                               >
                                 連絡先を選択
@@ -1454,7 +1454,7 @@ export default function TerminalSettingsPopup({ isModal, selectedRows }) {
                             <div>
                               <button
                                 type="button"
-                                className=" bg-customBlue border border-gray-300 focus:outline-none  rounded-lg py-1 px-2 mb-2 text-white  min-w-min text-sm"
+                                className=" bg-customBlue border border-[#e7e7e9] focus:outline-none  rounded-lg py-1 px-2 mb-2 text-white  min-w-min text-sm"
                                 onClick={() => setModalGroup(!isModalOpenGroup)}
                               >
                                 グループを選択
@@ -1482,7 +1482,7 @@ export default function TerminalSettingsPopup({ isModal, selectedRows }) {
                             <div>
                               <button
                                 type="button"
-                                className=" bg-customBlue border border-gray-300 focus:outline-none  rounded-lg py-1 px-2 mb-2 text-white  min-w-min text-sm"
+                                className=" bg-customBlue border border-[#e7e7e9] focus:outline-none  rounded-lg py-1 px-2 mb-2 text-white  min-w-min text-sm"
                                 onClick={() => setModal(!isModalOpen)}
                               >
                                 連絡先を選択
@@ -1490,7 +1490,7 @@ export default function TerminalSettingsPopup({ isModal, selectedRows }) {
 
                               <button
                                 type="button"
-                                className=" bg-customBlue border border-gray-300 focus:outline-none  rounded-lg py-1 px-2 mb-2 text-white  min-w-min text-sm"
+                                className=" bg-customBlue border border-[#e7e7e9] focus:outline-none  rounded-lg py-1 px-2 mb-2 text-white  min-w-min text-sm"
                                 onClick={() => setModalGroup(!isModalOpenGroup)}
                               >
                                 グループを選択

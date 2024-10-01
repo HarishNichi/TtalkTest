@@ -10,7 +10,7 @@ export default function IconDisabledMedium(props) {
               </div>
               <input disabled={true} type="search" id="default-search" className={`
                   block w-full ${props.padding} pl-8 text-sm  
-                  border border-gray-300 ${props.borderRound} bg-gray-50  
+                  border border-[#e7e7e9] ${props.borderRound} bg-gray-50  
                   focus:outline-none focus:ring-2 focus:ring-customBlue bg-search-custom`} 
                   placeholder={props.placeholder}  
                   value={props.value}

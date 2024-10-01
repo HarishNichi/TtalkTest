@@ -155,7 +155,7 @@ export default function Home() {
           placeholder={intl.user_sos_company_search_placeholder}
           borderRound={"rounded-xl"}
           padding={"p-[10px]"}
-          border={"border border-gray-300"}
+          border={"border border-[#e7e7e9]"}
           additionalClass={`
                 focus:outline-none focus:ring-2 focus:ring-customBlue
                 bg-search-custom`
@@ -171,7 +171,7 @@ export default function Home() {
           placeholder={intl.user_sos_company_search_placeholder}
           borderRound={"rounded-xl"}
           padding={"p-[10px]"}
-          border={"border border-gray-300"}
+          border={"border border-[#e7e7e9]"}
           additionalClass={`
                 focus:outline-none focus:ring-2 focus:ring-customBlue
                 bg-search-custom`
@@ -192,7 +192,7 @@ export default function Home() {
           ] }
           keys={"value"} // From options array
           optionLabel={"label"} // From options array
-          border={"border border-gray-300"}
+          border={"border border-[#e7e7e9]"}
           focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
           bg={"bg-search-custom"}
           text={'text-sm'}
@@ -216,7 +216,7 @@ export default function Home() {
           ] }
           keys={"value"} // From options array
           optionLabel={"label"} // From options array
-          border={"border border-gray-300"}
+          border={"border border-[#e7e7e9]"}
           focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
           bg={"bg-search-custom"}
           text={'text-sm'}
@@ -236,7 +236,7 @@ export default function Home() {
           borderRound={"rounded-xl"}
           padding={"p-[10px]"}
           focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
-          border = {"border border-gray-300"}
+          border = {"border border-[#e7e7e9]"}
           bg={"bg-search-custom"}
           additionalClass={"block w-full pl-5 text-sm pr-[30px]"}
           value={mediumValue}
@@ -250,7 +250,7 @@ export default function Home() {
           borderRound={"rounded-xl"}
           padding={"p-[10px]"}
           focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
-          border = {"border border-gray-300"}
+          border = {"border border-[#e7e7e9]"}
           bg={"bg-search-custom"}
           additionalClass={"block w-full pl-5 text-sm pr-[30px]"}
           label={intl.user_add_current_password_label}
@@ -291,7 +291,7 @@ export default function Home() {
           padding={"pr-[5rem] pl-1 pt-1"}
           text={"text-sm text-gray-900"}
           bg={"bg-search-custom"}
-          border={"border border-gray-300"}
+          border={"border border-[#e7e7e9]"}
           focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
           value={textAreaValue}
           onChange={setTextAreaValue}
@@ -319,7 +319,7 @@ export default function Home() {
           placeholder={intl.user_sos_company_search_placeholder}
           borderRound={"rounded-xl"}
           padding={"p-[10px]"}
-          border={"border border-gray-300"}
+          border={"border border-[#e7e7e9]"}
           additionalClass={`
                 focus:outline-none focus:ring-2 focus:ring-customBlue
                 bg-search-custom`

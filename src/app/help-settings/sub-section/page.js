@@ -543,7 +543,7 @@ export default function Subsection() {
       </div>
       <div className="flex flex-col md:flex-row">
         {/* Left Column */}
-        <div className="w-full md:w-1/2  md:pr-[24px] md:border-r border-gray-300">
+        <div className="w-full md:w-1/2  md:pr-[24px] md:border-r border-[#e7e7e9]">
           <div className={tabs?.length > 0 ? "mb-[2vw]" : ""}>
             <SubSection
               selected={selectedTab}
@@ -567,7 +567,7 @@ export default function Subsection() {
           </div>
         </div>
 
-        <div className="w-full md:w-1/2 pt-0 pr-0 md:pl-[24px] border-gray-300">
+        <div className="w-full md:w-1/2 pt-0 pr-0 md:pl-[24px] border-[#e7e7e9]">
           {showDetails && (
             <>
               <TextPlain
@@ -577,7 +577,7 @@ export default function Subsection() {
                 borderRound="rounded"
                 padding="p-[8px]"
                 focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
-                border="border border-gray-300"
+                border="border border-[#e7e7e9]"
                 bg="bg-white"
                 additionalClass="block w-full text-base"
                 label={intl.help_title}
