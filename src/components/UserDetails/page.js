@@ -525,7 +525,7 @@ export default function UserDetails() {
       <div className="flex flex-row w-full justify-end">
         <IconOutlineBtn
           text={intl.help_settings_addition_modal_edit}
-          textColor={"text-customBlue"}
+          textColor={"border-none text-customBlue"}
           textBold={true}
           py={"xl:py-2.5 md:py-1.5 py-1.5"}
           px={"xl:px-[20px] md:px-[22.5px] px-[22.5px] "}
@@ -613,7 +613,7 @@ export default function UserDetails() {
         </div>
       </div>
       </div>
-      <div className="flex justify-end mb-4  space-x-4">
+      <div className="flex justify-end mt-[16px]  space-x-4">
         <IconOutlineBtn
           text={intl.company_list_company_import}
           textColor={"text-customBlue "}
