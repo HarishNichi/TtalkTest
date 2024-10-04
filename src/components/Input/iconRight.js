@@ -24,7 +24,7 @@ export default function IconRight(props) {
             id={props.id}
             name={props.name ? props.name : props.id}
             className={`
-                  block w-full ${props.padding} pl-10 text-sm  
+                  block w-full ${props.padding}  text-[16px]
                   ${props.border} ${props.borderRound} ${props.focus} ${props.additionalClass}`}
             placeholder={props.placeholder}
             value={props.value}

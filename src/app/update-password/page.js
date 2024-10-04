@@ -173,7 +173,7 @@ export default function UpdatePassword(setIsResetModal) {
                 labelColor={"#7B7B7B"}
                 isRequired={true}
                 labelClass={
-                  "mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  "mb-2 text-sm font-[400] placeholder-text-[16px] text-gray-900 dark:text-white"
                 }
                 bg={"bg-white"}
                 border={"border border-[#e7e7e9]"}

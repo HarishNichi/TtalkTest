@@ -977,7 +977,7 @@ export default function Contact({ children, tab }) {
             title={
               <div className="flex justify-center items-center pt-4 px-4 pb-0 rounded-t">
                 {/* Modify this line */}
-                <div className="text-xl font-semibold text-[#19388b] dark:text-black flex-grow flex text-customBlue justify-center">
+                <div className="text-xl font-semibold text-[#19388b] dark:text-customBlue flex-grow flex text-customBlue justify-center">
                   {detailsModal
                     ? intl.contact_details
                     : editModal

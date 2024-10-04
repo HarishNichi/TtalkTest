@@ -164,7 +164,7 @@ export default function DataTable(props) {
 
   return (
     <main>
-      <div>
+      <div className="">
         <Table
           loading={props.loading || false}
           locale={locale}

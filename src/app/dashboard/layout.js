@@ -129,7 +129,7 @@ export default function DashboardLayout({ children }) {
             userId: org.id,
             email: org.accountDetail.employee.emailId || "-",
             organization: org.organizationName || "-",
-            name: org.accountDetail.employee.userName,
+            name: org.name || "-",
             salesChannel: org.salesChannel || "-",
             numberOfRadioNumber: org.licenseCount || "-",
             status: org?.accountDetail?.employee?.status || "unknown",

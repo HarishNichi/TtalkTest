@@ -564,16 +564,8 @@ export default function UserDetails() {
         {/* Left Column */}
         <div className="flex flex-col w-full ">
           <DataSection
-            label={intl.machineName}
-            value={deviceName(userDetails?.device?.id) || "-"}
-          />
-          <DataSection
             label={intl.login_email_placeholder}
             value={userDetails?.userId || "-"}
-          />
-          <DataSection
-            label={intl.company_list_company_radioNumber}
-            value={userDetails?.radioNumber || "-"}
           />
           <DataSection
             label={intl.user_name}
@@ -584,9 +576,19 @@ export default function UserDetails() {
             value={userDetails?.furigana || "-"}
           />
           <DataSection
+            label={intl.company_list_company_radioNumber}
+            value={userDetails?.radioNumber || "-"}
+          />
+
+          <DataSection
             label={intl.form_component_company_name_label}
             value={userDetails?.companyName || "-"}
           />
+          <DataSection
+            label={intl.machineName}
+            value={deviceName(userDetails?.device?.id) || "-"}
+          />
+
           <DataSection
             label={intl.user_add_specify_label}
             value={userDetails?.designation || "-"}
@@ -600,9 +602,13 @@ export default function UserDetails() {
         {/* Right Column */}
         <div className="flex flex-col w-full ">
           <DataSection
+            label={intl.form_component_status}
+            value={userDetails?.isActive ? "ON" : "OFF"}
+          />
+          {/* <DataSection
             label={intl.user_add_telephone_number_label}
             value={userDetails?.phone || "-"}
-          />
+          /> */}
           <DataSection
             label={intl.user_registration_date_time}
             value={userDetails?.createdAtDate || "-"}
@@ -623,10 +629,7 @@ export default function UserDetails() {
             label={intl.user_version}
             value={userDetails?.appVersion || "-"}
           />
-          <DataSection
-            label={intl.form_component_status}
-            value={userDetails?.isActive ? "ON" : "OFF"}
-          />
+
           <DataSection
             label={intl.user_is_see_user_activity}
             value={userDetails?.seeUserActivity ? "ON" : "OFF"}

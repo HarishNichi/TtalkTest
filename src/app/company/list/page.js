@@ -92,12 +92,15 @@ export default function CompanyList() {
       title: intl.company_list_company_status,
       dataIndex: "status",
       render: (text, record) => {
-        let bgColor = text === true ? "bg-customBlue" : "bg-white";
-        let textColor = text === true ? "text-white" : "text-customBlue";
+        let bgColor = text === true ? "bg-white" : "bg-white";
+        let textColor =
+          text === true
+            ? "text-[#214BB9] border border-[#214BB9]"
+            : "text-[#595959] border border-[#595959]";
         return (
           <div style={{ width: "85px" }}>
             <div
-              className={`rounded-[5px] cursor-pointer pt-[5px] pb-[5px] pl-[5px] pr-[5px] border border-[#e7e7e9] focus:outline-none focus:ring-2 focus:ring-customBlue text-[16px] ${textColor} ${bgColor} text-center`}
+              className={`rounded-[5px] cursor-pointer font-[600] pt-[5px] pb-[5px] pl-[5px] pr-[5px]  focus:outline-none focus:ring-2 focus:ring-customBlue text-[16px] ${textColor} ${bgColor} text-center`}
             >
               {text === true
                 ? intl.form_status_valid

@@ -93,22 +93,6 @@ export default function UserList() {
 
   const companyColumns = [
     {
-      title: intl.company_list_company_radioNumber,
-      dataIndex: "radioNumber",
-      render: (text) => {
-        const content = <div className="text-white">{text}</div>;
-        return (
-          <Popover content={content} color="#19388B">
-            <a className="text-customBlue text-ellipsis">{text}</a>
-          </Popover>
-        );
-      },
-      width: 150,
-      align: "left",
-      sorter: (a, b) => a.radioNumber.localeCompare(b.radioNumber),
-      sortDirections: ["ascend", "descend", "ascend"],
-    },
-    {
       title: intl.user_userId_label,
       dataIndex: "userId",
       render: (text) => {
@@ -123,20 +107,6 @@ export default function UserList() {
       align: "left",
       sorter: (a, b) => a.userId - b.userId,
       sortDirections: ["ascend", "descend", "ascend"],
-    },
-    {
-      title: intl.user_name,
-      dataIndex: "name",
-      render: (text) => {
-        const content = <div className="text-white">{text}</div>;
-        return (
-          <Popover content={content} color="#19388B">
-            <a className="text-ellipsis">{text}</a>
-          </Popover>
-        );
-      },
-      width: 150,
-      align: "left",
     },
     {
       title: intl.login_password,
@@ -206,6 +176,50 @@ export default function UserList() {
       },
       width: 105,
       align: "left",
+    },
+    {
+      title: intl.user_name,
+      dataIndex: "name",
+      render: (text) => {
+        const content = <div className="text-white">{text}</div>;
+        return (
+          <Popover content={content} color="#19388B">
+            <a className="text-ellipsis">{text}</a>
+          </Popover>
+        );
+      },
+      width: 150,
+      align: "left",
+    },
+    {
+      title: intl.furigana,
+      dataIndex: "furigana",
+      render: (text) => {
+        const content = <div className="text-white">{text}</div>;
+        return (
+          <Popover content={content} color="#19388B">
+            <a className="text-ellipsis">{text}</a>
+          </Popover>
+        );
+      },
+      width: 150,
+      align: "left",
+    },
+    {
+      title: intl.company_list_company_radioNumber,
+      dataIndex: "radioNumber",
+      render: (text) => {
+        const content = <div className="text-white">{text}</div>;
+        return (
+          <Popover content={content} color="#19388B">
+            <a className="text-customBlue text-ellipsis">{text}</a>
+          </Popover>
+        );
+      },
+      width: 150,
+      align: "left",
+      sorter: (a, b) => a.radioNumber.localeCompare(b.radioNumber),
+      sortDirections: ["ascend", "descend", "ascend"],
     },
 
     {
@@ -455,6 +469,7 @@ export default function UserList() {
 
   const [searchPayload, setSearchPayload] = useState({
     employeeId: "",
+    furigana: "",
     organization: "",
     pttNo: "",
     device: "",
