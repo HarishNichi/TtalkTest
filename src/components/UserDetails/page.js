@@ -521,32 +521,9 @@ export default function UserDetails() {
   return (
     <>
       {loading && <LoaderOverlay />}
-      <div className="flex justify-end mb-4  space-x-4">
-        <IconOutlineBtn
-          text={intl.company_list_company_import}
-          textColor={"text-customBlue "}
-          borderColor={"border-customBlue bg-white"}
-          textBold={true}
-          py={"xl:py-2.5 md:py-1.5 py-1.5  "}
-          px={"xl:px-[32px] md:px-[33.5px] px-[33.5px]"}
-          icon={() => importIcon()}
-          onClick={async () => {
-            setImportModal(false);
-            await importHandler();
-          }}
-        />
-        <IconOutlineBtn
-          text={intl.company_list_company_export_title}
-          textColor={"text-customBlue"}
-          textBold={true}
-          py={"xl:py-2.5 md:py-1.5 py-1.5"}
-          px={"xl:px-[20px] md:px-[22.5px] px-[22.5px] "}
-          icon={() => exportIcon()}
-          borderColor={"border-customBlue bg-white"}
-          onClick={() => {
-            setExportModal(true);
-          }}
-        />
+
+      <div className="bg-white shadow-lg flex flex-col md:flex-row p-[24px]">
+        <div className="flex flex-col w-full justify-end">
         <IconOutlineBtn
           text={intl.help_settings_addition_modal_edit}
           textColor={"text-customBlue"}
@@ -554,13 +531,13 @@ export default function UserDetails() {
           py={"xl:py-2.5 md:py-1.5 py-1.5"}
           px={"xl:px-[20px] md:px-[22.5px] px-[22.5px] "}
           icon={() => editIcon()}
-          borderColor={"border-customBlue bg-white"}
+          borderColor={"bg-white"}
           onClick={() => {
             setIsModalOpen(true);
           }}
         />
-      </div>
-      <div className="bg-white shadow-lg flex flex-col md:flex-row p-[24px]">
+
+        </div>
         {/* Left Column */}
         <div className="flex flex-col w-full ">
           <DataSection
@@ -635,6 +612,34 @@ export default function UserDetails() {
             value={userDetails?.seeUserActivity ? "ON" : "OFF"}
           />
         </div>
+      </div>
+      <div className="flex justify-end mb-4  space-x-4">
+        <IconOutlineBtn
+          text={intl.company_list_company_import}
+          textColor={"text-customBlue "}
+          borderColor={"border-customBlue bg-white"}
+          textBold={true}
+          py={"xl:py-2.5 md:py-1.5 py-1.5  "}
+          px={"xl:px-[32px] md:px-[33.5px] px-[33.5px]"}
+          icon={() => importIcon()}
+          onClick={async () => {
+            setImportModal(false);
+            await importHandler();
+          }}
+        />
+        <IconOutlineBtn
+          text={intl.company_list_company_export_title}
+          textColor={"text-customBlue"}
+          textBold={true}
+          py={"xl:py-2.5 md:py-1.5 py-1.5"}
+          px={"xl:px-[20px] md:px-[22.5px] px-[22.5px] "}
+          icon={() => exportIcon()}
+          borderColor={"border-customBlue bg-white"}
+          onClick={() => {
+            setExportModal(true);
+          }}
+        />
+     
       </div>
 
       {isModalOpen && (
