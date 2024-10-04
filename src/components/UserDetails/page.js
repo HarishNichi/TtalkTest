@@ -521,9 +521,8 @@ export default function UserDetails() {
   return (
     <>
       {loading && <LoaderOverlay />}
-
-      <div className="bg-white shadow-lg flex flex-col md:flex-row p-[24px]">
-        <div className="flex flex-row w-full justify-end">
+      <div className="bg-white shadow-lg  p-[24px]">
+      <div className="flex flex-row w-full justify-end">
         <IconOutlineBtn
           text={intl.help_settings_addition_modal_edit}
           textColor={"text-customBlue"}
@@ -536,8 +535,8 @@ export default function UserDetails() {
             setIsModalOpen(true);
           }}
         />
-
-        </div>
+     </div>
+      <div className="flex flex-col md:flex-row ">
         {/* Left Column */}
         <div className="flex flex-col w-full ">
           <DataSection
@@ -612,6 +611,7 @@ export default function UserDetails() {
             value={userDetails?.seeUserActivity ? "ON" : "OFF"}
           />
         </div>
+      </div>
       </div>
       <div className="flex justify-end mb-4  space-x-4">
         <IconOutlineBtn
