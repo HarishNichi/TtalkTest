@@ -1042,8 +1042,7 @@ export default function Group({ children, tab }) {
     <>
       {loading && <LoaderOverlay />}
       <div>
-        <div className="flex justify-between mb-2 xl:mb-2 "></div>
-        <div className="flex flex-col justify-between  md:flex-row md:space-y-0 md:space-x-4 pt-[10px] pb-[20px]">
+        <div className="flex flex-col justify-between  md:flex-row p-[24px]">
           <div className="w-full md:w-1/4 md:w-auto pb-[20px] md:pb-0">
             <DropdownMedium
               defaultSelectNoOption={false}
