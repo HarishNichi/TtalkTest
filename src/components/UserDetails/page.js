@@ -523,7 +523,7 @@ export default function UserDetails() {
       {loading && <LoaderOverlay />}
 
       <div className="bg-white shadow-lg flex flex-col md:flex-row p-[24px]">
-        <div className="flex flex-col w-full justify-end">
+        <div className="flex flex-row w-full justify-end">
         <IconOutlineBtn
           text={intl.help_settings_addition_modal_edit}
           textColor={"text-customBlue"}
