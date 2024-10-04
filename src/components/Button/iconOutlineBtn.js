@@ -3,9 +3,9 @@
 export default function IconOutlineBtn(props) {
   return (
     <button
-      className={`px-[20px] border-[2px] lg:border-[2.5px] h-[32px] ${
+      className={`${props?.textColor} px-[20px] border-[2px] lg:border-[2.5px] h-[32px] ${
         props.borderColor
-      } bg-transparent  ${props?.textColor} ${
+      } bg-transparent   ${
         props?.text
       } rounded-lg flex items-center justify-center ${
         props?.btnWidth ? props.btnWidth : "w-full"
