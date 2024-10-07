@@ -154,11 +154,16 @@ body {
   background-color: #fff; /* White background */
   border: 1px solid #d9d9d9; /* Add border to create box effect */
   /* border-right: none !important;  */
-  border-radius: 0 !important; /* Remove border-radius to square edges */
+  border-radius: 0; /* Remove border-radius to square edges */
   outline: 0;
   cursor: pointer;
   user-select: none;
   margin-inline-end: 0 !important; /* Remove margin */
+}
+
+#paginationTable .ant-pagination .ant-pagination-item:first-of-type {
+  border-top-left-radius: 8px !important;
+  border-bottom-left-radius: 8px !important;
 }
 
 .ant-pagination-next {
@@ -663,7 +668,3 @@ select {
   background-color: #d4dffa !important;
 }
 
-#paginationTable .ant-pagination-item:first-of-type {
-  border-top-left-radius: 8px !important;
-  border-bottom-left-radius: 8px !important;
-}
