@@ -161,9 +161,19 @@ body {
   margin-inline-end: 0 !important; /* Remove margin */
 }
 
-#paginationTable ul > li.ant-pagination .ant-pagination-item:first-of-type {
+#paginationTable ul > li.ant-pagination-item:first-of-type {
   border-top-left-radius: 4px !important;
   border-bottom-left-radius: 4px !important;
+}
+
+#paginationTable ul > li.ant-pagination-item:last-of-type {
+  border-top-left-radius: 4px !important;
+  border-bottom-left-radius: 4px !important;
+}
+
+.ant-pagination-item-before-jump-next {
+  border-top-right-radius: 4px !important;
+  border-bottom-right-radius: 4px !important;
 }
 
 .ant-pagination-next {
