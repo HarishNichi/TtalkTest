@@ -10,7 +10,6 @@ export default function DataTable(props) {
   const [selectedRow, setSelectedRow] = React.useState([]);
   const [rowCheck, setRowCheck] = React.useState(false);
   const [scrollObj, setScrollObj] = React.useState({ x: 600, y: 450 });
-  const [rerenderPagination,setPaginationRender] = React.useState(1);
 
   // commented below code to set fixed height for Table
   // useEffect(() => {
@@ -53,21 +52,7 @@ export default function DataTable(props) {
     props?.deleted && setSelectedRowKeys([]);
   }, [props.dataSource]);
 
-  useEffect(() => {
-    const jumpPrev = document.querySelector('.ant-pagination-jump-prev');
-    if (jumpPrev) {
-      const prevLi = jumpPrev.previousSibling;
-      if (prevLi) {
-        // eslint-disable-next-line no-console
-        console.log(prevLi);
-        setTimeout(() => {
-          prevLi.style.borderTopRightRadius = '4px';
-          prevLi.style.borderBottomRightRadius = '4px';
-          setPaginationRender(rerenderPagination + 1);
-        }, 0);
-      }
-    }
-  }, [props.current]);
+
 
   const handleSelectRow = (selectedRowKey, selectedRows) => {
     setSelectedRowKeys(selectedRowKey);
@@ -156,7 +141,6 @@ export default function DataTable(props) {
     if (type === "next") {
       return (
         <div
-          id={`${props.id}-paginationTable`}
           className="flex bg-white mt-[0.2px] w-[32px] rounded hover:bg-[#D4DFFA]"
           style={{
             height: "32px",
@@ -236,8 +220,6 @@ export default function DataTable(props) {
               total={props.dataSource.length}
               itemRender={itemRender}
               showSizeChanger={false}
-              className={`${rerenderPagination}`}
-              key={`${rerenderPagination}-paginationTable`}
             />
           </div>
         </div>

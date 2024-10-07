@@ -171,6 +171,11 @@ body {
   border-bottom-right-radius: 4px !important;
 }
 
+.ant-pagination:has( + .ant-pagination-jump-prev) {
+  border-top-right-radius: 4px; /* Apply border radius */
+  border-bottom-right-radius: 4px; /* Apply border radius */
+}
+
 #paginationTable ul > li.ant-pagination-jump-next + li {
   border-top-left-radius: 4px !important;
   border-bottom-left-radius: 4px !important;
