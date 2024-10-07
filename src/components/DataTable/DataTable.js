@@ -10,6 +10,7 @@ export default function DataTable(props) {
   const [selectedRow, setSelectedRow] = React.useState([]);
   const [rowCheck, setRowCheck] = React.useState(false);
   const [scrollObj, setScrollObj] = React.useState({ x: 600, y: 450 });
+  const [rerenderPagination,setPaginationRender] = React.useState(1);
 
   // commented below code to set fixed height for Table
   // useEffect(() => {
@@ -62,6 +63,7 @@ export default function DataTable(props) {
         setTimeout(() => {
           prevLi.style.borderTopRightRadius = '4px';
           prevLi.style.borderBottomRightRadius = '4px';
+          setPaginationRender(rerenderPagination + 1);
         }, 0);
       }
     }
@@ -227,6 +229,7 @@ export default function DataTable(props) {
           </div>
           <div id="paginationTable" className="flex-initial pl-2 overflow-auto">
             <Pagination
+              id={`${props.id}-paginationTable`}
               current={props.current}
               pageSize={props.page}
               onChange={onChangePage}
