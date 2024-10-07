@@ -217,6 +217,7 @@ export default function DataTable(props) {
               onChange={onChangePage}
               total={props.dataSource.length}
               itemRender={itemRender}
+              showSizeChanger={false}
             />
           </div>
         </div>

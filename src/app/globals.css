@@ -162,13 +162,11 @@ body {
 }
 
 
-#paginationTable ul > li,
- .ant-pagination-item:first-child {
+#paginationTable ul > li:nth-child(2) {
   border-top-left-radius: 4px !important;
   border-bottom-left-radius: 4px !important;
 }
-#paginationTable ul > li,
- .ant-pagination-item:last-child {
+#paginationTable ul > li:nth-last-child(2) {
   border-top-right-radius: 4px !important;
   border-bottom-right-radius: 4px !important;
 }
