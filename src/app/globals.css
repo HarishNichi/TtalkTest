@@ -161,7 +161,7 @@ body {
   margin-inline-end: 0 !important; /* Remove margin */
 }
 
-#paginationTable ul > li:nth-child(2) {
+#paginationTable ul > li.ant-pagination .ant-pagination-item:first-of-type {
   border-top-left-radius: 4px !important;
   border-bottom-left-radius: 4px !important;
 }
