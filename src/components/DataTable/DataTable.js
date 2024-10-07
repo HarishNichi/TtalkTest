@@ -236,6 +236,7 @@ export default function DataTable(props) {
               total={props.dataSource.length}
               itemRender={itemRender}
               showSizeChanger={false}
+              className={`${rerenderPagination}`}
               key={`${rerenderPagination}-paginationTable`}
             />
           </div>
