@@ -1136,6 +1136,7 @@ export default function UserList() {
             id: emp.id,
             password: emp.hint,
             radioNumber: emp.pttNo,
+            furigana: emp.furigana,
             userId: emp.id,
             email: emp.accountDetail.employee.email || "-",
             organization: orgName,

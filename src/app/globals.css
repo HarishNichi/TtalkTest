@@ -662,3 +662,8 @@ select {
   > .ant-table-cell {
   background-color: #d4dffa !important;
 }
+
+#paginationTable .ant-pagination-item:first-of-type {
+  border-top-left-radius: 8px !important;
+  border-bottom-left-radius: 8px !important;
+}
