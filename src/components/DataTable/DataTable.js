@@ -156,6 +156,7 @@ export default function DataTable(props) {
     if (type === "next") {
       return (
         <div
+          id={`${props.id}-paginationTable`}
           className="flex bg-white mt-[0.2px] w-[32px] rounded hover:bg-[#D4DFFA]"
           style={{
             height: "32px",
@@ -229,13 +230,13 @@ export default function DataTable(props) {
           </div>
           <div id="paginationTable" className="flex-initial pl-2 overflow-auto">
             <Pagination
-              id={`${props.id}-paginationTable`}
               current={props.current}
               pageSize={props.page}
               onChange={onChangePage}
               total={props.dataSource.length}
               itemRender={itemRender}
               showSizeChanger={false}
+              key={`${props.id}-paginationTable`}
             />
           </div>
         </div>
