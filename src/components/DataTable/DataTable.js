@@ -57,10 +57,11 @@ export default function DataTable(props) {
     if (jumpPrev) {
       const prevLi = jumpPrev.previousSibling;
       if (prevLi) {
+        // eslint-disable-next-line no-console
+        console.log(prevLi);
         setTimeout(() => {
           prevLi.style.borderTopRightRadius = '4px';
           prevLi.style.borderBottomRightRadius = '4px';
-          prevLi.style.backgroundColor = 'yellow'; // Example style
         }, 0);
       }
     }
