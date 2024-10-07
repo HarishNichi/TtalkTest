@@ -160,17 +160,15 @@ body {
   user-select: none;
   margin-inline-end: 0 !important; /* Remove margin */
 }
-.ant-pagination-item:nth-child(1) {
+
+
+#paginationTable ul > li,
+ .ant-pagination-item:first-child {
   border-top-left-radius: 4px !important;
   border-bottom-left-radius: 4px !important;
 }
-
-#paginationTable ul > li:nth-child(2) {
-  border-top-left-radius: 4px !important;
-  border-bottom-left-radius: 4px !important;
-}
-
-#paginationTable  ul > li:nth-last-child(2) {
+#paginationTable ul > li,
+ .ant-pagination-item:last-child {
   border-top-right-radius: 4px !important;
   border-bottom-right-radius: 4px !important;
 }
