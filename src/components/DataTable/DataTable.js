@@ -55,7 +55,9 @@ export default function DataTable(props) {
   useEffect(() => {
     const jumpPrev = document.querySelector('.ant-pagination-jump-prev');
     if (jumpPrev) {
-      const prevLi = jumpPrev.previousElementSibling;
+      // eslint-disable-next-line no-console
+      console.log(jumpPrev,jumpPrev.previousSibling);
+      const prevLi = jumpPrev.previousSibling;
       if (prevLi) {
         prevLi.classList.add('before-jump-prev');
       }
