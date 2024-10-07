@@ -199,24 +199,6 @@ body {
   margin-left: 8px;
 }
 
-/* Keep right border for the last item before the jump and the last pagination item */
-/* .ant-pagination .ant-pagination-item-before-jump-next,
-.ant-pagination .ant-pagination-item:last-child {
-  border-right: 1px solid #d9d9d9 !important; 
-}
-
-.ant-pagination .ant-pagination-jump-prev {
-  border-left: 1px solid #d9d9d9 !important; 
-  border-radius: 0px;
-}
-
-.ant-pagination .ant-pagination-item:last-child {
-  border-right: 1px solid #d9d9d9 !important;
-}
-
-.ant-pagination-next {
-  margin-left: 8px;
-} */
 
 .anticon-left {
   color: white;

@@ -52,8 +52,6 @@ export default function DataTable(props) {
     props?.deleted && setSelectedRowKeys([]);
   }, [props.dataSource]);
 
-
-
   const handleSelectRow = (selectedRowKey, selectedRows) => {
     setSelectedRowKeys(selectedRowKey);
     setSelectedRow(selectedRows);
