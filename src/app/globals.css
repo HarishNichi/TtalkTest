@@ -165,19 +165,24 @@ body {
   border-bottom-left-radius: 4px !important;
 }
 
-#paginationTable .ant-pagination .ant-pagination-item:nth-child(1) {
+#paginationTable ul > li:nth-child(2) {
   border-top-left-radius: 4px !important;
   border-bottom-left-radius: 4px !important;
 }
 
-#paginationTable .ant-pagination .ant-pagination-item:nth-last-child(1) {
-  border-top-left-radius: 4px !important;
-  border-bottom-left-radius: 4px !important;
+#paginationTable  ul > li:nth-last-child(2) {
+  border-top-right-radius: 4px !important;
+  border-bottom-right-radius: 4px !important;
 }
 
 .ant-pagination-item-before-jump-next {
   border-top-right-radius: 4px !important;
   border-bottom-right-radius: 4px !important;
+}
+
+.ant-pagination-item-after-jump-prev {
+  border-top-left-radius: 4px !important;
+  border-bottom-left-radius: 4px !important;
 }
 
 .ant-pagination-next {
