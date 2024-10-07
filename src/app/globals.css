@@ -171,6 +171,15 @@ body {
   border-bottom-right-radius: 4px !important;
 }
 
+#paginationTable ul > li.ant-pagination-jump-next + li {
+  border-top-left-radius: 4px !important;
+  border-bottom-left-radius: 4px !important;
+}
+#paginationTable ul > li.before-jump-prev {
+  border-top-right-radius: 4px; /* Apply border radius */
+  border-bottom-right-radius: 4px; /* Apply border radius */
+}
+
 .ant-pagination-item-before-jump-next {
   border-top-right-radius: 4px !important;
   border-bottom-right-radius: 4px !important;

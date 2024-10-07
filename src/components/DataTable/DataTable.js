@@ -52,6 +52,16 @@ export default function DataTable(props) {
     props?.deleted && setSelectedRowKeys([]);
   }, [props.dataSource]);
 
+  useEffect(() => {
+    const jumpPrev = document.querySelector('.ant-pagination-jump-prev');
+    if (jumpPrev) {
+      const prevLi = jumpPrev.previousElementSibling;
+      if (prevLi) {
+        prevLi.classList.add('before-jump-prev');
+      }
+    }
+  }, [props.current]);
+
   const handleSelectRow = (selectedRowKey, selectedRows) => {
     setSelectedRowKeys(selectedRowKey);
     setSelectedRow(selectedRows);
