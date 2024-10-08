@@ -141,7 +141,7 @@ export default function DashboardLayout({ children }) {
               machineList.includes(org.accountDetail.employee?.machine?.id)
                 ? org.accountDetail.employee?.machine.name + " - 期限切れ"
                 : org.accountDetail.employee?.machine?.name || "-",
-            link: "/user/details",
+            link: "/user-details",
           };
         });
         setSearchData(response);
