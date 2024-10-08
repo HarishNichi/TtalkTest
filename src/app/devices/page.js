@@ -499,23 +499,25 @@ export default function Devices() {
             theme: "colored",
             type: "error",
           });
-          continue; // Skip this record and move to the next
+         return // Skip this record and move to the next
+        }
+      }
+      
+        const devIds = selectedRows.map((record) => ({
+          id: record.id, // Assuming record has an 'id' property
+        }));
+
+        const config ={
+          data: devIds
         }
 
-        const config = {
-          data: {
-            id: record.id,
-          },
-        };
-
-        const response = await api.delete(`devices/delete`, config);
+        const response = await api.post(`devices/bulkdelete`, devIds);
 
         if (response.data.status.code !== code.OK) {
           throw new Error(
             response.data.status.message || "Failed to delete device"
           );
         }
-      }
 
       // Optionally, fetch fresh data if needed
       fetchData();

@@ -427,7 +427,7 @@ export default function UserList() {
       sorter: (a, b) => a.organization.localeCompare(b.organization),
       sortDirections: ["ascend", "descend", "ascend"],
     };
-    companyColumns.splice(4, 0, org);
+    companyColumns.splice(5, 0, org);
   }
   const [csvFileName, setCsvFileName] = useState("");
   const [exportType, setExportType] = useState(1);
@@ -1257,6 +1257,7 @@ export default function UserList() {
             id: emp.id,
             password: emp.hint,
             radioNumber: emp.pttNo,
+            furigana: emp.furigana,
             userId: emp.id,
             email: emp.accountDetail.employee.email || "-",
             organization: emp.organizationName,
