@@ -50,7 +50,6 @@ export default function Devices() {
   const [helpSettingsData, setHelpSettingsData] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
-  const [columns, setColumns] = React.useState(helpSettingsColumns);
   const [editModal, setEditModal] = React.useState(false);
   const [editSettings, setEditSettings] = React.useState("");
   const [addSettings, setAddSettings] = React.useState("");
@@ -177,6 +176,8 @@ export default function Devices() {
       width: "140px",
     },
   ];
+
+  const [columns, setColumns] = React.useState(helpSettingsColumns);
 
   useEffect(() => {
     fetchData();
