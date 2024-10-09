@@ -1197,7 +1197,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
               </div>
             </div>
 
-            <div className="flex flex-col  w-full pl-0 md:pl-4 space-y-2 mb-2">
+            <div className="flex flex-col  w-full pl-0 md:pl-4 space-y-2 mb-2 ">
               <ToggleBoxMediumRevamp
                 isDisabled={!isEditable}
                 checked={!!userDetailsInfo.goOffline}

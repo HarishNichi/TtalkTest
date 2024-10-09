@@ -352,7 +352,7 @@ export default function CompanyList() {
    * Fetches a list of organizations and their details from the API, given a
    * limit and an offset. If the API response does not contain the end of the
    * list, it calls itself with the offset from the response and the same limit.
-   * 
+   *
    * @async
    * @returns {Promise<void>}
    */
@@ -408,14 +408,14 @@ export default function CompanyList() {
     }
   };
 
-/**
- * Handles the deletion of organizations selected in the table.
- * Shows a toast error message if no organization is selected.
- * Sends a POST request to the API to delete the organizations.
- * If the response is successful, it sets the deleteModal state to false, sets the selectAll state to false, sets the selectedRows state to an empty array, sets the deleted state to true, shows a toast success message and fetches the data again.
- * If there is an error, it sets the deleteModal state to false, sets the loading state to false and shows a toast error message.
- * @param {array} selectedRows - The array of selected organizations.
- */
+  /**
+   * Handles the deletion of organizations selected in the table.
+   * Shows a toast error message if no organization is selected.
+   * Sends a POST request to the API to delete the organizations.
+   * If the response is successful, it sets the deleteModal state to false, sets the selectAll state to false, sets the selectedRows state to an empty array, sets the deleted state to true, shows a toast success message and fetches the data again.
+   * If there is an error, it sets the deleteModal state to false, sets the loading state to false and shows a toast error message.
+   * @param {array} selectedRows - The array of selected organizations.
+   */
   const deleteOrganization = async (selectedRows) => {
     toast.dismiss();
     if (selectedRows.length <= 0) {
@@ -465,11 +465,11 @@ export default function CompanyList() {
     }
   };
 
-/**
- * @function
- * @description Footer of the delete modal.
- * @returns {ReactElement} Footer of the delete modal.
- */
+  /**
+   * @function
+   * @description Footer of the delete modal.
+   * @returns {ReactElement} Footer of the delete modal.
+   */
   function getDeleteModalFooter() {
     return (
       <div className="grid grid-cols-2 gap-2 place-content-center">
@@ -508,17 +508,17 @@ export default function CompanyList() {
       </div>
     );
   }
-  
-/**
- * @function
- * @description
- * This function returns an SVG icon element with the specified class.
- * The icon is a white, 14x14, svg that is used in the list of employees.
- * The svg is created from a path element with a fill-rule and clip-rule of "evenodd".
- * The path is a complex shape that represents the icon.
- * @param {string} cls - class name for the icon
- * @returns {ReactElement} - SVG icon element
- */
+
+  /**
+   * @function
+   * @description
+   * This function returns an SVG icon element with the specified class.
+   * The icon is a white, 14x14, svg that is used in the list of employees.
+   * The svg is created from a path element with a fill-rule and clip-rule of "evenodd".
+   * The path is a complex shape that represents the icon.
+   * @param {string} cls - class name for the icon
+   * @returns {ReactElement} - SVG icon element
+   */
   function getIconWithClass(cls) {
     return (
       <svg
@@ -543,15 +543,15 @@ export default function CompanyList() {
     );
   }
 
-/**
- * @function
- * @description
- * This function searches for organizations based on the search criteria provided and loads the data into the list.
- * @param {Object} payload - The payload that is sent to the server.
- * @param {number} offset - The offset of the data to be retrieved.
- * @param {boolean} searchFlag - A flag to indicate whether the search is being performed or not.
- * @returns {void}
- */
+  /**
+   * @function
+   * @description
+   * This function searches for organizations based on the search criteria provided and loads the data into the list.
+   * @param {Object} payload - The payload that is sent to the server.
+   * @param {number} offset - The offset of the data to be retrieved.
+   * @param {boolean} searchFlag - A flag to indicate whether the search is being performed or not.
+   * @returns {void}
+   */
   async function searchOrganization() {
     toast.dismiss();
     try {
@@ -712,7 +712,7 @@ export default function CompanyList() {
               } finally {
                 console.log("exiting...");
                 toast(
-                  `${ecount} 行のデータインポートに失敗しました`,
+                  `${ecount} ${intl.user_failed_to_import}`,
                   errorToastSettings
                 );
                 subscription.unsubscribe();
