@@ -2,9 +2,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import intl from "@/utils/locales/jp/jp.json";
-import DynamicLabel from "@/components/Label/dynamicLabel";
 import IconOutlineBtn from "@/components/Button/iconOutlineBtn";
-import AddIcon from "@/components/Icons/addIcon";
 import DataTable from "@/components/DataTable/DataTable";
 import DeleteIcon from "@/components/Icons/deleteIcon";
 import { Modal as AntModal } from "antd";
@@ -23,12 +21,8 @@ import {
 import Modal from "@/components/Modal/modal";
 import TextPlain from "@/components/Input/textPlain";
 import IconLeftBtn from "@/components/Button/iconLeftBtn";
-import ExportIcon from "@/components/Icons/exportIcon";
-import DropdownMedium from "@/components/Input/dropdownMedium";
 import GetIconQRCode from "../../../components/Icons/qrCode";
 import { useRouter } from "next/navigation";
-import IconBtn from "@/components/Button/iconBtn";
-import { folderIcon } from "@/components/Icons/folderIconMobile";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { addEmployee, searchEmployee } from "@/redux/features/employee";
 import { ToastContainer, toast } from "react-toastify";
@@ -40,7 +34,6 @@ import { Button } from "antd";
 import dayjs from "dayjs";
 Amplify.configure(gen.config);
 import { useLayoutContext } from "../layout";
-
 export default function HelpSettingsList() {
   const router = useRouter();
   const fileStyle = { fontWeight: "400", color: "#7B7B7B", fontSize: "12px" };
@@ -58,7 +51,6 @@ export default function HelpSettingsList() {
   let employeeDataCopy = JSON.parse(JSON.stringify(employeeData));
   const [employeeDataList, setEmployeeDataList] =
     React.useState(employeeDataCopy);
-
   const [loading, setLoading] = useState(false);
   const [employeeeData, setEmployeeeData] = useState([]);
   const [downloadCsvLink, setDownloadCsvLink] = useState(null);
@@ -74,9 +66,95 @@ export default function HelpSettingsList() {
   const [deleted, setDeleted] = useState(false);
   const [deviceList, setDeviceList] = useState([]);
   const [companyListDropdown, setCompanyListDropdown] = useState([]);
+
+  const [qrCodeModal, setQrCodeModal] = React.useState(false);
+  const [exportModal, setExportModal] = React.useState(false);
+  const [searchFlag, setSearchFlag] = useState(false);
+
+  useEffect(() => {
+    let data = localStorage.getItem("searchEmployee");
+    let parsedData = (data.length > 0 && JSON.parse(data)) || [];
+    dispatch(searchEmployee(parsedData));
+  }, []);
+
+  useEffect(() => {
+    let employeeDataCopy = JSON.parse(JSON.stringify(employeeData));
+    setEmployeeDataList(employeeDataCopy);
+    setSearchFlag(!searchFlag);
+    setSelectAll(false);
+  }, [employeeData]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setTableHeight(window.innerHeight - 300);
+    };
+    handleResize(); // Set initial state
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    const channel = Admin ? adminChannel : organizationIdForChannel;
+    const subscription = gen.subscribe(channel, ({ data }) => {
+      data = JSON.parse(data);
+      setReceived(data);
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    let maxCurrent = (current - 1) * page + page;
+    if (employeeDataList.length > 0) {
+      let temp = employeeDataList.map((el, index) => {
+        if (
+          el.radioNumber == received.pttNo &&
+          index >= (current - 1) * page &&
+          index <= maxCurrent
+        ) {
+          el.status = received.status;
+          el.timestamp = new Date().getTime();
+        }
+        return el;
+      });
+      setEmployeeDataList(temp);
+    }
+  }, [received]);
+
+  useEffect(() => {
+    downloadCsvLink && CSVDownloadRef.current.click();
+  }, [downloadCsvLink]);
+
+  useEffect(() => {
+    let setIntervalCount;
+    if (!setIntervalCount) {
+      setIntervalCount = setInterval(() => {
+        let temp =
+          employeeDataList.length > 0 &&
+          employeeDataList.map((el, index) => {
+            if (el?.status == "online") {
+              if (new Date().getTime() - el.timestamp > 1000 * 60 * 3) {
+                el.status = "unknown";
+              }
+            }
+            return el;
+          });
+        temp?.length && temp.length > 0 && setEmployeeDataList(temp);
+      }, 1000 * 60 * 5);
+    }
+    return () => clearInterval(setIntervalCount);
+  }, [received]);
+
   function deleteIcon(flag) {
     return <DeleteIcon isMobile={flag} />;
   }
+
+  /**
+   * @function fetchDevice
+   * @description Get device list from API and filter out the expired devices
+   * @returns {Promise<Array<string>>} A promise that resolves with an array of expired device IDs
+   */
   const fetchDevice = async () => {
     toast.dismiss();
     let deviceListMap = [];
@@ -115,6 +193,7 @@ export default function HelpSettingsList() {
       return [];
     }
   };
+
   let offset = "null";
   let all = [];
   function findName(orgId, projectionList) {
@@ -191,6 +270,18 @@ export default function HelpSettingsList() {
       setLoading(false);
     }
   };
+
+  /**
+   * @description
+   *  This function fetches the expired device ids, then use that to fetch the
+   *  employee data from the server. The employee data is then processed and
+   *  stored in the component state.
+   *
+   * @param {Array} projectionList - A list of organization ids
+   *
+   * @return {Promise} Resolves if the data is fetched and processed successfully
+   * @throws {Error} If there is an error while fetching the data
+   */
   async function withDeviceDetails(projectionList) {
     try {
       let expiredDeviceIds = await fetchDevice();
@@ -199,6 +290,16 @@ export default function HelpSettingsList() {
       console.log(err);
     }
   }
+
+  /**
+   * @description
+   *  Fetches the list of organizations and calls withDeviceDetails
+   *  to fetch the employee data. The list of organizations is
+   *  stored in the component state.
+   *
+   * @return {Promise} Resolves if the data is fetched successfully
+   * @throws {Error} If there is an error while fetching the data
+   */
   const fetchOrg = async () => {
     try {
       setLoading(true);
@@ -215,18 +316,15 @@ export default function HelpSettingsList() {
 
   async function deleteEmployee() {
     toast.dismiss();
-
     if (selectedRows.length <= 0) {
       toast(intl.user_please_select_user, errorToastSettings);
       setDeleteModal(false);
       return;
     }
-
     try {
       let data;
       let url = "employees/delete-all";
       let userIds;
-
       if (selectedRows.length > 0) {
         userIds = selectedRows.map((record) => ({
           id: record.id, // Assuming record has an 'id' property
@@ -235,14 +333,12 @@ export default function HelpSettingsList() {
         toast(intl.user_please_select_user, errorToastSettings);
         return;
       }
-
       setLoading(true);
       let result = await api.post(url, userIds);
       toast(intl.user_deletion_completed, successToastSettings);
       setSelectedRows([]);
       setDeleteModal(false);
       setLoading(false);
-
       searchDashboard();
     } catch (err) {
       setDeleteModal(false);
@@ -250,19 +346,6 @@ export default function HelpSettingsList() {
       toast(intl.search_results_deletion_failed, errorToastSettings);
     }
   }
-
-  useEffect(() => {
-    let data = localStorage.getItem("searchEmployee");
-    let parsedData = (data.length > 0 && JSON.parse(data)) || [];
-    dispatch(searchEmployee(parsedData));
-  }, []);
-
-  useEffect(() => {
-    let employeeDataCopy = JSON.parse(JSON.stringify(employeeData));
-    setEmployeeDataList(employeeDataCopy);
-    setSearchFlag(!searchFlag);
-    setSelectAll(false);
-  }, [employeeData]);
 
   let Admin = false;
   let organizationIdForChannel;
@@ -323,6 +406,7 @@ export default function HelpSettingsList() {
       width: 120,
     },
   ];
+  const [columns, setColumns] = React.useState(companyColumns);
 
   if (Admin) {
     let org = {
@@ -334,7 +418,6 @@ export default function HelpSettingsList() {
       sorter: (a, b) => a.organization.localeCompare(b.organization),
       sortDirections: ["ascend", "descend", "ascend"],
     };
-
     let salesChannel = {
       title: intl.form_component_sales_channel,
       dataIndex: "salesChannel",
@@ -342,79 +425,15 @@ export default function HelpSettingsList() {
       width: 120,
       align: "left",
     };
-
     companyColumns.splice(2, 0, org, salesChannel);
   }
 
-  const [columns, setColumns] = React.useState(companyColumns);
-  const [qrCodeModal, setQrCodeModal] = React.useState(false);
-  const [exportModal, setExportModal] = React.useState(false);
-  const [searchFlag, setSearchFlag] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setTableHeight(window.innerHeight - 300);
-    };
-
-    handleResize(); // Set initial state
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  useEffect(() => {
-    const channel = Admin ? adminChannel : organizationIdForChannel;
-    const subscription = gen.subscribe(channel, ({ data }) => {
-      data = JSON.parse(data);
-      setReceived(data);
-    });
-    return () => subscription.unsubscribe();
-  }, []);
-
-  useEffect(() => {
-    let maxCurrent = (current - 1) * page + page;
-    if (employeeDataList.length > 0) {
-      let temp = employeeDataList.map((el, index) => {
-        if (
-          el.radioNumber == received.pttNo &&
-          index >= (current - 1) * page &&
-          index <= maxCurrent
-        ) {
-          el.status = received.status;
-          el.timestamp = new Date().getTime();
-        }
-        return el;
-      });
-      setEmployeeDataList(temp);
-    }
-  }, [received]);
-
-  useEffect(() => {
-    downloadCsvLink && CSVDownloadRef.current.click();
-  }, [downloadCsvLink]);
-
-  useEffect(() => {
-    let setIntervalCount;
-    if (!setIntervalCount) {
-      setIntervalCount = setInterval(() => {
-        let temp =
-          employeeDataList.length > 0 &&
-          employeeDataList.map((el, index) => {
-            if (el?.status == "online") {
-              if (new Date().getTime() - el.timestamp > 1000 * 60 * 3) {
-                el.status = "unknown";
-              }
-            }
-            return el;
-          });
-        temp?.length && temp.length > 0 && setEmployeeDataList(temp);
-      }, 1000 * 60 * 5);
-    }
-    return () => clearInterval(setIntervalCount);
-  }, [received]);
-
+  /**
+   * Handles the click event on the export button.
+   * Dismisses any existing toast.
+   * If there are no selected rows, shows an error toast.
+   * Otherwise, sets the export modal to true.
+   */
   function handelExport() {
     toast.dismiss();
     if (selectedRows.length <= 0) {
@@ -425,6 +444,13 @@ export default function HelpSettingsList() {
     setExportModal(() => true);
   }
 
+  /**
+   * Returns the footer of the export modal.
+   * This component is used when the user clicks the export button.
+   * It renders a button with an export icon and text, which when clicked,
+   * exports the selected rows to a csv file.
+   * @returns {JSX.Element} The footer of the export modal.
+   */
   function getExportModalFooter() {
     return (
       <div className="px-[40px] pb-[40px]">
@@ -532,10 +558,20 @@ export default function HelpSettingsList() {
     }
   }
 
+  /**
+   * Set the selected rows in the component state
+   * @param {Array} selected - The newly selected rows
+   */
   const handleSelectRow = (selected) => {
     setSelectedRows(selected);
   };
 
+  /**
+   * Returns the export icon. This icon is used when the user clicks the export button.
+   * It renders a button with an export icon and text, which when clicked,
+   * exports the selected rows to a csv file.
+   * @returns {JSX.Element} The export icon.
+   */
   function exportIcon() {
     return (
       <svg
@@ -559,6 +595,7 @@ export default function HelpSettingsList() {
       </svg>
     );
   }
+
   return (
     <>
       {loading && <LoaderOverlay />}
@@ -676,7 +713,6 @@ export default function HelpSettingsList() {
             </div>
           </Modal>
         )}
-
         {deleteModal && (
           <AntModal
             title={

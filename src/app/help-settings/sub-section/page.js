@@ -1,17 +1,11 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import DynamicLabel from "@/components/Label/dynamicLabel";
 import SubSection from "@/components/HelpSettings/subsection";
 import TextPlain from "@/components/Input/textPlain";
-import ButtonCard from "@/components/HelpSettings/buttonCard";
 import FileUploadCard from "@/components/HelpSettings/fileUploadCard";
-import IconOutlineBtn from "@/components/Button/iconOutlineBtn";
 import PlusButton from "@/components/Icons/plusButton";
 import DeleteIcon from "../../../components/Icons/deleteIcon";
-import IconBtn from "../../../components/Button/iconBtn";
-import IconLeftBtn from "@/components/Button/iconLeftBtn";
 import dynamic from "next/dynamic";
-import Modal from "@/components/Modal/modal";
 import intl from "@/utils/locales/jp/jp.json";
 import { useRouter } from "next/navigation";
 import { useAppSelector } from "@/redux/hooks";
@@ -58,12 +52,34 @@ export default function Subsection() {
 
   const { TabPane } = Tabs;
 
+  useEffect(() => {
+    const formValues = { sectionName, editorValue };
+    validateHandler(schema, formValues, setErrors);
+  }, [sectionName, editorValue]);
+
+  useEffect(() => {
+    getSubsetValues();
+  }, []);
+
+/**
+ * Handles the change event of the tab.
+ * @param {string} key - The key of the tab to be changed.
+ * If the key is 1, it sets the active button to 'text', else it sets it to 'file'.
+ * And it also sets the tab key to the key.
+ */
   const onTabChange = (key) => {
     // eslint-disable-next-line no-console
     console.log(`onTabChange: ${key}`);
     handleActiveButtonChange(key == 1 ? "text" : "file");
     setTabKey(key);
   };
+
+  
+/**
+ * Resets the state to prepare for adding a new help section.
+ * @function
+ * @returns {undefined}
+ */
   const addHelp = () => {
     setIsAdd(true);
     setSelectedTab(null);
@@ -86,6 +102,12 @@ export default function Subsection() {
   });
   const [fieldsToShow, setFieldsToShow] = useState(0);
 
+  /**
+   * Handles the click event of the add button.
+   * Resets the state to prepare for adding a new help section.
+   * @function
+   * @returns {undefined}
+   */
   const handleAddButton = () => {
     // setActiveButton("file");
     setTabKey("1");
@@ -101,19 +123,48 @@ export default function Subsection() {
     setTouched({});
     setShowDetails(false);
   };
+
+  
+  /**
+   * Returns a DeleteIcon element.
+   * @returns {ReactElement} The DeleteIcon element.
+   */
   function deleteIcon() {
     return <DeleteIcon />;
   }
 
+  /**
+   * Handles the click event of the active button.
+   * Sets the activeButton state to the name of the button clicked.
+   * @param {string} buttonName - The name of the button clicked.
+   * @returns {undefined}
+   */
   const handleActiveButtonChange = (buttonName) => {
     setActiveButton(buttonName);
   };
+
+
+  /**
+   * Returns a PlusButton element.
+   * @returns {ReactElement} The PlusButton element.
+   */
   function plusIcon() {
     return <PlusButton />;
   }
+
+  
+  /**
+   * Returns an AddIcon element.
+   * @returns {ReactElement} The AddIcon element.
+   */
   function editIcon() {
     return <AddIcon />;
   }
+  
+  /**
+   * Returns an ImportIcon element.
+   * @returns {ReactElement} The ImportIcon element.
+   */
   function importIcon() {
     return (
       <svg
@@ -142,39 +193,52 @@ export default function Subsection() {
       </svg>
     );
   }
-  const subSectionCard = {
-    borderRadius: "9px",
-    background: "#FFF",
-    boxShadow: "0px 0px 15px 0px rgba(0, 0, 0, 0.10)",
-  };
+
   const HeaderButton = {
     color: "#fff",
   };
-  const requiredColor = {
-    color: "#ED2E2E",
-  };
+
   const [selectedTab, setSelectedTab] = useState(null);
   const [sectionName, setSectionName] = useState("");
 
+  /**
+   * @function
+   * @description Handles when a tab is clicked.  Updates the selectedTab state to the index of the clicked tab, sets isAdd to false, and calls fetchSubSetDetails with the clicked tab.
+   * @param {number} index - The index of the clicked tab.
+   * @param {object} tab - The clicked tab object.
+   */
   const handleTabClick = (index, tab) => {
     setSelectedTab(index);
     setIsAdd(false);
     fetchSubSetDetails(tab);
   };
+  
+  /**
+   * @function
+   * @description Handles when an edit icon is clicked.  Toggles the showModal state to show/hide the modal for the given index.
+   * @param {number} index - The index of the clicked edit icon.
+   */
   const handleEditClick = (index) => {
     // Handle edit icon click for the tab at the given index
     setShowModal(!showModal);
   };
 
+  /**
+   * @function
+   * @description Handles when a delete icon is clicked.  Updates the deleteModal state to true, sets the deleteChidData state to the given data, and handles the delete icon click for the tab at the given index.
+   * @param {object} data - The data for the subset tab to be deleted.
+   */
   const handleDeleteClick = (data) => {
     setDeleteModal(true);
     setDeleteChidData(data);
     // Handle delete icon click for the tab at the given index
   };
-  useEffect(() => {
-    getSubsetValues();
-  }, []);
 
+
+  /**
+   * Fetches the subset values from the API and updates the tab data
+   * @returns {Promise<void>}
+   */
   const getSubsetValues = async () => {
     toast.dismiss();
     setLoading(true);
@@ -220,6 +284,17 @@ export default function Subsection() {
     }
   };
 
+/**
+ * Fetches a subset of help settings data from the API and formats it for the UI.
+ * The function sets the loading state to true, makes a GET request to the help/get
+ * endpoint, and then sets the loading state to false. If the response is successful,
+ * the function formats the data and sets the subSectionDetails state to the formatted
+ * data, activeButton state to the type of the subset, sectionName state to the name of
+ * the subset, editorValue state to the description of the subset, and errors state and
+ * touched state to an empty object. The function also sets the showDetails state to true.
+ * If the response is not successful, the function displays an error toast.
+ * @param record The subset of help settings to fetch
+ */
   const fetchSubSetDetails = async (record) => {
     toast.dismiss();
     setLoading(true);
@@ -275,16 +350,25 @@ export default function Subsection() {
     }
   };
 
-  useEffect(() => {
-    const formValues = { sectionName, editorValue };
-    validateHandler(schema, formValues, setErrors);
-  }, [sectionName, editorValue]);
 
+
+  /**
+   * Handles the change event for the section name input field.
+   * It updates the state variable sectionName with the new value, and sets the touched state for the sectionName to true.
+   * @param {object} event - The event object from the input field change event.
+   */
   const handleChange = (event) => {
     const { value } = event.target;
     setSectionName(value);
     setTouched((prevTouched) => ({ ...prevTouched, sectionName: true }));
   };
+  
+/**
+ * Handles the file upload event.
+ * If the section is being added for the first time, calls createSection.
+ * Otherwise, calls updateSection.
+ * @param {object} file - The uploaded file.
+ */
   const handleFileUpload = (file) => {
     if (isAdd && Object.keys(subSectionDetails).length == 0) {
       createSection(file);
@@ -292,6 +376,17 @@ export default function Subsection() {
       updateSection(file);
     }
   };
+
+/**
+ * This function creates a new section in the help settings.
+ * If the activeButton is "file", it validates the sectionName.
+ * If the activeButton is "text", it validates the sectionName and editorValue.
+ * If the validation is successful, it sends a POST request to the server to create the section.
+ * The request payload contains the parent, name, type, description, file and fileName.
+ * If the request is successful, it resets the form values, and resets the touched state for the form fields.
+ * If the request fails, it shows an error toast with the error message.
+ * @param {object} file - The file to be uploaded.
+ */
   const createSection = async (file) => {
     toast.dismiss();
     if (activeButton === "file") {
@@ -370,6 +465,16 @@ export default function Subsection() {
     }
   };
 
+  /**
+   * This function updates a section in the help settings.
+   * If the activeButton is "file", it validates the sectionName.
+   * If the activeButton is "text", it validates the sectionName and editorValue.
+   * If the validation is successful, it sends a PUT request to the server to update the section.
+   * The request payload contains the parent, child, name, type, description, file and fileName.
+   * If the request is successful, it resets the form values, and resets the touched state for the form fields.
+   * If the request fails, it shows an error toast with the error message.
+   * @param {object} file - The file to be uploaded.
+   */
   const updateSection = async (file) => {
     toast.dismiss();
     if (activeButton === "file") {
@@ -449,6 +554,12 @@ export default function Subsection() {
     }
   };
 
+/**
+ * Handles the file upload button click event.
+ * If the user is adding a new section and there is no section details,
+ * it calls the createSection function.
+ * Otherwise, it calls the updateSection function.
+ */
   const handleFileButtonClick = () => {
     if (isAdd && Object.keys(subSectionDetails).length === 0) {
       createSection(file);
@@ -457,6 +568,16 @@ export default function Subsection() {
     }
   };
 
+  /**
+   * @function
+   * @description
+   * This function handles the changes in the editor.
+   * It takes the content as a parameter and checks if it matches a certain pattern.
+   * If it does, it replaces the pattern with an empty string.
+   * It then sets the editorValue state to the new text and sets touched to true.
+   * @param {string} content - The content of the editor.
+   * @returns {void}
+   */
   const handleEditorChange = (content) => {
     let text = content;
     const pattern = /^<p><br><\/p>$/;
@@ -470,6 +591,13 @@ export default function Subsection() {
     }
   };
 
+/**
+ * Handles the deletion of selected help sections.
+ * Shows a toast error message if no help section is selected.
+ * Sends a POST request to the API to delete the selected help sections.
+ * If the response is successful, it sets the deleteModal state to false, updates the data to remove the deleted records, resets the selectedRows state, and fetches the data again.
+ * If there is an error, it sets the deleteModal state to false, shows a toast error message and resets the selectedRows state.
+ */
   const deleteSubSection = async (record) => {
     toast.dismiss();
     setLoading(true);

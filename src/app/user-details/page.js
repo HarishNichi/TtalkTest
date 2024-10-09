@@ -1,17 +1,13 @@
 "use client";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
 import Breadcrumb from "@/components/Layout/breadcrumb";
-import { userSubSectionLinks } from "@/utils/constant";
 import { Tabs } from "antd";
 import Group from "@/components/Groups/page";
-import employee from "@/redux/features/employee";
 import UserDetails from "@/components/UserDetails/page";
 import Contact from "@/components/Contacts/page";
 import { useAppSelector } from "@/redux/hooks";
 import ViewLog from "@/components/Logs/page";
 import Other from "@/components/Other/page";
-
 import { toast, ToastContainer } from "react-toastify";
 import intl from "@/utils/locales/jp/jp.json";
 import TerminalSettings from "@/components/TerminalSettings/page";
@@ -21,10 +17,12 @@ export default function UserDetail() {
   const Employee = useAppSelector((state) => state.employeeReducer.employee);
   const { TabPane } = Tabs;
 
+  /**
+   * Handles the tab change in the user details page
+   * @param {string} key The key of the tab that was changed
+   */
   const onTabChange = (key) => {
     toast.dismiss();
-    // eslint-disable-next-line no-console
-    console.log(`onTabChange: ${key}`);
     setTabKey(key);
   };
   const userSubSectionLinks = [
@@ -68,7 +66,6 @@ export default function UserDetail() {
           </TabPane>
           <TabPane tab={intl.user_operation_log} key="5">
             <ViewLog tab={tabKey} />
-            {/* Content for See Logs */}
           </TabPane>
           <TabPane tab={intl.user_others} key="6">
             <Other />

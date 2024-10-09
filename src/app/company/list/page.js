@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import intl from "@/utils/locales/jp/jp.json";
 import Modal from "@/components/Modal/modal";
-
 import IconOutlineBtn from "../../../components/Button/iconOutlineBtn";
 import AddIcon from "../../../components/Icons/addIcon";
 import GetIconQRCode from "../../../components/Icons/qrCode";
@@ -40,7 +39,6 @@ import * as gen from "@/generated";
 import DeleteIcon from "../../../components/Icons/deleteIcon";
 import SearchInput from "@/components/Layout/search";
 Amplify.configure(gen.config);
-
 export default function CompanyList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useAppDispatch();
@@ -150,13 +148,20 @@ export default function CompanyList() {
   const [companyListDropdown, setCompanyListDropdown] = useState([]);
   const [page, setPage] = useState(50);
   const [current, setCurrent] = useState(1);
+  /**
+   * Resets the state of the modal and sets isModalOpen to false.
+   * Called when the user clicks outside of the modal, or clicks on the close button.
+   */
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+
   const handleSelectRow = (selected) => {
     setSelectedRows(selected);
   };
+
   const [selectedValue, setSelectedValue] = useState("");
+
   const handleSelectChange = (e) => {
     const value = e.target.value;
     setSelectedValue(value);
@@ -343,6 +348,14 @@ export default function CompanyList() {
   let all = [];
   let offset = "null";
 
+  /**
+   * Fetches a list of organizations and their details from the API, given a
+   * limit and an offset. If the API response does not contain the end of the
+   * list, it calls itself with the offset from the response and the same limit.
+   * 
+   * @async
+   * @returns {Promise<void>}
+   */
   const fetchData = async () => {
     toast.dismiss();
     setLoading(true);
@@ -395,6 +408,14 @@ export default function CompanyList() {
     }
   };
 
+/**
+ * Handles the deletion of organizations selected in the table.
+ * Shows a toast error message if no organization is selected.
+ * Sends a POST request to the API to delete the organizations.
+ * If the response is successful, it sets the deleteModal state to false, sets the selectAll state to false, sets the selectedRows state to an empty array, sets the deleted state to true, shows a toast success message and fetches the data again.
+ * If there is an error, it sets the deleteModal state to false, sets the loading state to false and shows a toast error message.
+ * @param {array} selectedRows - The array of selected organizations.
+ */
   const deleteOrganization = async (selectedRows) => {
     toast.dismiss();
     if (selectedRows.length <= 0) {
@@ -444,6 +465,11 @@ export default function CompanyList() {
     }
   };
 
+/**
+ * @function
+ * @description Footer of the delete modal.
+ * @returns {ReactElement} Footer of the delete modal.
+ */
   function getDeleteModalFooter() {
     return (
       <div className="grid grid-cols-2 gap-2 place-content-center">
@@ -482,6 +508,17 @@ export default function CompanyList() {
       </div>
     );
   }
+  
+/**
+ * @function
+ * @description
+ * This function returns an SVG icon element with the specified class.
+ * The icon is a white, 14x14, svg that is used in the list of employees.
+ * The svg is created from a path element with a fill-rule and clip-rule of "evenodd".
+ * The path is a complex shape that represents the icon.
+ * @param {string} cls - class name for the icon
+ * @returns {ReactElement} - SVG icon element
+ */
   function getIconWithClass(cls) {
     return (
       <svg
@@ -506,6 +543,15 @@ export default function CompanyList() {
     );
   }
 
+/**
+ * @function
+ * @description
+ * This function searches for organizations based on the search criteria provided and loads the data into the list.
+ * @param {Object} payload - The payload that is sent to the server.
+ * @param {number} offset - The offset of the data to be retrieved.
+ * @param {boolean} searchFlag - A flag to indicate whether the search is being performed or not.
+ * @returns {void}
+ */
   async function searchOrganization() {
     toast.dismiss();
     try {
@@ -727,7 +773,6 @@ export default function CompanyList() {
         >
           {intl.company_list_delete}
         </p>
-
         <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]  ">
           <Button
             key="cancel"
@@ -745,7 +790,6 @@ export default function CompanyList() {
           </Button>
         </div>
       </AntModal>
-
       <div>
         <div className="flex justify-between items-center dark:text-black text-xl font-semibold mb-[16px]">
           {intl.components_card_searchlist_companylist}
@@ -782,7 +826,6 @@ export default function CompanyList() {
             </span>
           </div>
         </div>
-
         <form
           className="w-full mb-[16px]  hidden lg:flex gap-2 flex-wrap flex-shrink-0 flex-grow-0   rounded-xl  md:mx-auto md:justify-center lg:justify-normal  "
           onSubmit={(e) => {
@@ -815,7 +858,6 @@ export default function CompanyList() {
               value={fleetNumber}
             />
           </div>
-
           <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
             <SearchInput
               placeholder={intl.company_list_company_contact_mail}
@@ -823,7 +865,6 @@ export default function CompanyList() {
               value={email}
             />
           </div>
-
           <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
             <SearchInput
               placeholder={intl.form_component_sales_channel}
@@ -831,7 +872,6 @@ export default function CompanyList() {
               value={salesChannel}
             />
           </div>
-
           <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
             <select
               className={`w-full md:min-w-[100px] lg:min-w-[100px] border flex flex-auto md:flex-1   text-[16px]  p-2 bg-[white] rounded focus:outline-none placeholder-[#AEA8A8] 
@@ -854,7 +894,6 @@ export default function CompanyList() {
               </option>
             </select>
           </div>
-
           <div className="w-full md:w-[calc(100%-10px)]  lg:w-[144px]   xl:flex xl:flex-1">
             <IconLeftBtn
               text={intl.dashboard_layout_search_btn}
@@ -906,7 +945,6 @@ export default function CompanyList() {
                 value={fleetNumber}
               />
             </div>
-
             <div className={`w-full md:w-[calc(50%-10px)] `}>
               <SearchInput
                 placeholder={intl.company_list_company_contact_mail}
@@ -914,7 +952,6 @@ export default function CompanyList() {
                 value={email}
               />
             </div>
-
             <div className={`w-full md:w-[calc(50%-10px)] `}>
               <SearchInput
                 placeholder={intl.form_component_sales_channel}
@@ -922,7 +959,6 @@ export default function CompanyList() {
                 value={salesChannel}
               />
             </div>
-
             <div className={`w-full md:w-[calc(50%-10px)] `}>
               <SearchInput
                 placeholder={intl.company_list_company_status}
@@ -949,7 +985,6 @@ export default function CompanyList() {
             </div>
           </form>
         )}
-
         <div className="mb-[16px] flex items-center">
           <label
             key={"selectAll"}
@@ -1033,7 +1068,6 @@ export default function CompanyList() {
                   setExportModal(() => true);
                 }}
               />
-
               <IconOutlineBtn
                 text={intl.help_settings_addition_delete}
                 textColor="text-[#BA1818]" // Red text color
@@ -1065,7 +1099,6 @@ export default function CompanyList() {
             </div>
           </div>
         )}
-
         {exportModal && (
           <AntModal
             width={385}
@@ -1119,7 +1152,6 @@ export default function CompanyList() {
             </div>
           </AntModal>
         )}
-
         {importModal && (
           <ImportModal
             modelToggle={importModal}

@@ -379,5 +379,6 @@
   "device_edit": "端末編集",
   "device_delete_device": "選択した端末を削除しますか",
   "sidebar_corporate_management": "企業管理",
-  "password_placeholder": "パスワード"
+  "password_placeholder": "パスワード",
+  "current_password":"今のパスワード"
 }

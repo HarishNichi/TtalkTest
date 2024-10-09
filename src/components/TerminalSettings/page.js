@@ -298,9 +298,11 @@ export default function TerminalSettings({ isModal, selectedRows }) {
         let result = await fetchEmpData(id);
         result && dispatch(getEmployee(result));
         toast(intl.settings_update_success, successToastSettings);
+        setConfirmModal(false);
       }
     } catch (err) {
       toast(intl.settings_update_failed, errorToastSettings);
+      setConfirmModal(false);
     } finally {
       setLoading(false);
     }
@@ -473,6 +475,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
       setDownloadCsvLink(result.data.data.data.path);
       dispatch(exportPopup(false));
       setCsvFileName("");
+      setExportModal(false);
       toast(intl.groups_export_success, successToastSettings);
 
       setLoading(false);
@@ -2689,7 +2692,10 @@ export default function TerminalSettings({ isModal, selectedRows }) {
             operation="update"
             fileValidationError={fileValidationError}
             setFileValidationError={setFileValidationError}
-            uploadCsvFile={(payload) => uploadSettingCsvFile(payload)}
+            uploadCsvFile={(payload) => {
+              uploadSettingCsvFile(payload);
+              setImportModal(false);
+            }}
             onCloseHandler={() => {
               dispatch(importPopup(false));
               setImportModal(false);

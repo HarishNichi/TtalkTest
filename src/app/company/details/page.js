@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { useAppSelector } from "@/redux/hooks";
 import ProtectedRoute from "@/utils/auth";
 import { ToastContainer, toast } from "react-toastify";
-
 import { Modal as AntModal, Button, Menu } from "antd";
 import Upload from "../../../components/Input/upload";
 import CompanyForm from "../../../components/CompanyInfo/formComponent";
@@ -30,13 +29,16 @@ export default function CompanyInformation() {
     (state) => state.organizationReducer.organization
   );
 
-  const menu = (
-    <Menu>
-      <Menu.Item key="1">Option 1</Menu.Item>
-      <Menu.Item key="2">Option 2</Menu.Item>
-    </Menu>
-  );
-
+  /**
+   * Fetches the company data from the API by the company ID
+   * stored in the redux state. If the API response is successful,
+   * it updates the company data state and sets the loading state
+   * to false. If the API response fails, it sets the error message
+   * state and sets the loading state to false.
+   *
+   * @async
+   * @returns {Promise<void>}
+   */
   const fetchData = async () => {
     setLoading(true);
     try {
@@ -68,6 +70,16 @@ export default function CompanyInformation() {
     }
   };
 
+  /**
+   * Updates the organization information in the API with the given record.
+   * If the update is successful, it closes the modal and redirects to the
+   * company list page. If the update fails, it sets the error message state
+   * and shows a toast notification with the error message.
+   *
+   * @async
+   * @param {Object} record - The organization information to be updated.
+   * @returns {Promise<void>}
+   */
   const updateOrg = async (record) => {
     toast.dismiss();
     if (!organizationsData.logo && !imageSource) {
@@ -107,6 +119,12 @@ export default function CompanyInformation() {
     }
   };
 
+/**
+ * Handles the edit button click event.
+ * Sets the validation state to false and then sets the isModalVisible state to true
+ * after a 100ms delay. This is done to avoid any validation related issues
+ * when the modal is opened.
+ */
   const handleEditClick = () => {
     setValidation(false);
     setTimeout(() => {
@@ -114,14 +132,27 @@ export default function CompanyInformation() {
     }, 100);
   };
 
+/**
+ * Handles the modal close event.
+ * Sets the isModalVisible state to false.
+ */
   const handleModalClose = () => {
     setIsModalVisible(false);
   };
 
+/**
+ * Handles the delete button click event.
+ * Sets the isDeleteModalVisible state to true, which then renders the delete confirmation modal.
+ */
   const handleDeleteClick = () => {
     setIsDeleteModalVisible(true);
   };
 
+/**
+ * Handles the confirmation of the delete operation.
+ * Deletes the organization and then redirects the user to the list page.
+ * If there is an error, it sets the loading state to false and shows a toast error message.
+ */
   const handleDeleteConfirm = async () => {
     setLoading(true);
     try {
@@ -151,6 +182,10 @@ export default function CompanyInformation() {
     }
   };
 
+/**
+ * Handles the cancellation of the delete operation.
+ * Sets the isDeleteModalVisible state to false.
+ */
   const handleDeleteCancel = () => {
     setIsDeleteModalVisible(false);
   };
@@ -166,6 +201,16 @@ export default function CompanyInformation() {
     },
     { title: organizationsData?.name, link: "/company/details" },
   ];
+
+  
+/**
+ * A component that displays a single row of key-value information
+ * in the company details page.
+ *
+ * @param {string} label - The key to be displayed.
+ * @param {string} value - The value to be displayed.
+ * @returns {JSX.Element} A JSX element containing the key-value pair.
+ */
   const DataSection = ({ label, value }) => (
     <div className="mb-4">
       {/* Apply mb-16px as 4 is equivalent to 16px */}

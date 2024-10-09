@@ -1,11 +1,9 @@
 "use client";
-import { Noto_Sans_JP } from "next/font/google";
 import { useState, useEffect } from "react";
 import * as Yup from "yup";
 import intl from "@/utils/locales/jp/jp.json";
 import { PASSWORD_PATTERN } from "@/validation/validationPattern";
 import { validateHandler } from "@/validation/helperFunction";
-import { useRouter } from "next/navigation";
 import api from "@/utils/api";
 import LoaderOverlay from "@/components/Loader/loadOverLay";
 import { ToastContainer, toast } from "react-toastify";
@@ -14,11 +12,9 @@ import IconLeftBtn from "@/components/Button/iconLeftBtn";
 import TextPlain from "@/components/Input/textPlain";
 import IconRight from "@/components/Input/iconRight";
 import PasswordTickIcon from "@/components/Icons/passwordTick";
-import { IoEyeOff, IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
-import Breadcrumb from "@/components/Layout/breadcrumb";
+import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import ProtectedRoute from "@/utils/auth";
 import { code } from "@/utils/constant";
-const natoSans = Noto_Sans_JP({ subsets: ["latin"] });
 
 // Yup schema to validate the form
 const schema = Yup.object().shape({
@@ -33,7 +29,6 @@ const schema = Yup.object().shape({
     .required(intl.validation_required),
 });
 export default function UpdatePassword(setIsResetModal) {
-  const routerPath = useRouter();
   const [currentPassword, setCurrentPassword] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -48,6 +43,16 @@ export default function UpdatePassword(setIsResetModal) {
     validateHandler(schema, formValues, setErrors);
   }, [currentPassword, password, confirmPassword]);
 
+  useEffect(() => {
+    passwordIcon();
+  }, [currentPassword]);
+
+/**
+ * Handles change for input fields. Sets the value of the
+ * corresponding state variable (currentPassword, password, confirmPassword)
+ * and sets the touched state for the input field to true.
+ * @param {React.ChangeEvent<HTMLInputElement>} event
+ */
   const handleChange = (event) => {
     const { name, value } = event.target;
     if (name == "currentPassword") {
@@ -60,6 +65,14 @@ export default function UpdatePassword(setIsResetModal) {
     setTouched((prevTouched) => ({ ...prevTouched, [name]: true }));
   };
 
+/**
+ * Handles the submission of the update password form. Checks if the
+ * current password is correct and if the new password matches the
+ * confirm password. If the validation is successful, it makes a
+ * POST request to the /organizations/reset endpoint to change the
+ * password. If the request is successful, it redirects the user
+ * to the login page.
+ */
   const handleSave = async (event) => {
     event.preventDefault();
     toast.dismiss();
@@ -119,22 +132,17 @@ export default function UpdatePassword(setIsResetModal) {
     }
   };
 
-  useEffect(() => {
-    passwordIcon();
-  }, [currentPassword]);
 
-  const cardStyle = {
-    background: "#FFFFFF",
-    boxShadow: "0px 0px 15px rgba(0, 0, 0, 0.1)",
-    borderRadius: "9px",
-  };
+  
+  /**
+   * Conditionally renders a password tick icon based on whether a password is input.
+   * @returns {ReactElement|null} The password tick icon if the current password is truthy, otherwise null.
+   */
   function passwordIcon() {
     return currentPassword ? <PasswordTickIcon /> : null;
   }
-  const links = [
-    { title: "ダッシュボード", link: "#" },
-    { title: "パスワードを変更", link: "/dashboard/update-password" },
-  ];
+
+
   return (
     <>
       {loading && <LoaderOverlay />}
@@ -142,13 +150,6 @@ export default function UpdatePassword(setIsResetModal) {
       <ProtectedRoute allowedRoles={["organization"]}>
         <div className="flex justify-center pt-[30px]">
           <div className="flex justify-center mb-[10px]">
-            {/* <DynamicLabel
-              text="パスワードを変更"
-              alignment="text-center text-customBlue"
-              fontSize="text-xl"
-              fontWeight="font-semibold"
-              disabled={false}
-            /> */}
             <DynamicLabel
               text="パスワードを変更"
               alignment="text-center text-customBlue "
@@ -167,9 +168,9 @@ export default function UpdatePassword(setIsResetModal) {
                 name={"currentPassword"}
                 for={"currentPassword"}
                 onChange={handleChange}
-                placeholder={"今のパスワード"}
+                placeholder={intl.current_password}
                 padding={"p-[8px]"}
-                label={"今のパスワード"}
+                label={intl.current_password}
                 labelColor={"#7B7B7B"}
                 isRequired={true}
                 labelClass={
@@ -277,7 +278,7 @@ export default function UpdatePassword(setIsResetModal) {
             <div className="">
               <div className="mt-[30px] w-full pb-[30px]">
                 <IconLeftBtn
-                  text={"保存"}
+                  text={intl.user_sound_settings}
                   type="submit"
                   py="py-[8px] px-[55px] w-full"
                   textColor="text-white font-normal text-[16px]"

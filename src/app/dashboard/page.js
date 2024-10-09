@@ -1,5 +1,4 @@
 "use client";
-
 import SearchList from "@/components/Card/searchList";
 import CardIcon from "@/components/Card/icon";
 import { useState, useEffect } from "react";
@@ -33,13 +32,6 @@ const Dashboard = () => {
   const [counter, setCounter] = useState({});
   const [graphData, setGraphData] = useState({});
   const [searchHeight, setSearchHeight] = useState(350);
-  const UserData = useAppSelector((state) => state.userReducer.user);
-  let Admin = false;
-  if (isAuthenticated && Object.keys(UserData).length > 0) {
-    const User = UserData ? JSON.parse(UserData) : "";
-    const roles = User?.role ? JSON.parse(User.role) : [];
-    Admin = roles ? roles.some((role) => role.toLowerCase() == "admin") : false;
-  }
 
   useEffect(() => {
     /* eslint-disable no-undef*/
@@ -56,15 +48,39 @@ const Dashboard = () => {
     const handleResize = () => {
       setSearchHeight(window.innerHeight - 425);
     };
-
     handleResize(); // Set initial state
     window.addEventListener("resize", handleResize);
-
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
 
+   useEffect(() => {
+     const handleResize = () => {
+       setIsMobile(window.innerWidth <= 768); // Change the breakpoint as needed
+     };
+     handleResize(); // Set initial state
+     window.addEventListener("resize", handleResize);
+     return () => {
+       window.removeEventListener("resize", handleResize);
+     };
+   }, []);
+
+  const UserData = useAppSelector((state) => state.userReducer.user);
+  let Admin = false;
+  if (isAuthenticated && Object.keys(UserData).length > 0) {
+    const User = UserData ? JSON.parse(UserData) : "";
+    const roles = User?.role ? JSON.parse(User.role) : [];
+    Admin = roles ? roles.some((role) => role.toLowerCase() == "admin") : false;
+  }
+
+  /**
+   * Fetches graph data from the server, and then updates the state.
+   * The data includes the total number of calls, average calls per day,
+   * a list of daily calls, the step size for the graph, and the maximum
+   * number of calls per day.
+   * @returns {Promise<void>}
+   */
   const fetchGraphData = async () => {
     toast.dismiss();
     setLoading(true);
@@ -93,6 +109,12 @@ const Dashboard = () => {
     }
   };
 
+  /**
+   * Fetch the count of organizations, employees, simultaneous interpretation, and
+   * transcription, as well as the number of logged in and logged out users.
+   *
+   * @returns {Promise<void>}
+   */
   const fetchCount = async () => {
     setLoading(true);
     toast.dismiss();
@@ -115,6 +137,12 @@ const Dashboard = () => {
     setCounter(org);
   };
 
+  /**
+   * Fetches data for the dashboard page. If the user is an admin, it will fetch
+   * a list of organizations. If the user is not an admin, it will fetch a list of
+   * employees. The data is then saved to the state, and the search results are
+   * also updated.
+   */
   const fetchData = async () => {
     toast.dismiss();
     setLoading(true);
@@ -150,6 +178,15 @@ const Dashboard = () => {
     }
   };
 
+  /**
+   * Searches through the organizations or employee data based on the provided
+   * inputValue and updates the searchResults state accordingly.
+   *
+   * If the inputValue is empty, the searchResults state is reset to the original
+   * data.
+   *
+   * @param {string} inputValue - The search query to filter the data by.
+   */
   function searchCompany(inputValue) {
     if (inputValue) {
       if (Admin) {
@@ -179,7 +216,16 @@ const Dashboard = () => {
       }
     }
   }
-
+  
+  /**
+   * Handles a link click event, dispatching the
+   * addOrganization or addEmployee action depending
+   * on the user type.
+   *
+   * @param {React.MouseEvent} event - The link click event.
+   * @param {Object} clickedResult - The organization or employee
+   *                                 object that was clicked.
+   */
   const handleLinkClick = (event, clickedResult) => {
     if (Admin) {
       dispatch(addOrganization(clickedResult));
@@ -187,19 +233,7 @@ const Dashboard = () => {
       dispatch(addEmployee(clickedResult));
     }
   };
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768); // Change the breakpoint as needed
-    };
-
-    handleResize(); // Set initial state
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+ 
   return (
     <>
       {loading && <LoaderOverlay />}
@@ -257,7 +291,6 @@ const Dashboard = () => {
             </div>
           </div>
         )}
-
         {!Admin && (
           <div className="grid grid-cols-2 xl:grid-cols-5 md:gap-2 mb-2 pb-2">
             <div className={`pr-2 pb-2 lg:p-0`}>
@@ -302,7 +335,6 @@ const Dashboard = () => {
             </div>
           </div>
         )}
-
         <div className="flex flex-col  lg:flex-row   lg:gap-x-2 ">
           <div className="mb-2 lg:mb-0 lg:w-1/3 ">
             <SearchList
@@ -321,5 +353,4 @@ const Dashboard = () => {
     </>
   );
 };
-
 export default Dashboard;

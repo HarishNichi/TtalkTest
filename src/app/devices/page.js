@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 "use client";
-
 import React, { useState, useEffect, useRef } from "react";
 import intl from "@/utils/locales/jp/jp.json";
 import DynamicLabel from "@/components/Label/dynamicLabel";
@@ -16,9 +15,7 @@ import {
   successToastSettings,
   errorToastSettings,
 } from "@/utils/constant";
-import SectionDeleteIcon from "@/components/Icons/sectionDelete";
 import SectionEditIcon from "@/components/Icons/sectionEditIcon";
-import Modal from "@/components/Modal/modal";
 import TextPlain from "@/components/Input/textPlain";
 import IconLeftBtn from "@/components/Button/iconLeftBtn";
 import { useRouter } from "next/navigation";
@@ -50,12 +47,29 @@ export default function Devices() {
   const CSVDownloadRef = useRef("");
   const [page, setPage] = useState(50);
   const [current, setCurrent] = useState(1);
-  const router = useRouter();
   const [helpSettingsData, setHelpSettingsData] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
-  const [fileNameError, setFileNameError] = useState(null);
-  const [data, setData] = useState([]);
+  const [columns, setColumns] = React.useState(helpSettingsColumns);
+  const [editModal, setEditModal] = React.useState(false);
+  const [editSettings, setEditSettings] = React.useState("");
+  const [addSettings, setAddSettings] = React.useState("");
+  const [deleteModal, setDeleteModal] = React.useState(false);
+  const [addModal, setAddModal] = React.useState(false);
+  const [editRecord, setRecord] = React.useState();
+  const [errors, setErrors] = React.useState({});
+  const [touched, setTouched] = React.useState({});
+  const [genericError, setError] = React.useState("");
+  const [tableHeight, setTableHeight] = useState(450);
+  const [deviceIsOnRent, setDeviceIsOnRent] = useState(false);
+  const [rentDateRange, setRentDateRange] = useState(["", ""]);
+  const [importModal, setImportModal] = React.useState(false);
+  const [csvFileName, setCsvFileName] = React.useState("");
+  const [file, setFile] = React.useState(null);
+  const [fileName, setFileName] = React.useState(null);
+  const [fileValidationError, setFileValidationError] = React.useState(null);
+  const [csvUploadInitiated, setCsvUploadInitiated] = React.useState(null);
+  const [subscriptionTrack, setSubscriptionTrack] = React.useState(null);
   // Yup schema to validate the form
   const schema = Yup.object().shape({
     addSettings: Yup.string()
@@ -80,14 +94,6 @@ export default function Devices() {
       }
     ),
   });
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    CSVDownloadRef.current.click();
-  }, [downloadCsvLink]);
 
   const helpSettingsColumns = [
     {
@@ -172,30 +178,114 @@ export default function Devices() {
     },
   ];
 
-  const [columns, setColumns] = React.useState(helpSettingsColumns);
-  const [editModal, setEditModal] = React.useState(false);
-  const [editSettings, setEditSettings] = React.useState("");
-  const [addSettings, setAddSettings] = React.useState("");
-  const [deleteModal, setDeleteModal] = React.useState(false);
-  const [addModal, setAddModal] = React.useState(false);
-  const [editRecord, setRecord] = React.useState();
-  const [errors, setErrors] = React.useState({});
-  const [touched, setTouched] = React.useState({});
-  const [genericError, setError] = React.useState("");
-  const [tableHeight, setTableHeight] = useState(450);
-  const [deviceIsOnRent, setDeviceIsOnRent] = useState(false);
-  const [rentDateRange, setRentDateRange] = useState(["", ""]);
-  const [importModal, setImportModal] = React.useState(false);
-  const [csvFileName, setCsvFileName] = React.useState("");
-  const [file, setFile] = React.useState(null);
-  const [fileName, setFileName] = React.useState(null);
-  const [fileValidationError, setFileValidationError] = React.useState(null);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-  const [csvUploadInitiated, setCsvUploadInitiated] = React.useState(null);
-  const [subscriptionTrack, setSubscriptionTrack] = React.useState(null);
+  useEffect(() => {
+    CSVDownloadRef.current.click();
+  }, [downloadCsvLink]);
+
+  useEffect(() => {
+    const formValues = {
+      addSettings,
+      editSettings,
+      deviceIsOnRent,
+      rentDateRange,
+    };
+    validateHandler(schema, formValues, setErrors);
+  }, [addSettings, editSettings, deviceIsOnRent, rentDateRange]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setTableHeight(window.innerHeight - 210);
+    };
+
+    handleResize(); // Set initial state
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    toast.dismiss();
+    let scount = 0;
+    let ecount = 0;
+    let failedRowIndexes = [];
+    const subscription = gen.subscribe(csvUploadInitiated, ({ data }) => {
+      console.log("enter subs", data);
+      setLoading(true);
+      let dataReceived = JSON.parse(data);
+      if (dataReceived?.rowsInserted) {
+        dataReceived.rowsInserted =
+          (dataReceived?.rowsInserted &&
+            JSON.parse(dataReceived?.rowsInserted)) ||
+          0;
+        scount = scount + dataReceived?.rowsInserted;
+      }
+
+      if (dataReceived?.rowsFailed) {
+        dataReceived.rowsFailed =
+          dataReceived?.rowsFailed && JSON.parse(dataReceived?.rowsFailed);
+        ecount = ecount + dataReceived?.rowsFailed;
+      }
+
+      // get failed index
+      failedRowIndexes = [...failedRowIndexes, ...dataReceived.failures];
+      // finished loop
+      if (dataReceived?.currentChunk == dataReceived?.totalChunks) {
+        setFile(null);
+        setFileName("");
+        setTimeout(async () => {
+          if (ecount > 0) {
+            try {
+              setLoading(true);
+              let csvLink = await api.post("devices/import", {
+                failures: failedRowIndexes,
+              });
+              setDownloadCsvLink(csvLink.data.data.failureFile);
+            } finally {
+              setLoading(false);
+              toast(
+                `${ecount} 行のデータインポートに失敗しました`,
+                errorToastSettings
+              );
+            }
+          }
+          if (ecount == 0 && scount > 0) {
+            toast(intl.user_imported_successfully, successToastSettings);
+          }
+          setImportModal(() => !importModal);
+          subscription.unsubscribe();
+          fetchData();
+        }, 2000);
+
+        setCsvUploadInitiated(() => null);
+        setLoading(false);
+      }
+    });
+    setSubscriptionTrack(subscription);
+    return () => subscription.unsubscribe();
+  }, [csvUploadInitiated]);
+
+
+  /**
+   * Returns a DeleteIconDisabled component with the isMobile prop set to the
+   * provided flag.
+   * @param {boolean} flag Whether the icon should be rendered with mobile styles.
+   * @returns {ReactElement} The DeleteIconDisabled component.
+   */
   function disabledDeleteIcon(flag) {
     return <DeleteIconDisabled isMobile={flag} />;
   }
+  
+/**
+ * Returns an SVG element for an import icon.
+ *
+ * @returns {ReactElement} The import icon SVG element.
+ */
   function importIcon() {
     return (
       <svg
@@ -224,13 +314,31 @@ export default function Devices() {
       </svg>
     );
   }
+  
+/**
+ * Returns a DeleteIcon component with isMobile prop set to the provided flag.
+ * @param {boolean} flag Whether the icon should be rendered with mobile styles.
+ * @returns {ReactElement} The DeleteIcon component.
+ */
   function deleteIcon(flag) {
     return <DeleteIcon isMobile={flag} />;
   }
+
+  
+  /**
+   * Returns an AddIcon component with the isMobile prop set to the provided flag.
+   * @param {boolean} flag Whether the icon should be rendered with mobile styles.
+   * @returns {ReactElement} The AddIcon component.
+   */
   function editIcon(flag) {
     return <AddIcon isMobile={flag} />;
   }
 
+  /**
+   * Handles the edit action for a device. Resets the state then sets the state
+   * to the values of the record and opens the edit modal.
+   * @param {Object} record The record of the device to edit.
+   */
   function handelEdit(record) {
     setEditModal(() => false);
     setAddModal(() => false);
@@ -247,10 +355,26 @@ export default function Devices() {
     }, 500);
   }
 
+  /**
+   * Handles the delete action for a device. Sets the state to the values of the
+   * record and opens the delete modal.
+   * @param {Object} record The record of the device to delete.
+   */
   function handelDelete(record) {
     setRecord(record);
     setDeleteModal(() => true);
   }
+  
+  /**
+   * Fetches device list data from the API and formats it for the data table.
+   * The function sets the loading state to true, makes a GET request to the
+   * devices/list endpoint, and then sets the loading state to false. If the
+   * response is successful, the function formats the data and sets the
+   * helpSettingsData state to the formatted data. If the response is not
+   * successful, the function displays an error toast.
+   * @async
+   * @returns {Promise<void>}
+   */
   const fetchData = async () => {
     toast.dismiss();
     setLoading(true);
@@ -303,6 +427,19 @@ export default function Devices() {
       });
     }
   };
+
+  
+/**
+ * Handles the creation of a new device. Resets the toast, sets the loading state
+ * to true, and validates the form values. If the form is valid, it sends a POST
+ * request to the devices/create endpoint with the form data. If the response is
+ * successful, it sets the loading state to false, resets the add settings state
+ * and errors, and fetches the data again. If the response is not successful, it
+ * sets the loading state to false, shows an error toast, and opens the add modal.
+ * @async
+ * @param {string} name The name of the device to create.
+ * @returns {Promise<void>}
+ */
   const createDevice = async (name) => {
     toast.dismiss();
     setLoading(true);
@@ -381,6 +518,16 @@ export default function Devices() {
     }
   };
 
+/**
+ * This function is used to update the device name.
+ * It is called when the user clicks the edit button.
+ * It makes a PUT request to the server to update the device name.
+ * If the request is successful, it sets the edit modal to false
+ * and fetches the data again.
+ * If the request fails, it sets the edit modal to true and displays an error message.
+ * @param {object} record - The device object to be updated.
+ * @param {string} name - The new name of the device.
+ */
   const updateDevice = async (record, name) => {
     toast.dismiss();
     setLoading(true);
@@ -465,6 +612,15 @@ export default function Devices() {
     }
   };
 
+/**
+ * Handles the deletion of devices selected in the table.
+ * Shows a toast error message if no device is selected.
+ * Checks if any device is attached to a user and shows an error if so.
+ * Sends a POST request to the API to delete the devices.
+ * If the response is successful, it sets the deleteModal state to false, sets the selectAll state to false, sets the selectedRows state to an empty array, shows a toast success message and fetches the data again.
+ * If there is an error, it sets the deleteModal state to false, sets the loading state to false and shows a toast error message.
+ * @param {array} selectedRows - The array of selected devices.
+ */
   const deleteDevices = async () => {
     // Check if there are selected rows
     if (selectedRows.length === 0) {
@@ -544,6 +700,13 @@ export default function Devices() {
     }
   };
 
+/**
+ * Handles the change event for the help settings input fields. The function sets the
+ * state of the addSettings or editSettings based on the name of the input field that
+ * triggered the event. It also sets the touched state of the changed input field to
+ * true.
+ * @param {object} event - The event triggered by the input field change.
+ */
   const handleChange = (event) => {
     const { name, value } = event.target;
     if (name === "addSettings") {
@@ -554,16 +717,21 @@ export default function Devices() {
     setTouched((prevTouched) => ({ ...prevTouched, [name]: true }));
   };
 
-  useEffect(() => {
-    const formValues = {
-      addSettings,
-      editSettings,
-      deviceIsOnRent,
-      rentDateRange,
-    };
-    validateHandler(schema, formValues, setErrors);
-  }, [addSettings, editSettings, deviceIsOnRent, rentDateRange]);
 
+
+/**
+ * Resets the state of the add or edit modal when it is closed.
+ *
+ * When the add modal is closed, the function resets the addSettings state
+ * to an empty string, sets deviceIsOnRent to false, sets the rentDateRange to
+ * an array of empty strings, sets addModal to false, and resets the errors and
+ * touched states.
+ *
+ * When the edit modal is closed, the function resets the editSettings state
+ * to an empty string, sets deviceIsOnRent to false, sets the rentDateRange to
+ * an array of empty strings, sets editModal to false, and resets the errors and
+ * touched states.
+ */
   const onClose = () => {
     if (addModal) {
       setAddSettings("");
@@ -581,81 +749,16 @@ export default function Devices() {
       setTouched({});
     }
   };
-  useEffect(() => {
-    const handleResize = () => {
-      setTableHeight(window.innerHeight - 210);
-    };
 
-    handleResize(); // Set initial state
-    window.addEventListener("resize", handleResize);
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  useEffect(() => {
-    console.log("enter", csvUploadInitiated);
-    toast.dismiss();
-    let scount = 0;
-    let ecount = 0;
-    let failedRowIndexes = [];
-    const subscription = gen.subscribe(csvUploadInitiated, ({ data }) => {
-      console.log("enter subs", data);
-      setLoading(true);
-      let dataReceived = JSON.parse(data);
-      if (dataReceived?.rowsInserted) {
-        dataReceived.rowsInserted =
-          (dataReceived?.rowsInserted &&
-            JSON.parse(dataReceived?.rowsInserted)) ||
-          0;
-        scount = scount + dataReceived?.rowsInserted;
-      }
-
-      if (dataReceived?.rowsFailed) {
-        dataReceived.rowsFailed =
-          dataReceived?.rowsFailed && JSON.parse(dataReceived?.rowsFailed);
-        ecount = ecount + dataReceived?.rowsFailed;
-      }
-
-      // get failed index
-      failedRowIndexes = [...failedRowIndexes, ...dataReceived.failures];
-      // finished loop
-      if (dataReceived?.currentChunk == dataReceived?.totalChunks) {
-        setFile(null);
-        setFileName("");
-        setTimeout(async () => {
-          if (ecount > 0) {
-            try {
-              setLoading(true);
-              let csvLink = await api.post("devices/import", {
-                failures: failedRowIndexes,
-              });
-              setDownloadCsvLink(csvLink.data.data.failureFile);
-            } finally {
-              setLoading(false);
-              toast(
-                `${ecount} 行のデータインポートに失敗しました`,
-                errorToastSettings
-              );
-            }
-          }
-          if (ecount == 0 && scount > 0) {
-            toast(intl.user_imported_successfully, successToastSettings);
-          }
-          setImportModal(() => !importModal);
-          subscription.unsubscribe();
-          fetchData();
-        }, 2000);
-
-        setCsvUploadInitiated(() => null);
-        setLoading(false);
-      }
-    });
-    setSubscriptionTrack(subscription);
-    return () => subscription.unsubscribe();
-  }, [csvUploadInitiated]);
-
+/**
+ * Uploads a CSV file containing device data to the server.
+ * @param {object} payload - The payload to be sent to the server, which should
+ * contain the following properties:
+ * - `file`: The base64 encoded CSV file to be uploaded.
+ * - `channel`: The channel to use for the upload. This will be generated
+ * internally by the function.
+ */
   async function uploadCsvFile(payload) {
     setLoading(true);
     try {

@@ -25,12 +25,10 @@ import Modal from "@/components/Modal/modal";
 import TextPlain from "@/components/Input/textPlain";
 import IconLeftBtn from "@/components/Button/iconLeftBtn";
 import { Modal as AntModal } from "antd";
-
 import DropdownMedium from "@/components/Input/dropdownMedium";
 import ImportModal from "@/components/ImportModal/empImport";
 import GetIconQRCode from "@/components/Icons/qrCode";
 import { useRouter } from "next/navigation";
-
 import api from "@/utils/api";
 import { addEmployee, getEmployee } from "@/redux/features/employee";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
@@ -40,7 +38,6 @@ import { decrypt } from "@/utils/decryption";
 import { Button, DatePicker, Popover, Tooltip } from "antd";
 import DeleteIcon from "@/components/Icons/deleteIcon";
 import SearchInput from "@/components/Search/SearchInput";
-
 import Amplify from "@aws-amplify/core";
 import * as gen from "@/generated";
 import { formatDate } from "@/validation/helperFunction";
@@ -53,7 +50,6 @@ import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import AddUser from "@/components/UserAdd/page";
 import CopyButton from "@/components/Icons/copyButton";
-import TerminalSettings from "@/components/TerminalSettingsPopup/page";
 import TerminalSettingsPopup from "@/components/TerminalSettingsPopup/page";
 dayjs.extend(customParseFormat);
 dayjs.extend(isSameOrBefore);
@@ -65,8 +61,6 @@ export default function UserList() {
   const [fileNameError, setFileNameError] = useState(null);
   const [deviceList, setDeviceList] = useState([]);
   const dispatch = useAppDispatch();
-  const fileStyle = { fontWeight: "400", color: "#7B7B7B", fontSize: "12px" };
-  const changeLink = { fontWeight: "700", fontSize: "12px" };
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [comCreated, setComCreated] = useState(false);
@@ -498,396 +492,6 @@ export default function UserList() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
-  function editIcon(flag) {
-    return <AddIcon isMobile={flag} />;
-  }
-
-  const deleteEmployee = async (selectedRows) => {
-    toast.dismiss();
-    if (selectedRows.length <= 0) {
-      toast(intl.user_please_select_user, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        theme: "colored",
-        type: "error",
-      });
-      setDeleteModal(false);
-      return;
-    }
-    const userIds = selectedRows.map((record) => ({
-      id: record.id, // Assuming record has an 'id' property
-    }));
-
-    setLoading(true);
-    try {
-      const response = await api.post(`employees/delete-all`, userIds);
-      setLoading(false);
-      setDeleteModal(false);
-      setSelectAll(false);
-      setSelectedRows([]);
-      setDeleted(true);
-      toast(intl.user_deletion_completed, successToastSettings);
-      Admin ? fetchOrg() : withDeviceDetails([]);
-    } catch (error) {
-      setLoading(false);
-      setDeleteModal(false);
-      toast(
-        error.response?.data?.status?.message
-          ? error.response?.data?.status?.message
-          : error.response.data.message,
-        {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          theme: "colored",
-          type: "error",
-        }
-      );
-    }
-  };
-
-  function handelEdit(record) {
-    setEditModal(() => true);
-  }
-
-  function deleteIcon(flag) {
-    return <DeleteIcon isMobile={flag} />;
-  }
-
-  /**Delete handler */
-  function handelDelete(record) {
-    setRecord(record);
-    setDeleteModal(() => true);
-  }
-
-  const rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
-      //
-    },
-    getCheckboxProps: (record) => ({
-      disabled: record.name === "Disabled User", // Column configuration not to be checked
-      name: record.name,
-    }),
-  };
-
-  function importHandler() {
-    setTimeout(() => {
-      setModelToggle(() => true);
-    }, 500);
-  }
-
-  useEffect(() => {
-    downloadCsvLink && CSVDownloadRef.current.click();
-  }, [downloadCsvLink]);
-
-  async function exportCSVFile() {
-    try {
-      let data;
-      let downloadFileName = exportType == 1 ? ".csv" : ".pdf";
-      let url = exportType == 1 ? "employees/export" : "employees/qr-code";
-      toast.dismiss();
-      if (!csvFileName) {
-        setFileNameError(intl.user_file_name_required);
-        return;
-      }
-      if (!csvFileNameRegex.test(csvFileName)) {
-        setFileNameError(intl.user_check_file_name);
-        return;
-      }
-      setFileNameError("");
-      setLoading(true);
-      if (selectAll) {
-        let ids = selectedRows.map((el) => el.id);
-        data = { ids: ids, filename: csvFileName + downloadFileName };
-      } else if (selectedRows.length > 0) {
-        let ids = selectedRows.map((el) => el.id);
-        data = {
-          ids,
-          filename: csvFileName + downloadFileName,
-        };
-      } else {
-        toast(intl.user_please_select_user, errorToastSettings);
-        setLoading(false);
-        return;
-      }
-      let result = await api.post(url, data);
-      setDownloadCsvLink(result?.data.data.path);
-      const shouldOpenInNewTab = result?.data.data.path.endsWith(".pdf");
-      setIsPdf(shouldOpenInNewTab);
-      setExportModal(() => false);
-      setCsvFileName("");
-      setLoading(false);
-    } catch (err) {
-      setLoading(false);
-      toast(intl.user_file_export_failed, errorToastSettings);
-    }
-  }
-
-  function getExportModalFooter() {
-    return (
-      <div className="px-[40px] pt-[20px] pb-[40px]">
-        <IconLeftBtn
-          text={intl.company_list_company_export_title}
-          textColor={"text-white font-semibold text-[16px] w-full"}
-          py={"py-[11px]"}
-          px={"w-[84%]"}
-          bgColor={"bg-customBlue"}
-          textBold={true}
-          icon={() => {
-            return null;
-          }}
-          onClick={() => {
-            exportCSVFile();
-          }}
-        />
-      </div>
-    );
-  }
-  function getQrModalFooter() {
-    return (
-      <div className="flex gap-x-3">
-        <div>
-          <IconLeftBtn
-            text={intl.help_settings_addition_modal_cancel}
-            textColor={"text-white font-semibold text-[16px] w-full rounded-lg"}
-            py={"py-2"}
-            px={"px-[10.5px] md:px-[17.5px]"}
-            bgColor={"bg-customBlue"}
-            textBold={true}
-            icon={() => {
-              return null;
-            }}
-            onClick={() => {
-              setQrCodeModal(() => false);
-            }}
-          />
-        </div>
-        <div>
-          <IconLeftBtn
-            text={intl.user_download}
-            textColor={"text-white font-semibold text-[16px] w-full rounded-lg"}
-            py={"py-2"}
-            px={"px-[10.5px] md:px-[17.5px]"}
-            bgColor={"bg-customBlue"}
-            textBold={true}
-            icon={() => {
-              return null;
-            }}
-            onClick={() => {
-              setQrCodeModal(() => false);
-            }}
-          />
-        </div>
-      </div>
-    );
-  }
-
-  function getExceededModalFooter() {
-    return (
-      <div className="flex gap-x-3">
-        <div>
-          <IconLeftBtn
-            text={intl.user_remote_wipe_no_btn}
-            textColor={"text-white font-semibold text-[16px] w-full rounded-lg"}
-            py={"py-2"}
-            px={"px-[10.5px] md:px-[17.5px]"}
-            bgColor={"bg-customBlue"}
-            textBold={true}
-            icon={() => {
-              return null;
-            }}
-            onClick={() => {
-              setExceededLimitOfExport(false);
-            }}
-          />
-        </div>
-        <div>
-          <IconLeftBtn
-            text={intl.user_remote_wipe_yes_btn}
-            textColor={"text-white font-semibold text-[16px] w-full rounded-lg"}
-            py={"py-2"}
-            px={"px-[10.5px] md:px-[17.5px]"}
-            bgColor={"bg-customBlue"}
-            textBold={true}
-            icon={() => {
-              return null;
-            }}
-            onClick={() => {
-              setExceededLimitOfExport(false);
-              setConfirmationExport(true);
-              setQrCodeModal(() => false);
-            }}
-          />
-        </div>
-      </div>
-    );
-  }
-
-  function getDeleteModalFooter() {
-    return (
-      <div className="flex flex-col sm:flex-row justify-center gap-4 w-full">
-        <Button
-          key="cancel"
-          className="flex-1 h-[40px] text-[#19388B] border border-[#19388B] hover:bg-[#e0e7ff] focus:outline-none focus:ring-2 focus:ring-[#19388B] focus:ring-opacity-50"
-          onClick={() => {
-            setDeleteModal(() => false);
-          }}
-        >
-          {intl.help_settings_addition_modal_cancel}
-        </Button>
-        <Button
-          key="delete"
-          className="flex-1 bg-[#BA1818] h-[40px] text-white no-hover focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50"
-          onClick={() => {
-            deleteEmployee(selectedRows);
-          }}
-        >
-          {intl.help_settings_addition_delete}({selectedRows.length})
-        </Button>
-      </div>
-    );
-  }
-  function qrCodeIcons() {
-    return <GetIconQRCode />;
-  }
-  function copyIcon() {
-    return (
-      <svg
-        width="16"
-        height="16"
-        viewBox="0 0 16 16"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M6.0385 11.6667C5.70172 11.6667 5.41667 11.5501 5.18333 11.3167C4.95 11.0834 4.83333 10.7984 4.83333 10.4616V2.87191C4.83333 2.53514 4.95 2.25008 5.18333 2.01675C5.41667 1.78341 5.70172 1.66675 6.0385 1.66675H11.6282C11.9649 1.66675 12.25 1.78341 12.4833 2.01675C12.7167 2.25008 12.8333 2.53514 12.8333 2.87191V10.4616C12.8333 10.7984 12.7167 11.0834 12.4833 11.3167C12.25 11.5501 11.9649 11.6667 11.6282 11.6667H6.0385ZM6.0385 10.6667H11.6282C11.6795 10.6667 11.7265 10.6454 11.7692 10.6026C11.8119 10.5599 11.8333 10.5129 11.8333 10.4616V2.87191C11.8333 2.82058 11.8119 2.77358 11.7692 2.73091C11.7265 2.68814 11.6795 2.66675 11.6282 2.66675H6.0385C5.98717 2.66675 5.94017 2.68814 5.8975 2.73091C5.85472 2.77358 5.83333 2.82058 5.83333 2.87191V10.4616C5.83333 10.5129 5.85472 10.5599 5.8975 10.6026C5.94017 10.6454 5.98717 10.6667 6.0385 10.6667ZM3.70517 14.0001C3.36839 14.0001 3.08333 13.8834 2.85 13.6501C2.61667 13.4167 2.5 13.1317 2.5 12.7949V4.70525C2.5 4.56336 2.54789 4.44453 2.64367 4.34875C2.73933 4.25308 2.85811 4.20525 3 4.20525C3.14189 4.20525 3.26072 4.25308 3.3565 4.34875C3.45217 4.44453 3.5 4.56336 3.5 4.70525V12.7949C3.5 12.8462 3.52139 12.8932 3.56417 12.9359C3.60683 12.9787 3.65383 13.0001 3.70517 13.0001H9.79483C9.93672 13.0001 10.0556 13.0479 10.1513 13.1436C10.247 13.2394 10.2948 13.3582 10.2948 13.5001C10.2948 13.642 10.247 13.7607 10.1513 13.8564C10.0556 13.9522 9.93672 14.0001 9.79483 14.0001H3.70517Z"
-          fill="#19388B"
-        />
-      </svg>
-    );
-  }
-  function importIcon() {
-    return (
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <g clip-path="url(#clip0_5185_3186)">
-          <path
-            d="M12.0002 15.4115C11.8797 15.4115 11.7676 15.3923 11.6637 15.3538C11.5599 15.3154 11.4612 15.2494 11.3675 15.1558L8.25799 12.0463C8.10933 11.8974 8.03591 11.7233 8.03774 11.524C8.03974 11.3247 8.11316 11.1474 8.25799 10.9922C8.41316 10.8373 8.59133 10.7572 8.79249 10.752C8.99383 10.7468 9.17208 10.8218 9.32724 10.977L11.2502 12.9V5.25C11.2502 5.03717 11.3221 4.859 11.4657 4.7155C11.6092 4.57183 11.7874 4.5 12.0002 4.5C12.2131 4.5 12.3912 4.57183 12.5347 4.7155C12.6784 4.859 12.7502 5.03717 12.7502 5.25V12.9L14.6732 10.977C14.8221 10.8283 14.9987 10.7549 15.203 10.7568C15.4075 10.7588 15.5873 10.8373 15.7425 10.9922C15.8873 11.1474 15.9623 11.3231 15.9675 11.5192C15.9727 11.7154 15.8977 11.8911 15.7425 12.0463L12.633 15.1558C12.5393 15.2494 12.4406 15.3154 12.3367 15.3538C12.2329 15.3923 12.1207 15.4115 12.0002 15.4115ZM6.30799 19.5C5.80283 19.5 5.37524 19.325 5.02524 18.975C4.67524 18.625 4.50024 18.1974 4.50024 17.6923V15.7308C4.50024 15.5179 4.57208 15.3398 4.71574 15.1962C4.85924 15.0526 5.03741 14.9808 5.25024 14.9808C5.46308 14.9808 5.64124 15.0526 5.78474 15.1962C5.92841 15.3398 6.00024 15.5179 6.00024 15.7308V17.6923C6.00024 17.7692 6.03233 17.8398 6.09649 17.9038C6.16049 17.9679 6.23099 18 6.30799 18H17.6925C17.7695 18 17.84 17.9679 17.904 17.9038C17.9682 17.8398 18.0002 17.7692 18.0002 17.6923V15.7308C18.0002 15.5179 18.0721 15.3398 18.2157 15.1962C18.3592 15.0526 18.5374 14.9808 18.7502 14.9808C18.9631 14.9808 19.1412 15.0526 19.2847 15.1962C19.4284 15.3398 19.5002 15.5179 19.5002 15.7308V17.6923C19.5002 18.1974 19.3252 18.625 18.9752 18.975C18.6252 19.325 18.1977 19.5 17.6925 19.5H6.30799Z"
-            fill="#19388B"
-          />
-        </g>
-        <defs>
-          <clipPath id="clip0_5185_3186">
-            <rect
-              width="24"
-              height="24"
-              fill="white"
-              transform="translate(0.000244141)"
-            />
-          </clipPath>
-        </defs>
-      </svg>
-    );
-  }
-
-  function exportIcon() {
-    return (
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <g clip-path="url(#clip0_5219_7792)">
-          <path
-            d="M6.30775 19.5C5.80258 19.5 5.375 19.325 5.025 18.975C4.675 18.625 4.5 18.1974 4.5 17.6922V15.7307C4.5 15.5179 4.57183 15.3397 4.7155 15.1962C4.859 15.0525 5.03717 14.9807 5.25 14.9807C5.46283 14.9807 5.641 15.0525 5.7845 15.1962C5.92817 15.3397 6 15.5179 6 15.7307V17.6922C6 17.7692 6.03208 17.8397 6.09625 17.9037C6.16025 17.9679 6.23075 18 6.30775 18H17.6923C17.7692 18 17.8398 17.9679 17.9038 17.9037C17.9679 17.8397 18 17.7692 18 17.6922V15.7307C18 15.5179 18.0718 15.3397 18.2155 15.1962C18.359 15.0525 18.5372 14.9807 18.75 14.9807C18.9628 14.9807 19.141 15.0525 19.2845 15.1962C19.4282 15.3397 19.5 15.5179 19.5 15.7307V17.6922C19.5 18.1974 19.325 18.625 18.975 18.975C18.625 19.325 18.1974 19.5 17.6923 19.5H6.30775ZM11.25 7.38845L9.327 9.31145C9.17817 9.46012 9.00158 9.53354 8.79725 9.5317C8.59275 9.5297 8.41292 9.45112 8.25775 9.29595C8.11292 9.14095 8.03792 8.96537 8.03275 8.7692C8.02758 8.57304 8.10258 8.39737 8.25775 8.2422L11.3672 5.1327C11.4609 5.03904 11.5597 4.97304 11.6635 4.9347C11.7673 4.8962 11.8795 4.87695 12 4.87695C12.1205 4.87695 12.2327 4.8962 12.3365 4.9347C12.4403 4.97304 12.5391 5.03904 12.6328 5.1327L15.7423 8.2422C15.8909 8.39087 15.9643 8.56495 15.9625 8.76445C15.9605 8.96379 15.8871 9.14095 15.7423 9.29595C15.5871 9.45112 15.4089 9.53129 15.2078 9.53645C15.0064 9.54162 14.8282 9.46662 14.673 9.31145L12.75 7.38845V15.0385C12.75 15.2513 12.6782 15.4295 12.5345 15.573C12.391 15.7166 12.2128 15.7885 12 15.7885C11.7872 15.7885 11.609 15.7166 11.4655 15.573C11.3218 15.4295 11.25 15.2513 11.25 15.0385V7.38845Z"
-            fill="#19388B"
-          />
-        </g>
-        <defs>
-          <clipPath id="clip0_5219_7792">
-            <rect width="24" height="24" fill="white" />
-          </clipPath>
-        </defs>
-      </svg>
-    );
-  }
-  function settingsIcon() {
-    return (
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <g clip-path="url(#clip0_5691_1807)">
-          <path
-            d="M10.8922 21.5C10.5512 21.5 10.2567 21.3868 10.0087 21.1605C9.76058 20.9343 9.60958 20.6558 9.55574 20.325L9.31149 18.4538C9.04366 18.3641 8.76899 18.2385 8.48749 18.077C8.20616 17.9153 7.95458 17.7423 7.73274 17.5577L5.99999 18.2943C5.68583 18.4328 5.37016 18.4462 5.05299 18.3345C4.73566 18.223 4.48916 18.0205 4.31349 17.727L3.18649 15.773C3.01083 15.4795 2.96024 15.1689 3.03474 14.8413C3.10908 14.5138 3.27958 14.2436 3.54624 14.0308L5.04424 12.9058C5.02124 12.7571 5.00491 12.6077 4.99524 12.4578C4.98558 12.3077 4.98074 12.1583 4.98074 12.0095C4.98074 11.8673 4.98558 11.7228 4.99524 11.576C5.00491 11.4292 5.02124 11.2686 5.04424 11.0943L3.54624 9.96925C3.27958 9.75642 3.11066 9.48458 3.03949 9.15375C2.96833 8.82308 3.02058 8.51092 3.19624 8.21725L4.31349 6.29225C4.48916 6.00508 4.73566 5.80417 5.05299 5.6895C5.37016 5.57467 5.68583 5.5865 5.99999 5.725L7.72299 6.452C7.96416 6.261 8.22158 6.08633 8.49524 5.928C8.76891 5.76967 9.03783 5.64242 9.30199 5.54625L9.55574 3.675C9.60958 3.34417 9.76058 3.06567 10.0087 2.8395C10.2567 2.61317 10.5512 2.5 10.8922 2.5H13.1077C13.4487 2.5 13.7432 2.61317 13.9912 2.8395C14.2394 3.06567 14.3904 3.34417 14.4442 3.675L14.6885 5.55575C14.9885 5.66475 15.2599 5.792 15.5027 5.9375C15.7457 6.083 15.991 6.2545 16.2385 6.452L18.0097 5.725C18.3237 5.5865 18.6394 5.57467 18.9567 5.6895C19.2741 5.80417 19.5205 6.00508 19.696 6.29225L20.8135 8.227C20.9892 8.5205 21.0397 8.83108 20.9652 9.15875C20.8909 9.48625 20.7204 9.75642 20.4537 9.96925L18.9172 11.123C18.9531 11.2845 18.9727 11.4355 18.976 11.576C18.9792 11.7163 18.9807 11.8577 18.9807 12C18.9807 12.1358 18.9775 12.274 18.971 12.4145C18.9647 12.5548 18.9417 12.7154 18.902 12.8963L20.4095 14.0308C20.6762 14.2436 20.8483 14.5138 20.926 14.8413C21.0035 15.1689 20.9544 15.4795 20.7787 15.773L19.646 17.7172C19.4705 18.0109 19.2225 18.2135 18.902 18.325C18.5815 18.4365 18.2642 18.423 17.95 18.2845L16.2385 17.548C15.991 17.7455 15.7384 17.9202 15.4807 18.072C15.2231 18.224 14.959 18.3481 14.6885 18.4443L14.4442 20.325C14.3904 20.6558 14.2394 20.9343 13.9912 21.1605C13.7432 21.3868 13.4487 21.5 13.1077 21.5H10.8922ZM11 20H12.9655L13.325 17.3212C13.8353 17.1879 14.3017 16.9985 14.724 16.753C15.1465 16.5073 15.5539 16.1916 15.9462 15.8057L18.4307 16.85L19.4155 15.15L17.2462 13.5155C17.3296 13.2565 17.3862 13.0026 17.4162 12.7537C17.4464 12.5051 17.4615 12.2538 17.4615 12C17.4615 11.7397 17.4464 11.4884 17.4162 11.2463C17.3862 11.0039 17.3296 10.7564 17.2462 10.5038L19.4345 8.85L18.45 7.15L15.9365 8.2095C15.6018 7.85183 15.2009 7.53583 14.7337 7.2615C14.2664 6.98717 13.7937 6.79292 13.3155 6.67875L13 4H11.0155L10.6845 6.66925C10.1743 6.78975 9.70324 6.97433 9.27124 7.223C8.83908 7.47183 8.42683 7.79233 8.03449 8.1845L5.54999 7.15L4.56549 8.85L6.72499 10.4595C6.64166 10.6968 6.58333 10.9437 6.54999 11.2C6.51666 11.4563 6.49999 11.7262 6.49999 12.0095C6.49999 12.2698 6.51666 12.525 6.54999 12.775C6.58333 13.025 6.63849 13.2718 6.71549 13.5155L4.56549 15.15L5.54999 16.85L8.02499 15.8C8.40449 16.1897 8.81024 16.5089 9.24224 16.7578C9.67441 17.0064 10.152 17.1974 10.675 17.3307L11 20ZM12.0115 15C12.8435 15 13.5515 14.708 14.1355 14.124C14.7195 13.54 15.0115 12.832 15.0115 12C15.0115 11.168 14.7195 10.46 14.1355 9.876C13.5515 9.292 12.8435 9 12.0115 9C11.1692 9 10.4586 9.292 9.87974 9.876C9.30091 10.46 9.01149 11.168 9.01149 12C9.01149 12.832 9.30091 13.54 9.87974 14.124C10.4586 14.708 11.1692 15 12.0115 15Z"
-            fill="#214BB9"
-          />
-        </g>
-        <defs>
-          <clipPath id="clip0_5691_1807">
-            <rect width="24" height="24" fill="white" />
-          </clipPath>
-        </defs>
-      </svg>
-    );
-  }
-
-  const fetchDevice = async () => {
-    toast.dismiss();
-    let deviceListMap = [];
-    setLoading(true);
-    try {
-      const params = {
-        params: {
-          limit: maxLimit,
-          offset: "null",
-        },
-      };
-      const response = await api.get("devices/list", params);
-      setLoading(false);
-      if (response && response.data.status.code == code.OK) {
-        const data = response.data.data;
-        let today = data?.todayDatetodayDate || dayjs().format("YYYY-MM-DD");
-        data.Items.map((item) => {
-          if (item.startDate && item.endDate) {
-            let futureDate = dayjs(today).isBefore(item.startDate);
-            if (!futureDate) {
-              let isValid =
-                dayjs(today).isSameOrBefore(item.endDate) &&
-                dayjs(today).isSameOrAfter(item.startDate);
-              if (!isValid) {
-                item.name = item.name + intl.user_expired;
-                deviceListMap.push(item.id);
-                setDeviceList((prv) => [...prv, item.id]);
-              }
-            }
-          }
-        });
-        return deviceListMap;
-      }
-    } catch (error) {
-      setLoading(false);
-      return [];
-    }
-  };
   useEffect(() => {
     Admin ? fetchOrg() : withDeviceDetails([]);
   }, [count]);
@@ -1010,7 +614,6 @@ export default function UserList() {
     return () => subscription.unsubscribe();
   }, [csvUploadInitiated]);
 
-  // for settings
   useEffect(() => {
     /* eslint-disable no-undef*/
     let hasMap = new Set();
@@ -1077,6 +680,500 @@ export default function UserList() {
     return () => subscription.unsubscribe();
   }, [csvUploadInitiatedSettings]);
 
+/**
+ * Returns an AddIcon component with the isMobile prop set to the given flag.
+ * @param {boolean} flag - whether to render the icon for mobile or not.
+ * @returns {ReactNode} - the rendered AddIcon component.
+ */
+  function editIcon(flag) {
+    return <AddIcon isMobile={flag} />;
+  }
+
+/**
+ * Handles the deletion of employees selected in the table.
+ * Shows a toast error message if no employee is selected.
+ * Sends a POST request to the API to delete the users.
+ * If the response is successful, it sets the deleteModal state to false, sets the selectAll state to false, sets the selectedRows state to an empty array, sets the deleted state to true, shows a toast success message and fetches the data again.
+ * If there is an error, it sets the deleteModal state to false, sets the loading state to false and shows a toast error message.
+ * @param {array} selectedRows - The array of selected employees.
+ */
+  const deleteEmployee = async (selectedRows) => {
+    toast.dismiss();
+    if (selectedRows.length <= 0) {
+      toast(intl.user_please_select_user, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored",
+        type: "error",
+      });
+      setDeleteModal(false);
+      return;
+    }
+    const userIds = selectedRows.map((record) => ({
+      id: record.id, // Assuming record has an 'id' property
+    }));
+
+    setLoading(true);
+    try {
+      const response = await api.post(`employees/delete-all`, userIds);
+      setLoading(false);
+      setDeleteModal(false);
+      setSelectAll(false);
+      setSelectedRows([]);
+      setDeleted(true);
+      toast(intl.user_deletion_completed, successToastSettings);
+      Admin ? fetchOrg() : withDeviceDetails([]);
+    } catch (error) {
+      setLoading(false);
+      setDeleteModal(false);
+      toast(
+        error.response?.data?.status?.message
+          ? error.response?.data?.status?.message
+          : error.response.data.message,
+        {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "colored",
+          type: "error",
+        }
+      );
+    }
+  };
+
+  /**
+   * Set the edit modal to true
+   * @param {object} record - selected record
+   */
+  function handelEdit(record) {
+    setEditModal(() => true);
+  }
+
+  /**
+   * This function returns a DeleteIcon component. If flag is true, the icon is
+   * displayed as a mobile version.
+   * @param {boolean} flag - If true, the DeleteIcon is displayed as a mobile version.
+   * @returns {React.ReactElement} A DeleteIcon component.
+   */
+  function deleteIcon(flag) {
+    return <DeleteIcon isMobile={flag} />;
+  }
+
+
+  /**
+   * Handles the delete button click event.
+   * Sets the record and shows the delete modal.
+   * @param {object} record - The selected record.
+   */
+  function handelDelete(record) {
+    setRecord(record);
+    setDeleteModal(() => true);
+  }
+
+  const rowSelection = {
+    onChange: (selectedRowKeys, selectedRows) => {
+      //
+    },
+    getCheckboxProps: (record) => ({
+      disabled: record.name === "Disabled User", // Column configuration not to be checked
+      name: record.name,
+    }),
+  };
+
+  /**
+   * Handles the import button click event.
+   * Sets the model toggle to true after a 500ms delay.
+   * The delay is used to prevent the model from opening immediately
+   * after the button is clicked, which can cause the user to accidentally
+   * click the button twice.
+   */
+  function importHandler() {
+    setTimeout(() => {
+      setModelToggle(() => true);
+    }, 500);
+  }
+
+  useEffect(() => {
+    downloadCsvLink && CSVDownloadRef.current.click();
+  }, [downloadCsvLink]);
+
+  /**
+   * Exports the selected users to a CSV file.
+   * Checks if the csv file name is valid and shows an error message if not.
+   * If the file name is valid, it makes a POST request to the API to export
+   * the selected users to a CSV file and sets the download link.
+   * Shows a success toast message if the export is successful and an error
+   * toast message if it fails.
+   */
+  async function exportCSVFile() {
+    try {
+      let data;
+      let downloadFileName = exportType == 1 ? ".csv" : ".pdf";
+      let url = exportType == 1 ? "employees/export" : "employees/qr-code";
+      toast.dismiss();
+      if (!csvFileName) {
+        setFileNameError(intl.user_file_name_required);
+        return;
+      }
+      if (!csvFileNameRegex.test(csvFileName)) {
+        setFileNameError(intl.user_check_file_name);
+        return;
+      }
+      setFileNameError("");
+      setLoading(true);
+      if (selectAll) {
+        let ids = selectedRows.map((el) => el.id);
+        data = { ids: ids, filename: csvFileName + downloadFileName };
+      } else if (selectedRows.length > 0) {
+        let ids = selectedRows.map((el) => el.id);
+        data = {
+          ids,
+          filename: csvFileName + downloadFileName,
+        };
+      } else {
+        toast(intl.user_please_select_user, errorToastSettings);
+        setLoading(false);
+        return;
+      }
+      let result = await api.post(url, data);
+      setDownloadCsvLink(result?.data.data.path);
+      const shouldOpenInNewTab = result?.data.data.path.endsWith(".pdf");
+      setIsPdf(shouldOpenInNewTab);
+      setExportModal(() => false);
+      setCsvFileName("");
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      toast(intl.user_file_export_failed, errorToastSettings);
+    }
+  }
+
+  /**
+   * @function
+   * @description Footer of the export modal.
+   * @returns {ReactElement} Footer of the export modal.
+   */
+  function getExportModalFooter() {
+    return (
+      <div className="px-[40px] pt-[20px] pb-[40px]">
+        <IconLeftBtn
+          text={intl.company_list_company_export_title}
+          textColor={"text-white font-semibold text-[16px] w-full"}
+          py={"py-[11px]"}
+          px={"w-[84%]"}
+          bgColor={"bg-customBlue"}
+          textBold={true}
+          icon={() => {
+            return null;
+          }}
+          onClick={() => {
+            exportCSVFile();
+          }}
+        />
+      </div>
+    );
+  }
+  /**
+   * @function
+   * @description Footer of the QR code modal.
+   * @returns {ReactElement} Footer of the QR code modal.
+   */
+  function getQrModalFooter() {
+    return (
+      <div className="flex gap-x-3">
+        <div>
+          <IconLeftBtn
+            text={intl.help_settings_addition_modal_cancel}
+            textColor={"text-white font-semibold text-[16px] w-full rounded-lg"}
+            py={"py-2"}
+            px={"px-[10.5px] md:px-[17.5px]"}
+            bgColor={"bg-customBlue"}
+            textBold={true}
+            icon={() => {
+              return null;
+            }}
+            onClick={() => {
+              setQrCodeModal(() => false);
+            }}
+          />
+        </div>
+        <div>
+          <IconLeftBtn
+            text={intl.user_download}
+            textColor={"text-white font-semibold text-[16px] w-full rounded-lg"}
+            py={"py-2"}
+            px={"px-[10.5px] md:px-[17.5px]"}
+            bgColor={"bg-customBlue"}
+            textBold={true}
+            icon={() => {
+              return null;
+            }}
+            onClick={() => {
+              setQrCodeModal(() => false);
+            }}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  /**
+   * @function
+   * @description Footer of the exceeded limit modal.
+   * @returns {ReactElement} Footer of the exceeded limit modal.
+   */
+  function getExceededModalFooter() {
+    return (
+      <div className="flex gap-x-3">
+        <div>
+          <IconLeftBtn
+            text={intl.user_remote_wipe_no_btn}
+            textColor={"text-white font-semibold text-[16px] w-full rounded-lg"}
+            py={"py-2"}
+            px={"px-[10.5px] md:px-[17.5px]"}
+            bgColor={"bg-customBlue"}
+            textBold={true}
+            icon={() => {
+              return null;
+            }}
+            onClick={() => {
+              setExceededLimitOfExport(false);
+            }}
+          />
+        </div>
+        <div>
+          <IconLeftBtn
+            text={intl.user_remote_wipe_yes_btn}
+            textColor={"text-white font-semibold text-[16px] w-full rounded-lg"}
+            py={"py-2"}
+            px={"px-[10.5px] md:px-[17.5px]"}
+            bgColor={"bg-customBlue"}
+            textBold={true}
+            icon={() => {
+              return null;
+            }}
+            onClick={() => {
+              setExceededLimitOfExport(false);
+              setConfirmationExport(true);
+              setQrCodeModal(() => false);
+            }}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  /**
+   * @function
+   * @description Footer of the delete modal.
+   * @returns {ReactElement} Footer of the delete modal.
+   */
+  function getDeleteModalFooter() {
+    return (
+      <div className="flex flex-col sm:flex-row justify-center gap-4 w-full">
+        <Button
+          key="cancel"
+          className="flex-1 h-[40px] text-[#19388B] border border-[#19388B] hover:bg-[#e0e7ff] focus:outline-none focus:ring-2 focus:ring-[#19388B] focus:ring-opacity-50"
+          onClick={() => {
+            setDeleteModal(() => false);
+          }}
+        >
+          {intl.help_settings_addition_modal_cancel}
+        </Button>
+        <Button
+          key="delete"
+          className="flex-1 bg-[#BA1818] h-[40px] text-white no-hover focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50"
+          onClick={() => {
+            deleteEmployee(selectedRows);
+          }}
+        >
+          {intl.help_settings_addition_delete}({selectedRows.length})
+        </Button>
+      </div>
+    );
+  }
+  /**
+   * @function
+   * @description Return a GetIconQRCode component.
+   * @returns {ReactElement} A GetIconQRCode component.
+   */
+  function qrCodeIcons() {
+    return <GetIconQRCode />;
+  }
+  /**
+   * @function
+   * @description Return a CopyButton component.
+   * @returns {ReactElement} A CopyButton component.
+   */
+  function copyIcon() {
+    return (
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M6.0385 11.6667C5.70172 11.6667 5.41667 11.5501 5.18333 11.3167C4.95 11.0834 4.83333 10.7984 4.83333 10.4616V2.87191C4.83333 2.53514 4.95 2.25008 5.18333 2.01675C5.41667 1.78341 5.70172 1.66675 6.0385 1.66675H11.6282C11.9649 1.66675 12.25 1.78341 12.4833 2.01675C12.7167 2.25008 12.8333 2.53514 12.8333 2.87191V10.4616C12.8333 10.7984 12.7167 11.0834 12.4833 11.3167C12.25 11.5501 11.9649 11.6667 11.6282 11.6667H6.0385ZM6.0385 10.6667H11.6282C11.6795 10.6667 11.7265 10.6454 11.7692 10.6026C11.8119 10.5599 11.8333 10.5129 11.8333 10.4616V2.87191C11.8333 2.82058 11.8119 2.77358 11.7692 2.73091C11.7265 2.68814 11.6795 2.66675 11.6282 2.66675H6.0385C5.98717 2.66675 5.94017 2.68814 5.8975 2.73091C5.85472 2.77358 5.83333 2.82058 5.83333 2.87191V10.4616C5.83333 10.5129 5.85472 10.5599 5.8975 10.6026C5.94017 10.6454 5.98717 10.6667 6.0385 10.6667ZM3.70517 14.0001C3.36839 14.0001 3.08333 13.8834 2.85 13.6501C2.61667 13.4167 2.5 13.1317 2.5 12.7949V4.70525C2.5 4.56336 2.54789 4.44453 2.64367 4.34875C2.73933 4.25308 2.85811 4.20525 3 4.20525C3.14189 4.20525 3.26072 4.25308 3.3565 4.34875C3.45217 4.44453 3.5 4.56336 3.5 4.70525V12.7949C3.5 12.8462 3.52139 12.8932 3.56417 12.9359C3.60683 12.9787 3.65383 13.0001 3.70517 13.0001H9.79483C9.93672 13.0001 10.0556 13.0479 10.1513 13.1436C10.247 13.2394 10.2948 13.3582 10.2948 13.5001C10.2948 13.642 10.247 13.7607 10.1513 13.8564C10.0556 13.9522 9.93672 14.0001 9.79483 14.0001H3.70517Z"
+          fill="#19388B"
+        />
+      </svg>
+    );
+  }
+  /**
+   * @function
+   * @description Return an ImportIcon component.
+   * @returns {ReactElement} An ImportIcon component.
+   */
+  function importIcon() {
+    return (
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g clip-path="url(#clip0_5185_3186)">
+          <path
+            d="M12.0002 15.4115C11.8797 15.4115 11.7676 15.3923 11.6637 15.3538C11.5599 15.3154 11.4612 15.2494 11.3675 15.1558L8.25799 12.0463C8.10933 11.8974 8.03591 11.7233 8.03774 11.524C8.03974 11.3247 8.11316 11.1474 8.25799 10.9922C8.41316 10.8373 8.59133 10.7572 8.79249 10.752C8.99383 10.7468 9.17208 10.8218 9.32724 10.977L11.2502 12.9V5.25C11.2502 5.03717 11.3221 4.859 11.4657 4.7155C11.6092 4.57183 11.7874 4.5 12.0002 4.5C12.2131 4.5 12.3912 4.57183 12.5347 4.7155C12.6784 4.859 12.7502 5.03717 12.7502 5.25V12.9L14.6732 10.977C14.8221 10.8283 14.9987 10.7549 15.203 10.7568C15.4075 10.7588 15.5873 10.8373 15.7425 10.9922C15.8873 11.1474 15.9623 11.3231 15.9675 11.5192C15.9727 11.7154 15.8977 11.8911 15.7425 12.0463L12.633 15.1558C12.5393 15.2494 12.4406 15.3154 12.3367 15.3538C12.2329 15.3923 12.1207 15.4115 12.0002 15.4115ZM6.30799 19.5C5.80283 19.5 5.37524 19.325 5.02524 18.975C4.67524 18.625 4.50024 18.1974 4.50024 17.6923V15.7308C4.50024 15.5179 4.57208 15.3398 4.71574 15.1962C4.85924 15.0526 5.03741 14.9808 5.25024 14.9808C5.46308 14.9808 5.64124 15.0526 5.78474 15.1962C5.92841 15.3398 6.00024 15.5179 6.00024 15.7308V17.6923C6.00024 17.7692 6.03233 17.8398 6.09649 17.9038C6.16049 17.9679 6.23099 18 6.30799 18H17.6925C17.7695 18 17.84 17.9679 17.904 17.9038C17.9682 17.8398 18.0002 17.7692 18.0002 17.6923V15.7308C18.0002 15.5179 18.0721 15.3398 18.2157 15.1962C18.3592 15.0526 18.5374 14.9808 18.7502 14.9808C18.9631 14.9808 19.1412 15.0526 19.2847 15.1962C19.4284 15.3398 19.5002 15.5179 19.5002 15.7308V17.6923C19.5002 18.1974 19.3252 18.625 18.9752 18.975C18.6252 19.325 18.1977 19.5 17.6925 19.5H6.30799Z"
+            fill="#19388B"
+          />
+        </g>
+        <defs>
+          <clipPath id="clip0_5185_3186">
+            <rect
+              width="24"
+              height="24"
+              fill="white"
+              transform="translate(0.000244141)"
+            />
+          </clipPath>
+        </defs>
+      </svg>
+    );
+  }
+
+
+/**
+ * @function
+ * @description Return an ExportIcon component.
+ * @returns {ReactElement} An ExportIcon component.
+ */
+  function exportIcon() {
+    return (
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g clip-path="url(#clip0_5219_7792)">
+          <path
+            d="M6.30775 19.5C5.80258 19.5 5.375 19.325 5.025 18.975C4.675 18.625 4.5 18.1974 4.5 17.6922V15.7307C4.5 15.5179 4.57183 15.3397 4.7155 15.1962C4.859 15.0525 5.03717 14.9807 5.25 14.9807C5.46283 14.9807 5.641 15.0525 5.7845 15.1962C5.92817 15.3397 6 15.5179 6 15.7307V17.6922C6 17.7692 6.03208 17.8397 6.09625 17.9037C6.16025 17.9679 6.23075 18 6.30775 18H17.6923C17.7692 18 17.8398 17.9679 17.9038 17.9037C17.9679 17.8397 18 17.7692 18 17.6922V15.7307C18 15.5179 18.0718 15.3397 18.2155 15.1962C18.359 15.0525 18.5372 14.9807 18.75 14.9807C18.9628 14.9807 19.141 15.0525 19.2845 15.1962C19.4282 15.3397 19.5 15.5179 19.5 15.7307V17.6922C19.5 18.1974 19.325 18.625 18.975 18.975C18.625 19.325 18.1974 19.5 17.6923 19.5H6.30775ZM11.25 7.38845L9.327 9.31145C9.17817 9.46012 9.00158 9.53354 8.79725 9.5317C8.59275 9.5297 8.41292 9.45112 8.25775 9.29595C8.11292 9.14095 8.03792 8.96537 8.03275 8.7692C8.02758 8.57304 8.10258 8.39737 8.25775 8.2422L11.3672 5.1327C11.4609 5.03904 11.5597 4.97304 11.6635 4.9347C11.7673 4.8962 11.8795 4.87695 12 4.87695C12.1205 4.87695 12.2327 4.8962 12.3365 4.9347C12.4403 4.97304 12.5391 5.03904 12.6328 5.1327L15.7423 8.2422C15.8909 8.39087 15.9643 8.56495 15.9625 8.76445C15.9605 8.96379 15.8871 9.14095 15.7423 9.29595C15.5871 9.45112 15.4089 9.53129 15.2078 9.53645C15.0064 9.54162 14.8282 9.46662 14.673 9.31145L12.75 7.38845V15.0385C12.75 15.2513 12.6782 15.4295 12.5345 15.573C12.391 15.7166 12.2128 15.7885 12 15.7885C11.7872 15.7885 11.609 15.7166 11.4655 15.573C11.3218 15.4295 11.25 15.2513 11.25 15.0385V7.38845Z"
+            fill="#19388B"
+          />
+        </g>
+        <defs>
+          <clipPath id="clip0_5219_7792">
+            <rect width="24" height="24" fill="white" />
+          </clipPath>
+        </defs>
+      </svg>
+    );
+  }
+
+/**
+ * @function
+ * @description Return an settingsIcon component.
+ * @returns {ReactElement} An settingsIcon component.
+ */
+  function settingsIcon() {
+    return (
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g clip-path="url(#clip0_5691_1807)">
+          <path
+            d="M10.8922 21.5C10.5512 21.5 10.2567 21.3868 10.0087 21.1605C9.76058 20.9343 9.60958 20.6558 9.55574 20.325L9.31149 18.4538C9.04366 18.3641 8.76899 18.2385 8.48749 18.077C8.20616 17.9153 7.95458 17.7423 7.73274 17.5577L5.99999 18.2943C5.68583 18.4328 5.37016 18.4462 5.05299 18.3345C4.73566 18.223 4.48916 18.0205 4.31349 17.727L3.18649 15.773C3.01083 15.4795 2.96024 15.1689 3.03474 14.8413C3.10908 14.5138 3.27958 14.2436 3.54624 14.0308L5.04424 12.9058C5.02124 12.7571 5.00491 12.6077 4.99524 12.4578C4.98558 12.3077 4.98074 12.1583 4.98074 12.0095C4.98074 11.8673 4.98558 11.7228 4.99524 11.576C5.00491 11.4292 5.02124 11.2686 5.04424 11.0943L3.54624 9.96925C3.27958 9.75642 3.11066 9.48458 3.03949 9.15375C2.96833 8.82308 3.02058 8.51092 3.19624 8.21725L4.31349 6.29225C4.48916 6.00508 4.73566 5.80417 5.05299 5.6895C5.37016 5.57467 5.68583 5.5865 5.99999 5.725L7.72299 6.452C7.96416 6.261 8.22158 6.08633 8.49524 5.928C8.76891 5.76967 9.03783 5.64242 9.30199 5.54625L9.55574 3.675C9.60958 3.34417 9.76058 3.06567 10.0087 2.8395C10.2567 2.61317 10.5512 2.5 10.8922 2.5H13.1077C13.4487 2.5 13.7432 2.61317 13.9912 2.8395C14.2394 3.06567 14.3904 3.34417 14.4442 3.675L14.6885 5.55575C14.9885 5.66475 15.2599 5.792 15.5027 5.9375C15.7457 6.083 15.991 6.2545 16.2385 6.452L18.0097 5.725C18.3237 5.5865 18.6394 5.57467 18.9567 5.6895C19.2741 5.80417 19.5205 6.00508 19.696 6.29225L20.8135 8.227C20.9892 8.5205 21.0397 8.83108 20.9652 9.15875C20.8909 9.48625 20.7204 9.75642 20.4537 9.96925L18.9172 11.123C18.9531 11.2845 18.9727 11.4355 18.976 11.576C18.9792 11.7163 18.9807 11.8577 18.9807 12C18.9807 12.1358 18.9775 12.274 18.971 12.4145C18.9647 12.5548 18.9417 12.7154 18.902 12.8963L20.4095 14.0308C20.6762 14.2436 20.8483 14.5138 20.926 14.8413C21.0035 15.1689 20.9544 15.4795 20.7787 15.773L19.646 17.7172C19.4705 18.0109 19.2225 18.2135 18.902 18.325C18.5815 18.4365 18.2642 18.423 17.95 18.2845L16.2385 17.548C15.991 17.7455 15.7384 17.9202 15.4807 18.072C15.2231 18.224 14.959 18.3481 14.6885 18.4443L14.4442 20.325C14.3904 20.6558 14.2394 20.9343 13.9912 21.1605C13.7432 21.3868 13.4487 21.5 13.1077 21.5H10.8922ZM11 20H12.9655L13.325 17.3212C13.8353 17.1879 14.3017 16.9985 14.724 16.753C15.1465 16.5073 15.5539 16.1916 15.9462 15.8057L18.4307 16.85L19.4155 15.15L17.2462 13.5155C17.3296 13.2565 17.3862 13.0026 17.4162 12.7537C17.4464 12.5051 17.4615 12.2538 17.4615 12C17.4615 11.7397 17.4464 11.4884 17.4162 11.2463C17.3862 11.0039 17.3296 10.7564 17.2462 10.5038L19.4345 8.85L18.45 7.15L15.9365 8.2095C15.6018 7.85183 15.2009 7.53583 14.7337 7.2615C14.2664 6.98717 13.7937 6.79292 13.3155 6.67875L13 4H11.0155L10.6845 6.66925C10.1743 6.78975 9.70324 6.97433 9.27124 7.223C8.83908 7.47183 8.42683 7.79233 8.03449 8.1845L5.54999 7.15L4.56549 8.85L6.72499 10.4595C6.64166 10.6968 6.58333 10.9437 6.54999 11.2C6.51666 11.4563 6.49999 11.7262 6.49999 12.0095C6.49999 12.2698 6.51666 12.525 6.54999 12.775C6.58333 13.025 6.63849 13.2718 6.71549 13.5155L4.56549 15.15L5.54999 16.85L8.02499 15.8C8.40449 16.1897 8.81024 16.5089 9.24224 16.7578C9.67441 17.0064 10.152 17.1974 10.675 17.3307L11 20ZM12.0115 15C12.8435 15 13.5515 14.708 14.1355 14.124C14.7195 13.54 15.0115 12.832 15.0115 12C15.0115 11.168 14.7195 10.46 14.1355 9.876C13.5515 9.292 12.8435 9 12.0115 9C11.1692 9 10.4586 9.292 9.87974 9.876C9.30091 10.46 9.01149 11.168 9.01149 12C9.01149 12.832 9.30091 13.54 9.87974 14.124C10.4586 14.708 11.1692 15 12.0115 15Z"
+            fill="#214BB9"
+          />
+        </g>
+        <defs>
+          <clipPath id="clip0_5691_1807">
+            <rect width="24" height="24" fill="white" />
+          </clipPath>
+        </defs>
+      </svg>
+    );
+  }
+
+
+  /**
+ * Fetches a list of devices and processes their expiration dates.
+ * 
+ * @async
+ * @returns {Promise<Array<string>>} An array of IDs of expired devices.
+ */
+  const fetchDevice = async () => {
+    toast.dismiss();
+    let deviceListMap = [];
+    setLoading(true);
+    try {
+      const params = {
+        params: {
+          limit: maxLimit,
+          offset: "null",
+        },
+      };
+      const response = await api.get("devices/list", params);
+      setLoading(false);
+      if (response && response.data.status.code == code.OK) {
+        const data = response.data.data;
+        let today = data?.todayDatetodayDate || dayjs().format("YYYY-MM-DD");
+        data.Items.map((item) => {
+          if (item.startDate && item.endDate) {
+            let futureDate = dayjs(today).isBefore(item.startDate);
+            if (!futureDate) {
+              let isValid =
+                dayjs(today).isSameOrBefore(item.endDate) &&
+                dayjs(today).isSameOrAfter(item.startDate);
+              if (!isValid) {
+                item.name = item.name + intl.user_expired;
+                deviceListMap.push(item.id);
+                setDeviceList((prv) => [...prv, item.id]);
+              }
+            }
+          }
+        });
+        return deviceListMap;
+      }
+    } catch (error) {
+      setLoading(false);
+      return [];
+    }
+  };
+
+
+  /**
+   * Fetches a list of organizations and updates the device list.
+   * 
+   * @async
+   * @returns {Promise<void>}
+   */
   const fetchOrg = async () => {
     try {
       setLoading(true);
@@ -1091,6 +1188,15 @@ export default function UserList() {
     }
   };
 
+  /**
+   * Finds the name of an organization by its ID in the given list of
+   * organizations.
+   * 
+   * @param {string} orgId The ID of the organization to find.
+   * @param {Array} projectionList The list of organizations to search in.
+   * @returns {string} The name of the organization if found, otherwise an empty
+   * string.
+   */
   function findName(orgId, projectionList) {
     let orgName = projectionList.find((el) => el.id == orgId);
     if (orgName?.name) {
@@ -1102,6 +1208,15 @@ export default function UserList() {
   let offset = "null";
   let all = [];
 
+  /**
+   * Fetches a list of expired device IDs and calls the fetchData function
+   * with the given list of organizations and the expired device IDs.
+   * 
+   * @async
+   * @param {Array} projectionList The list of organizations to pass to the
+   * fetchData function.
+   * @returns {Promise<void>}
+   */
   async function withDeviceDetails(projectionList) {
     try {
       let expiredDeviceIds = await fetchDevice();
@@ -1110,6 +1225,19 @@ export default function UserList() {
       console.log(err);
     }
   }
+  /**
+   * Fetches a list of employees and their details from the API, given a list of
+   * organizations and a list of expired device IDs. If the API response does not
+   * contain the end of the list, it calls itself with the offset from the
+   * response and the same list of organizations and expired device IDs.
+   * 
+   * @async
+   * @param {Array} projectionList The list of organizations to pass to the
+   * API.
+   * @param {Array} expDeviceList The list of expired device IDs to pass to the
+   * API.
+   * @returns {Promise<void>}
+   */
   const fetchData = async (projectionList, expDeviceList) => {
     setLoading(true);
     try {
@@ -1178,6 +1306,10 @@ export default function UserList() {
     }
   };
 
+/**
+ * Update search payload state with new value
+ * @param {object} event - form event
+ */
   const updateSearchPayload = (event) => {
     setSearchPayload({
       ...searchPayload,
@@ -1185,6 +1317,16 @@ export default function UserList() {
     });
   };
 
+  /**
+   * @function
+   * @param {string} cls - class name for the icon
+   * @returns {ReactElement} - SVG icon element
+   * @description
+   * This function returns an SVG icon element with the specified class.
+   * The icon is a white, 14x14, svg that is used in the list of employees.
+   * The svg is created from a path element with a fill-rule and clip-rule of "evenodd".
+   * The path is a complex shape that represents the icon.
+   */
   function getIconWithClass(cls) {
     return (
       <svg
@@ -1207,6 +1349,17 @@ export default function UserList() {
 
   let offsetSearch = "null";
   let allData = [];
+
+  /**
+   * Search Employee
+   * @param {React.FormEvent<HTMLFormElement>} e - Form event
+   * @description
+   * This function is used to search employees based on the search criteria provided in the form.
+   * The function sends a POST request to the server with the search criteria and returns the result.
+   * If the result is success, it will update the employee data state and set the loading state to false.
+   * If the result is failed, it will set the error message state and set the loading state to false.
+   * @returns {Promise<void>}
+   */
   const searchEmployee = async (e) => {
     e?.preventDefault();
     setLoading(true);
@@ -1307,7 +1460,12 @@ export default function UserList() {
     }
   };
 
-  // import Function
+ 
+  /**
+   * Handles the import modal submission event.
+   * Converts the uploaded file to base64 and calls the appropriate upload function.
+   * @param {File} file - The uploaded file.
+   */
   const handelImport = async (file) => {
     let files;
 
@@ -1365,6 +1523,19 @@ export default function UserList() {
     }
   };
 
+  /**
+   * Uploads a CSV file containing user data to the server.
+   * 
+   * @param {object} payload - The payload to be sent to the server, which should
+   * contain the following properties:
+   * - `file`: The base64 encoded CSV file to be uploaded.
+   * - `channel`: The channel to use for the upload. This will be generated
+   * internally by the function.
+   * - `operation`: The operation to be performed on the server. This should be
+   * set to "dynamic" for uploading user data.
+   * - `ids`: An array of IDs of the users to be updated. If this is provided, the
+   * server will update the existing users with the provided data.
+   */
   async function uploadCsvFile(payload) {
     try {
       setLoading(true);
@@ -1380,6 +1551,17 @@ export default function UserList() {
     }
   }
 
+  /**
+   * Uploads a CSV file containing user setting data to the server.
+   * 
+   * @param {object} payload - The payload to be sent to the server, which should
+   * contain the following properties:
+   * - `file`: The base64 encoded CSV file to be uploaded.
+   * - `channel`: The channel to use for the upload. This will be generated
+   * internally by the function.
+   * - `operation`: The operation to be performed on the server. This should be
+   * set to "dynamic" for uploading user setting data.
+   */
   async function uploadSettingCsvFile(payload) {
     try {
       setLoading(true);
@@ -1394,6 +1576,15 @@ export default function UserList() {
     }
   }
 
+  /**
+   * Uploads a CSV file containing group data to the server.
+   * 
+   * @param {object} payload - The payload to be sent to the server, which should
+   * contain the following properties:
+   * - `file`: The base64 encoded CSV file to be uploaded.
+   * - `channel`: The channel to use for the upload. This will be generated
+   * internally by the function.
+   */
   async function uploadGroupCsvFile(payload) {
     try {
       setLoading(true);
@@ -1408,6 +1599,15 @@ export default function UserList() {
     }
   }
 
+  /**
+   * Uploads a CSV file containing contact data to the server.
+   * 
+   * @param {object} payload - The payload to be sent to the server, which should
+   * contain the following properties:
+   * - `file`: The base64 encoded CSV file to be uploaded.
+   * - `channel`: The channel to use for the upload. This will be generated
+   * internally by the function.
+   */
   async function uploadContactCsvFile(payload) {
     try {
       setLoading(true);
@@ -1422,6 +1622,11 @@ export default function UserList() {
     }
   }
 
+  /**
+   * Converts a given file to a base64 encoded string.
+   * @param {File} file - The file to be converted.
+   * @returns {Promise<string>} A promise resolving to the base64 encoded string.
+   */
   const convertBase64 = function (file) {
     /* eslint-disable no-undef*/
     return new Promise((resolve) => {
