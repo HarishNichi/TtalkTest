@@ -179,6 +179,7 @@
   "user_failed_to_import": "行のデータインポートに失敗しました",
   "set_quick_ppt_names": "クイックPTT名称を設定",
   "tap": "タップ",
+
   "long_press": "長押し（2秒）",
   "long_press_5s": "長押し（5秒）",
   "user_import_failed": "インポートに失敗しました",
