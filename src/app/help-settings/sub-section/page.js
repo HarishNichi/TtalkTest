@@ -49,6 +49,19 @@ export default function Subsection() {
   const fileUploadCardRef = useRef(null);
   const [tabKey, setTabKey] = useState("1");
   const [showDetails, setShowDetails] = useState(false);
+  const schema = Yup.object().shape({
+    sectionName: Yup.string()
+      .required(intl.validation_required)
+      .matches(MAX_100_LENGTH_PATTERN.regex, MAX_100_LENGTH_PATTERN.message),
+    editorValue: Yup.string().required(intl.validation_required),
+  });
+  const [fieldsToShow, setFieldsToShow] = useState(0);
+  const HeaderButton = {
+    color: "#fff",
+  };
+
+  const [selectedTab, setSelectedTab] = useState(null);
+  const [sectionName, setSectionName] = useState("");
 
   const { TabPane } = Tabs;
 
@@ -94,13 +107,7 @@ export default function Subsection() {
     setShowDetails(true);
   };
 
-  const schema = Yup.object().shape({
-    sectionName: Yup.string()
-      .required(intl.validation_required)
-      .matches(MAX_100_LENGTH_PATTERN.regex, MAX_100_LENGTH_PATTERN.message),
-    editorValue: Yup.string().required(intl.validation_required),
-  });
-  const [fieldsToShow, setFieldsToShow] = useState(0);
+
 
   /**
    * Handles the click event of the add button.
@@ -194,12 +201,7 @@ export default function Subsection() {
     );
   }
 
-  const HeaderButton = {
-    color: "#fff",
-  };
 
-  const [selectedTab, setSelectedTab] = useState(null);
-  const [sectionName, setSectionName] = useState("");
 
   /**
    * @function
