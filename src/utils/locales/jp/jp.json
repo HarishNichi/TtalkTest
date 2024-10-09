@@ -45,6 +45,7 @@
   "user_logs_date_time": "日付時刻",
   "company_list_company_import": "インポート",
   "company_list_sos_location": "SOS位置情報",
+  "location_information": "位置情報",
   "helper_sub_section_terminal_help_list": "端末ヘルプ一覧",
   "user_group_mongst_list_grp_name": "グループ名",
   "user_group_mongst_list_grp_title": "グループ情報",
@@ -97,6 +98,7 @@
   "form_component_fleet_number": "フリート番号",
   "form_component_usercount_label": "ユーザー数",
   "form_component_simulataneous_intepretation": "同時通訳",
+  "sos_regular_time": "SOS定期時間",
   "dashboard_card_number_of_companies_label": "会社数",
   "dashboard_card_number_of_connections_label": "接続数",
   "dashboard_card_active_connection_label": "アクティブな接続",
@@ -175,8 +177,14 @@
   "user_imported_successfully": "正常にインポートされました。",
   "groups_last_call": "最終発呼・同時待受グループ",
   "user_failed_to_import": "行のデータインポートに失敗しました",
+  "set_quick_ppt_names": "クイックPTT名称を設定",
+  "tap": "タップ",
+  "long_press": "長押し（2秒）",
+  "long_press_5s": "長押し（5秒）",
   "user_import_failed": "インポートに失敗しました",
   "group_select": "グループを選択してください。",
+  "select_group": "グループを選択",
+  "last_history": "最終履歴",
   "user_sos_volume_btn_increase": "音量ボタンを長押し(+)",
   "user_sos_destination_label": "保存先",
   "user_sos_designation_ptt_option1": "指定PTT番号",
@@ -199,9 +207,11 @@
   "user_voice_recording_storage_label": "録音ファイルの保存容量",
   "user_voice_recording_storage_location": "保存場所",
   "user_details": "ユーザー詳細",
-
+  "mike_icon": "マイクアイコン",
+  "mikecall": "マイクアイコン＋通話",
   "web_test_screen_label": "会社の数",
   "card_graphcard_calls_per_month": "月あたりの通話数",
+  "call": "通話",
   "card_graphcard_avg_calls_per_month": "月における1日の平均通話数",
   "card_graphcard_calls_per_day": "1日あたりの通話数 -",
   "card_graphcard_past_28days": "過去の28日",
@@ -221,6 +231,10 @@
   "dashboard_layout_search_btn": "検索",
   "user_selectAll": "すべて選択",
   "contacts_selcet_contact": "連絡先を選択してください",
+  "select_contacts": "連絡先を選択",
+
+  "designated_group": "指定グループ",
+  "sos_call": "SOSコール",
   "components_card_searchlist_companylist": "会社一覧",
   "user_add_company_name": "会社名",
   "user_history_settings_file_name": "ファイル名",
@@ -297,7 +311,7 @@
   "contacts_selcet_record": "レコードを選択してください",
   "groups_export_success": "エクスポートが成功しました",
   "user_usage_start_date": "利用開始日(YYYY/MM/DD)",
-  
+
   "usage_start_date": "利用開始日",
   "start_date": "開始日",
   "end_date": "終了日",
@@ -380,5 +394,5 @@
   "device_delete_device": "選択した端末を削除しますか",
   "sidebar_corporate_management": "企業管理",
   "password_placeholder": "パスワード",
-  "current_password":"今のパスワード"
+  "current_password": "今のパスワード"
 }

@@ -63,7 +63,6 @@ export default function Login() {
     validateHandler(modalSchema, modalValues, setModalErrors);
   }, [modalEmail]);
 
-
   /**
    * Handles changes in the input fields. If the name of the input field that
    * changed is 'id', it updates the state variable id. If the name of the input
@@ -96,7 +95,6 @@ export default function Login() {
     }
     setModalTouched((prevTouched) => ({ ...prevTouched, modalEmail: true }));
   };
-
 
   /**
    * Handles the form submission. It prevents the default form submission
@@ -244,7 +242,6 @@ export default function Login() {
     setIsModalOpen(false);
   };
 
-
   /**
    * Handles the click event on the forgot password link.
    * Sets the isModalOpen state to true, which opens the forgot password modal.
@@ -252,7 +249,6 @@ export default function Login() {
   const handleForgotPasswordClick = () => {
     setIsModalOpen(true);
   };
-
 
   /**
    * Handles the submit event on the forgot password form.
@@ -288,7 +284,7 @@ export default function Login() {
       setTouched({ modalEmail: true });
     }
   };
-  
+
   return (
     <>
       {loading && <LoaderOverlay />}

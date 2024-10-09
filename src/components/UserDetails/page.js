@@ -282,7 +282,7 @@ export default function UserDetails() {
                 dayjs(today).isSameOrBefore(item.endDate) &&
                 dayjs(today).isSameOrAfter(item.startDate);
               if (!isValid) {
-                item.name = item.name + " - 期限切れ";
+                item.name = item.name + intl.user_expired;
               }
             }
           }
@@ -522,96 +522,96 @@ export default function UserDetails() {
     <>
       {loading && <LoaderOverlay />}
       <div className="bg-white shadow-lg  p-[24px]">
-      <div className="flex flex-row w-full justify-end">
-        <IconOutlineBtn
-          text={intl.help_settings_addition_modal_edit}
-          textColor={"border-none text-customBlue"}
-          textBold={true}
-          py={"xl:py-2.5 md:py-1.5 py-1.5"}
-          px={"xl:px-[20px] md:px-[22.5px] px-[22.5px] "}
-          icon={() => editIcon()}
-          borderColor={"bg-white"}
-          onClick={() => {
-            setIsModalOpen(true);
-          }}
-        />
-     </div>
-      <div className="flex flex-col md:flex-row ">
-        {/* Left Column */}
-        <div className="flex flex-col w-full ">
-          <DataSection
-            label={intl.login_email_placeholder}
-            value={userDetails?.userId || "-"}
-          />
-          <DataSection
-            label={intl.user_name}
-            value={userDetails?.userName || "-"}
-          />
-          <DataSection
-            label={intl.furigana}
-            value={userDetails?.furigana || "-"}
-          />
-          <DataSection
-            label={intl.company_list_company_radioNumber}
-            value={userDetails?.radioNumber || "-"}
-          />
-
-          <DataSection
-            label={intl.form_component_company_name_label}
-            value={userDetails?.companyName || "-"}
-          />
-          <DataSection
-            label={intl.machineName}
-            value={deviceName(userDetails?.device?.id) || "-"}
-          />
-
-          <DataSection
-            label={intl.user_add_specify_label}
-            value={userDetails?.designation || "-"}
-          />
-          <DataSection
-            label={intl.user_email_id_label}
-            value={userDetails?.email || "-"}
+        <div className="flex flex-row w-full justify-end">
+          <IconOutlineBtn
+            text={intl.help_settings_addition_modal_edit}
+            textColor={"border-none text-customBlue"}
+            textBold={true}
+            py={"xl:py-2.5 md:py-1.5 py-1.5"}
+            px={"xl:px-[20px] md:px-[22.5px] px-[22.5px] "}
+            icon={() => editIcon()}
+            borderColor={"bg-white"}
+            onClick={() => {
+              setIsModalOpen(true);
+            }}
           />
         </div>
+        <div className="flex flex-col md:flex-row ">
+          {/* Left Column */}
+          <div className="flex flex-col w-full ">
+            <DataSection
+              label={intl.login_email_placeholder}
+              value={userDetails?.userId || "-"}
+            />
+            <DataSection
+              label={intl.user_name}
+              value={userDetails?.userName || "-"}
+            />
+            <DataSection
+              label={intl.furigana}
+              value={userDetails?.furigana || "-"}
+            />
+            <DataSection
+              label={intl.company_list_company_radioNumber}
+              value={userDetails?.radioNumber || "-"}
+            />
 
-        {/* Right Column */}
-        <div className="flex flex-col w-full ">
-          <DataSection
-            label={intl.form_component_status}
-            value={userDetails?.isActive ? "ON" : "OFF"}
-          />
-          {/* <DataSection
+            <DataSection
+              label={intl.form_component_company_name_label}
+              value={userDetails?.companyName || "-"}
+            />
+            <DataSection
+              label={intl.machineName}
+              value={deviceName(userDetails?.device?.id) || "-"}
+            />
+
+            <DataSection
+              label={intl.user_add_specify_label}
+              value={userDetails?.designation || "-"}
+            />
+            <DataSection
+              label={intl.user_email_id_label}
+              value={userDetails?.email || "-"}
+            />
+          </div>
+
+          {/* Right Column */}
+          <div className="flex flex-col w-full ">
+            <DataSection
+              label={intl.form_component_status}
+              value={userDetails?.isActive ? "ON" : "OFF"}
+            />
+            {/* <DataSection
             label={intl.user_add_telephone_number_label}
             value={userDetails?.phone || "-"}
           /> */}
-          <DataSection
-            label={intl.user_registration_date_time}
-            value={userDetails?.createdAtDate || "-"}
-          />
-          <DataSection
-            label={intl.user_last_online_date_time}
-            value={userDetails?.appLastSeenDateTime || "-"}
-          />
-          <DataSection
-            label={intl.usage_start_date}
-            value={userDetails?.appLoginDateTime || "-"}
-          />
-          <DataSection
-            label={intl.usage_suspension_date}
-            value={userDetails?.appLogoutDateTime || "-"}
-          />
-          <DataSection
-            label={intl.user_version}
-            value={userDetails?.appVersion || "-"}
-          />
+            <DataSection
+              label={intl.user_registration_date_time}
+              value={userDetails?.createdAtDate || "-"}
+            />
+            <DataSection
+              label={intl.user_last_online_date_time}
+              value={userDetails?.appLastSeenDateTime || "-"}
+            />
+            <DataSection
+              label={intl.usage_start_date}
+              value={userDetails?.appLoginDateTime || "-"}
+            />
+            <DataSection
+              label={intl.usage_suspension_date}
+              value={userDetails?.appLogoutDateTime || "-"}
+            />
+            <DataSection
+              label={intl.user_version}
+              value={userDetails?.appVersion || "-"}
+            />
 
-          <DataSection
-            label={intl.user_is_see_user_activity}
-            value={userDetails?.seeUserActivity ? "ON" : "OFF"}
-          />
+            <DataSection
+              label={intl.user_is_see_user_activity}
+              value={userDetails?.seeUserActivity ? "ON" : "OFF"}
+            />
+          </div>
         </div>
-      </div>
       </div>
       <div className="flex justify-end mt-[16px]  space-x-4">
         <IconOutlineBtn
@@ -639,7 +639,6 @@ export default function UserDetails() {
             setExportModal(true);
           }}
         />
-     
       </div>
 
       {isModalOpen && (

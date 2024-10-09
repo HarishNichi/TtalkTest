@@ -416,7 +416,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
               setLoading(false);
             } finally {
               toast(
-                `${ecount} 行のデータインポートに失敗しました`,
+                `${ecount} ${intl.user_failed_to_import}`,
                 errorToastSettings
               );
               setLoading(false);
@@ -1845,10 +1845,10 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                                 : ""
                             }  ${btnClass}`}
                             onClick={() =>
-                              handleType("ptt", "クイックPTT名称を設定")
+                              handleType("ptt", intl.set_quick_ppt_name)
                             }
                           >
-                            <div>クイックPTT名称を設定</div>
+                            <div>{intl.set_quick_ppt_names}</div>
                             <div className="text-customBlue">
                               {selectedButton.type[0].value.value ==
                               selectedButton.type[0].value.optionName
@@ -1870,9 +1870,9 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                                 ? "border border-customBlue"
                                 : ""
                             }  ${btnClass}`}
-                            onClick={() => handleType("tap", "タップ")}
+                            onClick={() => handleType("tap", intl.tap)}
                           >
-                            <div>タップ</div>
+                            <div>{intl.tap}</div>
                             <div className="text-customBlue">
                               <PttBtnHtml
                                 pttButtonSettings={pttButtonSettings}
@@ -1891,10 +1891,10 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                             : ""
                         }  ${btnClass}`}
                         onClick={() =>
-                          handleType("longPress2sec", "長押し（2秒）")
+                          handleType("longPress2sec", intl.long_press)
                         }
                       >
-                        <div>長押し（2秒）</div>
+                        <div>{intl.long_press}</div>
                         <div className="text-customBlue">
                           <PttBtnHtml
                             pttButtonSettings={pttButtonSettings}
@@ -1912,10 +1912,10 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                             : ""
                         }  ${btnClass}`}
                         onClick={() =>
-                          handleType("longPress5sec", "長押し（5秒）")
+                          handleType("longPress5sec", intl.long_press_5s)
                         }
                       >
-                        <div>長押し（5秒）</div>
+                        <div>{intl.long_press_5s}</div>
                         <div className="text-customBlue">
                           <PttBtnHtml
                             pttButtonSettings={pttButtonSettings}
@@ -1976,15 +1976,15 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                           {/* group */}
                           <div
                             className={`${thirdSectionInput}`}
-                            onChange={() => setThirdSection("通話")}
+                            onChange={() => setThirdSection(intl.call)}
                           >
                             <input
                               type="radio"
                               name="action_value"
                               className="accent-[#19388B]"
                               id="Call"
-                              value={"通話"}
-                              checked={thirdSection == "通話"}
+                              value={intl.call}
+                              checked={thirdSection == intl.call}
                               onChange={() => {
                                 let settings = deviceSettings.map(
                                   (deviceSetting) => {
@@ -1994,9 +1994,9 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                                       deviceSetting.type.map((typeEl) => {
                                         if (typeEl.type == selectedType) {
                                           typeEl.value = {
-                                            optionName: "通話",
+                                            optionName: intl.call,
                                             type: "call",
-                                            value: "通話",
+                                            value: intl.call,
                                           };
                                         }
                                         return typeEl;
@@ -2008,20 +2008,20 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                                 setDeviceSettings(settings);
                               }}
                             />
-                            <label htmlFor="Call">通話</label>
+                            <label htmlFor="Call">{intl.call}</label>
                           </div>
                           {/* sos */}
                           <div
                             className={`${thirdSectionInput}`}
-                            onChange={() => setThirdSection("マイクアイコン")}
+                            onChange={() => setThirdSection(intl.mike_icon)}
                           >
                             <input
                               type="radio"
                               name="action_value"
                               className="accent-[#19388B]"
                               id="MicroPhone"
-                              value={"マイクアイコン"}
-                              checked={thirdSection == "マイクアイコン"}
+                              value={intl.mike_icon}
+                              checked={thirdSection == intl.mike_icon}
                               onChange={() => {
                                 let settings = deviceSettings.map(
                                   (deviceSetting) => {
@@ -2031,9 +2031,9 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                                       deviceSetting.type.map((typeEl) => {
                                         if (typeEl.type == selectedType) {
                                           typeEl.value = {
-                                            optionName: "マイクアイコン",
+                                            optionName: intl.mike_icon,
                                             type: "micro",
-                                            value: "マイクアイコン",
+                                            value: intl.mike_icon,
                                           };
                                         }
                                         return typeEl;
@@ -2045,22 +2045,20 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                                 setDeviceSettings(settings);
                               }}
                             />
-                            <label htmlFor="MicroPhone">マイクアイコン</label>
+                            <label htmlFor="MicroPhone">{intl.mike_icon}</label>
                           </div>
                           {/* マイクアイコン＋通話 */}
                           <div
                             className={`${thirdSectionInput}`}
-                            onChange={() =>
-                              setThirdSection("マイクアイコン＋通話")
-                            }
+                            onChange={() => setThirdSection(intl.mikecall)}
                           >
                             <input
                               type="radio"
                               name="action_value"
                               className="accent-[#19388B]"
                               id="MikePlusCall"
-                              value={"マイクアイコン＋通話"}
-                              checked={thirdSection == "マイクアイコン＋通話"}
+                              value={intl.mikecall}
+                              checked={thirdSection == intl.mikecall}
                               onChange={() => {
                                 let settings = deviceSettings.map(
                                   (deviceSetting) => {
@@ -2070,9 +2068,9 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                                       deviceSetting.type.map((typeEl) => {
                                         if (typeEl.type == selectedType) {
                                           typeEl.value = {
-                                            optionName: "マイクアイコン＋通話",
+                                            optionName: intl.mikecall,
                                             type: "microPlusCall",
-                                            value: "マイクアイコン＋通話",
+                                            value: intl.mikecall,
                                           };
                                         }
                                         return typeEl;
@@ -2085,7 +2083,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                               }}
                             />
                             <label htmlFor="MikePlusCall">
-                              マイクアイコン＋通話
+                              {intl.mikecall}
                             </label>
                           </div>
                           {/*  */}
@@ -2097,26 +2095,36 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                           <form className="flex flex-col gap-y-2 rounded-lg p-4 w-full">
                             <div
                               className={`${thirdSectionInput}`}
-                              onChange={() => setThirdSection("指定PTT番号")}
+                              onChange={() =>
+                                setThirdSection(
+                                  intl.user_sos_designation_ptt_option1
+                                )
+                              }
                             >
                               <input
                                 type="radio"
                                 name="action_value"
                                 className="accent-[#19388B]"
                                 id="Specified_PTT"
-                                value={"指定PTT番号"}
-                                checked={thirdSection == "指定PTT番号"}
+                                value={intl.user_sos_designation_ptt_option1}
+                                checked={
+                                  thirdSection ==
+                                  intl.user_sos_designation_ptt_option1
+                                }
                               />
-                              <label htmlFor="Specified_PTT">指定PTT番号</label>
+                              <label htmlFor="Specified_PTT">
+                                {intl.user_sos_designation_ptt_option1}
+                              </label>
                             </div>
-                            {thirdSection == "指定PTT番号" && (
+                            {thirdSection ==
+                              intl.user_sos_designation_ptt_option1 && (
                               <div>
                                 <button
                                   type="button"
                                   className=" bg-customBlue border border-[#e7e7e9] focus:outline-none rounded-lg px-2 py-1  mb-2 text-white  min-w-min text-sm"
                                   onClick={() => setModal(!isModalOpen)}
                                 >
-                                  連絡先を選択
+                                  {intl.select_contacts}
                                 </button>
                               </div>
                             )}
@@ -2124,21 +2132,23 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                             {/* group */}
                             <div
                               className={`${thirdSectionInput}`}
-                              onChange={() => setThirdSection("指定グループ")}
+                              onChange={() =>
+                                setThirdSection(intl.designated_group)
+                              }
                             >
                               <input
                                 type="radio"
                                 name="action_value"
                                 className="accent-[#19388B]"
                                 id="Designated_Group"
-                                value={"指定グループ"}
-                                checked={thirdSection == "指定グループ"}
+                                value={intl.designated_group}
+                                checked={thirdSection == intl.designated_group}
                               />
                               <label htmlFor="Designated_Group">
-                                指定グループ
+                                {intl.designated_group}
                               </label>
                             </div>
-                            {thirdSection == "指定グループ" && (
+                            {thirdSection == intl.designated_group && (
                               <div>
                                 <button
                                   type="button"
@@ -2147,35 +2157,35 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                                     setModalGroup(!isModalOpenGroup)
                                   }
                                 >
-                                  グループを選択
+                                  {intl.designated_group}
                                 </button>
                               </div>
                             )}
                             {/* sos */}
                             <div
                               className={`${thirdSectionInput}`}
-                              onChange={() => setThirdSection("SOSコール")}
+                              onChange={() => setThirdSection(intl.sos_call)}
                             >
                               <input
                                 type="radio"
                                 name="action_value"
                                 className="accent-[#19388B]"
                                 id="SOS_Call"
-                                value={"SOSコール"}
-                                checked={thirdSection == "SOSコール"}
+                                value={intl.sos_call}
+                                checked={thirdSection == intl.sos_call}
                               />
                               <label htmlFor="SOS_Call">
-                                SOSコール {thirdSection == "SOSコール"}
+                                {intl.sos_call} {thirdSection == intl.sos_call}
                               </label>
                             </div>
-                            {thirdSection == "SOSコール" && (
+                            {thirdSection == intl.sos_call && (
                               <div>
                                 <button
                                   type="button"
                                   className=" bg-customBlue border border-[#e7e7e9] focus:outline-none  rounded-lg py-1 px-2 mb-2 text-white  min-w-min text-sm"
                                   onClick={() => setModal(!isModalOpen)}
                                 >
-                                  連絡先を選択
+                                  {intl.select_contacts}
                                 </button>
 
                                 <button
@@ -2185,23 +2195,25 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                                     setModalGroup(!isModalOpenGroup)
                                   }
                                 >
-                                  グループを選択
+                                  {intl.select_group}
                                 </button>
                               </div>
                             )}
                             <div
                               className={`${thirdSectionInput}`}
-                              onChange={() => setThirdSection("最終履歴")}
+                              onChange={() =>
+                                setThirdSection(intl.last_history)
+                              }
                             >
                               <input
                                 type="radio"
                                 name="action_value"
                                 className="accent-[#19388B]"
                                 id="history"
-                                value={"最終履歴"}
-                                checked={thirdSection == "最終履歴"}
+                                value={intl.last_history}
+                                checked={thirdSection == intl.last_history}
                                 onChange={() => {
-                                  setHistory("最終履歴");
+                                  setHistory(intl.last_history);
                                   let settings = deviceSettings.map(
                                     (deviceSetting) => {
                                       if (
@@ -2211,9 +2223,9 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                                         deviceSetting.type.map((typeEl) => {
                                           if (typeEl.type == selectedType) {
                                             typeEl.value = {
-                                              optionName: "最終履歴",
+                                              optionName: intl.last_history,
                                               type: "history",
-                                              value: "最終履歴",
+                                              value: intl.last_history,
                                             };
                                           }
                                           return typeEl;
@@ -2225,7 +2237,9 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                                   setDeviceSettings(settings);
                                 }}
                               />
-                              <label htmlFor="history">最終履歴</label>
+                              <label htmlFor="history">
+                                {intl.last_history}
+                              </label>
                             </div>
                           </form>
                         )}
@@ -2259,7 +2273,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                       <div className="relative mb-2">
                         <input
                           type="text"
-                          placeholder="検索"
+                          placeholder={intl.dashboard_layout_search_btn}
                           className="rounded-lg pr-2 py-2 border border-[#F6F6F6] w-full pl-8 placeholder:pl-5"
                           onChange={(evt) =>
                             searchContactOrGroup(
@@ -2471,7 +2485,9 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                   }
                   id={"Id"}
                 >
-                  <div className="text-[#434343]">{"位置情報"}</div>
+                  <div className="text-[#434343]">
+                    {intl.location_information}
+                  </div>
                 </ToggleBoxMediumRevamp>
               </div>
             </div>
@@ -2502,14 +2518,16 @@ export default function TerminalSettings({ isModal, selectedRows }) {
                     }
                     id={"Id"}
                   >
-                    <div className="text-[#7B7B7B]">{"同時通訳"}</div>
+                    <div className="text-[#7B7B7B]">
+                      {intl.form_component_simulataneous_intepretation}
+                    </div>
                   </ToggleBoxMediumRevamp>
                 </div>
               </div>
 
               <div className="bg-white pl-0 md:pl-4 rounded-lg mb-4 2xl:mb-6 grid grid-cols-4 items-start">
                 <div className="col-span-4 mb-[1px] ">
-                  <div className="text-[#434343]">{"SOS定期時間"}</div>
+                  <div className="text-[#434343]">{intl.sos_regular_time}</div>
                 </div>
                 <div className="col-span-4">
                   <div className=" pr-2  flex ">

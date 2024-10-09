@@ -106,7 +106,6 @@ export default function HelpSettingsList() {
     fetchData();
   }, []);
 
-  
   useEffect(() => {
     const handleResize = () => {
       setTableHeight(window.innerHeight - 210);
@@ -119,7 +118,7 @@ export default function HelpSettingsList() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  
+
   /**
    * Returns an AddIcon element with isMobile prop set to the provided flag.
    * @param {boolean} flag Whether the icon should be rendered with mobile styles.
@@ -128,7 +127,7 @@ export default function HelpSettingsList() {
   function editIcon(flag) {
     return <AddIcon isMobile={flag} />;
   }
-  
+
   /**
    * Returns a DeleteIcon element with isMobile prop set to the provided flag.
    * @param {boolean} flag Whether the icon should be rendered with mobile styles.
@@ -138,7 +137,6 @@ export default function HelpSettingsList() {
     return <DeleteIcon isMobile={flag} />;
   }
 
-  
   /**
    * Returns a DeleteIconDisabled component with the isMobile prop set to the
    * provided flag.
@@ -149,12 +147,11 @@ export default function HelpSettingsList() {
     return <DeleteIconDisabled isMobile={flag} />;
   }
 
-  
-/**
- * Returns an SVG element containing the icon for importing help settings.
- * This icon is a cloud with an arrow pointing down.
- * @returns {ReactElement} The SVG element.
- */
+  /**
+   * Returns an SVG element containing the icon for importing help settings.
+   * This icon is a cloud with an arrow pointing down.
+   * @returns {ReactElement} The SVG element.
+   */
   function importIcon() {
     return (
       <svg
@@ -184,13 +181,12 @@ export default function HelpSettingsList() {
     );
   }
 
-  
-/**
- * Handles the edit button click event. The function sets the edit modal to false,
- * sets the add modal to false, waits 500ms, and then sets the record to the record
- * passed in as an argument, sets the edit settings to the section of the passed in
- * record, and sets the edit modal to true.
- */
+  /**
+   * Handles the edit button click event. The function sets the edit modal to false,
+   * sets the add modal to false, waits 500ms, and then sets the record to the record
+   * passed in as an argument, sets the edit settings to the section of the passed in
+   * record, and sets the edit modal to true.
+   */
   function handelEdit(record) {
     setEditModal(() => false);
     setAddModal(() => false);
@@ -201,30 +197,30 @@ export default function HelpSettingsList() {
     }, 500);
   }
 
-/**
- * Handles the delete button click event. The function sets the record to the record
- * passed in as an argument and sets the delete modal to true.
- * @param {object} record - The record to be deleted.
- */
+  /**
+   * Handles the delete button click event. The function sets the record to the record
+   * passed in as an argument and sets the delete modal to true.
+   * @param {object} record - The record to be deleted.
+   */
   function handelDelete(record) {
     setRecord(record);
     setDeleteModal(() => true);
   }
 
-/**
- * Handles the add button click event. The function sets the add modal to true.
- */
+  /**
+   * Handles the add button click event. The function sets the add modal to true.
+   */
   function addHandler() {
     setAddModal(true);
   }
 
-/**
- * Handles the change event for the help settings input fields. The function sets the
- * state of the addSettings or editSettings based on the name of the input field that
- * triggered the event. It also sets the touched state of the changed input field to
- * true.
- * @param {object} event - The event triggered by the input field change.
- */
+  /**
+   * Handles the change event for the help settings input fields. The function sets the
+   * state of the addSettings or editSettings based on the name of the input field that
+   * triggered the event. It also sets the touched state of the changed input field to
+   * true.
+   * @param {object} event - The event triggered by the input field change.
+   */
   const handleChange = (event) => {
     const { name, value } = event.target;
     if (name === "addSettings") {
@@ -235,11 +231,11 @@ export default function HelpSettingsList() {
     setTouched((prevTouched) => ({ ...prevTouched, [name]: true }));
   };
 
-/**
- * Handles the close event for the add and edit modals.
- * Resets the state of the addSettings, editSettings, errors, and touched state
- * when the modal is closed.
- */
+  /**
+   * Handles the close event for the add and edit modals.
+   * Resets the state of the addSettings, editSettings, errors, and touched state
+   * when the modal is closed.
+   */
   const onClose = () => {
     if (addModal) {
       setAddSettings("");
@@ -254,15 +250,13 @@ export default function HelpSettingsList() {
     }
   };
 
-
-
-/**
- * Fetches help settings data from the API and formats it for the data table.
- * The function sets the loading state to true, makes a GET request to the help/list
- * endpoint, and then sets the loading state to false. If the response is successful,
- * the function formats the data and sets the helpSettingsData state to the formatted
- * data. If the response is not successful, the function displays an error toast.
- */
+  /**
+   * Fetches help settings data from the API and formats it for the data table.
+   * The function sets the loading state to true, makes a GET request to the help/list
+   * endpoint, and then sets the loading state to false. If the response is successful,
+   * the function formats the data and sets the helpSettingsData state to the formatted
+   * data. If the response is not successful, the function displays an error toast.
+   */
   const fetchData = async () => {
     setLoading(true);
     try {
@@ -311,11 +305,11 @@ export default function HelpSettingsList() {
       );
     }
   };
-  
-/**
- * Create a new help section
- * @param {string} name The name of the help section
- */
+
+  /**
+   * Create a new help section
+   * @param {string} name The name of the help section
+   */
   const createSection = async (name) => {
     toast.dismiss();
     setLoading(true);
@@ -366,16 +360,16 @@ export default function HelpSettingsList() {
     }
   };
 
-/**
- * This function is used to update the section name.
- * It is called when the user clicks the edit button.
- * It makes a PUT request to the server to update the section name.
- * If the request is successful, it sets the edit modal to false
- * and fetches the data again.
- * If the request fails, it sets the edit modal to true and displays an error message.
- * @param {object} record - The section object to be updated.
- * @param {string} name - The new name of the section.
- */
+  /**
+   * This function is used to update the section name.
+   * It is called when the user clicks the edit button.
+   * It makes a PUT request to the server to update the section name.
+   * If the request is successful, it sets the edit modal to false
+   * and fetches the data again.
+   * If the request fails, it sets the edit modal to true and displays an error message.
+   * @param {object} record - The section object to be updated.
+   * @param {string} name - The new name of the section.
+   */
   const updateSection = async (record, name) => {
     toast.dismiss();
     setLoading(true);
@@ -424,13 +418,13 @@ export default function HelpSettingsList() {
     }
   };
 
-/**
- * Handles the deletion of selected help sections.
- * Shows a toast error message if no help section is selected.
- * Sends a POST request to the API to delete the selected help sections.
- * If the response is successful, it sets the deleteModal state to false, updates the data to remove the deleted records, resets the selectedRows state, and fetches the data again.
- * If there is an error, it sets the deleteModal state to false, shows a toast error message and resets the selectedRows state.
- */
+  /**
+   * Handles the deletion of selected help sections.
+   * Shows a toast error message if no help section is selected.
+   * Sends a POST request to the API to delete the selected help sections.
+   * If the response is successful, it sets the deleteModal state to false, updates the data to remove the deleted records, resets the selectedRows state, and fetches the data again.
+   * If there is an error, it sets the deleteModal state to false, shows a toast error message and resets the selectedRows state.
+   */
   const deleteSection = async () => {
     // Check if there are selected rows
     if (selectedRows.length === 0) {
@@ -452,17 +446,16 @@ export default function HelpSettingsList() {
 
     try {
       // Iterate through selected rows to delete them
-        const config =selectedRows.map((record) => ({
-          parent: "null",
-          child: record.subSetId,
-        }));
-        const response = await api.post(`help/bulkdelete`, config);
-        if (response.data.status.code !== code.OK) {
-          throw new Error(
-            response.data.status.message || "Failed to delete record"
-          );
-        }
-      
+      const config = selectedRows.map((record) => ({
+        parent: "null",
+        child: record.subSetId,
+      }));
+      const response = await api.post(`help/bulkdelete`, config);
+      if (response.data.status.code !== code.OK) {
+        throw new Error(
+          response.data.status.message || "Failed to delete record"
+        );
+      }
 
       // Update the state to remove the deleted records
       setData((prevData) =>
@@ -496,10 +489,10 @@ export default function HelpSettingsList() {
     }
   };
 
-/**
- * Handles selecting a row in the table by updating the selectedRows state.
- * @param {array} selected - The selected rows
- */
+  /**
+   * Handles selecting a row in the table by updating the selectedRows state.
+   * @param {array} selected - The selected rows
+   */
   const handleSelectRow = (selected) => {
     setSelectedRows(selected);
   };
@@ -573,7 +566,7 @@ export default function HelpSettingsList() {
                   setSelectAll(evt.target.checked);
                 }}
               />
-              <span className="ml-1"> {"すべて選択"}</span>
+              <span className="ml-1"> {intl.user_selectAll}</span>
             </label>
           </div>
           <div className=" relative" style={{ width: "100%" }}>

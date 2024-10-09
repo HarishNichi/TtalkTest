@@ -250,7 +250,7 @@ export default function Devices() {
             } finally {
               setLoading(false);
               toast(
-                `${ecount} 行のデータインポートに失敗しました`,
+                `${ecount} ${intl.user_failed_to_import}`,
                 errorToastSettings
               );
             }
@@ -775,7 +775,7 @@ export default function Devices() {
     } catch (err) {
       subscriptionTrack.unsubscribe();
       setLoading(false);
-      toast("インポートに失敗しました", errorToastSettings);
+      toast(intl.user_import_failed, errorToastSettings);
     }
   }
 
@@ -1036,7 +1036,7 @@ export default function Devices() {
                       locale={locale}
                       allowEmpty={[true, true]}
                       format={"YYYY/MM/DD"}
-                      placeholder={["開始日", "終了日"]}
+                      placeholder={[intl.start_date, intl.end_date]}
                       disabledDate={(current) => {
                         let yesterday = new Date(
                           Date.now() - 86400000

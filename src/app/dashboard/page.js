@@ -55,16 +55,16 @@ const Dashboard = () => {
     };
   }, []);
 
-   useEffect(() => {
-     const handleResize = () => {
-       setIsMobile(window.innerWidth <= 768); // Change the breakpoint as needed
-     };
-     handleResize(); // Set initial state
-     window.addEventListener("resize", handleResize);
-     return () => {
-       window.removeEventListener("resize", handleResize);
-     };
-   }, []);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // Change the breakpoint as needed
+    };
+    handleResize(); // Set initial state
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const UserData = useAppSelector((state) => state.userReducer.user);
   let Admin = false;
@@ -216,7 +216,7 @@ const Dashboard = () => {
       }
     }
   }
-  
+
   /**
    * Handles a link click event, dispatching the
    * addOrganization or addEmployee action depending
@@ -233,7 +233,7 @@ const Dashboard = () => {
       dispatch(addEmployee(clickedResult));
     }
   };
- 
+
   return (
     <>
       {loading && <LoaderOverlay />}

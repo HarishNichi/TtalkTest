@@ -611,7 +611,7 @@ export default function Contact({ children, tab }) {
               } finally {
                 setLoading(false);
                 toast(
-                  `${ecount} 行のデータインポートに失敗しました`,
+                  `${ecount} ${intl.user_failed_to_import}`,
                   errorToastSettings
                 );
               }
@@ -821,14 +821,14 @@ export default function Contact({ children, tab }) {
                     <TextPlain
                       type="text"
                       for={"id"}
-                      placeholder={"ファイル名"}
+                      placeholder={intl.user_history_settings_file_name}
                       borderRound="rounded"
                       padding="p-[10px]"
                       focus="focus:outline-none focus:ring-2 focus:ring-customBlue"
                       border="border border-[#e7e7e9]"
                       bg="bg-white"
                       additionalClass="block w-full pl-5 text-base pr-[30px]"
-                      label={"ファイル名"}
+                      label={intl.user_history_settings_file_name}
                       labelColor="#7B7B7B"
                       id={"id"}
                       isRequired={true}

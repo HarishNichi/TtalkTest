@@ -1604,49 +1604,6 @@ export default function Group({ children, tab }) {
         </AntModal>
       )}
       {(detailsModal || editModal) && (
-        // <Modal
-        //   height="600px"
-        //   fontSize="text-xl"
-        //   fontWeight="font-semibold"
-        //   textColor="#19388B"
-        //   text={detailsModal ? intl.group_details : intl.edit_group}
-        //   onCloseHandler={() => {
-        //     setAddNewModalData(false);
-        //     setAddNewModal(false);
-        //     setEditModal(false);
-        //     setDetailsModal(false);
-        //     setTouched({});
-        //     setSameOptionError("");
-        //     setGroupContacts([]);
-        //     setContactHolderDropDown("");
-        //   }}
-        //   displayEditIcon={detailsModal}
-        //   handelEdit={async () => {
-        //     await setDetailsModal(() => false);
-        //     await setEditModal(() => true);
-        //   }}
-        //   modalFooter={() => {
-        //     return (
-        //       !detailsModal && (
-        //         <IconLeftBtn
-        //           text={intl.help_settings_addition_keep}
-        //           textColor={"text-white font-semibold text-sm w-full"}
-        //           py={"py-[11px]"}
-        //           px={"w-[84%]"}
-        //           bgColor={"bg-customBlue"}
-        //           textBold={true}
-        //           icon={() => {
-        //             return null;
-        //           }}
-        //           onClick={() => {
-        //             updateGroup();
-        //           }}
-        //         />
-        //       )
-        //     );
-        //   }}
-        // >
-
         <AntModal
           title={
             <div className="flex justify-center items-center pt-4 px-4 pb-0 rounded-t ">
