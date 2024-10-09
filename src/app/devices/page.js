@@ -668,7 +668,7 @@ export default function Devices() {
           data: devIds
         }
 
-        const response = await api.post(`devices/bulkdelete`, devIds);
+        const response = await api.delete(`devices/delete`, config);
 
         if (response.data.status.code !== code.OK) {
           throw new Error(

@@ -446,11 +446,14 @@ export default function HelpSettingsList() {
 
     try {
       // Iterate through selected rows to delete them
-      const config = selectedRows.map((record) => ({
+      const helpId = selectedRows.map((record) => ({
         parent: "null",
         child: record.subSetId,
       }));
-      const response = await api.post(`help/bulkdelete`, config);
+      const config = {
+        data:helpId
+      }
+      const response = await api.post(`help/delete`, config);
       if (response.data.status.code !== code.OK) {
         throw new Error(
           response.data.status.message || "Failed to delete record"
