@@ -696,6 +696,7 @@ export default function Devices() {
         theme: "colored",
         type: "error",
       });
+      setDeleteModal(false);
     } finally {
       setLoading(false); // Ensure loading state is reset
     }

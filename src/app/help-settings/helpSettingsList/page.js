@@ -453,7 +453,7 @@ export default function HelpSettingsList() {
       const config = {
         data:helpId
       }
-      const response = await api.post(`help/delete`, config);
+      const response = await api.delete(`help/delete`, config);
       if (response.data.status.code !== code.OK) {
         throw new Error(
           response.data.status.message || "Failed to delete record"
@@ -487,6 +487,7 @@ export default function HelpSettingsList() {
         theme: "colored",
         type: "error",
       });
+      setDeleteModal(false);
     } finally {
       setLoading(false); // Ensure loading state is reset
     }
