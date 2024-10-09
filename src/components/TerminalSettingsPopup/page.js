@@ -495,7 +495,7 @@ export default function TerminalSettingsPopup({ isModal, selectedRows }) {
           <TitleUserCard title={intl.user_ptalk_service_screen_label} />
         </div>
 
-        <div className="flex flex-col md:flex-row" id="ptalk-service">
+        <div className="flex flex-col md:flex-row md:gap-x-4" id="ptalk-service">
           <div className="flex flex-col w-full space-y-2    ">
             <div className="">
               <div>
