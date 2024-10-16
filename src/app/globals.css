@@ -388,7 +388,10 @@ select {
 
 .ant-table-selection-column {
   padding-left: 1rem !important;
+  width: 35px !important;
+  max-width: 35px !important;
 }
+
 
 .validation-font {
   font-size: 12px;
