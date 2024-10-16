@@ -388,8 +388,9 @@ select {
 
 .ant-table-selection-column {
   padding-left: 1rem !important;
-  width: 35px !important;
-  max-width: 35px !important;
+  width: 30px !important;
+  max-width: 30px !important;
+  padding-right: 0px !important;
 }
 
 
