@@ -289,7 +289,7 @@ export default function Login() {
     <>
       {loading && <LoaderOverlay />}
       <div className={`${natoSans.className} bg-white `} style={natoSans.style}>
-        <div className="flex flex-col md:flex-row min-h-screen bg-white">
+        <div className="flex flex-col md:flex-row min-h-screen bg-white border">
           <div className="flex-1 flex flex-col items-center justify-center bg-customBlue text-white">
             <div className="text-center">
               <Image
@@ -301,7 +301,7 @@ export default function Login() {
               />
             </div>
             <div className=" xl:px-[80px] lg:px-[60px] md:px-[40px] py-[24px] p-[20px]  w-full flex justify-center">
-              <div className="w-[600px] md:px-[60px] md:py-[40px] px-[40px] py-[20px] bg-white rounded-2xl shadow-md text-black">
+              <div className="w-[600px] md:px-[60px] md:py-[40px] px-[40px] py-[20px] bg-white rounded shadow-md text-black">
                 <div className="text-xl font-semibold mb-[32px] text-left">
                   {intl.login_btn_label}
                 </div>

@@ -1057,7 +1057,9 @@ export default function Group({ children, tab }) {
               border={"border border-[#E7E7E9] w-[140px]"}
               focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
               bg={"bg-white"}
-              text={"text-[16px] placeholder:text-[16px]"}
+              text={
+                "text-[16px] placeholder:text-[16px] placeholder:text-[#85868B]"
+              }
               additionalClass={"block w-full min-w-[250px] "}
               id={"Id"}
               labelColor={"#7B7B7B"}

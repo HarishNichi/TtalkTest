@@ -1843,7 +1843,7 @@ export default function UserList() {
             <div className="col-span-12 md:col-span-6 xl:col-span-2 custom-date-picker">
               <DatePicker
                 placeholder={intl.user_registration_date_without_ddmmyy}
-                className="w-full  placeholder:text-[#85868B] rounded h-[40px] placeholder:text-[16px] text-[16px] p-2 border border-[#E7E7E9]"
+                className="w-full  placeholder:text-[#85868B] rounded h-[40px] placeholder:dark:text-[#85868B] placeholder:text-[16px] text-[16px] p-2 border border-[#E7E7E9]"
                 id="createdAt"
                 style={{
                   border: "1px solid #e5e7eb",
@@ -1869,7 +1869,7 @@ export default function UserList() {
             <div className="col-span-12 md:col-span-6 xl:col-span-2 custom-date-picker">
               <DatePicker
                 placeholder={intl.user_last_online_date_time}
-                className="w-full  placeholder:text-[#85868B] rounded h-[40px] placeholder:text-[16px] text-[16px] p-2 border border-[#E7E7E9]"
+                className="w-full  placeholder:text-[#85868B] placeholder:dark:text-[#85868B] rounded h-[40px] placeholder:text-[16px] text-[16px] p-2 border border-[#E7E7E9]"
                 id="appLastSeenDateTime"
                 style={{
                   border: "1px solid #e5e7eb",
@@ -1895,7 +1895,7 @@ export default function UserList() {
             <div className="col-span-12 md:col-span-6 xl:col-span-2 custom-date-picker">
               <DatePicker
                 placeholder={intl.usage_start_date}
-                className="w-full  placeholder:text-[#85868B] rounded h-[40px] placeholder:text-[16px] text-[16px] p-2 border border-[#E7E7E9]"
+                className="w-full  placeholder:text-[#85868B] placeholder:dark:text-[#85868B] rounded h-[40px] placeholder:text-[16px] text-[16px] p-2 border border-[#E7E7E9]"
                 id="appLoginDateTime"
                 style={{
                   border: "1px solid #e5e7eb",
@@ -1923,7 +1923,7 @@ export default function UserList() {
             <div className="col-span-12 md:col-span-6 xl:col-span-2 custom-date-picker">
               <DatePicker
                 placeholder={intl.usage_suspension_date}
-                className="w-full  placeholder:text-[#85868B] rounded h-[40px] placeholder:text-[16px] text-[16px] p-2 border border-[#E7E7E9]"
+                className="w-full  placeholder:text-[#85868B] placeholder:dark:text-[#85868B] rounded h-[40px] placeholder:text-[16px] text-[16px] p-2 border border-[#E7E7E9]"
                 id="appLogoutDateTime"
                 style={{
                   border: "1px solid #e5e7eb",

@@ -673,10 +673,10 @@ select {
   > thead
   > tr:first-child
   > *:first-child {
-  border-start-start-radius: 8px;
+  border-start-start-radius: 4px;
 }
 .ant-table-wrapper .ant-table-container {
-  border-radius: 8px;
+  border-radius: 4px;
 }
 
 .ant-table-wrapper
