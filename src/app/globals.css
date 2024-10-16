@@ -91,7 +91,7 @@ body {
   padding: 0px !important;
 }
 .ant-table-cell {
-  padding: 8px 16px !important;
+  padding: 4px 16px !important;
 }
 
 /* .ant-table-tbody > tr:not(.history-settings-tables) > td {
