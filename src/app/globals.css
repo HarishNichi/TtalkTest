@@ -519,6 +519,10 @@ input[list] {
   padding: 0px !important;
 }
 
+.ant-modal .ant-modal-content {
+  border-radius: 4px !important;
+}
+
 .Toastify__close-button {
   display: none !important;
 }
@@ -621,7 +625,7 @@ input[type="checkbox"]:checked::after {
   padding-top: 16px !important;
   padding-bottom: 16px !important;
   margin: 0px;
-  border-radius: 8px;
+  border-radius: 4px;
 }
 
 .Toastify__toast {
