@@ -689,3 +689,9 @@ select {
   > .ant-table-cell {
   background-color: #d4dffa !important;
 }
+
+
+
+.ant-picker .ant-picker-input > input::placeholder {
+  color: #85868B !important;
+}
