@@ -485,8 +485,8 @@ export default function TerminalSettingsPopup({ isModal, selectedRows }) {
     <>
       {loading && <LoaderOverlay />}
       {isModal && (
-        <div className="flex mt-[16px] ml-[16px] mb-[16px] ">
-          <TitleUserCard title={intl.user_change_settings} />
+        <div className="flex mt-[16px] ml-[16px] mb-[16px] font-[600] mb-2 text-[20px] text-[#0D0E11] ">
+          {intl.user_change_settings}
         </div>
       )}
       <div className=" p-[16px] bg-white">
@@ -1895,7 +1895,7 @@ export default function TerminalSettingsPopup({ isModal, selectedRows }) {
         <AntModal
           width={385}
           title={
-            <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+            <div className="px-[40px] pt-[25px] mb-[2vw] text-[#0D0E11] text-center">
               {intl.save_popup}
             </div>
           }

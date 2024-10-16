@@ -638,15 +638,15 @@ export default function Contact({ children, tab }) {
     <>
       {loading && <LoaderOverlay />}
       <div>
-        <div className="flex justify-end">
+        <div className="flex justify-end space-x-4">
           <IconOutlineBtn
             text={intl.company_list_company_import}
-            textColor={"text-customBlue"}
+            textColor={"text-[#214BB9]"}
             textBold={true}
             py={"xl:py-2.5 md:py-1.5 py-1.5"}
             px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
             icon={() => importIcon()}
-            borderColor={"border-customBlue bg-white mr-2"}
+            borderColor={"border-[#214BB9] bg-white mr-2"}
             onClick={() => {
               setImportModal(() => true);
             }}
@@ -667,7 +667,7 @@ export default function Contact({ children, tab }) {
           />
         </div>
 
-        <div className="mb-[5px] pl-[43px] flex items-center">
+        <div className="mb-[5px] pl-[16px] flex items-center">
           <label
             key={"selectAll"}
             className="flex items-center text-customBlue"
@@ -719,12 +719,12 @@ export default function Contact({ children, tab }) {
             <div className="flex space-x-4">
               <IconOutlineBtn
                 text={intl.company_list_company_export_title}
-                textColor={"text-customBlue"}
+                textColor={"text-[#214BB9]"}
                 textBold={true}
                 py={"xl:py-2.5 md:py-1.5 py-1.5"}
                 px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
                 icon={() => exportIcon()}
-                borderColor={"border-customBlue"}
+                borderColor={"border-[#214BB9]"}
                 onClick={() => {
                   // check selected row
                   toast.dismiss();
@@ -748,8 +748,8 @@ export default function Contact({ children, tab }) {
 
               <IconOutlineBtn
                 text={intl.help_settings_addition_delete}
-                textColor="text-[#BA1818]" // Red text color
-                borderColor="border-[#BA1818]"
+                textColor="text-[#10265C]" // Red text color
+                borderColor="border-[#10265C]"
                 textBold={true}
                 py={"xl:py-2.5 md:py-1.5 py-1.5"}
                 px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
@@ -782,7 +782,7 @@ export default function Contact({ children, tab }) {
           <AntModal
             width={385}
             title={
-              <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-center">
+              <div className="px-[40px] pt-[25px] mb-[2vw] text-[#0D0E11] text-center">
                 {intl.company_list_company_export_title}
               </div>
             }
@@ -932,7 +932,7 @@ export default function Contact({ children, tab }) {
         {deleteModal && (
           <AntModal
             title={
-              <div className="px-[40px] pt-[40px] mb-[2vw] text-customBlue font-semibold text-xl text-center">
+              <div className="px-[40px] pt-[40px] mb-[2vw] text-[#0D0E11] font-semibold text-xl text-center">
                 {intl.help_settings_addition_delete}
               </div>
             }
@@ -978,7 +978,7 @@ export default function Contact({ children, tab }) {
             title={
               <div className="flex justify-center items-center pt-4 px-4 pb-0 rounded-t">
                 {/* Modify this line */}
-                <div className="text-xl font-semibold text-[#19388b] dark:text-customBlue flex-grow flex text-customBlue justify-center">
+                <div className="text-xl font-semibold text-[#0D0E11]  flex-grow flex  justify-center">
                   {detailsModal
                     ? intl.contact_details
                     : editModal

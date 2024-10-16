@@ -189,7 +189,7 @@ export default function Other() {
       {passwordModal && (
         <AntModal
           title={
-            <div className="px-[40px] pt-[25px] mb-[2vw] font-semibold text-xl text-customBlue text-center">
+            <div className="px-[40px] pt-[25px] mb-[2vw] font-semibold text-xl text-[#0D0E11] text-center">
               {intl.user_details_password_reset_btn}
             </div>
           }
@@ -342,7 +342,7 @@ export default function Other() {
       {deleteModal && (
         <AntModal
           title={
-            <div className="px-[40px] pt-[25px] mb-[2vw] font-semibold text-xl text-customBlue text-center">
+            <div className="px-[40px] pt-[25px] mb-[2vw] font-semibold text-xl text-[#0D0E11] text-center">
               {intl.user_restore_default_settings}
             </div>
           }

@@ -63,7 +63,6 @@ export default function DataTable(props) {
   const rowSelection = {
     selectedRowKeys: selectedRowKeys,
     onChange: handleSelectRow,
-    columnWidth: "30px",
     getCheckboxProps: (record) => ({
       disabled: record.name === "Disabled User",
       name: record.name,
@@ -178,7 +177,6 @@ export default function DataTable(props) {
                 }
               : false
           }
-          selectionColumnWidth={30}
           columns={props.columns}
           showSorterTooltip={false}
           dataSource={props.dataSource}

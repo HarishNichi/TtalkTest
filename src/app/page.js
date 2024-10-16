@@ -415,7 +415,7 @@ export default function Login() {
       {isModalOpen && (
         <AntModal
           title={
-            <div className="px-[40px] pt-[25px] mb-[2vw] font-semibold text-xl text-customBlue text-center">
+            <div className="px-[40px] pt-[25px] mb-[2vw] font-semibold text-xl text-[#0D0E11] text-center">
               {intl.login_forget_password_text}
             </div>
           }

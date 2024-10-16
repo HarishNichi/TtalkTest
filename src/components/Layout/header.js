@@ -239,6 +239,9 @@ export default function Header({
                 <h3 className="text-[16px] text-white font-semibold tracking-widest">
                   {user?.name ? user.name : ""}
                 </h3>
+                <h3 className="text-[16px] text-white font-semibold tracking-widest">
+                  {user?.id ? user.id : ""}
+                </h3>
               </div>
               <div
                 className={`${on ? "bg-[#0C4278] rounded-lg p-2" : "p-2"}`}
@@ -320,7 +323,7 @@ export default function Header({
       {logoutModal && (
         <AntModal
           title={
-            <div className="pt-[40px] pb-[40px] text-[20px] text-customBlue text-center">
+            <div className="pt-[40px] pb-[40px] text-[20px] text-[#0D0E11] text-center">
               {intl.logout_confirm}
             </div>
           }

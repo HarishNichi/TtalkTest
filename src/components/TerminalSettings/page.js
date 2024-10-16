@@ -1099,11 +1099,11 @@ export default function TerminalSettings({ isModal, selectedRows }) {
           />
           <IconOutlineBtn
             text={intl.company_list_company_import}
-            textColor={"text-customBlue"}
+            textColor={"text-[#214BB9]"}
             textBold={true}
             py={"xl:py-2.5 md:py-1.5 py-1.5"}
             px={"xl:px-[20px] md:px-[22.5px] px-[22.5px] "}
-            borderColor={"border-customBlue bg-white"}
+            borderColor={"border-[#214BB9] bg-white"}
             icon={() => importIcon()}
             onClick={async () => {
               setImportModal(() => true);
@@ -1111,11 +1111,11 @@ export default function TerminalSettings({ isModal, selectedRows }) {
           />
           <IconOutlineBtn
             text={intl.user_change_history}
-            textColor={"text-customBlue"}
+            textColor={"text-[#214BB9]"}
             textBold={true}
             py={"xl:py-2.5 md:py-1.5 py-1.5"}
             px={"xl:px-[20px] md:px-[22.5px] px-[22.5px] "}
-            borderColor={"border-customBlue bg-white"}
+            borderColor={"border-[#214BB9] bg-white"}
             icon={() => <GearIcon />}
             onClick={() => {
               router.push("./historySettings");
@@ -1123,11 +1123,11 @@ export default function TerminalSettings({ isModal, selectedRows }) {
           />
           <IconOutlineBtn
             text={intl.help_settings_addition_modal_edit}
-            textColor={"text-customBlue"}
+            textColor={"text-[#214BB9]"}
             textBold={true}
             py={"xl:py-2.5 md:py-1.5 py-1.5"}
             px={"xl:px-[20px] md:px-[22.5px] px-[22.5px] "}
-            borderColor={"border-customBlue bg-white"}
+            borderColor={"border-[#214BB9] bg-white"}
             icon={() => editIcon()}
             onClick={() => {
               setIsEditable(true);
@@ -1148,7 +1148,10 @@ export default function TerminalSettings({ isModal, selectedRows }) {
             <TitleUserCard title={intl.user_ptalk_service_screen_label} />
           </div>
 
-          <div className="flex flex-col md:flex-row md:gap-x-4" id="ptalk-service">
+          <div
+            className="flex flex-col md:flex-row md:gap-x-4"
+            id="ptalk-service"
+          >
             <div className="flex flex-col w-full space-y-2    ">
               <div className="">
                 <div>
@@ -2589,7 +2592,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
         <AntModal
           width={385}
           title={
-            <div className="px-[40px] pt-[25px] mb-[2vw] text-[20px] text-customBlue text-center">
+            <div className="px-[40px] pt-[25px] mb-[2vw] text-[20px] text-[#0D0E11] text-center">
               {intl.save_popup}
             </div>
           }
@@ -2630,7 +2633,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
         <AntModal
           width={385}
           title={
-            <div className="px-[40px] pt-[25px] mb-[2vw] text-[20px] text-customBlue text-center">
+            <div className="px-[40px] pt-[25px] mb-[2vw] text-[20px] text-[0D0E11] text-center">
               {intl.company_list_company_export_title}
             </div>
           }

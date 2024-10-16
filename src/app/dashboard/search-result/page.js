@@ -601,7 +601,7 @@ export default function HelpSettingsList() {
       {loading && <LoaderOverlay />}
       <ToastContainer />
       <div>
-        <div className="mb-[16px] flex items-center pl-[17px]">
+        <div className="mb-[16px] flex items-center pl-[16px] ">
           <label
             key={"selectAll"}
             className="flex items-center text-customBlue"

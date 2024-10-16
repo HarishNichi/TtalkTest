@@ -630,7 +630,7 @@ export default function HelpSettingsList() {
               />
             </div>
           </div>
-          <div className="mb-[16px] flex items-center pl-[23px]">
+          <div className="mb-[16px] flex items-center pl-[16px]">
             <label
               key={"selectAll"}
               className="flex items-center text-customBlue"

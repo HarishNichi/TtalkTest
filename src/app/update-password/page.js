@@ -47,12 +47,12 @@ export default function UpdatePassword(setIsResetModal) {
     passwordIcon();
   }, [currentPassword]);
 
-/**
- * Handles change for input fields. Sets the value of the
- * corresponding state variable (currentPassword, password, confirmPassword)
- * and sets the touched state for the input field to true.
- * @param {React.ChangeEvent<HTMLInputElement>} event
- */
+  /**
+   * Handles change for input fields. Sets the value of the
+   * corresponding state variable (currentPassword, password, confirmPassword)
+   * and sets the touched state for the input field to true.
+   * @param {React.ChangeEvent<HTMLInputElement>} event
+   */
   const handleChange = (event) => {
     const { name, value } = event.target;
     if (name == "currentPassword") {
@@ -65,14 +65,14 @@ export default function UpdatePassword(setIsResetModal) {
     setTouched((prevTouched) => ({ ...prevTouched, [name]: true }));
   };
 
-/**
- * Handles the submission of the update password form. Checks if the
- * current password is correct and if the new password matches the
- * confirm password. If the validation is successful, it makes a
- * POST request to the /organizations/reset endpoint to change the
- * password. If the request is successful, it redirects the user
- * to the login page.
- */
+  /**
+   * Handles the submission of the update password form. Checks if the
+   * current password is correct and if the new password matches the
+   * confirm password. If the validation is successful, it makes a
+   * POST request to the /organizations/reset endpoint to change the
+   * password. If the request is successful, it redirects the user
+   * to the login page.
+   */
   const handleSave = async (event) => {
     event.preventDefault();
     toast.dismiss();
@@ -132,8 +132,6 @@ export default function UpdatePassword(setIsResetModal) {
     }
   };
 
-
-  
   /**
    * Conditionally renders a password tick icon based on whether a password is input.
    * @returns {ReactElement|null} The password tick icon if the current password is truthy, otherwise null.
@@ -142,21 +140,14 @@ export default function UpdatePassword(setIsResetModal) {
     return currentPassword ? <PasswordTickIcon /> : null;
   }
 
-
   return (
     <>
       {loading && <LoaderOverlay />}
       <ToastContainer />
       <ProtectedRoute allowedRoles={["organization"]}>
         <div className="flex justify-center pt-[30px]">
-          <div className="flex justify-center mb-[10px]">
-            <DynamicLabel
-              text="パスワードを変更"
-              alignment="text-center text-customBlue "
-              fontSize="text-xl"
-              fontWeight="font-semibold"
-              disabled={false}
-            />
+          <div className="flex justify-center  font-semibold text-[20px] mb-[10px] text-[#0D0E11]">
+            パスワードを変更
           </div>
         </div>
         <div className="pt-[37px] p-[20px] md:px-[60px] xl:px-[80px] xl:pt-[50px] xl:pb-[40px] flex flex-col flex-1 h-full">

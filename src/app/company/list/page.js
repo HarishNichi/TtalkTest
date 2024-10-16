@@ -98,7 +98,7 @@ export default function CompanyList() {
         return (
           <div style={{ width: "85px" }}>
             <div
-              className={`rounded-[4px] cursor-pointer font-[600] pt-[5px] pb-[5px] pl-[5px] pr-[5px]  focus:outline-none focus:ring-2 focus:ring-customBlue text-[16px] ${textColor} ${bgColor} text-center`}
+              className={`rounded-[4px] cursor-pointer font-[600] pt-[5px] pb-[5px] pl-[5px] pr-[5px]  focus:outline-none focus:ring-2 focus:ring-customBlue text-[16px] ${textColor}  text-center`}
             >
               {text === true
                 ? intl.form_status_valid
@@ -747,7 +747,7 @@ export default function CompanyList() {
       <ToastContainer />
       <AntModal
         title={
-          <div className="px-[40px] pt-[25px] mb-[2vw] font-semibold text-[20px] text-customBlue text-center">
+          <div className="px-[40px] pt-[25px] mb-[2vw] font-semibold text-[20px] text-[#0D0E11] text-center">
             {intl.delete_company}
           </div>
         }
@@ -786,7 +786,7 @@ export default function CompanyList() {
       <div>
         <div className="flex justify-between items-center dark:text-black text-xl font-semibold mb-[16px]">
           {intl.company}
-          <div className="flex space-x-2.5">
+          <div className="flex space-x-4">
             <span>
               <IconOutlineBtn
                 text={intl.company_list_company_import}
@@ -978,7 +978,7 @@ export default function CompanyList() {
             </div>
           </form>
         )}
-        <div className="mb-[16px] flex items-center pl-[19px]">
+        <div className="mb-[16px] flex items-center pl-[16px]">
           <label
             key={"selectAll"}
             className="flex items-center text-customBlue"
@@ -1035,12 +1035,12 @@ export default function CompanyList() {
             <div className="flex space-x-4">
               <IconOutlineBtn
                 text={intl.company_list_company_export_title}
-                textColor={"text-customBlue"}
+                textColor={"text-[#214BB9]"}
                 textBold={true}
                 py={"xl:py-2.5 md:py-1.5 py-1.5"}
                 px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
                 icon={() => exportIcon()}
-                borderColor={"border-customBlue border border-rounded h-[32px]"}
+                borderColor={"border-[#214BB9] border border-rounded h-[40px]"}
                 onClick={() => {
                   // check selected row
                   toast.dismiss();
@@ -1063,8 +1063,8 @@ export default function CompanyList() {
               />
               <IconOutlineBtn
                 text={intl.help_settings_addition_delete}
-                textColor="text-[#BA1818]" // Red text color
-                borderColor="border-[#BA1818] border border-rounded h-[32px]"
+                textColor="text-[#10265C]" // Red text color
+                borderColor="border-[#10265C] border border-rounded h-[40px]"
                 textBold={true}
                 py={"xl:py-2.5 md:py-1.5 py-1.5"}
                 px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
@@ -1096,7 +1096,7 @@ export default function CompanyList() {
           <AntModal
             width={385}
             title={
-              <div className="px-[40px] pt-[25px] mb-[2vw] text-[20px] text-customBlue text-center">
+              <div className="px-[40px] pt-[25px] mb-[2vw] text-[20px] text-[#0D0E11] text-center">
                 {intl.company_list_company_export_title}
               </div>
             }

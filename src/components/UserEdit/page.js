@@ -399,8 +399,8 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
       {loading && <LoaderOverlay />}
       <ToastContainer />
 
-      <div className="flex p-[40px] pb-0 justify-center items-center">
-        <TitleUserCard title={intl.user_edit_screen_label} />
+      <div className="flex p-[40px] pb-0 font-[600] mb-2 text-[20px] text-[#0D0E11] justify-center items-center">
+        {intl.user_edit_screen_label}
       </div>
       <div
         className="flex flex-col h-full p-[40px] pt-[32px] pb-0 "

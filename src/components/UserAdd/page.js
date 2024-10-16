@@ -292,8 +292,8 @@ export default function AddUser({
       {loading && <LoaderOverlay />}
       <ToastContainer />
 
-      <div className="flex p-[40px] pb-0 justify-center items-center ">
-        <TitleUserCard title={intl.user_add_screen_label} />
+      <div className="flex p-[40px] font-[600] mb-2 text-[20px] pb-0 justify-center items-center text-[#0D0E11] ">
+        {intl.user_add_screen_label}
       </div>
       <div id="model-scroll">
         <div

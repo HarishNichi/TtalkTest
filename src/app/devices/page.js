@@ -924,7 +924,7 @@ export default function Devices() {
               />
             </div>
           </div>
-          <div className="mb-[16px] pl-[18px] flex items-center">
+          <div className="mb-[16px] pl-[16px] flex items-center">
             <label
               key={"selectAll"}
               className="flex items-center text-customBlue"

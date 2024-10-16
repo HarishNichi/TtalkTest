@@ -44,6 +44,7 @@ import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import DeleteIcon from "../Icons/deleteIcon";
 import IconButton from "../Button/iconButton";
 import AddButton from "../Button/addButton";
+import GroupAdd from "../Icons/groupAdd";
 dayjs.extend(isSameOrBefore);
 dayjs.extend(isSameOrAfter);
 
@@ -299,6 +300,9 @@ export default function Group({ children, tab }) {
   /**ICON Imports */
   function editIcon() {
     return <AddIcon />;
+  }
+  function groupAdd() {
+    return <GroupAdd />;
   }
 
   function importIcon() {
@@ -1089,12 +1093,12 @@ export default function Group({ children, tab }) {
           <div className="flex space-x-4">
             <IconOutlineBtn
               text={intl.company_list_company_import}
-              textColor={"text-customBlue"}
+              textColor={"text-[#214BB9]"}
               textBold={true}
               py={"xl:py-2.5 md:py-1.5 py-1.5"}
               px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
               icon={() => importIcon()}
-              borderColor={"border-customBlue bg-white mr-2"}
+              borderColor={"border-[#214BB9] bg-white mr-2"}
               onClick={() => {
                 setImportModal(() => true);
               }}
@@ -1115,7 +1119,7 @@ export default function Group({ children, tab }) {
             />
           </div>
         </div>
-        <div className="mb-[5px] flex items-center pl-[17px]">
+        <div className="mb-[5px] flex items-center pl-[16px]">
           <label
             key={"selectAll"}
             className="flex items-center text-customBlue"
@@ -1170,7 +1174,7 @@ export default function Group({ children, tab }) {
             <div className="flex space-x-4">
               <IconOutlineBtn
                 text={intl.company_list_company_export_title}
-                textColor={"text-customBlue"}
+                textColor={"text-[#214BB9]"}
                 textBold={true}
                 py={"xl:py-2.5 md:py-1.5 py-1.5"}
                 px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
@@ -1199,8 +1203,8 @@ export default function Group({ children, tab }) {
 
               <IconOutlineBtn
                 text={intl.help_settings_addition_delete}
-                textColor="text-[#BA1818]" // Red text color
-                borderColor="border-[#BA1818]"
+                textColor="text-[#10265C]" // Red text color
+                borderColor="border-[#10265C]"
                 textBold={true}
                 py={"xl:py-2.5 md:py-1.5 py-1.5"}
                 px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
@@ -1233,7 +1237,7 @@ export default function Group({ children, tab }) {
       {deleteModal && (
         <AntModal
           title={
-            <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue font-semibold text-[20px] text-center">
+            <div className="px-[40px] pt-[25px] mb-[2vw] text-[] font-semibold text-[20px] text-center">
               {intl.help_settings_addition_delete}
             </div>
           }
@@ -1274,7 +1278,7 @@ export default function Group({ children, tab }) {
         <AntModal
           width={385}
           title={
-            <div className="px-[40px] pt-[25px] mb-[2vw] text-[20px] text-customBlue text-center">
+            <div className="px-[40px] pt-[25px] mb-[2vw] text-[20px] text-[#0D0E11] text-center">
               {intl.company_list_company_export_title}
             </div>
           }
@@ -1381,7 +1385,7 @@ export default function Group({ children, tab }) {
       {addNewModal && (
         <AntModal
           title={
-            <div className="px-[40px] pt-[25px] mb-[2vw] text-[20px] text-customBlue text-center">
+            <div className="px-[40px] pt-[25px] mb-[2vw] text-[20px] text-[#0D0E11] text-center">
               {intl.user_group_add_new}
             </div>
           }
@@ -1524,7 +1528,7 @@ export default function Group({ children, tab }) {
                       <IconBtn
                         textColor={"text-white"}
                         textBold={true}
-                        icon={() => editIcon()}
+                        icon={() => groupAdd()}
                         additionalClass={
                           "py-[10.5px] px-[8.5px] mt-[26px] h-[40px] ml-3"
                         }

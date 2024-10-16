@@ -525,7 +525,7 @@ export default function UserDetails() {
         <div className="flex flex-row w-full justify-end">
           <IconOutlineBtn
             text={intl.help_settings_addition_modal_edit}
-            textColor={"border-none text-customBlue"}
+            textColor={"border-none text-[#214BB9]"}
             textBold={true}
             py={"xl:py-2.5 md:py-1.5 py-1.5"}
             px={"xl:px-[20px] md:px-[22.5px] px-[22.5px] "}
@@ -615,8 +615,8 @@ export default function UserDetails() {
       <div className="flex justify-end mt-[16px]  space-x-4">
         <IconOutlineBtn
           text={intl.company_list_company_import}
-          textColor={"text-customBlue "}
-          borderColor={"border-customBlue bg-white"}
+          textColor={"text-[#214BB9] "}
+          borderColor={"border-[#214BB9] bg-white"}
           textBold={true}
           py={"xl:py-2.5 md:py-1.5 py-1.5  "}
           px={"xl:px-[32px] md:px-[33.5px] px-[33.5px]"}
@@ -628,12 +628,12 @@ export default function UserDetails() {
         />
         <IconOutlineBtn
           text={intl.company_list_company_export_title}
-          textColor={"text-customBlue"}
+          textColor={"text-[#214BB9]"}
           textBold={true}
           py={"xl:py-2.5 md:py-1.5 py-1.5"}
           px={"xl:px-[20px] md:px-[22.5px] px-[22.5px] "}
           icon={() => exportIcon()}
-          borderColor={"border-customBlue bg-white"}
+          borderColor={"border-[#214BB9] bg-white"}
           onClick={() => {
             setExportModal(true);
           }}
@@ -671,7 +671,7 @@ export default function UserDetails() {
         <AntModal
           width={385}
           title={
-            <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-[20px] text-center">
+            <div className="px-[40px] pt-[25px] mb-[2vw] text-[#0D0E11] text-[20px] text-center">
               {intl.company_list_company_export_title}
             </div>
           }

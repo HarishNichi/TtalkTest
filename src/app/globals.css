@@ -66,7 +66,6 @@ body {
   color: #19388b;
   font-size: 13px;
 }
-
 .ant-table-wrapper .ant-table {
   font-size: 12px;
 }
@@ -95,9 +94,9 @@ body {
   padding: 8px 16px !important;
 }
 
-/* .ant-table-tbody > tr:not(.history-settings-tables) > td {
+.ant-table-tbody > tr:not(.history-settings-tables) > td {
   padding: 2px 16px !important;
-} */
+}
 .ant-table-tbody {
   font-size: 16px;
 }
@@ -387,6 +386,10 @@ select {
   text-overflow: ellipsis;
 }
 
+.ant-table-selection-column {
+  padding-left: 1rem !important;
+  text-align: left;
+}
 
 .validation-font {
   font-size: 12px;
@@ -688,20 +691,10 @@ select {
   background-color: #d4dffa !important;
 }
 
-
+.ant-table-row {
+  cursor: pointer;
+}
 
 .ant-picker .ant-picker-input > input::placeholder {
-  color: #85868B !important;
-}
-
-.ant-table-selection-column {
-  padding: 0px !important;
-  /* padding-left: 1rem !important; */
-  width: 30px !important;
-  max-width: 30px !important;
-}
-.ant-table th.ant-table-selection-column {
-  width: 30px !important;
-  max-width: 30px !important;
-  padding: 0px !important;
+  color: #85868b !important;
 }

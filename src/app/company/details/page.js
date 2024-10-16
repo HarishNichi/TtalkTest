@@ -239,7 +239,6 @@ export default function CompanyInformation() {
                 {organizationsData?.name || ""}
               </div>
               <div className="flex space-x-4">
-              
                 <IconOutlineBtn
                   text={intl.help_settings_addition_delete}
                   textColor="text-[#10265C]"
@@ -248,7 +247,7 @@ export default function CompanyInformation() {
                   py={"xl:py-2.5 md:py-1.5 py-1.5"}
                   px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
                   icon={deleteIcon}
-                   // Disable the button when selectedRows is empty
+                  // Disable the button when selectedRows is empty
                   onClick={handleDeleteClick}
                 />
                 <Button

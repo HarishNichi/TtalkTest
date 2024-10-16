@@ -74,14 +74,15 @@ export default function AddUser({ setIsModalOpen, setComCreated }) {
 
       <div className="flex flex-col flex-1 h-full pt-[40px]">
         <div className="flex  justify-center">
-          <div className="flex">
-            <DynamicLabel
+          <div className="flex text-center text-[#0D0E11] text-[20px] font-semibold">
+            {/* <DynamicLabel
               text={intl.add_new_company}
               alignment="text-center text-customBlue"
               fontSize="text-[20px]"
               fontWeight="font-semibold"
               disabled={false}
-            />
+            /> */}
+            {intl.add_new_company}
           </div>
         </div>
 

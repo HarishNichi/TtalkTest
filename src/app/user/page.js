@@ -1995,7 +1995,7 @@ export default function UserList() {
           </div>
         </form>
 
-        <div className="mb-[16px] pl-[17px] flex flex-col md:flex-row md:items-center justify-between ">
+        <div className="mb-[16px] pl-[16px] flex flex-col md:flex-row md:items-center justify-between ">
           <label
             key={"selectAll"}
             className="flex items-center text-customBlue"
@@ -2072,12 +2072,12 @@ export default function UserList() {
             <div className="flex space-x-4">
               <IconOutlineBtn
                 text={intl.user_change_settings}
-                textColor={"text-customBlue"}
+                textColor={"text-[#214BB9]"}
                 textBold={true}
                 py={"xl:py-2 md:py-1.5 py-1.5"}
                 px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
                 icon={() => settingsIcon()}
-                borderColor={"border-customBlue"}
+                borderColor={"border-[#214BB9]"}
                 onClick={async () => {
                   const params = {
                     params: {
@@ -2093,12 +2093,12 @@ export default function UserList() {
               />
               <IconOutlineBtn
                 text={intl.company_list_company_export_title}
-                textColor={"text-customBlue"}
+                textColor={"text-[#214BB9]"}
                 textBold={true}
                 py={"xl:py-2 md:py-1.5 py-1.5"}
                 px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
                 icon={() => exportIcon()}
-                borderColor={"border-customBlue"}
+                borderColor={"border-[#214BB9]"}
                 onClick={() => {
                   toast.dismiss();
                   if (selectedRows.length <= 0) {
@@ -2124,9 +2124,9 @@ export default function UserList() {
               />
               <IconOutlineBtn
                 text={intl.help_settings_addition_delete}
-                textColor="text-customBlue"
+                textColor="text-[#10265c]"
                 textBold={true}
-                borderColor="border border-customBlue"
+                borderColor="border border-[#10265C]"
                 py={"xl:py-2.5 md:py-1.5 py-1.5"}
                 px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
                 icon={() => deleteIcon()}
@@ -2225,7 +2225,7 @@ export default function UserList() {
           <AntModal
             width={385}
             title={
-              <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue text-[20px] text-center">
+              <div className="px-[40px] pt-[25px] mb-[2vw] text-[#0D0E11] text-[20px] text-center">
                 {intl.company_list_company_export_title}
               </div>
             }
@@ -2339,7 +2339,7 @@ export default function UserList() {
         {deleteModal && (
           <AntModal
             title={
-              <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue font-semibold text-[20px] text-center">
+              <div className="px-[40px] pt-[25px] mb-[2vw] text-[#0D0E11] font-semibold text-[20px] text-center">
                 {intl.user_delete_modal}
               </div>
             }
