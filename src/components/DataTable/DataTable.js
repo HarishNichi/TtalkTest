@@ -174,6 +174,7 @@ export default function DataTable(props) {
                   type: selectionType,
                   ...rowSelection,
                   selectedRowKeys: selectedRowKeys, // Use selectedRowKeys from state
+                  columnWidth:30
                 }
               : false
           }
