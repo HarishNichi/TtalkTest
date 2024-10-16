@@ -109,7 +109,7 @@ export default function Devices() {
       title: intl.deadline,
       dataIndex: "isToggleOn",
       render: (text, record) => (
-        <div style={{ marginLeft: "20%" }}>
+        <div className=" pt-[5px] pb-[5px]" style={{ marginLeft: "20%" }}>
           {text ? intl.devices_canbe : intl.devices_none}
         </div>
       ),

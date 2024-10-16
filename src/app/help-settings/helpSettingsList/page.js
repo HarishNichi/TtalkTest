@@ -48,7 +48,7 @@ export default function HelpSettingsList() {
       title: intl.help_settings_count,
       dataIndex: "numberOfSubsections",
       render: (text) => (
-        <a className="" style={{ paddingRight: "10px" }}>
+        <a className=" pt-[5px] pb-[5px]" style={{ paddingRight: "10px" }}>
           {text}
         </a>
       ),
