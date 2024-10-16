@@ -239,6 +239,9 @@ export default function Header({
                 <h3 className="text-[16px] text-white font-semibold tracking-widest">
                   {user?.name ? user.name : ""}
                 </h3>
+                <h3 className="text-[16px] text-white font-semibold tracking-widest">
+                  {user?.id ? user.id : ""}
+                </h3>
               </div>
               <div
                 className={`${on ? "bg-[#0C4278] rounded-lg p-2" : "p-2"}`}
