@@ -94,9 +94,9 @@ body {
   padding: 8px 16px !important;
 }
 
-.ant-table-tbody > tr:not(.history-settings-tables) > td {
+/* .ant-table-tbody > tr:not(.history-settings-tables) > td {
   padding: 2px 16px !important;
-}
+} */
 .ant-table-tbody {
   font-size: 16px;
 }
@@ -386,10 +386,13 @@ select {
   text-overflow: ellipsis;
 }
 
-.ant-table-selection-column {
+/* .ant-table-selection-column {
   padding-left: 1rem !important;
+} */
+.ant-table th.ant-table-selection-column {
+  width: 30px !important;
+  max-width: 30px !important;
 }
-
 .validation-font {
   font-size: 12px;
   font-weight: 500;

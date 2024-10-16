@@ -63,6 +63,7 @@ export default function DataTable(props) {
   const rowSelection = {
     selectedRowKeys: selectedRowKeys,
     onChange: handleSelectRow,
+    columnWidth: 30,
     getCheckboxProps: (record) => ({
       disabled: record.name === "Disabled User",
       name: record.name,
@@ -174,7 +175,6 @@ export default function DataTable(props) {
                   type: selectionType,
                   ...rowSelection,
                   selectedRowKeys: selectedRowKeys, // Use selectedRowKeys from state
-                  columnWidth:30
                 }
               : false
           }
