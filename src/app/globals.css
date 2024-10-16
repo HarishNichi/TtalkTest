@@ -388,9 +388,11 @@ select {
 
 .ant-table-selection-column {
   padding-left: 1rem !important;
-  width: 30px !important;
-  max-width: 30px !important;
-  padding-right: 0px !important;
+}
+
+td:first-child {
+  padding-left: 20px !important;
+  padding-right: 0 !important;
 }
 
 
