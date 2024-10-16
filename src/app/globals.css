@@ -66,6 +66,17 @@ body {
   color: #19388b;
   font-size: 13px;
 }
+.ant-table-selection-column {
+  padding: 0px !important;
+  /* padding-left: 1rem !important; */
+  width: 30px !important;
+  max-width: 30px !important;
+}
+.ant-table th.ant-table-selection-column {
+  width: 30px !important;
+  max-width: 30px !important;
+  padding: 0px !important;
+}
 .ant-table-wrapper .ant-table {
   font-size: 12px;
 }
@@ -386,13 +397,7 @@ select {
   text-overflow: ellipsis;
 }
 
-/* .ant-table-selection-column {
-  padding-left: 1rem !important;
-} */
-.ant-table th.ant-table-selection-column {
-  width: 30px !important;
-  max-width: 30px !important;
-}
+
 .validation-font {
   font-size: 12px;
   font-weight: 500;
