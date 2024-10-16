@@ -10,7 +10,7 @@ export default function CardIcon({
 }) {
   return (
     <>
-      <div className="relative  w-full h-full bg-white border border-gray-200 rounded-2xl md:rounded-xl shadow flex items-center min-h-[78px] max-h-[78px]">
+      <div className="relative  w-full h-full bg-white border border-gray-200 rounded shadow flex items-center min-h-[78px] max-h-[78px]">
         <div className={`flex items-center h-full ml-2`}>
           {icon}
           <div className=" ml-2">

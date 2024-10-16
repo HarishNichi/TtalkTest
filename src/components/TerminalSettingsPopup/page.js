@@ -486,7 +486,7 @@ export default function TerminalSettingsPopup({ isModal, selectedRows }) {
       {loading && <LoaderOverlay />}
       {isModal && (
         <div className="flex mt-[16px] ml-[16px] mb-[16px] ">
-          <TitleUserCard title={intl.bulk_setting_change} />
+          <TitleUserCard title={intl.user_change_settings} />
         </div>
       )}
       <div className=" p-[16px] bg-white">
@@ -495,7 +495,10 @@ export default function TerminalSettingsPopup({ isModal, selectedRows }) {
           <TitleUserCard title={intl.user_ptalk_service_screen_label} />
         </div>
 
-        <div className="flex flex-col md:flex-row md:gap-x-4" id="ptalk-service">
+        <div
+          className="flex flex-col md:flex-row md:gap-x-4"
+          id="ptalk-service"
+        >
           <div className="flex flex-col w-full space-y-2    ">
             <div className="">
               <div>
@@ -544,7 +547,7 @@ export default function TerminalSettingsPopup({ isModal, selectedRows }) {
             </div>
           </div>
 
-          <div className="flex flex-col ml-0 md:ml-2 w-full space-y-2 mb-2">
+          <div className="flex flex-col ml-0 md:ml-2 md:pl-2 w-full space-y-2 mb-2 ">
             <ToggleBoxMediumRevamp
               disabled={false}
               checked={!!userDetailsInfo.goOffline}
@@ -1876,10 +1879,10 @@ export default function TerminalSettingsPopup({ isModal, selectedRows }) {
         </div>
       </div>
       {isModal && (
-        <div className="flex justify-end mr-[16px] mb-[16px]">
+        <div className="flex justify-center  mb-[16px]">
           <Button
             type="secondary"
-            className="border-[#214BB9] h-[40px] border-solid text-[#214BB9]  text-[16px]  font-semibold"
+            className="border bg-[#19388B] rounded h-[40px] w-[400px]  text-[white]  text-[16px]  font-semibold"
             onClick={() => {
               setConfirmModal(true);
             }}

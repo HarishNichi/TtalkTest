@@ -39,25 +39,25 @@ export default function Sidebar({
     // Add the admin-only sections if 'Admin' is true
     links.push(
       {
-        title: intl.components_card_searchlist_companylist,
+        title: intl.company,
         link: "/company/list",
         icon: (color) => MenuOrganization(color),
         module: "company",
       },
       {
-        title: intl.dashboard_user_list,
+        title: intl.user,
         link: "/user",
         icon: (color) => MenuUsers(color),
         module: "user",
       },
       {
-        title: intl.helper_sub_section_terminal_help_list,
+        title: intl.help,
         link: "/help-settings/helpSettingsList",
         icon: (color) => MenuSettings(color),
         module: "help-settings",
       },
       {
-        title: intl.sidebar_corporate_management,
+        title: intl.machine,
         link: "/devices",
         icon: (color) => DeviceSettings(color),
         module: "devices",
@@ -66,7 +66,7 @@ export default function Sidebar({
   } else {
     // Add the "user" section for non-admin users
     const userSection = {
-      title: intl.layout_sidebar_user_label,
+      title: intl.user,
       link: "/user",
       icon: (color) => MenuUsers(color),
       module: "user",

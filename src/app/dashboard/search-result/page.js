@@ -601,7 +601,7 @@ export default function HelpSettingsList() {
       {loading && <LoaderOverlay />}
       <ToastContainer />
       <div>
-        <div className="mb-[16px] flex items-center">
+        <div className="mb-[16px] flex items-center pl-[17px]">
           <label
             key={"selectAll"}
             className="flex items-center text-customBlue"
@@ -611,7 +611,7 @@ export default function HelpSettingsList() {
               disabled={employeeDataList?.length == 0}
               value={selectAll}
               checked={selectAll}
-              className="h-[16px] w-[16px] text-[#19388B]  focus:ring-[#19388B] focus:ring-opacity-50 rounded-lg bg-[#19388B] bg-opacity-88 text-opacity-88"
+              className="h-[16px] w-[16px] text-[#19388B]  focus:ring-[#19388B] focus:ring-opacity-50 rounded bg-[#19388B] bg-opacity-88 text-opacity-88"
               onChange={(evt) => {
                 setSelectAll(evt.target.checked);
               }}
@@ -656,12 +656,12 @@ export default function HelpSettingsList() {
             <div className="flex space-x-4">
               <IconOutlineBtn
                 text={intl.company_list_company_export_title}
-                textColor={"text-customBlue"}
+                textColor={"text-[#214BB9]"}
                 textBold={true}
                 py={"xl:py-2.5 md:py-1.5 py-1.5"}
                 px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
                 icon={() => exportIcon()}
-                borderColor={"border-customBlue"}
+                borderColor={"border-[#214BB9]"}
                 onClick={async () => {
                   await setExportModal(() => false);
                   await handelExport();
@@ -669,9 +669,9 @@ export default function HelpSettingsList() {
               />
               <IconOutlineBtn
                 text={intl.help_settings_addition_delete}
-                textColor="text-[#BA1818]"
+                textColor="text-[#10265C]"
                 textBold={true}
-                borderColor="border-[#BA1818]"
+                borderColor="border-[#10265C]"
                 py={"xl:py-2.5 md:py-1.5 py-1.5"}
                 px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
                 icon={() => deleteIcon()}
@@ -716,7 +716,7 @@ export default function HelpSettingsList() {
         {deleteModal && (
           <AntModal
             title={
-              <div className="px-[40px] pt-[25px] mb-[2vw] font-semibold text-[20px] text-customBlue text-center">
+              <div className="px-[40px] pt-[25px] mb-[2vw] font-semibold text-[20px] text-[#0D0E11] text-center">
                 {intl.user_delete_modal}
               </div>
             }
@@ -758,7 +758,7 @@ export default function HelpSettingsList() {
           <AntModal
             width={385}
             title={
-              <div className="px-[40px] pt-[25px] mb-[2vw] text-customBlue  text-[20px] text-center">
+              <div className="px-[40px] pt-[25px] mb-[2vw] text-[#0D0E11]  text-[20px] text-center">
                 {intl.company_list_company_export_title}
               </div>
             }

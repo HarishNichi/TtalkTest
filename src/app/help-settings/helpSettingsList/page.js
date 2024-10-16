@@ -23,6 +23,7 @@ import DeleteIcon from "@/components/Icons/deleteIcon";
 import { Button } from "antd";
 import DeleteIconDisabled from "@/components/Icons/deleteDisabledIcon";
 import { Modal as AntModal } from "antd";
+import AddButton from "@/components/Button/addButton";
 export default function HelpSettingsList() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -65,13 +66,13 @@ export default function HelpSettingsList() {
         >
           <p className="flex">
             <span
-              className="ml-[25px] cursor-pointer rounded-full px-3 py-2 bg-[#EDF2F5] hover:bg-[#DCE7F0]"
+              className="ml-[25px] "
               onClick={(event) => {
                 event.stopPropagation();
                 handelEdit(record);
               }}
             >
-              <SectionEditIcon />
+              {/* <SectionEditIcon /> */}
             </span>
           </p>
         </div>
@@ -425,6 +426,74 @@ export default function HelpSettingsList() {
    * If the response is successful, it sets the deleteModal state to false, updates the data to remove the deleted records, resets the selectedRows state, and fetches the data again.
    * If there is an error, it sets the deleteModal state to false, shows a toast error message and resets the selectedRows state.
    */
+  // const deleteSection = async () => {
+  //   // Check if there are selected rows
+  //   if (selectedRows.length === 0) {
+  //     toast.error("No rows selected for deletion.", {
+  //       position: "top-right",
+  //       autoClose: 5000,
+  //       hideProgressBar: true,
+  //       closeOnClick: true,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       theme: "colored",
+  //       type: "error",
+  //     });
+  //     return;
+  //   }
+
+  //   toast.dismiss();
+  //   setLoading(true);
+
+  //   try {
+  //     // Iterate through selected rows to delete them
+  //     const helpId = selectedRows.map((record) => ({
+  //       parent: "null",
+  //       child: record.subSetId,
+  //     }));
+  //     const config = {
+  //       data: helpId,
+  //     };
+  //     const response = await api.delete(`help/delete`, config);
+  //     if (response.data.status.code !== code.OK) {
+  //       throw new Error(
+  //         response.data.status.message || "Failed to delete record"
+  //       );
+  //     }
+
+  //     // Update the state to remove the deleted records
+  //     setData((prevData) =>
+  //       prevData.filter(
+  //         (item) => !selectedRows.some((selected) => selected.id === item.id)
+  //       )
+  //     );
+
+  //     // Reset selectedRows state
+  //     setSelectedRows([]);
+
+  //     // Hide the delete modal
+  //     setDeleteModal(false);
+
+  //     // Optionally, fetch fresh data if needed
+  //     fetchData();
+  //   } catch (error) {
+  //     // Handle errors and display a toast message
+  //     toast(error.message || "An error occurred while deleting the record.", {
+  //       position: "top-right",
+  //       autoClose: 5000,
+  //       hideProgressBar: true,
+  //       closeOnClick: true,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       theme: "colored",
+  //       type: "error",
+  //     });
+  //     setDeleteModal(false);
+  //   } finally {
+  //     setLoading(false); // Ensure loading state is reset
+  //   }
+  // };
+
   const deleteSection = async () => {
     // Check if there are selected rows
     if (selectedRows.length === 0) {
@@ -446,18 +515,21 @@ export default function HelpSettingsList() {
 
     try {
       // Iterate through selected rows to delete them
-      const helpId = selectedRows.map((record) => ({
-        parent: "null",
-        child: record.subSetId,
-      }));
-      const config = {
-        data:helpId
-      }
-      const response = await api.delete(`help/delete`, config);
-      if (response.data.status.code !== code.OK) {
-        throw new Error(
-          response.data.status.message || "Failed to delete record"
-        );
+      for (const record of selectedRows) {
+        const config = {
+          data: {
+            parent: "null",
+            child: record.subSetId,
+          },
+        };
+
+        const response = await api.delete(`help/delete`, config);
+
+        if (response.data.status.code !== code.OK) {
+          throw new Error(
+            response.data.status.message || "Failed to delete record"
+          );
+        }
       }
 
       // Update the state to remove the deleted records
@@ -487,7 +559,6 @@ export default function HelpSettingsList() {
         theme: "colored",
         type: "error",
       });
-      setDeleteModal(false);
     } finally {
       setLoading(false); // Ensure loading state is reset
     }
@@ -509,7 +580,7 @@ export default function HelpSettingsList() {
           <div className="flex  justify-between mb-4 xl:mb-2 ">
             <div className="flex items-center dark:text-black">
               <DynamicLabel
-                text={intl.helper_sub_section_terminal_help_list}
+                text={intl.help}
                 alignment="text-center dark:text-black"
                 fontSize="text-xl"
                 fontWeight="font-semibold"
@@ -517,15 +588,19 @@ export default function HelpSettingsList() {
                 disabled={false}
               />
             </div>
-            <div className="flex ">
+            <div className="flex space-x-4  ">
               <IconOutlineBtn
                 text={
                   selectedRows.length === 0
                     ? `${intl.help_settings_addition_delete}`
                     : `${intl.help_settings_addition_delete}(${selectedRows.length})`
                 }
-                textColor={"text-[#BA1818]"} // Light red when disabled, darker red otherwise
-                borderColor={"border-none"} // Light border when disabled, no border otherwise
+                textColor={
+                  selectedRows.length === 0
+                    ? "text-[#10265C] opacity-[0.38]"
+                    : "text-[#10265C]"
+                } // Light red when disabled, darker red otherwise
+                borderColor={"border border-[#10265C]"} // Light border when disabled, no border otherwise
                 textBold={true}
                 py={"xl:py-2.5 md:py-1.5 py-1.5"}
                 px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
@@ -539,14 +614,14 @@ export default function HelpSettingsList() {
                 }}
               />
 
-              <IconOutlineBtn
+              <AddButton
                 text={intl.help_settings_help_category}
-                textColor={"text-customBlue"}
+                textColor={"text-white"}
                 textBold={true}
                 py={"xl:py-2.5 md:py-1.5 py-1.5"}
                 px={"px-[20px]"}
                 icon={() => editIcon(false)}
-                borderColor={"border-none"}
+                borderColor={"border"}
                 onClick={async () => {
                   setEditModal(() => false);
                   await setAddModal(() => false);
@@ -555,7 +630,7 @@ export default function HelpSettingsList() {
               />
             </div>
           </div>
-          <div className="mb-[16px] flex items-center">
+          <div className="mb-[16px] flex items-center pl-[23px]">
             <label
               key={"selectAll"}
               className="flex items-center text-customBlue"

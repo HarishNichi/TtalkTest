@@ -1,6 +1,6 @@
 "use client";
 
-export default function DashboardSearch(props) {
+export default function IconButton(props) {
   return (
     <button
       type={props.type}

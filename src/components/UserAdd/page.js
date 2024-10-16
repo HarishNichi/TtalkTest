@@ -301,39 +301,6 @@ export default function AddUser({
           style={{ maxHeight: "450px", overflow: "auto" }}
         >
           <div className="w-full">
-            {/* machine */}
-            <div className="mb-[32px]">
-              <DropdownMedium
-                defaultSelectNoOption={false}
-                isRequired={true}
-                requiredColor={{
-                  color: "#ED2E2E",
-                }}
-                padding={"h-[40px]"}
-                options={deviceList}
-                keys={"value"} // From options array
-                optionLabel={"label"} // From options array
-                border={"border border-[#E7E7E9] rounded"}
-                focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
-                bg=""
-                text={"text-[16px]"}
-                additionalClass={"block w-full p-[8px]"}
-                id={"machine"}
-                name={"machine"}
-                labelColor={"#0D0E11"}
-                label={intl.machineName}
-                value={machine}
-                onChange={async (event) => {
-                  setMachine(event);
-                  await setTouched(() => ({ ...touched, ["machine"]: true }));
-                }}
-              />
-              {touched && errors && errors.machine && touched.machine && (
-                <div className="pl-1 validation-font" style={{ color: "red" }}>
-                  {errors.machine}
-                </div>
-              )}
-            </div>
             {/* user name */}
             <div className="mb-[32px]">
               <DynamicLabel
@@ -394,8 +361,6 @@ export default function AddUser({
                 </div>
               )}
             </div>
-            {/*  */}
-
             {/* org list */}
             <div className="mb-[32px]">
               {organizationList.length > 0 && (
@@ -442,6 +407,41 @@ export default function AddUser({
                   </div>
                 )}
             </div>
+            {/* machine */}
+            <div className="mb-[32px]">
+              <DropdownMedium
+                defaultSelectNoOption={false}
+                isRequired={true}
+                requiredColor={{
+                  color: "#ED2E2E",
+                }}
+                padding={"h-[40px]"}
+                options={deviceList}
+                keys={"value"} // From options array
+                optionLabel={"label"} // From options array
+                border={"border border-[#E7E7E9] rounded"}
+                focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
+                bg=""
+                text={"text-[16px]"}
+                additionalClass={"block w-full p-[8px]"}
+                id={"machine"}
+                name={"machine"}
+                labelColor={"#0D0E11"}
+                label={intl.machineName}
+                value={machine}
+                onChange={async (event) => {
+                  setMachine(event);
+                  await setTouched(() => ({ ...touched, ["machine"]: true }));
+                }}
+              />
+              {touched && errors && errors.machine && touched.machine && (
+                <div className="pl-1 validation-font" style={{ color: "red" }}>
+                  {errors.machine}
+                </div>
+              )}
+            </div>
+
+            {/*  */}
           </div>
 
           {/* -------------- */}

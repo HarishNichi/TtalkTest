@@ -73,7 +73,7 @@ export default function SearchCard({
   return (
     <>
       <div
-        className="py-4 block pl-4 pr-4 bg-white border border-gray-200 rounded-xl shadow relative overflow-auto"
+        className="py-4 block pl-4 pr-4 bg-white border border-gray-200 rounded shadow relative overflow-auto"
         style={{ maxHeight: "490px", minHeight: "490px" }}
       >
         <h1 className="text-base md:text-xl dark:text-black mb-2 font-semibold">
@@ -85,7 +85,7 @@ export default function SearchCard({
           <div className="relative mb-2 w-[64%]">
             <input
               type="text"
-              className="w-full h-[32px] max-h-[32px] pl-3 pr-3 border bg-[white] rounded-lg focus:outline-none placeholder-[#AEA8A8] dark:text-black"
+              className="w-full h-[32px] max-h-[32px] pl-3 pr-3 border bg-[white] rounded focus:outline-none placeholder-[#AEA8A8] dark:text-black"
               placeholder={
                 Admin
                   ? intl.user_sos_company_search_placeholder

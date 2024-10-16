@@ -51,6 +51,7 @@ import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import AddUser from "@/components/UserAdd/page";
 import CopyButton from "@/components/Icons/copyButton";
 import TerminalSettingsPopup from "@/components/TerminalSettingsPopup/page";
+import AddButton from "@/components/Button/addButton";
 dayjs.extend(customParseFormat);
 dayjs.extend(isSameOrBefore);
 dayjs.extend(isSameOrAfter);
@@ -86,6 +87,66 @@ export default function UserList() {
   }
 
   const companyColumns = [
+    {
+      title: intl.user_name,
+      dataIndex: "name",
+      render: (text) => {
+        const content = <div className="text-white">{text}</div>;
+        return (
+          <Popover content={content} color="#19388B">
+            <a className="text-ellipsis">{text}</a>
+          </Popover>
+        );
+      },
+      width: 150,
+      align: "left",
+    },
+    {
+      title: intl.furigana,
+      dataIndex: "furigana",
+      render: (text) => {
+        const content = <div className="text-white">{text}</div>;
+        return (
+          <Popover content={content} color="#19388B">
+            <a className="text-ellipsis">{text}</a>
+          </Popover>
+        );
+      },
+      width: 150,
+      align: "left",
+    },
+    {
+      title: intl.machineName,
+      dataIndex: "machine",
+      render: (text) => {
+        let content = <span className="text-white">{text}</span>;
+        return (
+          <Popover content={content} color="#19388B">
+            <a className="text-ellipsis">{text}</a>
+          </Popover>
+        );
+      },
+      width: 115,
+      align: "left",
+      sorter: (a, b) => a.machine.localeCompare(b.machine),
+      sortDirections: ["ascend", "descend", "ascend"],
+    },
+    {
+      title: intl.company_list_company_radioNumber,
+      dataIndex: "radioNumber",
+      render: (text) => {
+        const content = <div className="text-white">{text}</div>;
+        return (
+          <Popover content={content} color="#19388B">
+            <a className="text-customBlue text-ellipsis">{text}</a>
+          </Popover>
+        );
+      },
+      width: 150,
+      align: "left",
+      sorter: (a, b) => a.radioNumber.localeCompare(b.radioNumber),
+      sortDirections: ["ascend", "descend", "ascend"],
+    },
     {
       title: intl.user_userId_label,
       dataIndex: "userId",
@@ -171,67 +232,7 @@ export default function UserList() {
       width: 105,
       align: "left",
     },
-    {
-      title: intl.user_name,
-      dataIndex: "name",
-      render: (text) => {
-        const content = <div className="text-white">{text}</div>;
-        return (
-          <Popover content={content} color="#19388B">
-            <a className="text-ellipsis">{text}</a>
-          </Popover>
-        );
-      },
-      width: 150,
-      align: "left",
-    },
-    {
-      title: intl.furigana,
-      dataIndex: "furigana",
-      render: (text) => {
-        const content = <div className="text-white">{text}</div>;
-        return (
-          <Popover content={content} color="#19388B">
-            <a className="text-ellipsis">{text}</a>
-          </Popover>
-        );
-      },
-      width: 150,
-      align: "left",
-    },
-    {
-      title: intl.company_list_company_radioNumber,
-      dataIndex: "radioNumber",
-      render: (text) => {
-        const content = <div className="text-white">{text}</div>;
-        return (
-          <Popover content={content} color="#19388B">
-            <a className="text-customBlue text-ellipsis">{text}</a>
-          </Popover>
-        );
-      },
-      width: 150,
-      align: "left",
-      sorter: (a, b) => a.radioNumber.localeCompare(b.radioNumber),
-      sortDirections: ["ascend", "descend", "ascend"],
-    },
 
-    {
-      title: intl.machineName,
-      dataIndex: "machine",
-      render: (text) => {
-        let content = <span className="text-white">{text}</span>;
-        return (
-          <Popover content={content} color="#19388B">
-            <a className="text-ellipsis">{text}</a>
-          </Popover>
-        );
-      },
-      width: 115,
-      align: "left",
-      sorter: (a, b) => a.machine.localeCompare(b.machine),
-      sortDirections: ["ascend", "descend", "ascend"],
-    },
     {
       title: intl.company_list_company_status,
       dataIndex: "isActive",
@@ -421,7 +422,7 @@ export default function UserList() {
       sorter: (a, b) => a.organization.localeCompare(b.organization),
       sortDirections: ["ascend", "descend", "ascend"],
     };
-    companyColumns.splice(5, 0, org);
+    companyColumns.splice(2, 0, org);
   }
   const [csvFileName, setCsvFileName] = useState("");
   const [exportType, setExportType] = useState(1);
@@ -680,23 +681,23 @@ export default function UserList() {
     return () => subscription.unsubscribe();
   }, [csvUploadInitiatedSettings]);
 
-/**
- * Returns an AddIcon component with the isMobile prop set to the given flag.
- * @param {boolean} flag - whether to render the icon for mobile or not.
- * @returns {ReactNode} - the rendered AddIcon component.
- */
+  /**
+   * Returns an AddIcon component with the isMobile prop set to the given flag.
+   * @param {boolean} flag - whether to render the icon for mobile or not.
+   * @returns {ReactNode} - the rendered AddIcon component.
+   */
   function editIcon(flag) {
     return <AddIcon isMobile={flag} />;
   }
 
-/**
- * Handles the deletion of employees selected in the table.
- * Shows a toast error message if no employee is selected.
- * Sends a POST request to the API to delete the users.
- * If the response is successful, it sets the deleteModal state to false, sets the selectAll state to false, sets the selectedRows state to an empty array, sets the deleted state to true, shows a toast success message and fetches the data again.
- * If there is an error, it sets the deleteModal state to false, sets the loading state to false and shows a toast error message.
- * @param {array} selectedRows - The array of selected employees.
- */
+  /**
+   * Handles the deletion of employees selected in the table.
+   * Shows a toast error message if no employee is selected.
+   * Sends a POST request to the API to delete the users.
+   * If the response is successful, it sets the deleteModal state to false, sets the selectAll state to false, sets the selectedRows state to an empty array, sets the deleted state to true, shows a toast success message and fetches the data again.
+   * If there is an error, it sets the deleteModal state to false, sets the loading state to false and shows a toast error message.
+   * @param {array} selectedRows - The array of selected employees.
+   */
   const deleteEmployee = async (selectedRows) => {
     toast.dismiss();
     if (selectedRows.length <= 0) {
@@ -765,7 +766,6 @@ export default function UserList() {
   function deleteIcon(flag) {
     return <DeleteIcon isMobile={flag} />;
   }
-
 
   /**
    * Handles the delete button click event.
@@ -1062,12 +1062,11 @@ export default function UserList() {
     );
   }
 
-
-/**
- * @function
- * @description Return an ExportIcon component.
- * @returns {ReactElement} An ExportIcon component.
- */
+  /**
+   * @function
+   * @description Return an ExportIcon component.
+   * @returns {ReactElement} An ExportIcon component.
+   */
   function exportIcon() {
     return (
       <svg
@@ -1092,11 +1091,11 @@ export default function UserList() {
     );
   }
 
-/**
- * @function
- * @description Return an settingsIcon component.
- * @returns {ReactElement} An settingsIcon component.
- */
+  /**
+   * @function
+   * @description Return an settingsIcon component.
+   * @returns {ReactElement} An settingsIcon component.
+   */
   function settingsIcon() {
     return (
       <svg
@@ -1121,13 +1120,12 @@ export default function UserList() {
     );
   }
 
-
   /**
- * Fetches a list of devices and processes their expiration dates.
- * 
- * @async
- * @returns {Promise<Array<string>>} An array of IDs of expired devices.
- */
+   * Fetches a list of devices and processes their expiration dates.
+   *
+   * @async
+   * @returns {Promise<Array<string>>} An array of IDs of expired devices.
+   */
   const fetchDevice = async () => {
     toast.dismiss();
     let deviceListMap = [];
@@ -1167,10 +1165,9 @@ export default function UserList() {
     }
   };
 
-
   /**
    * Fetches a list of organizations and updates the device list.
-   * 
+   *
    * @async
    * @returns {Promise<void>}
    */
@@ -1191,7 +1188,7 @@ export default function UserList() {
   /**
    * Finds the name of an organization by its ID in the given list of
    * organizations.
-   * 
+   *
    * @param {string} orgId The ID of the organization to find.
    * @param {Array} projectionList The list of organizations to search in.
    * @returns {string} The name of the organization if found, otherwise an empty
@@ -1211,7 +1208,7 @@ export default function UserList() {
   /**
    * Fetches a list of expired device IDs and calls the fetchData function
    * with the given list of organizations and the expired device IDs.
-   * 
+   *
    * @async
    * @param {Array} projectionList The list of organizations to pass to the
    * fetchData function.
@@ -1230,7 +1227,7 @@ export default function UserList() {
    * organizations and a list of expired device IDs. If the API response does not
    * contain the end of the list, it calls itself with the offset from the
    * response and the same list of organizations and expired device IDs.
-   * 
+   *
    * @async
    * @param {Array} projectionList The list of organizations to pass to the
    * API.
@@ -1306,10 +1303,10 @@ export default function UserList() {
     }
   };
 
-/**
- * Update search payload state with new value
- * @param {object} event - form event
- */
+  /**
+   * Update search payload state with new value
+   * @param {object} event - form event
+   */
   const updateSearchPayload = (event) => {
     setSearchPayload({
       ...searchPayload,
@@ -1330,18 +1327,15 @@ export default function UserList() {
   function getIconWithClass(cls) {
     return (
       <svg
-        width="14"
-        height="14"
-        viewBox="0 0 14 14"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M10.0161 9.1667C10.6485 8.29789 11.0218 7.22781 11.0218 6.07129C11.0218 3.16365 8.66481 0.806641 5.75733 0.806641C2.84967 0.806641 0.492676 3.16359 0.492676 6.07129C0.492676 8.97873 2.84963 11.3357 5.75733 11.3357C6.91399 11.3357 7.98413 10.9624 8.85288 10.33L11.9607 13.4378C12.2821 13.7592 12.8032 13.7605 13.1249 13.4388C13.4486 13.1151 13.4447 12.5952 13.124 12.2746C13.124 12.2746 13.1239 12.2745 13.124 12.2746L10.0161 9.1667ZM9.61808 9.19293C9.61811 9.19289 9.61805 9.19298 9.61808 9.19293C9.68154 9.11453 9.74253 9.03403 9.8012 8.95179C10.3808 8.13946 10.7218 7.14517 10.7218 6.07129C10.7218 3.32932 8.49912 1.10664 5.75733 1.10664C3.01536 1.10664 0.792676 3.32928 0.792676 6.07129C0.792676 8.81304 3.01531 11.0357 5.75733 11.0357C6.94009 11.0357 8.02624 10.6222 8.87896 9.93182L12.1728 13.2257C12.3776 13.4304 12.7087 13.4307 12.9128 13.2266C13.1183 13.0211 13.1165 12.6912 12.9118 12.4867L9.61808 9.19293ZM5.75724 9.69069C7.75614 9.69069 9.37664 8.07019 9.37664 6.07129C9.37664 4.07231 7.75614 2.45189 5.75724 2.45189C3.75825 2.45189 2.13784 4.0723 2.13784 6.07129C2.13784 8.0702 3.75825 9.69069 5.75724 9.69069ZM9.67664 6.07129C9.67664 8.23588 7.92182 9.99069 5.75724 9.99069C3.59256 9.99069 1.83784 8.23588 1.83784 6.07129C1.83784 3.90662 3.59256 2.15189 5.75724 2.15189C7.92182 2.15189 9.67664 3.90662 9.67664 6.07129Z"
-          fill="white"
-          stroke="#ffffff"
+          d="M9.51955 15.6153C7.81188 15.6153 6.36571 15.023 5.18105 13.8385C3.99655 12.6538 3.4043 11.2077 3.4043 9.50002C3.4043 7.79235 3.99655 6.34618 5.18105 5.16152C6.36571 3.97702 7.81188 3.38477 9.51955 3.38477C11.2272 3.38477 12.6734 3.97702 13.858 5.16152C15.0425 6.34618 15.6348 7.79235 15.6348 9.50002C15.6348 10.2142 15.515 10.8963 15.2753 11.5463C15.0355 12.1963 14.7155 12.7616 14.3155 13.2423L20.0695 18.9963C20.208 19.1346 20.2789 19.3086 20.282 19.5183C20.2852 19.7279 20.2144 19.9052 20.0695 20.05C19.9247 20.1948 19.749 20.2673 19.5425 20.2673C19.3362 20.2673 19.1606 20.1948 19.0158 20.05L13.2618 14.296C12.7618 14.7088 12.1868 15.0319 11.5368 15.2653C10.8868 15.4986 10.2144 15.6153 9.51955 15.6153ZM9.51955 14.1155C10.808 14.1155 11.8994 13.6683 12.7935 12.774C13.6879 11.8798 14.135 10.7885 14.135 9.50002C14.135 8.21152 13.6879 7.12018 12.7935 6.22601C11.8994 5.33168 10.808 4.88452 9.51955 4.88452C8.23105 4.88452 7.13971 5.33168 6.24555 6.22601C5.35121 7.12018 4.90405 8.21152 4.90405 9.50002C4.90405 10.7885 5.35121 11.8798 6.24555 12.774C7.13971 13.6683 8.23105 14.1155 9.51955 14.1155Z"
+          fill="#214BB9"
         />
       </svg>
     );
@@ -1460,7 +1454,6 @@ export default function UserList() {
     }
   };
 
- 
   /**
    * Handles the import modal submission event.
    * Converts the uploaded file to base64 and calls the appropriate upload function.
@@ -1525,7 +1518,7 @@ export default function UserList() {
 
   /**
    * Uploads a CSV file containing user data to the server.
-   * 
+   *
    * @param {object} payload - The payload to be sent to the server, which should
    * contain the following properties:
    * - `file`: The base64 encoded CSV file to be uploaded.
@@ -1553,7 +1546,7 @@ export default function UserList() {
 
   /**
    * Uploads a CSV file containing user setting data to the server.
-   * 
+   *
    * @param {object} payload - The payload to be sent to the server, which should
    * contain the following properties:
    * - `file`: The base64 encoded CSV file to be uploaded.
@@ -1578,7 +1571,7 @@ export default function UserList() {
 
   /**
    * Uploads a CSV file containing group data to the server.
-   * 
+   *
    * @param {object} payload - The payload to be sent to the server, which should
    * contain the following properties:
    * - `file`: The base64 encoded CSV file to be uploaded.
@@ -1601,7 +1594,7 @@ export default function UserList() {
 
   /**
    * Uploads a CSV file containing contact data to the server.
-   * 
+   *
    * @param {object} payload - The payload to be sent to the server, which should
    * contain the following properties:
    * - `file`: The base64 encoded CSV file to be uploaded.
@@ -1646,7 +1639,7 @@ export default function UserList() {
       <div className="flex justify-between mb-[16px] xl:mb-2 ">
         <div className="flex items-center ">
           <DynamicLabel
-            text={intl.dashboard_user_list}
+            text={intl.user}
             alignment="text-center"
             fontSize="text-xl"
             fontWeight="font-semibold"
@@ -1654,11 +1647,11 @@ export default function UserList() {
             disabled={false}
           />
         </div>
-        <div className="hidden  lg:flex gap-x-2">
+        <div className="hidden  lg:flex gap-x-4">
           <IconOutlineBtn
             text={intl.company_list_company_import}
-            textColor={"text-customBlue"}
-            borderColor={"border-none"}
+            textColor={"text-[#214BB9]"}
+            borderColor={"border border-[#214BB9]"}
             textBold={true}
             py={"xl:py-2 md:py-1.5 py-1.5"}
             px={" px-[33.5px]  md:px-[24.5px] xl:px-[24px]"}
@@ -1670,9 +1663,9 @@ export default function UserList() {
           />
 
           {Admin && (
-            <IconOutlineBtn
+            <AddButton
               text={intl.user_addUser_label}
-              textColor={"text-customBlue"}
+              textColor={"text-white"}
               borderColor={"border-none"}
               textBold={true}
               py={"xl:py-2 md:py-1.5 py-1.5"}
@@ -1812,7 +1805,7 @@ export default function UserList() {
                   list="company_search"
                   name="company_search"
                   className={`w-full border flex   text-[16px]  p-2 rounded focus:outline-none placeholder-[#AEA8A8] 
-        placeholder:text-left placeholder:text-[16px] md:placeholder:text-left md:placeholder:pl-0
+        placeholder:text-left placeholder:text-[#85868B] placeholder:text-[16px] md:placeholder:text-left md:placeholder:pl-0
         dark:text-black h-[40px] border border-[#E7E7E9]`}
                   placeholder={intl.company_list_company_name}
                   id="organization"
@@ -1850,7 +1843,7 @@ export default function UserList() {
             <div className="col-span-12 md:col-span-6 xl:col-span-2 custom-date-picker">
               <DatePicker
                 placeholder={intl.user_registration_date_without_ddmmyy}
-                className="w-full  rounded h-[40px] placeholder:text-[16px] text-[16px] p-2 border border-[#E7E7E9]"
+                className="w-full  placeholder:text-[#85868B] rounded h-[40px] placeholder:text-[16px] text-[16px] p-2 border border-[#E7E7E9]"
                 id="createdAt"
                 style={{
                   border: "1px solid #e5e7eb",
@@ -1876,7 +1869,7 @@ export default function UserList() {
             <div className="col-span-12 md:col-span-6 xl:col-span-2 custom-date-picker">
               <DatePicker
                 placeholder={intl.user_last_online_date_time}
-                className="w-full  rounded h-[40px] placeholder:text-[16px] text-[16px] p-2 border border-[#E7E7E9]"
+                className="w-full  placeholder:text-[#85868B] rounded h-[40px] placeholder:text-[16px] text-[16px] p-2 border border-[#E7E7E9]"
                 id="appLastSeenDateTime"
                 style={{
                   border: "1px solid #e5e7eb",
@@ -1902,7 +1895,7 @@ export default function UserList() {
             <div className="col-span-12 md:col-span-6 xl:col-span-2 custom-date-picker">
               <DatePicker
                 placeholder={intl.usage_start_date}
-                className="w-full  rounded h-[40px] placeholder:text-[16px] text-[16px] p-2 border border-[#E7E7E9]"
+                className="w-full  placeholder:text-[#85868B] rounded h-[40px] placeholder:text-[16px] text-[16px] p-2 border border-[#E7E7E9]"
                 id="appLoginDateTime"
                 style={{
                   border: "1px solid #e5e7eb",
@@ -1930,7 +1923,7 @@ export default function UserList() {
             <div className="col-span-12 md:col-span-6 xl:col-span-2 custom-date-picker">
               <DatePicker
                 placeholder={intl.usage_suspension_date}
-                className="w-full  rounded h-[40px] placeholder:text-[16px] text-[16px] p-2 border border-[#E7E7E9]"
+                className="w-full  placeholder:text-[#85868B] rounded h-[40px] placeholder:text-[16px] text-[16px] p-2 border border-[#E7E7E9]"
                 id="appLogoutDateTime"
                 style={{
                   border: "1px solid #e5e7eb",
@@ -1967,10 +1960,10 @@ export default function UserList() {
               <select
                 id={"isActive"}
                 className={`w-full md:min-w-[100px] lg:min-w-[100px] border flex flex-auto md:flex-1  text-[16px]  p-2 bg-[white] rounded-lg focus:outline-none placeholder-[#AEA8A8] 
-                placeholder:text-center placeholder:text-[16px] rounded h-[40px] border border-[#E7E7E9] md:placeholder:text-left md:placeholder:pl-0 dark:text-black h-[38px] ${
+                placeholder:text-center  placeholder:text-[#85868B] placeholder:text-[16px] rounded h-[40px] border border-[#E7E7E9] md:placeholder:text-left md:placeholder:pl-0  h-[38px] ${
                   searchPayload.isActive == ""
-                    ? "text-[#85868B] text-[16px]"
-                    : "text-black text-[16px]"
+                    ? "text-[#85868B] dark:text-[#85868B] text-[16px]"
+                    : "text-black dark:text-black text-[16px]"
                 }`}
                 value={searchPayload.isActive}
                 onChange={(e) => updateSearchPayload(e)}
@@ -1992,7 +1985,7 @@ export default function UserList() {
 
             <div className="col-span-12 md:col-span-6 xl:col-span-2 mb-2">
               <button
-                className="bg-customBlue hover:bg-[#214BB9] w-full text-white font-medium text-sm w-full px-6 rounded-lg  py-[9px] px-4  rounded inline-flex items-center justify-center"
+                className="bg-white border border-[#214BB9] h-[40px] w-full text-[#214BB9] font-[600] text-[16px] w-full px-6 rounded  py-[9px] px-4  rounded inline-flex items-center justify-center"
                 onClick={searchEmployee}
               >
                 {getIconWithClass()}{" "}
@@ -2002,7 +1995,7 @@ export default function UserList() {
           </div>
         </form>
 
-        <div className="mb-[16px] flex flex-col md:flex-row md:items-center justify-between ">
+        <div className="mb-[16px] pl-[17px] flex flex-col md:flex-row md:items-center justify-between ">
           <label
             key={"selectAll"}
             className="flex items-center text-customBlue"
@@ -2131,9 +2124,9 @@ export default function UserList() {
               />
               <IconOutlineBtn
                 text={intl.help_settings_addition_delete}
-                textColor="text-[#BA1818]"
+                textColor="text-customBlue"
                 textBold={true}
-                borderColor="border-[#BA1818]"
+                borderColor="border border-customBlue"
                 py={"xl:py-2.5 md:py-1.5 py-1.5"}
                 px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
                 icon={() => deleteIcon()}

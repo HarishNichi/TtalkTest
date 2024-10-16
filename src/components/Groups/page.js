@@ -42,6 +42,8 @@ import dayjs from "dayjs";
 import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import DeleteIcon from "../Icons/deleteIcon";
+import IconButton from "../Button/iconButton";
+import AddButton from "../Button/addButton";
 dayjs.extend(isSameOrBefore);
 dayjs.extend(isSameOrAfter);
 
@@ -1082,7 +1084,7 @@ export default function Group({ children, tab }) {
               }}
             />
           </div>
-          <div className="flex">
+          <div className="flex space-x-4">
             <IconOutlineBtn
               text={intl.company_list_company_import}
               textColor={"text-customBlue"}
@@ -1096,10 +1098,10 @@ export default function Group({ children, tab }) {
               }}
             />
 
-            <IconOutlineBtn
+            <AddButton
               text={intl.add_group}
-              textColor="text-customBlue" // Red text color
-              borderColor="border-customBlue bg-white"
+              textColor="text-white" // Red text color
+              borderColor="border bg-customBlue"
               textBold={true}
               py={"xl:py-2.5 md:py-1.5 py-1.5"}
               px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
@@ -1111,7 +1113,7 @@ export default function Group({ children, tab }) {
             />
           </div>
         </div>
-        <div className="mb-[5px] flex items-center">
+        <div className="mb-[5px] flex items-center pl-[17px]">
           <label
             key={"selectAll"}
             className="flex items-center text-customBlue"

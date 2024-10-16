@@ -38,6 +38,7 @@ import * as gen from "@/generated";
 import "dayjs/locale/ja.js";
 import DeleteIcon from "@/components/Icons/deleteIcon";
 import DeleteIconDisabled from "@/components/Icons/deleteDisabledIcon";
+import AddButton from "@/components/Button/addButton";
 Amplify.configure(gen.config);
 dayjs.extend(customParseFormat);
 
@@ -138,43 +139,43 @@ export default function Devices() {
         !a.endDate - !b.endDate || a.endDate.localeCompare(b.endDate),
       sortDirections: ["ascend", "descend", "ascend"],
     },
-    {
-      title: "",
-      dataIndex: "machineEdit",
-      render: (text, record) => (
-        <div style={{ marginLeft: "20%" }}>
-          <p className="flex">
-            <span
-              data-testid={`delete`}
-              className="ml-[25px] cursor-pointer rounded-full px-3 py-2 bg-[#EDF2F5] hover:bg-[#DCE7F0]"
-              onClick={() => {
-                setError("");
-                handelEdit(record);
-              }}
-              style={{
-                pointerEvents: record.deleted ? "none" : "auto",
-              }}
-              disabled={record.deleted}
-            >
-              <SectionEditIcon />
-            </span>
-          </p>
-        </div>
-      ),
-      width: "140px",
-      align: "left",
-    },
+    // {
+    //   title: "",
+    //   dataIndex: "machineEdit",
+    //   render: (text, record) => (
+    //     <div style={{ marginLeft: "20%" }}>
+    //       <p className="flex">
+    //         <span
+    //           data-testid={`delete`}
+    //           className="ml-[25px] cursor-pointer rounded-full px-3 py-2 bg-[#EDF2F5] hover:bg-[#DCE7F0]"
+    //           onClick={() => {
+    //             setError("");
+    //             handelEdit(record);
+    //           }}
+    //           style={{
+    //             pointerEvents: record.deleted ? "none" : "auto",
+    //           }}
+    //           disabled={record.deleted}
+    //         >
+    //           <SectionEditIcon />
+    //         </span>
+    //       </p>
+    //     </div>
+    //   ),
+    //   width: "140px",
+    //   align: "left",
+    // },
 
-    {
-      title: "",
-      dataIndex: "machineDelete",
-      render: (text, record) => (
-        <div style={{ marginLeft: "20%" }}>
-          <p className="flex"></p>
-        </div>
-      ),
-      width: "140px",
-    },
+    // {
+    //   title: "",
+    //   dataIndex: "machineDelete",
+    //   render: (text, record) => (
+    //     <div style={{ marginLeft: "20%" }}>
+    //       <p className="flex"></p>
+    //     </div>
+    //   ),
+    //   width: "140px",
+    // },
   ];
 
   const [columns, setColumns] = React.useState(helpSettingsColumns);
@@ -271,7 +272,6 @@ export default function Devices() {
     return () => subscription.unsubscribe();
   }, [csvUploadInitiated]);
 
-
   /**
    * Returns a DeleteIconDisabled component with the isMobile prop set to the
    * provided flag.
@@ -281,12 +281,12 @@ export default function Devices() {
   function disabledDeleteIcon(flag) {
     return <DeleteIconDisabled isMobile={flag} />;
   }
-  
-/**
- * Returns an SVG element for an import icon.
- *
- * @returns {ReactElement} The import icon SVG element.
- */
+
+  /**
+   * Returns an SVG element for an import icon.
+   *
+   * @returns {ReactElement} The import icon SVG element.
+   */
   function importIcon() {
     return (
       <svg
@@ -315,17 +315,16 @@ export default function Devices() {
       </svg>
     );
   }
-  
-/**
- * Returns a DeleteIcon component with isMobile prop set to the provided flag.
- * @param {boolean} flag Whether the icon should be rendered with mobile styles.
- * @returns {ReactElement} The DeleteIcon component.
- */
+
+  /**
+   * Returns a DeleteIcon component with isMobile prop set to the provided flag.
+   * @param {boolean} flag Whether the icon should be rendered with mobile styles.
+   * @returns {ReactElement} The DeleteIcon component.
+   */
   function deleteIcon(flag) {
     return <DeleteIcon isMobile={flag} />;
   }
 
-  
   /**
    * Returns an AddIcon component with the isMobile prop set to the provided flag.
    * @param {boolean} flag Whether the icon should be rendered with mobile styles.
@@ -365,7 +364,7 @@ export default function Devices() {
     setRecord(record);
     setDeleteModal(() => true);
   }
-  
+
   /**
    * Fetches device list data from the API and formats it for the data table.
    * The function sets the loading state to true, makes a GET request to the
@@ -429,18 +428,17 @@ export default function Devices() {
     }
   };
 
-  
-/**
- * Handles the creation of a new device. Resets the toast, sets the loading state
- * to true, and validates the form values. If the form is valid, it sends a POST
- * request to the devices/create endpoint with the form data. If the response is
- * successful, it sets the loading state to false, resets the add settings state
- * and errors, and fetches the data again. If the response is not successful, it
- * sets the loading state to false, shows an error toast, and opens the add modal.
- * @async
- * @param {string} name The name of the device to create.
- * @returns {Promise<void>}
- */
+  /**
+   * Handles the creation of a new device. Resets the toast, sets the loading state
+   * to true, and validates the form values. If the form is valid, it sends a POST
+   * request to the devices/create endpoint with the form data. If the response is
+   * successful, it sets the loading state to false, resets the add settings state
+   * and errors, and fetches the data again. If the response is not successful, it
+   * sets the loading state to false, shows an error toast, and opens the add modal.
+   * @async
+   * @param {string} name The name of the device to create.
+   * @returns {Promise<void>}
+   */
   const createDevice = async (name) => {
     toast.dismiss();
     setLoading(true);
@@ -519,16 +517,16 @@ export default function Devices() {
     }
   };
 
-/**
- * This function is used to update the device name.
- * It is called when the user clicks the edit button.
- * It makes a PUT request to the server to update the device name.
- * If the request is successful, it sets the edit modal to false
- * and fetches the data again.
- * If the request fails, it sets the edit modal to true and displays an error message.
- * @param {object} record - The device object to be updated.
- * @param {string} name - The new name of the device.
- */
+  /**
+   * This function is used to update the device name.
+   * It is called when the user clicks the edit button.
+   * It makes a PUT request to the server to update the device name.
+   * If the request is successful, it sets the edit modal to false
+   * and fetches the data again.
+   * If the request fails, it sets the edit modal to true and displays an error message.
+   * @param {object} record - The device object to be updated.
+   * @param {string} name - The new name of the device.
+   */
   const updateDevice = async (record, name) => {
     toast.dismiss();
     setLoading(true);
@@ -613,15 +611,95 @@ export default function Devices() {
     }
   };
 
-/**
- * Handles the deletion of devices selected in the table.
- * Shows a toast error message if no device is selected.
- * Checks if any device is attached to a user and shows an error if so.
- * Sends a POST request to the API to delete the devices.
- * If the response is successful, it sets the deleteModal state to false, sets the selectAll state to false, sets the selectedRows state to an empty array, shows a toast success message and fetches the data again.
- * If there is an error, it sets the deleteModal state to false, sets the loading state to false and shows a toast error message.
- * @param {array} selectedRows - The array of selected devices.
- */
+  /**
+   * Handles the deletion of devices selected in the table.
+   * Shows a toast error message if no device is selected.
+   * Checks if any device is attached to a user and shows an error if so.
+   * Sends a POST request to the API to delete the devices.
+   * If the response is successful, it sets the deleteModal state to false, sets the selectAll state to false, sets the selectedRows state to an empty array, shows a toast success message and fetches the data again.
+   * If there is an error, it sets the deleteModal state to false, sets the loading state to false and shows a toast error message.
+   * @param {array} selectedRows - The array of selected devices.
+   */
+  // const deleteDevices = async () => {
+  //   // Check if there are selected rows
+  //   if (selectedRows.length === 0) {
+  //     toast.error("No devices selected for deletion.", {
+  //       position: "top-right",
+  //       autoClose: 5000,
+  //       hideProgressBar: true,
+  //       closeOnClick: true,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       theme: "colored",
+  //       type: "error",
+  //     });
+  //     return;
+  //   }
+
+  //   toast.dismiss();
+  //   setLoading(true);
+
+  //   try {
+  //     // Iterate through selected rows to delete them
+  //     for (const record of selectedRows) {
+  //       if (record.deviceAttachedCount > 0) {
+  //         // If any device is attached, show an error and skip deletion
+  //         toast.error(intl.device_user_attach, {
+  //           position: "top-right",
+  //           autoClose: 5000,
+  //           hideProgressBar: true,
+  //           closeOnClick: true,
+  //           pauseOnHover: true,
+  //           draggable: true,
+  //           theme: "colored",
+  //           type: "error",
+  //         });
+  //         return; // Skip this record and move to the next
+  //       }
+  //     }
+
+  //     const devIds = selectedRows.map((record) => ({
+  //       id: record.id, // Assuming record has an 'id' property
+  //     }));
+
+  //     const config = {
+  //       data: devIds,
+  //     };
+
+  //     const response = await api.delete(`devices/delete`, config);
+
+  //     if (response.data.status.code !== code.OK) {
+  //       throw new Error(
+  //         response.data.status.message || "Failed to delete device"
+  //       );
+  //     }
+
+  //     // Optionally, fetch fresh data if needed
+  //     fetchData();
+
+  //     // Hide the delete modal
+  //     setDeleteModal(false);
+
+  //     // Reset selectedRows state
+  //     setSelectedRows([]);
+  //   } catch (error) {
+  //     // Handle errors and display a toast message
+  //     toast(error.message || "An error occurred while deleting the devices.", {
+  //       position: "top-right",
+  //       autoClose: 5000,
+  //       hideProgressBar: true,
+  //       closeOnClick: true,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       theme: "colored",
+  //       type: "error",
+  //     });
+  //     setDeleteModal(false);
+  //   } finally {
+  //     setLoading(false); // Ensure loading state is reset
+  //   }
+  // };
+
   const deleteDevices = async () => {
     // Check if there are selected rows
     if (selectedRows.length === 0) {
@@ -656,17 +734,14 @@ export default function Devices() {
             theme: "colored",
             type: "error",
           });
-         return // Skip this record and move to the next
+          continue; // Skip this record and move to the next
         }
-      }
-      
-        const devIds = selectedRows.map((record) => ({
-          id: record.id, // Assuming record has an 'id' property
-        }));
 
-        const config ={
-          data: devIds
-        }
+        const config = {
+          data: {
+            id: record.id,
+          },
+        };
 
         const response = await api.delete(`devices/delete`, config);
 
@@ -675,6 +750,7 @@ export default function Devices() {
             response.data.status.message || "Failed to delete device"
           );
         }
+      }
 
       // Optionally, fetch fresh data if needed
       fetchData();
@@ -696,19 +772,18 @@ export default function Devices() {
         theme: "colored",
         type: "error",
       });
-      setDeleteModal(false);
     } finally {
       setLoading(false); // Ensure loading state is reset
     }
   };
 
-/**
- * Handles the change event for the help settings input fields. The function sets the
- * state of the addSettings or editSettings based on the name of the input field that
- * triggered the event. It also sets the touched state of the changed input field to
- * true.
- * @param {object} event - The event triggered by the input field change.
- */
+  /**
+   * Handles the change event for the help settings input fields. The function sets the
+   * state of the addSettings or editSettings based on the name of the input field that
+   * triggered the event. It also sets the touched state of the changed input field to
+   * true.
+   * @param {object} event - The event triggered by the input field change.
+   */
   const handleChange = (event) => {
     const { name, value } = event.target;
     if (name === "addSettings") {
@@ -719,21 +794,19 @@ export default function Devices() {
     setTouched((prevTouched) => ({ ...prevTouched, [name]: true }));
   };
 
-
-
-/**
- * Resets the state of the add or edit modal when it is closed.
- *
- * When the add modal is closed, the function resets the addSettings state
- * to an empty string, sets deviceIsOnRent to false, sets the rentDateRange to
- * an array of empty strings, sets addModal to false, and resets the errors and
- * touched states.
- *
- * When the edit modal is closed, the function resets the editSettings state
- * to an empty string, sets deviceIsOnRent to false, sets the rentDateRange to
- * an array of empty strings, sets editModal to false, and resets the errors and
- * touched states.
- */
+  /**
+   * Resets the state of the add or edit modal when it is closed.
+   *
+   * When the add modal is closed, the function resets the addSettings state
+   * to an empty string, sets deviceIsOnRent to false, sets the rentDateRange to
+   * an array of empty strings, sets addModal to false, and resets the errors and
+   * touched states.
+   *
+   * When the edit modal is closed, the function resets the editSettings state
+   * to an empty string, sets deviceIsOnRent to false, sets the rentDateRange to
+   * an array of empty strings, sets editModal to false, and resets the errors and
+   * touched states.
+   */
   const onClose = () => {
     if (addModal) {
       setAddSettings("");
@@ -752,15 +825,14 @@ export default function Devices() {
     }
   };
 
-
-/**
- * Uploads a CSV file containing device data to the server.
- * @param {object} payload - The payload to be sent to the server, which should
- * contain the following properties:
- * - `file`: The base64 encoded CSV file to be uploaded.
- * - `channel`: The channel to use for the upload. This will be generated
- * internally by the function.
- */
+  /**
+   * Uploads a CSV file containing device data to the server.
+   * @param {object} payload - The payload to be sent to the server, which should
+   * contain the following properties:
+   * - `file`: The base64 encoded CSV file to be uploaded.
+   * - `channel`: The channel to use for the upload. This will be generated
+   * internally by the function.
+   */
   async function uploadCsvFile(payload) {
     setLoading(true);
     try {
@@ -789,7 +861,7 @@ export default function Devices() {
           <div className="flex  justify-between mb-4 xl:mb-2 ">
             <div className="flex items-center">
               <DynamicLabel
-                text={intl.device_terminal}
+                text={intl.machine}
                 alignment="text-center"
                 fontSize="text-xl"
                 fontWeight="font-semibold"
@@ -798,15 +870,19 @@ export default function Devices() {
               />
             </div>
 
-            <div className="flex gap-x-2">
+            <div className="flex gap-x-4">
               <IconOutlineBtn
                 text={
                   selectedRows.length === 0
                     ? `${intl.help_settings_addition_delete}`
                     : `${intl.help_settings_addition_delete}(${selectedRows.length})`
                 }
-                textColor={"text-[#BA1818]"} // Light red when disabled, darker red otherwise
-                borderColor={"border-none"} // Light border when disabled, no border otherwise
+                textColor={
+                  selectedRows.length === 0
+                    ? "text-[#214BB9] opacity-[0.38]"
+                    : "text-[#214BB9]"
+                } // Light red when disabled, darker red otherwise
+                borderColor={"border border-[#214BB9]"} // Light border when disabled, no border otherwise
                 textBold={true}
                 py={"xl:py-2.5 md:py-1.5 py-1.5"}
                 px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
@@ -826,14 +902,14 @@ export default function Devices() {
                 py={"xl:py-2.5 md:py-1.5 py-1.5"}
                 px={"xl:px-[47px] md:px-[48.5px] px-[48.5px]"}
                 icon={() => importIcon()}
-                borderColor={"border-none"}
+                borderColor={"border border-[#214BB9]"}
                 onClick={() => {
                   setImportModal(true);
                 }}
               />
-              <IconOutlineBtn
+              <AddButton
                 text={intl.device_add_device}
-                textColor={"text-customBlue"}
+                textColor={"text-white"}
                 textBold={true}
                 py={"xl:py-2.5 md:py-1.5 py-1.5"}
                 px={"xl:px-[47px] md:px-[48.5px] px-[48.5px]"}
@@ -848,7 +924,7 @@ export default function Devices() {
               />
             </div>
           </div>
-          <div className="mb-[16px] flex items-center">
+          <div className="mb-[16px] pl-[18px] flex items-center">
             <label
               key={"selectAll"}
               className="flex items-center text-customBlue"
@@ -881,6 +957,10 @@ export default function Devices() {
               setPage={setPage}
               current={current}
               setCurrent={setCurrent}
+              onRowClick={(record, rowIndex) => {
+                setError("");
+                handelEdit(record);
+              }}
             />
           </div>
           <ToastContainer />

@@ -540,10 +540,6 @@ export default function UserDetails() {
           {/* Left Column */}
           <div className="flex flex-col w-full ">
             <DataSection
-              label={intl.login_email_placeholder}
-              value={userDetails?.userId || "-"}
-            />
-            <DataSection
               label={intl.user_name}
               value={userDetails?.userName || "-"}
             />
@@ -552,17 +548,20 @@ export default function UserDetails() {
               value={userDetails?.furigana || "-"}
             />
             <DataSection
-              label={intl.company_list_company_radioNumber}
-              value={userDetails?.radioNumber || "-"}
-            />
-
-            <DataSection
               label={intl.form_component_company_name_label}
               value={userDetails?.companyName || "-"}
             />
             <DataSection
               label={intl.machineName}
               value={deviceName(userDetails?.device?.id) || "-"}
+            />
+            <DataSection
+              label={intl.company_list_company_radioNumber}
+              value={userDetails?.radioNumber || "-"}
+            />
+            <DataSection
+              label={intl.login_email_placeholder}
+              value={userDetails?.userId || "-"}
             />
 
             <DataSection

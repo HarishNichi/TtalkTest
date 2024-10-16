@@ -9,6 +9,8 @@ import GetIconQRCode from "../../../components/Icons/qrCode";
 import DataTable from "@/components/DataTable/DataTable";
 import AddUser from "@/components/CompanyInfo/add";
 import { Modal as AntModal, Button } from "antd";
+import AddButton from "../../../components/Button/addButton";
+
 import {
   tableDefaultPageSizeOption,
   fileName,
@@ -38,6 +40,7 @@ import Amplify from "@aws-amplify/core";
 import * as gen from "@/generated";
 import DeleteIcon from "../../../components/Icons/deleteIcon";
 import SearchInput from "@/components/Layout/search";
+import IconButton from "@/components/Button/iconButton";
 Amplify.configure(gen.config);
 export default function CompanyList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -91,10 +94,7 @@ export default function CompanyList() {
       dataIndex: "status",
       render: (text, record) => {
         let bgColor = text === true ? "bg-white" : "bg-white";
-        let textColor =
-          text === true
-            ? "text-[#214BB9] border border-[#214BB9]"
-            : "text-[#595959] border border-[#595959]";
+        let textColor = text === true ? "text-[#214BB9] " : "text-[#595959]";
         return (
           <div style={{ width: "85px" }}>
             <div
@@ -528,17 +528,10 @@ export default function CompanyList() {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <g clip-path="url(#clip0_6622_3226)">
-          <path
-            d="M9.51906 15.6153C7.81139 15.6153 6.36522 15.023 5.18056 13.8385C3.99606 12.6538 3.40381 11.2077 3.40381 9.50002C3.40381 7.79235 3.99606 6.34618 5.18056 5.16152C6.36522 3.97702 7.81139 3.38477 9.51906 3.38477C11.2267 3.38477 12.6729 3.97702 13.8576 5.16152C15.0421 6.34618 15.6343 7.79235 15.6343 9.50002C15.6343 10.2142 15.5145 10.8963 15.2748 11.5463C15.035 12.1963 14.7151 12.7616 14.3151 13.2423L20.0691 18.9963C20.2076 19.1346 20.2784 19.3086 20.2816 19.5183C20.2847 19.7279 20.2139 19.9052 20.0691 20.05C19.9242 20.1948 19.7486 20.2673 19.5421 20.2673C19.3357 20.2673 19.1601 20.1948 19.0153 20.05L13.2613 14.296C12.7613 14.7088 12.1863 15.0319 11.5363 15.2653C10.8863 15.4986 10.2139 15.6153 9.51906 15.6153ZM9.51906 14.1155C10.8076 14.1155 11.8989 13.6683 12.7931 12.774C13.6874 11.8798 14.1346 10.7885 14.1346 9.50002C14.1346 8.21152 13.6874 7.12018 12.7931 6.22601C11.8989 5.33168 10.8076 4.88452 9.51906 4.88452C8.23056 4.88452 7.13922 5.33168 6.24506 6.22601C5.35072 7.12018 4.90356 8.21152 4.90356 9.50002C4.90356 10.7885 5.35072 11.8798 6.24506 12.774C7.13922 13.6683 8.23056 14.1155 9.51906 14.1155Z"
-            fill="white"
-          />
-        </g>
-        <defs>
-          <clipPath id="clip0_6622_3226">
-            <rect width="24" height="24" fill="white" />
-          </clipPath>
-        </defs>
+        <path
+          d="M9.51955 15.6153C7.81188 15.6153 6.36571 15.023 5.18105 13.8385C3.99655 12.6538 3.4043 11.2077 3.4043 9.50002C3.4043 7.79235 3.99655 6.34618 5.18105 5.16152C6.36571 3.97702 7.81188 3.38477 9.51955 3.38477C11.2272 3.38477 12.6734 3.97702 13.858 5.16152C15.0425 6.34618 15.6348 7.79235 15.6348 9.50002C15.6348 10.2142 15.515 10.8963 15.2753 11.5463C15.0355 12.1963 14.7155 12.7616 14.3155 13.2423L20.0695 18.9963C20.208 19.1346 20.2789 19.3086 20.282 19.5183C20.2852 19.7279 20.2144 19.9052 20.0695 20.05C19.9247 20.1948 19.749 20.2673 19.5425 20.2673C19.3362 20.2673 19.1606 20.1948 19.0158 20.05L13.2618 14.296C12.7618 14.7088 12.1868 15.0319 11.5368 15.2653C10.8868 15.4986 10.2144 15.6153 9.51955 15.6153ZM9.51955 14.1155C10.808 14.1155 11.8994 13.6683 12.7935 12.774C13.6879 11.8798 14.135 10.7885 14.135 9.50002C14.135 8.21152 13.6879 7.12018 12.7935 6.22601C11.8994 5.33168 10.808 4.88452 9.51955 4.88452C8.23105 4.88452 7.13971 5.33168 6.24555 6.22601C5.35121 7.12018 4.90405 8.21152 4.90405 9.50002C4.90405 10.7885 5.35121 11.8798 6.24555 12.774C7.13971 13.6683 8.23105 14.1155 9.51955 14.1155Z"
+          fill="#214BB9"
+        />
       </svg>
     );
   }
@@ -792,17 +785,17 @@ export default function CompanyList() {
       </AntModal>
       <div>
         <div className="flex justify-between items-center dark:text-black text-xl font-semibold mb-[16px]">
-          {intl.components_card_searchlist_companylist}
+          {intl.company}
           <div className="flex space-x-2.5">
             <span>
               <IconOutlineBtn
                 text={intl.company_list_company_import}
-                textColor={"text-customBlue"}
+                textColor={"text-[#214BB9]"}
                 textBold={true}
                 py={"xl:py-2.5 md:py-1.5 py-1.5"}
                 px={"xl:px-[32px] md:px-[33.5px] px-[33.5px]"}
                 icon={() => importIcon()}
-                borderColor={"border-none"}
+                borderColor={"border border-[#214BB9]"}
                 onClick={async () => {
                   await setImportModal(() => false);
                   await importHandler();
@@ -810,10 +803,10 @@ export default function CompanyList() {
               />
             </span>
             <span>
-              <IconOutlineBtn
+              <AddButton
                 text={intl.company_details_company_add}
-                textColor={"text-customBlue"}
-                borderColor={"border-none"}
+                textColor={"text-white "}
+                borderColor={"border border-[#19388B]"}
                 textBold={true}
                 py={"xl:py-2.5 md:py-1.5 py-1.5"}
                 px={"xl:px-[32.5px] md:px-[22.5px] px-[22.5px]"}
@@ -874,11 +867,11 @@ export default function CompanyList() {
           </div>
           <div className={`w-full md:w-[calc(50%-10px)] lg:flex lg:flex-1 `}>
             <select
-              className={`w-full md:min-w-[100px] lg:min-w-[100px] border flex flex-auto md:flex-1   text-[16px]  p-2 bg-[white] rounded focus:outline-none placeholder-[#AEA8A8] 
-                placeholder:text-center placeholder:text-[16px] h-[40px] md:placeholder:text-left md:placeholder:pl-0 dark:text-black border border-[#E7E7E9] ${
+              className={`w-full md:min-w-[100px] lg:min-w-[100px] border flex flex-auto md:flex-1 text-[#85868B]   text-[16px]  p-2 bg-[white] rounded focus:outline-none placeholder-[#AEA8A8] 
+                placeholder:text-center placeholder:text-[16px] h-[40px] md:placeholder:text-left md:placeholder:pl-0  border border-[#E7E7E9] ${
                   selectedValue == ""
-                    ? "text-[#85868B] text-[16px] "
-                    : "text-black text-[16px]"
+                    ? "text-[#85868B] dark:text-[#85868B] text-[16px] "
+                    : "text-black dark:text-black text-[16px]"
                 }`}
               value={selectedValue}
               onChange={handleSelectChange}
@@ -895,10 +888,10 @@ export default function CompanyList() {
             </select>
           </div>
           <div className="w-full md:w-[calc(100%-10px)]  lg:w-[144px]   xl:flex xl:flex-1">
-            <IconLeftBtn
+            <IconButton
               text={intl.dashboard_layout_search_btn}
               textColor={
-                "w-full  h-[40px] text-white font-[600] text-[16px] w-full px-6 border"
+                "w-full  h-[40px] text-[#214BB9] font-[600] text-[16px] w-full px-6 border"
               }
               py={"py-2"}
               px={""}
@@ -970,11 +963,11 @@ export default function CompanyList() {
               <IconLeftBtn
                 text={intl.dashboard_layout_search_btn}
                 textColor={
-                  "w-full text-white font-medium text-sm w-full px-6 rounded h-[40px]"
+                  "w-full text-[#214BB9] font-[600] text-[16px] w-full px-6 rounded h-[40px]"
                 }
                 py={"py-2"}
                 px={""}
-                bgColor={"bg-customBlue"}
+                bgColor={"bg-white"}
                 textBold={true}
                 icon={() => getIconWithClass("")}
                 onClick={() => {
@@ -985,7 +978,7 @@ export default function CompanyList() {
             </div>
           </form>
         )}
-        <div className="mb-[16px] flex items-center">
+        <div className="mb-[16px] flex items-center pl-[19px]">
           <label
             key={"selectAll"}
             className="flex items-center text-customBlue"

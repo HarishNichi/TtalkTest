@@ -4,15 +4,15 @@ import SectionDeleteIcon from "../Icons/sectionDelete";
 
 const SubSection = ({ selected, tabs, handleTabClick, handleDeleteClick }) => {
   return (
-    <div className="w-full   max-h-[350px] overflow-auto border border-[#E7E7E9] rounded-xl">
-      <ul className=" border-t">
+    <div className="w-full   max-h-[350px] overflow-auto border border-[#E7E7E9] rounded">
+      <ul className="">
         {tabs.map((tab, index) => (
          
           <li
             key={tab.id}
             className={`${
               selected == index ? "bg-[#D4DFFA]" : "bg-white"
-            } dark:text-black cursor-pointer p-2 hover:bg-[#F9F9FA]  border-b-2 `}
+            } dark:text-black cursor-pointer p-2 hover:bg-[#F9F9FA]  ${index <tabs?.length-1 ? 'border-b' : ''} `}
             onClick={() => handleTabClick(index, tab)}
           >
             {tab.name}

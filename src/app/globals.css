@@ -100,6 +100,9 @@ body {
 .ant-table-tbody {
   font-size: 16px;
 }
+.ant-table-cell-row-hover {
+  background-color: #f9f9fa !important;
+}
 .ant-upload {
   width: 100%;
 }
@@ -107,10 +110,11 @@ body {
 .ant-select-focused,
 .ant-select-selector:focus,
 .ant-select-selector:active,
-.ant-select-open .ant-select-selector {
+.ant-select-open .ant-select-selector,
+.ant-select-single .ant-select-selector {
   border-color: #e7e7e9 !important;
   box-shadow: none !important;
-  border-radius: 0px;
+  border-radius: 4px;
 }
 
 .ant-pagination-item {
@@ -161,7 +165,6 @@ body {
   margin-inline-end: 0 !important; /* Remove margin */
 }
 
-
 #paginationTable ul > li:nth-child(2) {
   border-top-left-radius: 4px !important;
   border-bottom-left-radius: 4px !important;
@@ -198,7 +201,6 @@ body {
 .ant-pagination-next {
   margin-left: 8px;
 }
-
 
 .anticon-left {
   color: white;
@@ -243,7 +245,10 @@ body {
 
 .custom-date-picker .ant-picker-input input {
   font-size: 0.75rem; /* XS font size */
-  font-weight: 400; /* Make font bold */
+  font-weight: 400;
+  color: "#85868B";
+
+  /* Make font bold */
 }
 
 /* quill editor css */
@@ -327,6 +332,7 @@ body {
 
 .ant-picker-input input::placeholder {
   font-size: 16px !important;
+  color: "#85868B";
 }
 select::placeholder {
   font-size: 16px;
@@ -556,6 +562,7 @@ input[list] {
 .ant-tabs .ant-tabs-ink-bar {
   background: #19388b !important;
 }
+
 .ant-checkbox:not(.ant-checkbox-disabled):hover .ant-checkbox-inner {
   border-color: #19388b !important;
 }
@@ -563,7 +570,7 @@ input[list] {
 .ant-checkbox-inner {
   width: 16px !important;
   height: 16px !important;
-  border-radius: 2px !important;
+  border-radius: 4px !important;
 }
 
 .ant-checkbox-checked .ant-checkbox-inner {
@@ -579,7 +586,7 @@ input[type="checkbox"] {
   appearance: none; /* Removes default styles */
   background-color: #f0f0f0; /* Default background color */
   border: 1px solid #19388b; /* Border color */
-  border-radius: 0px !important; /* Optional: Rounded corners */
+  border-radius: 4px !important; /* Optional: Rounded corners */
   cursor: pointer;
   transition: background-color 0.3s ease; /* Smooth transition */
 }
@@ -678,4 +685,3 @@ select {
   > .ant-table-cell {
   background-color: #d4dffa !important;
 }
-

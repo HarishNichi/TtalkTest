@@ -22,6 +22,7 @@ import AddIcon from "@/components/Icons/addIcon";
 import { Tabs, Button } from "antd";
 import { Modal as AntModal } from "antd";
 import HelpAddButton from "../components/helpAddButton";
+import IconLeftBtn from "@/components/Button/iconLeftBtn";
 const EditorComponent = dynamic(
   () => import("../../../components/HelpSettings/textEditor"),
   {
@@ -49,11 +50,18 @@ export default function Subsection() {
   const fileUploadCardRef = useRef(null);
   const [tabKey, setTabKey] = useState("1");
   const [showDetails, setShowDetails] = useState(false);
+  const [editModal, setEditModal] = React.useState(false);
+  const [editSettings, setEditSettings] = useState("");
   const schema = Yup.object().shape({
     sectionName: Yup.string()
       .required(intl.validation_required)
       .matches(MAX_100_LENGTH_PATTERN.regex, MAX_100_LENGTH_PATTERN.message),
     editorValue: Yup.string().required(intl.validation_required),
+  });
+  const editSchema = Yup.object().shape({
+    editSettings: Yup.string()
+      .required(intl.validation_required)
+      .matches(MAX_100_LENGTH_PATTERN.regex, MAX_100_LENGTH_PATTERN.message),
   });
   const [fieldsToShow, setFieldsToShow] = useState(0);
   const HeaderButton = {
@@ -69,17 +77,113 @@ export default function Subsection() {
     const formValues = { sectionName, editorValue };
     validateHandler(schema, formValues, setErrors);
   }, [sectionName, editorValue]);
+  useEffect(() => {
+    const formValues = { editSettings };
+    validateHandler(editSchema, formValues, setErrors);
+  }, [editSettings]);
 
   useEffect(() => {
     getSubsetValues();
   }, []);
 
-/**
- * Handles the change event of the tab.
- * @param {string} key - The key of the tab to be changed.
- * If the key is 1, it sets the active button to 'text', else it sets it to 'file'.
- * And it also sets the tab key to the key.
- */
+  function handelEdit(record) {
+    setEditModal(false);
+    setTimeout(() => {
+      setEditSettings(record.section);
+      setEditModal(true);
+    }, 500);
+  }
+
+  /**
+   * Handles the change event for the edit settings input fields. The function sets the
+   * state of the editSettings based on the name of the input field that triggered the event.
+   * @param {object} event - The event triggered by the input field change.
+   */
+  const handleModalChange = (event) => {
+    const { name, value } = event.target;
+    if (name === "editSettings") {
+      setEditSettings(value);
+    }
+    setTouched((prevTouched) => ({ ...prevTouched, [name]: true }));
+  };
+
+  /**
+   * Resets the state of the edit modal when it is closed.
+   * When the edit modal is closed, the function resets the editSettings state
+   * to an empty string, sets editModal to false, and resets the errors and
+   * touched states.
+   */
+  const onClose = () => {
+    setEditSettings("");
+    setEditModal(false);
+    setErrors({});
+    setTouched({});
+  };
+
+  /**
+   * This function is used to update the section name.
+   * It is called when the user clicks the edit button.
+   * It makes a PUT request to the server to update the section name.
+   * If the request is successful, it sets the edit modal to false
+   * and fetches the data again.
+   * If the request fails, it sets the edit modal to true and displays an error message.
+   * @param {object} record - The section object to be updated.
+   * @param {string} name - The new name of the section.
+   */
+  const updateParentSection = async (record, name) => {
+    toast.dismiss();
+    setLoading(true);
+    if (editSettings.trim().length === 0) {
+      setLoading(false);
+      const formValues = { editSettings };
+      setTouched({ ...touched, editSettings: true });
+      await validateHandler(schema, formValues, setErrors);
+      setEditModal(true);
+      return;
+    }
+    try {
+      const payload = {
+        parent: "null",
+        child: record.subSetId,
+        name: name,
+        type: "null",
+        description: "null",
+        file: "null",
+      };
+
+      const response = await api.put(`help/update`, payload);
+      if (response.data.status.code == code.OK) {
+        setLoading(false);
+        setEditModal(false);
+        router.push("/help-settings/helpSettingsList");
+      }
+    } catch (error) {
+      setLoading(false);
+      setEditModal(true);
+      toast(
+        error.response?.data?.status?.message
+          ? error.response?.data?.status?.message
+          : error.response.data.message,
+        {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "colored",
+          type: "error",
+        }
+      );
+    }
+  };
+
+  /**
+   * Handles the change event of the tab.
+   * @param {string} key - The key of the tab to be changed.
+   * If the key is 1, it sets the active button to 'text', else it sets it to 'file'.
+   * And it also sets the tab key to the key.
+   */
   const onTabChange = (key) => {
     // eslint-disable-next-line no-console
     console.log(`onTabChange: ${key}`);
@@ -87,12 +191,11 @@ export default function Subsection() {
     setTabKey(key);
   };
 
-  
-/**
- * Resets the state to prepare for adding a new help section.
- * @function
- * @returns {undefined}
- */
+  /**
+   * Resets the state to prepare for adding a new help section.
+   * @function
+   * @returns {undefined}
+   */
   const addHelp = () => {
     setIsAdd(true);
     setSelectedTab(null);
@@ -106,8 +209,20 @@ export default function Subsection() {
     setTabKey("1");
     setShowDetails(true);
   };
-
-
+  function editIcon(flag) {
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M5 19H6.2615L16.498 8.7635L15.2365 7.502L5 17.7385V19ZM4.404 20.5C4.14783 20.5 3.93317 20.4133 3.76 20.24C3.58667 20.0668 3.5 19.8522 3.5 19.596V17.8635C3.5 17.6197 3.54683 17.3873 3.6405 17.1663C3.734 16.9453 3.86283 16.7527 4.027 16.5885L16.6905 3.93075C16.8417 3.79342 17.0086 3.68733 17.1913 3.6125C17.3741 3.5375 17.5658 3.5 17.7663 3.5C17.9668 3.5 18.1609 3.53558 18.3488 3.60675C18.5368 3.67792 18.7032 3.79108 18.848 3.94625L20.0693 5.18275C20.2244 5.32758 20.335 5.49425 20.401 5.68275C20.467 5.87125 20.5 6.05975 20.5 6.24825C20.5 6.44942 20.4657 6.64133 20.397 6.824C20.3283 7.00683 20.2191 7.17383 20.0693 7.325L7.4115 19.973C7.24733 20.1372 7.05475 20.266 6.83375 20.3595C6.61275 20.4532 6.38033 20.5 6.1365 20.5H4.404ZM15.8562 8.14375L15.2365 7.502L16.498 8.7635L15.8562 8.14375Z"
+        fill="#19388B"
+      />
+    </svg>;
+  }
 
   /**
    * Handles the click event of the add button.
@@ -131,7 +246,6 @@ export default function Subsection() {
     setShowDetails(false);
   };
 
-  
   /**
    * Returns a DeleteIcon element.
    * @returns {ReactElement} The DeleteIcon element.
@@ -150,7 +264,6 @@ export default function Subsection() {
     setActiveButton(buttonName);
   };
 
-
   /**
    * Returns a PlusButton element.
    * @returns {ReactElement} The PlusButton element.
@@ -159,15 +272,14 @@ export default function Subsection() {
     return <PlusButton />;
   }
 
-  
   /**
    * Returns an AddIcon element.
    * @returns {ReactElement} The AddIcon element.
    */
-  function editIcon() {
-    return <AddIcon />;
-  }
-  
+  // function editIcon() {
+  //   return <AddIcon />;
+  // }
+
   /**
    * Returns an ImportIcon element.
    * @returns {ReactElement} The ImportIcon element.
@@ -201,8 +313,6 @@ export default function Subsection() {
     );
   }
 
-
-
   /**
    * @function
    * @description Handles when a tab is clicked.  Updates the selectedTab state to the index of the clicked tab, sets isAdd to false, and calls fetchSubSetDetails with the clicked tab.
@@ -214,7 +324,7 @@ export default function Subsection() {
     setIsAdd(false);
     fetchSubSetDetails(tab);
   };
-  
+
   /**
    * @function
    * @description Handles when an edit icon is clicked.  Toggles the showModal state to show/hide the modal for the given index.
@@ -235,7 +345,6 @@ export default function Subsection() {
     setDeleteChidData(data);
     // Handle delete icon click for the tab at the given index
   };
-
 
   /**
    * Fetches the subset values from the API and updates the tab data
@@ -286,17 +395,17 @@ export default function Subsection() {
     }
   };
 
-/**
- * Fetches a subset of help settings data from the API and formats it for the UI.
- * The function sets the loading state to true, makes a GET request to the help/get
- * endpoint, and then sets the loading state to false. If the response is successful,
- * the function formats the data and sets the subSectionDetails state to the formatted
- * data, activeButton state to the type of the subset, sectionName state to the name of
- * the subset, editorValue state to the description of the subset, and errors state and
- * touched state to an empty object. The function also sets the showDetails state to true.
- * If the response is not successful, the function displays an error toast.
- * @param record The subset of help settings to fetch
- */
+  /**
+   * Fetches a subset of help settings data from the API and formats it for the UI.
+   * The function sets the loading state to true, makes a GET request to the help/get
+   * endpoint, and then sets the loading state to false. If the response is successful,
+   * the function formats the data and sets the subSectionDetails state to the formatted
+   * data, activeButton state to the type of the subset, sectionName state to the name of
+   * the subset, editorValue state to the description of the subset, and errors state and
+   * touched state to an empty object. The function also sets the showDetails state to true.
+   * If the response is not successful, the function displays an error toast.
+   * @param record The subset of help settings to fetch
+   */
   const fetchSubSetDetails = async (record) => {
     toast.dismiss();
     setLoading(true);
@@ -352,8 +461,6 @@ export default function Subsection() {
     }
   };
 
-
-
   /**
    * Handles the change event for the section name input field.
    * It updates the state variable sectionName with the new value, and sets the touched state for the sectionName to true.
@@ -364,13 +471,13 @@ export default function Subsection() {
     setSectionName(value);
     setTouched((prevTouched) => ({ ...prevTouched, sectionName: true }));
   };
-  
-/**
- * Handles the file upload event.
- * If the section is being added for the first time, calls createSection.
- * Otherwise, calls updateSection.
- * @param {object} file - The uploaded file.
- */
+
+  /**
+   * Handles the file upload event.
+   * If the section is being added for the first time, calls createSection.
+   * Otherwise, calls updateSection.
+   * @param {object} file - The uploaded file.
+   */
   const handleFileUpload = (file) => {
     if (isAdd && Object.keys(subSectionDetails).length == 0) {
       createSection(file);
@@ -379,16 +486,16 @@ export default function Subsection() {
     }
   };
 
-/**
- * This function creates a new section in the help settings.
- * If the activeButton is "file", it validates the sectionName.
- * If the activeButton is "text", it validates the sectionName and editorValue.
- * If the validation is successful, it sends a POST request to the server to create the section.
- * The request payload contains the parent, name, type, description, file and fileName.
- * If the request is successful, it resets the form values, and resets the touched state for the form fields.
- * If the request fails, it shows an error toast with the error message.
- * @param {object} file - The file to be uploaded.
- */
+  /**
+   * This function creates a new section in the help settings.
+   * If the activeButton is "file", it validates the sectionName.
+   * If the activeButton is "text", it validates the sectionName and editorValue.
+   * If the validation is successful, it sends a POST request to the server to create the section.
+   * The request payload contains the parent, name, type, description, file and fileName.
+   * If the request is successful, it resets the form values, and resets the touched state for the form fields.
+   * If the request fails, it shows an error toast with the error message.
+   * @param {object} file - The file to be uploaded.
+   */
   const createSection = async (file) => {
     toast.dismiss();
     if (activeButton === "file") {
@@ -556,12 +663,12 @@ export default function Subsection() {
     }
   };
 
-/**
- * Handles the file upload button click event.
- * If the user is adding a new section and there is no section details,
- * it calls the createSection function.
- * Otherwise, it calls the updateSection function.
- */
+  /**
+   * Handles the file upload button click event.
+   * If the user is adding a new section and there is no section details,
+   * it calls the createSection function.
+   * Otherwise, it calls the updateSection function.
+   */
   const handleFileButtonClick = () => {
     if (isAdd && Object.keys(subSectionDetails).length === 0) {
       createSection(file);
@@ -593,13 +700,13 @@ export default function Subsection() {
     }
   };
 
-/**
- * Handles the deletion of selected help sections.
- * Shows a toast error message if no help section is selected.
- * Sends a POST request to the API to delete the selected help sections.
- * If the response is successful, it sets the deleteModal state to false, updates the data to remove the deleted records, resets the selectedRows state, and fetches the data again.
- * If there is an error, it sets the deleteModal state to false, shows a toast error message and resets the selectedRows state.
- */
+  /**
+   * Handles the deletion of selected help sections.
+   * Shows a toast error message if no help section is selected.
+   * Sends a POST request to the API to delete the selected help sections.
+   * If the response is successful, it sets the deleteModal state to false, updates the data to remove the deleted records, resets the selectedRows state, and fetches the data again.
+   * If there is an error, it sets the deleteModal state to false, shows a toast error message and resets the selectedRows state.
+   */
   const deleteSubSection = async (record) => {
     toast.dismiss();
     setLoading(true);
@@ -663,13 +770,32 @@ export default function Subsection() {
   return (
     <ProtectedRoute allowedRoles={["admin"]}>
       {loading && <LoaderOverlay />}
+
       <div className="">
         <div className="flex mb-[16px]">
           <Breadcrumb links={helperSubSectionLinks} />
         </div>
-        <h1 className="text-xl font-semibold dark:text-black mb-[16px]">
-          {Help.section}
-        </h1>
+        <div className="flex items-center space-x-4">
+          <div className="  text-xl font-semibold dark:text-black mb-[16px]">
+            {Help.section}
+          </div>
+          <div className="flex mb-[16px] cursor-pointer">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              onClick={() => handelEdit(Help)}
+            >
+              <path
+                d="M5 19H6.2615L16.498 8.7635L15.2365 7.502L5 17.7385V19ZM4.404 20.5C4.14783 20.5 3.93317 20.4133 3.76 20.24C3.58667 20.0668 3.5 19.8522 3.5 19.596V17.8635C3.5 17.6197 3.54683 17.3873 3.6405 17.1663C3.734 16.9453 3.86283 16.7527 4.027 16.5885L16.6905 3.93075C16.8417 3.79342 17.0086 3.68733 17.1913 3.6125C17.3741 3.5375 17.5658 3.5 17.7663 3.5C17.9668 3.5 18.1609 3.53558 18.3488 3.60675C18.5368 3.67792 18.7032 3.79108 18.848 3.94625L20.0693 5.18275C20.2244 5.32758 20.335 5.49425 20.401 5.68275C20.467 5.87125 20.5 6.05975 20.5 6.24825C20.5 6.44942 20.4657 6.64133 20.397 6.824C20.3283 7.00683 20.2191 7.17383 20.0693 7.325L7.4115 19.973C7.24733 20.1372 7.05475 20.266 6.83375 20.3595C6.61275 20.4532 6.38033 20.5 6.1365 20.5H4.404ZM15.8562 8.14375L15.2365 7.502L16.498 8.7635L15.8562 8.14375Z"
+                fill="#19388B"
+              />
+            </svg>
+            ;
+          </div>
+        </div>
       </div>
       <div className="flex flex-col md:flex-row">
         {/* Left Column */}
@@ -853,6 +979,68 @@ export default function Subsection() {
           </div>
         </AntModal>
       </div>
+      {editModal && (
+        <AntModal
+          width={520}
+          title={
+            <div className="px-[40px] pt-[25px] mb-[2vw] text-[20px] text-customBlue text-center">
+              {intl.help_settings_help_category_edit}
+            </div>
+          }
+          open={editModal}
+          onCancel={() => {
+            onClose();
+          }}
+          footer={() => {
+            return (
+              <div className="px-[40px] pb-[40px] pt-[20px]">
+                <IconLeftBtn
+                  text={intl.help_settings_addition_modal_edit}
+                  textColor={"text-white font-semibold text-[16px]"}
+                  py="py-[8px] px-[55px] w-full"
+                  bgColor={"bg-customBlue"}
+                  textBold={true}
+                  icon={() => null}
+                  onClick={() => {
+                    updateParentSection(Help, editSettings);
+                  }}
+                />
+              </div>
+            );
+          }}
+          centered={true}
+          className="my-[70px]"
+        >
+          <div className="flex flex-col">
+            <div className="flex flex-col px-[40px]">
+              <TextPlain
+                isRequired={true}
+                type={"text"}
+                for="editSettings"
+                placeholder={intl.help_settings_help_name}
+                padding={"p-[8px] h-[40px]"}
+                focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
+                border={"border border-[#E7E7E9]"}
+                bg={"bg-white"}
+                additionalClass={"flex w-full text-[16px]"}
+                label={intl.help_settings_help_name}
+                labelColor={"#7B7B7B"}
+                id="editSettings"
+                value={editSettings}
+                onChange={handleModalChange}
+              />
+              {errors?.editSettings && touched?.editSettings && (
+                <div
+                  className="mb-8 pl-1 validation-font flex"
+                  style={{ color: "red" }}
+                >
+                  {errors?.editSettings}
+                </div>
+              )}
+            </div>
+          </div>
+        </AntModal>
+      )}
     </ProtectedRoute>
   );
 }

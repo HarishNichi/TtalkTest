@@ -407,107 +407,6 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
         style={{ maxHeight: "450px", overflow: "auto" }}
       >
         <div className="w-full">
-          {/* device - >>>>>>>>>>>>>>>>>>>> */}
-          <div className="mb-[32px]">
-            <DynamicLabel
-              text={intl.machineName}
-              textColor="#7B7B7B font text-base font-semibold"
-              htmlFor="userName"
-              isRequired={true}
-            />
-
-            <select
-              className="rounded placeholder:text-[16px] border h-[40px] border-[#E7E7E9] focus:outline-none focus:ring-2 focus:ring-customBlue block w-full p-[8px] truncate dark:text-black"
-              id={"device"}
-              defaultValue={""}
-              value={device}
-              onChange={(evt) => {
-                setDevice(evt.target.value);
-                setTouched(() => ({ ...touched, ["device"]: true }));
-              }}
-            >
-              <option defaultValue={""} value="" style={{ fontSize: "16px" }}>
-                {"--選択する--"}
-              </option>
-              {deviceList.length > 0 &&
-                deviceList.map((dropDownOption, index) => {
-                  // Check if the length of the option label is greater than a certain number of characters
-                  const maxLabelLength = 50; // You can adjust this value as needed
-                  const optionLabel =
-                    dropDownOption.label.length > maxLabelLength
-                      ? `${dropDownOption.label.substring(
-                          0,
-                          maxLabelLength
-                        )}...` // Truncate the label
-                      : dropDownOption.label; // Use the full label if not too long
-
-                  return (
-                    <option
-                      className="bg-white text-black rounded p-[8px] text-[16px] placeholder:text-[16px]"
-                      id={`id-${index}`}
-                      key={dropDownOption.value}
-                      value={dropDownOption.value}
-                      disabled={dropDownOption.disabled || false}
-                    >
-                      {optionLabel}
-                    </option>
-                  );
-                })}
-            </select>
-            {touched && errors && errors.device && touched.device && (
-              <div className="pl-1 validation-font" style={{ color: "red" }}>
-                {errors.device}
-              </div>
-            )}
-          </div>
-          {/* user id */}
-          <div className="mb-[32px]">
-            <DynamicLabel
-              text={intl.user_userId_label}
-              textColor="#7B7B7B"
-              fontWeight={"font-[500]"}
-              htmlFor="userId"
-            />
-            <Input
-              id="userId"
-              type={"text"}
-              isDisabled={true}
-              placeholder={intl.user_userId_label}
-              borderRound={"rounded"}
-              padding={"p-[8px]"}
-              focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
-              border={"border border-[#E7E7E9]"}
-              bg={"bg-white"}
-              additionalClass={
-                "font-[400] placeholder:text-[16px] block w-full  h-[40px] text-[16px]"
-              }
-              value={userId}
-            />
-          </div>
-
-          {/* radioNumber */}
-          <div className="mb-[32px]">
-            <DynamicLabel
-              isRequired={true}
-              text={intl.company_list_company_radioNumber}
-              textColor="#7B7B7B"
-              htmlFor="pttNumber"
-            />
-            <Input
-              isDisabled={true}
-              id="pttNumber"
-              type={"text"}
-              placeholder={intl.company_list_company_radioNumber}
-              borderRound={"rounded"}
-              padding={"p-[8px]"}
-              focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
-              border={"border border-[#E7E7E9]"}
-              bg={""}
-              additionalClass={"font-[400] block h-[40px] w-full text-[16px] "}
-              value={radioNumber}
-            />
-          </div>
-
           {/* user_name */}
           <div className="mb-[32px]">
             <DynamicLabel
@@ -568,7 +467,6 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
               </div>
             )}
           </div>
-
           {/* orgname */}
           <div className="mb-[32px]">
             <DynamicLabel
@@ -590,6 +488,107 @@ export default function UserEdit({ setIsModalOpen, setComCreated }) {
               value={companyName}
             />
           </div>
+          {/* device - >>>>>>>>>>>>>>>>>>>> */}
+          <div className="mb-[32px]">
+            <DynamicLabel
+              text={intl.machineName}
+              textColor="#7B7B7B font text-base font-semibold"
+              htmlFor="userName"
+              isRequired={true}
+            />
+
+            <select
+              className="rounded placeholder:text-[16px] border h-[40px] border-[#E7E7E9] focus:outline-none focus:ring-2 focus:ring-customBlue block w-full p-[8px] truncate dark:text-black"
+              id={"device"}
+              defaultValue={""}
+              value={device}
+              onChange={(evt) => {
+                setDevice(evt.target.value);
+                setTouched(() => ({ ...touched, ["device"]: true }));
+              }}
+            >
+              <option defaultValue={""} value="" style={{ fontSize: "16px" }}>
+                {"--選択する--"}
+              </option>
+              {deviceList.length > 0 &&
+                deviceList.map((dropDownOption, index) => {
+                  // Check if the length of the option label is greater than a certain number of characters
+                  const maxLabelLength = 50; // You can adjust this value as needed
+                  const optionLabel =
+                    dropDownOption.label.length > maxLabelLength
+                      ? `${dropDownOption.label.substring(
+                          0,
+                          maxLabelLength
+                        )}...` // Truncate the label
+                      : dropDownOption.label; // Use the full label if not too long
+
+                  return (
+                    <option
+                      className="bg-white text-black rounded p-[8px] text-[16px] placeholder:text-[16px]"
+                      id={`id-${index}`}
+                      key={dropDownOption.value}
+                      value={dropDownOption.value}
+                      disabled={dropDownOption.disabled || false}
+                    >
+                      {optionLabel}
+                    </option>
+                  );
+                })}
+            </select>
+            {touched && errors && errors.device && touched.device && (
+              <div className="pl-1 validation-font" style={{ color: "red" }}>
+                {errors.device}
+              </div>
+            )}
+          </div>
+          <div className="mb-[32px]">
+            <DynamicLabel
+              isRequired={true}
+              text={intl.company_list_company_radioNumber}
+              textColor="#7B7B7B"
+              htmlFor="pttNumber"
+            />
+            <Input
+              isDisabled={true}
+              id="pttNumber"
+              type={"text"}
+              placeholder={intl.company_list_company_radioNumber}
+              borderRound={"rounded"}
+              padding={"p-[8px]"}
+              focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
+              border={"border border-[#E7E7E9]"}
+              bg={""}
+              additionalClass={"font-[400] block h-[40px] w-full text-[16px] "}
+              value={radioNumber}
+            />
+          </div>
+          {/* user id */}
+          <div className="mb-[32px]">
+            <DynamicLabel
+              text={intl.user_userId_label}
+              textColor="#7B7B7B"
+              fontWeight={"font-[500]"}
+              htmlFor="userId"
+            />
+            <Input
+              id="userId"
+              type={"text"}
+              isDisabled={true}
+              placeholder={intl.user_userId_label}
+              borderRound={"rounded"}
+              padding={"p-[8px]"}
+              focus={"focus:outline-none focus:ring-2 focus:ring-customBlue"}
+              border={"border border-[#E7E7E9]"}
+              bg={"bg-white"}
+              additionalClass={
+                "font-[400] placeholder:text-[16px] block w-full  h-[40px] text-[16px]"
+              }
+              value={userId}
+            />
+          </div>
+
+          {/* radioNumber */}
+
           {/* designation */}
           <div className="mb-[32px]">
             <DynamicLabel

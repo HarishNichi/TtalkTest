@@ -42,6 +42,7 @@ import Amplify from "@aws-amplify/core";
 import * as gen from "@/generated";
 import DeleteIcon from "../Icons/deleteIcon";
 import { Button } from "antd";
+import AddButton from "../Button/addButton";
 Amplify.configure(gen.config);
 
 export default function Contact({ children, tab }) {
@@ -651,10 +652,10 @@ export default function Contact({ children, tab }) {
             }}
           />
 
-          <IconOutlineBtn
+          <AddButton
             text={intl.add_contact}
-            textColor="text-customBlue" // Red text color
-            borderColor="border-customBlue bg-white"
+            textColor="text-white" // Red text color
+            borderColor="border bg-customBlue"
             textBold={true}
             py={"xl:py-2.5 md:py-1.5 py-1.5"}
             px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
@@ -666,7 +667,7 @@ export default function Contact({ children, tab }) {
           />
         </div>
 
-        <div className="mb-[5px] flex items-center">
+        <div className="mb-[5px] pl-[43px] flex items-center">
           <label
             key={"selectAll"}
             className="flex items-center text-customBlue"
