@@ -177,6 +177,7 @@ export default function DataTable(props) {
                 }
               : false
           }
+          selectionColumnWidth={30}
           columns={props.columns}
           showSorterTooltip={false}
           dataSource={props.dataSource}
