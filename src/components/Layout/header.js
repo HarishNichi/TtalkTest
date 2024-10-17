@@ -63,7 +63,7 @@ export default function Header({
   useEffect(() => {
     function handleOutsideClick(event) {
       const targetElement = event.target || event.srcElement;
-      const isMobile = window.innerWidth <= 768;
+      const isMobile = window.innerWidth <= 1022;
       if (
         headerRef.current &&
         !headerRef.current.contains(targetElement) &&
