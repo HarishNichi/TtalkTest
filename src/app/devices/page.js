@@ -861,7 +861,7 @@ export default function Devices() {
           <div className="flex  justify-between mb-4 xl:mb-2 ">
             <div className="flex items-center">
               <DynamicLabel
-                text={intl.machine}
+                text={intl.device}
                 alignment="text-center"
                 fontSize="text-xl"
                 fontWeight="font-semibold"

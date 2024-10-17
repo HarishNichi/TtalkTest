@@ -57,7 +57,7 @@ export default function Sidebar({
         module: "help-settings",
       },
       {
-        title: intl.machine,
+        title: intl.device,
         link: "/devices",
         icon: (color) => DeviceSettings(color),
         module: "devices",

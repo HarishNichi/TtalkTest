@@ -120,6 +120,7 @@
   "user_modal_content": "ユーザーに関連付けられている PTT 番号、設定、グループ、連絡先も削除されます。 削除してよろしいですか？",
   "user_password_copy": "パスワードをコピーしました",
   "user_change_settings": "設定変更",
+
   "user_terminal_settings": "端末設定",
   "user_operation_log": "操作ログ",
   "user_others": "その他",
@@ -399,5 +400,6 @@
   "device_delete_device": "選択した端末を削除しますか",
   "sidebar_corporate_management": "企業管理",
   "password_placeholder": "パスワード",
-  "current_password": "今のパスワード"
+  "current_password": "今のパスワード",
+  "device": "企業管理 "
 }
