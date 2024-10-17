@@ -349,7 +349,7 @@ export default function DashboardLayout({ children }) {
               <DashboardSearch
                 text={intl.dashboard_layout_search_btn}
                 textColor={
-                  "w-full text-white font-medium text-[16px] w-full px-6 rounded-lg"
+                  "w-full text-[#214BB9] font-medium text-[16px] w-full px-6 rounded-lg"
                 }
                 py={"py-2"}
                 px={""}
@@ -413,7 +413,7 @@ export default function DashboardLayout({ children }) {
               <DashboardSearch
                 text={intl.dashboard_layout_search_btn}
                 textColor={
-                  "w-full text-white font-medium text-[16px] w-full px-6 rounded-lg"
+                  "w-full text-[#214BB9] font-medium text-[16px] w-full px-6 rounded-lg"
                 }
                 py={"py-2"}
                 px={""}
@@ -462,7 +462,7 @@ export default function DashboardLayout({ children }) {
               <DashboardSearch
                 text={intl.dashboard_layout_search_btn}
                 textColor={
-                  "w-full text-white font-medium text-[16px] w-full px-6 rounded-lg"
+                  "w-full text-[#214BB9] font-medium text-[16px] w-full px-6 rounded-lg"
                 }
                 py={"py-2"}
                 px={""}
@@ -482,7 +482,7 @@ export default function DashboardLayout({ children }) {
             <DashboardSearch
               text={intl.dashboard_layout_search_btn}
               textColor={
-                "w-full text-white font-medium text-[16px] w-full px-6 rounded-lg"
+                "w-full text-[#214BB9] font-medium text-[16px] w-full px-6 rounded-lg"
               }
               py={"py-2"}
               px={""}

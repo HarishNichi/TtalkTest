@@ -132,7 +132,7 @@ export default function Header({
             alt="Ptalk logo"
             style={{ width: "100px", paddingTop: "5px", paddingBottom: "5px" }}
           />
-          <div className="flex gap-5 lg:hidden">
+          <div className="flex gap-5 lg:hidden cursor-pointer">
             <span
               onClick={() => {
                 updateState();
