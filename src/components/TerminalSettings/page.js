@@ -2584,7 +2584,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
               setConfirmModal(true);
             }}
           >
-            {intl.save_settings}
+            {intl.help_settings_addition_keep}
           </Button>
         </div>
       )}
@@ -2606,7 +2606,7 @@ export default function TerminalSettings({ isModal, selectedRows }) {
             return (
               <div className="flex flex-col sm:flex-row justify-end gap-4 pb-[40px] px-[40px] mt-[2vw]">
                 <button
-                  className=" sm:flex-1 w-full sm:w-auto text-[#19388B] border-2 border-[#19388B] font-semibold h-[40px] text-base"
+                  className=" sm:flex-1 w-full sm:w-auto text-[#19388B] border rounded border-[#19388B] font-semibold h-[40px] text-base"
                   onClick={() => {
                     setConfirmModal(false);
                   }}

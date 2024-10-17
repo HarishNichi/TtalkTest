@@ -908,7 +908,7 @@ export default function Subsection() {
               </div>
               <div className="flex flex-row justify-end mt-4 sm:space-y-0 sm:space-x-2">
                 <button
-                  className="text-[16px] h-[32px] w-[124px] mr-[10px] text-center font-semibold cursor-pointer text-customBlue border border-customBlue bg-white rounded"
+                  className="text-[16px] h-[32px] w-[124px] mr-[10px] text-center font-semibold cursor-pointer text-customBlue rounded border border-customBlue bg-white rounded"
                   onClick={() => {
                     if (tabKey == "1") {
                       handleAddButton();
@@ -921,7 +921,7 @@ export default function Subsection() {
                 </button>
                 <button
                   style={HeaderButton}
-                  className="text-[16px] font-[600] w-[124px] h-[32px] truncate bg-customBlue hover:bg-[#214BB9] border border-customBlue rounded"
+                  className="text-[16px] font-[600] w-[124px] h-[32px] truncate bg-customBlue hover:bg-[#214BB9] rounded border border-customBlue rounded"
                   onClick={() => {
                     if (tabKey == "1") {
                       handleFileButtonClick();

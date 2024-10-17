@@ -906,10 +906,10 @@ export default function CompanyList() {
         </form>
         <div className="lg:hidden flex mb-2">
           <span className="w-full md:w-[160px]">
-            <IconLeftBtn
+            <IconButton
               text={intl.dashboard_layout_search_btn}
               textColor={
-                "w-full text-white font-semibold text-base w-full px-6 rounded h-[40px]"
+                "w-full text-[#214BB9] font-semibold text-base w-full px-6 rounded h-[40px]"
               }
               py={"py-2"}
               px={""}

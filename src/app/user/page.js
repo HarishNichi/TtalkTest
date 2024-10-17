@@ -1696,7 +1696,7 @@ export default function UserList() {
               textColor={"text-white"}
               textBold={true}
               icon={() => editIcon()}
-              bg="bg-transparent border-none"
+              bg="bg-customBlue border-none"
               onClick={() => {
                 setIsModalOpen(true);
               }}
