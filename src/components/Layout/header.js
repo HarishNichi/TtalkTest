@@ -235,7 +235,15 @@ export default function Header({
                   data-testid="user-avatar"
                 ></div>
               )}
-              <div className="flex flex-col gap-0">
+
+              <div
+                className="flex flex-col gap-0 cursor-pointer"
+                onClick={() => {
+                  toggle(!on);
+                  toggler(!on);
+                }}
+                data-testid="user-info"
+              >
                 <h3 className="text-[16px] text-white font-semibold tracking-widest">
                   {user?.name ? user.name : ""}
                 </h3>
@@ -274,7 +282,7 @@ export default function Header({
                 <>
                   <div
                     id="dropdownDelay"
-                    className="z-10 absolute right-5  divide-y divide-gray-100  shadow"
+                    className="z-10 absolute right-5 divide-y divide-gray-100 shadow"
                     style={{
                       width: "170px",
                       top: "3.6rem",
@@ -286,13 +294,13 @@ export default function Header({
                     ref={dropdownRef}
                   >
                     <ul
-                      className="py-2   font-bold text-[14px]"
+                      className="py-2 font-bold text-[14px]"
                       aria-labelledby="dropdownDelayButton"
                     >
                       {!Admin && (
                         <li>
                           <p
-                            className="block px-4 py-2 hover:text-link  cursor-pointer"
+                            className="block px-4 py-2 hover:text-link cursor-pointer"
                             onClick={() => {
                               setIsResetModal(true);
                             }}
@@ -303,7 +311,7 @@ export default function Header({
                       )}
                       <li>
                         <p
-                          className="block px-4 py-2 hover:text-link  cursor-pointer"
+                          className="block px-4 py-2 hover:text-link cursor-pointer"
                           onClick={() => {
                             setLogoutModal(true);
                           }}

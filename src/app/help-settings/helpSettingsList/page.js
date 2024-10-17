@@ -20,7 +20,7 @@ import LoaderOverlay from "@/components/Loader/loadOverLay";
 import { ToastContainer, toast } from "react-toastify";
 import ProtectedRoute from "@/utils/auth";
 import DeleteIcon from "@/components/Icons/deleteIcon";
-import { Button } from "antd";
+import { Button, Checkbox } from "antd";
 import DeleteIconDisabled from "@/components/Icons/deleteDisabledIcon";
 import { Modal as AntModal } from "antd";
 import AddButton from "@/components/Button/addButton";
@@ -48,9 +48,11 @@ export default function HelpSettingsList() {
       title: intl.help_settings_count,
       dataIndex: "numberOfSubsections",
       render: (text) => (
-        <a className=" pt-[5px] pb-[5px]" style={{ paddingRight: "10px" }}>
-          {text}
-        </a>
+        <div className=" pt-[5px] pb-[5px]">
+          <a className="" style={{ paddingRight: "10px" }}>
+            {text}
+          </a>
+        </div>
       ),
       width: 90,
       align: "right",
@@ -630,23 +632,16 @@ export default function HelpSettingsList() {
               />
             </div>
           </div>
-          <div className="mb-[16px] flex items-center pl-[16px]">
-            <label
-              key={"selectAll"}
-              className="flex items-center text-customBlue"
+
+          <div className="mb-[16px] flex items-center pl-[16px] ">
+            <Checkbox
+              disabled={helpSettingsData?.length === 0}
+              checked={selectAll}
+              onChange={(e) => setSelectAll(e.target.checked)}
+              className="text-customBlue"
             >
-              <input
-                type="checkbox"
-                disabled={helpSettingsData?.length == 0}
-                value={selectAll}
-                checked={selectAll}
-                className="h-[16px] w-[16px] text-[#19388B]  focus:ring-[#19388B] focus:ring-opacity-50 rounded-lg bg-[#19388B] bg-opacity-88 text-opacity-88"
-                onChange={(evt) => {
-                  setSelectAll(evt.target.checked);
-                }}
-              />
-              <span className="ml-1"> {intl.user_selectAll}</span>
-            </label>
+              <span className="ml-1">{intl.user_selectAll}</span>
+            </Checkbox>
           </div>
           <div className=" relative" style={{ width: "100%" }}>
             <DataTable
@@ -674,7 +669,7 @@ export default function HelpSettingsList() {
             <AntModal
               width={520}
               title={
-                <div className="px-[40px] pt-[25px] mb-[2vw] text-[20px] text-customBlue text-center">
+                <div className="px-[40px] pt-[25px] mb-[2vw] text-[20px] text-[#0D0E11] text-center">
                   {addModal
                     ? intl.help_settings_help_category
                     : intl.help_settings_help_category_edit}
@@ -761,7 +756,7 @@ export default function HelpSettingsList() {
           {deleteModal && (
             <AntModal
               title={
-                <div className="px-[40px] pt-[25px] mb-[2vw] font-semibold text-[20px] text-customBlue text-center">
+                <div className="px-[40px] pt-[25px] mb-[2vw] font-semibold text-[20px] text-[#0D0E11] text-center">
                   {intl.help_settings_delete_help_category}
                 </div>
               }

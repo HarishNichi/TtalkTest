@@ -406,7 +406,7 @@ export default function CompanyInformation() {
 
         <AntModal
           title={
-            <div className="px-[40px] font-semibold text-xl pt-[25px] mb-[2vw] text-customBlue text-center">
+            <div className="px-[40px] font-semibold text-xl pt-[25px] mb-[2vw] text-[#0D0E11] text-center">
               {intl.delete_company}
             </div>
           }

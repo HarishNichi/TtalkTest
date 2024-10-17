@@ -85,7 +85,7 @@ export default function SearchCard({
           <div className="relative mb-2 w-[64%]">
             <input
               type="text"
-              className="w-full h-[32px] max-h-[32px] pl-3 pr-3 border bg-[white] rounded focus:outline-none placeholder-[#AEA8A8] dark:text-black"
+              className="w-full h-[32px] max-h-[32px] pl-3 pr-3 border bg-[white] rounded focus:outline-none placeholder-[#85868B] dark:text-black"
               placeholder={
                 Admin
                   ? intl.user_sos_company_search_placeholder

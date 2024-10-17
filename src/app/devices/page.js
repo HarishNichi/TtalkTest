@@ -6,7 +6,7 @@ import DynamicLabel from "@/components/Label/dynamicLabel";
 import IconOutlineBtn from "@/components/Button/iconOutlineBtn";
 import AddIcon from "@/components/Icons/addIcon";
 import DataTable from "@/components/DataTable/DataTable";
-import { Modal as AntModal } from "antd";
+import { Modal as AntModal, Checkbox } from "antd";
 import {
   code,
   tableDefaultPageSizeOption,
@@ -109,7 +109,7 @@ export default function Devices() {
       title: intl.deadline,
       dataIndex: "isToggleOn",
       render: (text, record) => (
-        <div className=" pt-[5px] pb-[5px]" style={{ marginLeft: "20%" }}>
+        <div className=" pt-[5px] pb-[5px]">
           {text ? intl.devices_canbe : intl.devices_none}
         </div>
       ),
@@ -299,7 +299,7 @@ export default function Devices() {
         <g clip-path="url(#clip0_5185_3186)">
           <path
             d="M12.0002 15.4115C11.8797 15.4115 11.7676 15.3923 11.6637 15.3538C11.5599 15.3154 11.4612 15.2494 11.3675 15.1558L8.25799 12.0463C8.10933 11.8974 8.03591 11.7233 8.03774 11.524C8.03974 11.3247 8.11316 11.1474 8.25799 10.9922C8.41316 10.8373 8.59133 10.7572 8.79249 10.752C8.99383 10.7468 9.17208 10.8218 9.32724 10.977L11.2502 12.9V5.25C11.2502 5.03717 11.3221 4.859 11.4657 4.7155C11.6092 4.57183 11.7874 4.5 12.0002 4.5C12.2131 4.5 12.3912 4.57183 12.5347 4.7155C12.6784 4.859 12.7502 5.03717 12.7502 5.25V12.9L14.6732 10.977C14.8221 10.8283 14.9987 10.7549 15.203 10.7568C15.4075 10.7588 15.5873 10.8373 15.7425 10.9922C15.8873 11.1474 15.9623 11.3231 15.9675 11.5192C15.9727 11.7154 15.8977 11.8911 15.7425 12.0463L12.633 15.1558C12.5393 15.2494 12.4406 15.3154 12.3367 15.3538C12.2329 15.3923 12.1207 15.4115 12.0002 15.4115ZM6.30799 19.5C5.80283 19.5 5.37524 19.325 5.02524 18.975C4.67524 18.625 4.50024 18.1974 4.50024 17.6923V15.7308C4.50024 15.5179 4.57208 15.3398 4.71574 15.1962C4.85924 15.0526 5.03741 14.9808 5.25024 14.9808C5.46308 14.9808 5.64124 15.0526 5.78474 15.1962C5.92841 15.3398 6.00024 15.5179 6.00024 15.7308V17.6923C6.00024 17.7692 6.03233 17.8398 6.09649 17.9038C6.16049 17.9679 6.23099 18 6.30799 18H17.6925C17.7695 18 17.84 17.9679 17.904 17.9038C17.9682 17.8398 18.0002 17.7692 18.0002 17.6923V15.7308C18.0002 15.5179 18.0721 15.3398 18.2157 15.1962C18.3592 15.0526 18.5374 14.9808 18.7502 14.9808C18.9631 14.9808 19.1412 15.0526 19.2847 15.1962C19.4284 15.3398 19.5002 15.5179 19.5002 15.7308V17.6923C19.5002 18.1974 19.3252 18.625 18.9752 18.975C18.6252 19.325 18.1977 19.5 17.6925 19.5H6.30799Z"
-            fill="#19388B"
+            fill="#214BB9"
           />
         </g>
         <defs>
@@ -879,10 +879,10 @@ export default function Devices() {
                 }
                 textColor={
                   selectedRows.length === 0
-                    ? "text-[#214BB9] opacity-[0.38]"
-                    : "text-[#214BB9]"
+                    ? "text-[#10265C] opacity-[0.38]"
+                    : "text-[#10265C]"
                 } // Light red when disabled, darker red otherwise
-                borderColor={"border border-[#214BB9]"} // Light border when disabled, no border otherwise
+                borderColor={"border border-[#10265C]"} // Light border when disabled, no border otherwise
                 textBold={true}
                 py={"xl:py-2.5 md:py-1.5 py-1.5"}
                 px={"xl:px-[20px] md:px-[22.5px] px-[22.5px]"}
@@ -897,7 +897,7 @@ export default function Devices() {
               />
               <IconOutlineBtn
                 text={intl.company_list_company_import}
-                textColor={"text-customBlue"}
+                textColor={"text-[#214BB9]"}
                 textBold={true}
                 py={"xl:py-2.5 md:py-1.5 py-1.5"}
                 px={"xl:px-[47px] md:px-[48.5px] px-[48.5px]"}
@@ -924,23 +924,16 @@ export default function Devices() {
               />
             </div>
           </div>
-          <div className="mb-[16px] pl-[16px] flex items-center">
-            <label
-              key={"selectAll"}
-              className="flex items-center text-customBlue"
+
+          <div className="mb-[16px] flex items-center pl-[16px] ">
+            <Checkbox
+              disabled={helpSettingsData?.length === 0}
+              checked={selectAll}
+              onChange={(e) => setSelectAll(e.target.checked)}
+              className="text-customBlue"
             >
-              <input
-                type="checkbox"
-                disabled={helpSettingsData?.length == 0}
-                value={selectAll}
-                checked={selectAll}
-                className="h-[16px] w-[16px] text-[#19388B]  focus:ring-[#19388B] focus:ring-opacity-50 rounded-lg bg-[#19388B] bg-opacity-88 text-opacity-88"
-                onChange={(evt) => {
-                  setSelectAll(evt.target.checked);
-                }}
-              />
-              <span className="ml-1"> {intl.user_selectAll}</span>
-            </label>
+              <span className="ml-1">{intl.user_selectAll}</span>
+            </Checkbox>
           </div>
           <div className=" relative" style={{ width: "100%" }}>
             <DataTable
@@ -987,7 +980,7 @@ export default function Devices() {
             <AntModal
               width={520}
               title={
-                <div className="px-[40px] pt-[25px] mb-[2vw] text-[20px] text-customBlue text-center">
+                <div className="px-[40px] pt-[25px] mb-[2vw] text-[20px] text-[#0D0E11] text-center">
                   {addModal ? intl.device_add_device : intl.device_edit}
                 </div>
               }
@@ -1155,7 +1148,7 @@ export default function Devices() {
           {deleteModal && (
             <AntModal
               title={
-                <div className="px-[40px] pt-[25px] font-semibold text-[20px] mb-[2vw] text-customBlue text-center">
+                <div className="px-[40px] pt-[25px] font-semibold text-[20px] mb-[2vw] text-[#0D0E11] text-center">
                   {intl.device_delete_device}
                 </div>
               }
